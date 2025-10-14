@@ -1,28 +1,48 @@
 {
-  "name": "docs",
+  "name": "@tavia/docs",
   "version": "0.1.0",
-  "type": "module",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack --port 3001",
-    "build": "next build",
+    "preinstall": "npx only-allow pnpm",
+    "dev": "next dev",
+    "build": "next build --experimental-build-mode compile",
     "start": "next start",
-    "lint": "next lint --max-warnings 0",
-    "check-types": "tsc --noEmit"
+    "lint": "next lint",
+    "storybook": "storybook dev -p 6006",
+    "storybook:dev": "storybook dev -p 6006",
+    "storybook:build": "storybook buil --quiet",
+    "storybook:move": "mv storybook-static ../../storybook-static",
+    "build-storybook": "storybook build",
+    "chromatic": "npx chromatic --project-token=chpt_09e7d5fec3ce56f"
   },
+  "peerDependencies": {},
   "dependencies": {
-    "@repo/ui": "workspace:*",
-    "next": "^15.5.0",
-    "react": "^19.1.0",
-    "react-dom": "^19.1.0"
+    "next": "catalog:",
+    "react": "catalog:",
+    "react-dom": "catalog:",
+    "@emotion/react": "catalog:emotion",
+    "@emotion/styled": "catalog:emotion",
+    "@tavia/core": "workspace:*",
+    "@tabler/icons-react": "^3.12.0",
+    "lucide-react": "catalog:"
   },
   "devDependencies": {
-    "@repo/eslint-config": "workspace:*",
-    "@repo/typescript-config": "workspace:*",
-    "@types/node": "^22.15.3",
-    "@types/react": "19.1.0",
-    "@types/react-dom": "19.1.1",
-    "eslint": "^9.34.0",
-    "typescript": "5.9.2"
+    "@chromatic-com/storybook": "catalog:",
+    "@storybook/addon-essentials": "catalog:",
+    "@storybook/addon-interactions": "catalog:",
+    "@storybook/addon-onboarding": "catalog:",
+    "@storybook/blocks": "catalog:",
+    "@storybook/nextjs": "catalog:",
+    "@storybook/react": "catalog:",
+    "@storybook/test": "catalog:",
+    "@types/node": "catalog:",
+    "@types/react": "catalog:",
+    "@types/react-dom": "catalog:",
+    "eslint": "catalog:",
+    "eslint-config-next": "catalog:",
+    "eslint-plugin-storybook": "catalog:",
+    "storybook": "catalog:",
+    "typescript": "catalog:",
+    "chromatic": "catalog:"
   }
 }

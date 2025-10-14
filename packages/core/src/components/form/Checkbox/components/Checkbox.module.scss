@@ -1,0 +1,119 @@
+.checkbox {
+  cursor: pointer;
+}
+
+.checkbox.custom {
+  .input {
+    display: none;
+
+    &:checked + .label {
+      border-color: var(--main-color);
+      color: var(--main-color);
+    }
+  }
+
+  .title {
+  }
+
+  .description {
+  }
+
+  .label {
+    color: var(--dark);
+    cursor: pointer;
+
+    padding: 0.5rem 1rem;
+    border-radius: var(--border-radius-medium);
+    border: 2px solid var(--dark);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+/* Radix */
+
+.checkbox {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.root {
+  background-color: var(--light);
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border: 1px solid var(--light-4);
+  //box-shadow: 0 2px 10px var(--dark-4);
+
+  &:hover {
+    background-color: var(--main-color-light-6);
+  }
+
+  &:focus {
+    //box-shadow: 0 0 0 2px var(--dark);
+  }
+
+  .indicator {
+    color: var(--main-color);
+
+    svg {
+      width: 1.5rem;
+      height: 1.5rem;
+    }
+  }
+}
+
+.label {
+  color: var(--dark);
+  font-size: 1rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.sm {
+  gap: 0.25rem;
+
+  .root {
+    width: 1rem;
+    height: 1rem;
+
+    .indicator {
+      svg {
+        width: 1rem;
+        height: 1rem;
+      }
+    }
+  }
+
+  .label {
+    font-size: 0.75rem;
+  }
+}
+
+.lg {
+  gap: 0.5rem;
+
+  .root {
+    width: 1.75rem;
+    height: 1.75rem;
+
+    .indicator {
+      svg {
+        width: 1.75rem;
+        height: 1.75rem;
+      }
+    }
+  }
+
+  .label {
+    font-size: 1.25rem;
+  }
+}
+/* Radix */

@@ -1,0 +1,148 @@
+import styled from '@emotion/styled';
+import { EditorContent } from '@tiptap/react';
+
+export const Styled = {
+  Wrapper: styled.div`
+    max-width: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  `,
+
+  MenuBar: styled.div`
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+
+    select {
+      background-color: var(--input-color);
+      border: 1px solid var(--input-border-color);
+    }
+
+    button {
+      background-color: var(--input-color);
+      border: 1px solid var(--input-border-color);
+      border-radius: 8px;
+      padding: 0.5rem 1rem;
+      color: #a0a0a0;
+      cursor: pointer;
+      width: 3rem;
+      height: 3rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      &.is-active {
+        background-color: var(--main-color);
+        color: white;
+      }
+    }
+  `,
+
+  Editor: styled(EditorContent)`
+    background-color: var(--input-color);
+    border: 1px solid var(--input-border-color);
+    min-height: 20rem;
+    max-height: 30rem;
+    color: var(--dark);
+    width: 100%;
+    overflow: auto;
+    border-radius: 0.5rem;
+    display: flex;
+    flex-direction: column;
+
+    /* Scrollbar styling */
+    &::-webkit-scrollbar {
+      width: 12px;
+    }
+    &::-webkit-scrollbar-track {
+      background: #f1f1f1;
+    }
+    &::-webkit-scrollbar-thumb {
+      background-color: #888;
+      border-radius: 10px;
+      border: 3px solid #f1f1f1;
+
+      &:hover {
+        background: #555;
+      }
+    }
+
+    /* Firefox scrollbar support */
+    scrollbar-width: thin;
+    scrollbar-color: #888 #f1f1f1;
+
+    > * + * {
+      margin-top: 0.75em;
+    }
+
+    ul,
+    ol {
+      padding: 0 1rem;
+      margin: 0.5rem 0;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      line-height: 1.1;
+    }
+
+    code {
+      background-color: rgba(97, 97, 97, 0.1);
+      color: #616161;
+    }
+
+    pre {
+      background: #0d0d0d;
+      color: #fff;
+      font-family: 'JetBrainsMono', monospace;
+      padding: 0.75rem 1rem;
+      border-radius: 0.5rem;
+
+      code {
+        color: inherit;
+        padding: 0;
+        background: none;
+        font-size: 0.8rem;
+      }
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      width: 100%;
+    }
+
+    blockquote {
+      padding-left: 1rem;
+      border-left: 2px solid rgba(13, 13, 13, 0.1);
+    }
+
+    hr {
+      border: none;
+      border-top: 2px solid rgba(13, 13, 13, 0.1);
+      margin: 2rem 0;
+    }
+  `,
+
+  UploadImageInput: styled.input`
+    display: none;
+  `,
+
+  SelectFont: styled.select`
+    height: 3rem;
+    outline: none;
+    color: #a0a0a0;
+    padding: 0.5rem;
+    font-size: 1rem;
+    border-radius: 0.5rem;
+    border: 1px solid var(--input-border-color);
+    background-color: var(--light);
+  `
+};

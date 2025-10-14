@@ -1,0 +1,21 @@
+.label {
+  font-size: 1rem;
+  color: var(--dark);
+
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  .title {
+    color: var(--dark);
+    font-size: 1rem;
+    font-weight: 500;
+  }
+}
+
+.required {
+  color: var(--main-color);
+}

@@ -1,0 +1,154 @@
+.button {
+  color: var(--light);
+  padding: 0.5rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--border-radius-medium);
+  cursor: pointer;
+  font-weight: 500;
+  gap: 0.5rem;
+  width: max-content;
+  height: 3rem;
+  transition: all 0.3s ease-out;
+
+  .content {
+    color: var(--light);
+    width: max-content;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    border: none;
+    background-color: var(--dark);
+    opacity: 0.5;
+
+    .content {
+      color: var(--light);
+
+      svg {
+        color: var(--light);
+      }
+    }
+  }
+
+  &.isLoading {
+  }
+
+  &.iconOnly {
+    padding: 0;
+    height: 3rem;
+    width: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+.primary {
+  background-color: var(--main-color);
+  color: #ffffff;
+  border: 1px solid var(--main-color);
+  background: var(--primary-button);
+
+  .content {
+    color: #ffffff;
+
+    svg {
+      color: #ffffff;
+    }
+  }
+}
+
+.secondary {
+  color: var(--text-color);
+  cursor: pointer;
+  background-color: var(--light);
+  margin: 0;
+  position: relative;
+  transition-duration: 0.15s;
+  border: 1px solid var(--text-color);
+  transition: all 0.5s ease-out;
+
+  .content {
+    color: var(--text-color);
+
+    svg {
+      color: var(--text-color);
+    }
+  }
+
+  &:hover {
+    background-color: var(--light-4);
+  }
+}
+
+.dark {
+  color: var(--light);
+  cursor: pointer;
+  background-color: var(--dark);
+  margin: 0;
+  position: relative;
+  transition-duration: 0.15s;
+  border: 1px solid var(--dark);
+}
+
+.link {
+  border: 0;
+  background-color: transparent;
+  color: var(--dark);
+  text-decoration: underline;
+  font-weight: 500;
+}
+
+.tertiary {
+  border: 0;
+  background-color: transparent;
+  color: var(--dark);
+  font-weight: 500;
+  outline: 0;
+  box-shadow: none;
+
+  .content {
+    color: var(--text-color);
+
+    svg {
+      color: var(--text-color);
+    }
+  }
+  &:hover {
+    background-color: var(--light-4);
+  }
+}
+
+.danger {
+  color: #ffffff;
+  cursor: pointer;
+  background-color: var(--color-red);
+  margin: 0;
+  position: relative;
+  transition-duration: 0.15s;
+  border: 1px solid var(--color-red);
+
+  .content {
+    color: #ffffff;
+
+    svg {
+      color: #ffffff;
+    }
+  }
+}
+
+.round {
+  border-radius: var(--border-radius-large);
+}
+
+.square {
+  padding: 0;
+  min-width: 3rem;
+  min-height: 3rem;
+}
+
+.pill {
+  border-radius: 2.25rem;
+}

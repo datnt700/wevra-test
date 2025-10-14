@@ -1,0 +1,39 @@
+'use client';
+import { Global, ThemeProvider, css } from '@emotion/react';
+import { cssVars, GlobalStyles, theme, darkThemeCssVars } from '@tavia/core';
+import { ContactForm } from '@tavia/core';
+import { ThemeProvider as LocalThemeProvider } from '@/context/ThemeContext';
+
+export default function Home() {
+  return (
+    <LocalThemeProvider>
+      <ThemeProvider theme={theme}>
+        <Global
+          styles={css`
+            :root {
+              ${Object.entries(cssVars)
+                .map(
+                  ([key, value]) =>
+                    `--${key.replace(/[A-Z0-9]/g, (letter) => `-${letter.toLowerCase()}`)}: ${value};`
+                )
+                .join('\n')}
+            }
+
+            [data-theme='dark'] {
+              ${Object.entries(darkThemeCssVars)
+                .map(
+                  ([key, value]) =>
+                    `--${key.replace(/[A-Z0-9]/g, (letter) => `-${letter.toLowerCase()}`)}: ${value};`
+                )
+                .join('\n')}
+            }
+          `}
+        />
+        {GlobalStyles()}
+        <div>
+          <ContactForm />
+        </div>
+      </ThemeProvider>
+    </LocalThemeProvider>
+  );
+}

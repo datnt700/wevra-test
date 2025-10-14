@@ -1,0 +1,159 @@
+@font-face {
+  font-family: 'Gilroy';
+  font-weight: 900;
+  font-style: italic;
+  font-display: swap;
+  src: url('/src/assets/fonts/SVN-Gilroy-Black-Italic.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'Gilroy';
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+  src: url('/src/assets/fonts/SVN-Gilroy-Black.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'Gilroy';
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+  src: url('/src/assets/fonts/SVN-Gilroy-Bold-Italic.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'Gilroy';
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+  src: url('/src/assets/fonts/SVN-Gilroy-Bold.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'Gilroy';
+  font-weight: 800;
+  font-style: italic;
+  font-display: swap;
+  src: url('/src/assets/fonts/SVN-Gilroy-Heavy-Italic.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'Gilroy';
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+  src: url('/src/assets/fonts/SVN-Gilroy-Heavy.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'Gilroy';
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+  src: url('/src/assets/fonts/SVN-Gilroy-Italic.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'Gilroy';
+  font-weight: 300;
+  font-style: italic;
+  font-display: swap;
+  src: url('/src/assets/fonts/SVN-Gilroy-Light-Italic.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'Gilroy';
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+  src: url('/src/assets/fonts/SVN-Gilroy-Light.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'Gilroy';
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+  src: url('/src/assets/fonts/SVN-Gilroy-Medium-Italic.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'Gilroy';
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+  src: url('/src/assets/fonts/SVN-Gilroy-Medium.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'Gilroy';
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  src: url('/src/assets/fonts/SVN-Gilroy-Regular.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'Gilroy';
+  font-weight: 600;
+  font-style: italic;
+  font-display: swap;
+  src: url('/src/assets/fonts/SVN-Gilroy-SemiBold-Italic.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'Gilroy';
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+  src: url('/src/assets/fonts/SVN-Gilroy-SemiBold.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'Gilroy';
+  font-weight: 100;
+  font-style: italic;
+  font-display: swap;
+  src: url('/src/assets/fonts/SVN-Gilroy-Thin-Italic.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'Gilroy';
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+  src: url('/src/assets/fonts/SVN-Gilroy-Thin.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'Gilroy';
+  font-weight: 900;
+  font-style: italic;
+  font-display: swap;
+  src: url('/src/assets/fonts/SVN-Gilroy-XBold-Italic.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'Gilroy';
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+  src: url('/src/assets/fonts/SVN-Gilroy-XBold.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'Gilroy';
+  font-weight: 200;
+  font-style: italic;
+  font-display: swap;
+  src: url('/src/assets/fonts/SVN-Gilroy-XLight-Italic.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'Gilroy';
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+  src: url('/src/assets/fonts/SVN-Gilroy-XLight.otf') format('opentype');
+}
