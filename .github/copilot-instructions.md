@@ -985,6 +985,369 @@ STRIPE_WEBHOOK_SECRET="whsec_xxx"
 - `packages/types/` - Shared TypeScript types
 - `prisma/schema.prisma` - Database schema
 
+## @tavia/core - UI Component Library
+
+### Architecture: Flat UI Structure
+
+**IMPORTANT**: `@tavia/core` follows a **Flat UI Structure** inspired by
+shadcn/ui and Radix UI. All 54 components are organized in a single `ui/` folder
+by component name, NOT by category.
+
+**Directory Structure**:
+
+```
+packages/core/
+├── src/
+│   ├── ui/                    # All 54 UI components (FLAT STRUCTURE)
+│   │   ├── avatar/
+│   │   ├── badge/
+│   │   ├── button/
+│   │   ├── modal/
+│   │   ├── input/
+│   │   └── ... (54 components total)
+│   ├── theme/                 # Theme tokens and configuration
+│   │   ├── tokens/
+│   │   ├── breakpoints.ts
+│   │   ├── global.tsx
+│   │   └── theme.ts
+│   ├── providers/             # React context providers
+│   │   └── ThemeContext.tsx
+│   ├── lib/                   # Utility functions
+│   │   ├── date.ts
+│   │   ├── parse.ts
+│   │   └── constants/
+│   ├── hooks/                 # Custom React hooks
+│   │   └── useWindowSize.ts
+│   ├── icons/                 # Lucide icon wrapper
+│   ├── tokens/                # Design tokens (colors, typography)
+│   ├── types/                 # TypeScript type definitions
+│   └── main.ts                # Main export file
+├── tests/                     # Vitest tests
+├── README.md                  # Package documentation
+├── CHANGELOG.md               # Version history
+├── package.json
+└── tsconfig.json
+```
+
+### Component Organization (54 Components)
+
+Components are categorized conceptually for documentation purposes, but **ALL
+live in `ui/` folder**:
+
+#### Base Components (8)
+
+- `Avatar` - User avatars with images or initials
+- `Badge` - Status badges and labels
+- `Button` - Primary UI action buttons
+- `Code` - Inline code snippets
+- `Icon` - Lucide icon wrapper
+- `Image` - Responsive images with lazy loading
+- `Spinner` - Loading spinners
+- `Tag` - Removable tags/chips
+
+#### Radix UI Components (8)
+
+- `Accordion` - Collapsible content sections
+- `Checkbox` / `CheckboxCard` - Checkbox inputs
+- `DropdownMenu` - Context menus and dropdowns
+- `Modal` - Dialog modals
+- `Popover` - Floating content panels
+- `Radio` / `RadioGroup` / `RadioCard` - Radio inputs
+- `Tabs` - Tab navigation
+- `Tooltip` - Hover tooltips
+
+#### Form Components (16)
+
+- `Input` / `InputText` - Text inputs with validation
+- `InputNumber` / `Stepper` - Numeric inputs with steppers
+- `InputSearch` - Search inputs with icons
+- `InputTags` - Multi-value tag inputs
+- `TextArea` - Multi-line text inputs
+- `Select` - Dropdown selects
+- `Combobox` - Searchable select with autocomplete
+- `Switch` - Toggle switches
+- `Slider` - Range sliders
+- `Label` - Form labels
+- `Field` - Form field wrapper
+- `ButtonGroup` - Button groups
+- `Form` - Form wrapper with validation
+- `FileUpload` - File upload with drag & drop
+- `ImageUpload` - Image upload with cropping
+- `RichTextEditor` - WYSIWYG editor (TipTap)
+
+#### Dialog Components (4)
+
+- `Alert` - Alert notifications
+- `Drawer` - Side panel drawers
+- `MenuBar` - Menu bar navigation
+- `Toast` - Toast notifications
+
+#### Layout Components (6)
+
+- `Card` - Card containers
+- `Divider` - Visual dividers
+- `LoadingScreen` - Full-screen loaders
+- `ScrollBox` - Scrollable containers
+- `Skeleton` - Loading skeletons
+- `ThemeProvider` - Theme context wrapper
+
+#### Navigation Components (4)
+
+- `Breadcrumb` - Breadcrumb trails
+- `Link` - Navigation links
+- `Pagination` - Page navigation
+- `Sidebar` - Collapsible sidebars
+
+#### State Components (5)
+
+- `EmptyState` - Empty state placeholders
+- `ErrorState` - Error state displays
+- `LoadingLogo` - Animated logo loader
+- `LoadingState` - Loading state with spinner
+- `ProgressBar` - Progress indicators
+
+#### Table Components (2)
+
+- `DataTable` - Data table with TanStack Table
+- `Table` - Feature-rich table with sorting, search, pagination
+
+### Import Patterns
+
+**✅ Correct - Package-level imports (PREFERRED)**:
+
+```typescript
+import { Button, Modal, Input, Card } from '@tavia/core';
+```
+
+**✅ Also Correct - Direct component imports**:
+
+```typescript
+import { Button } from '@tavia/core/ui/button';
+import { Modal } from '@tavia/core/ui/modal';
+```
+
+**❌ WRONG - Old categorized paths (DEPRECATED)**:
+
+```typescript
+// These paths no longer exist!
+import { Button } from '@tavia/core/components/form/Button';
+import { Modal } from '@tavia/core/components/dialogs/Modal';
+```
+
+### Component Structure Pattern
+
+Each component follows this structure:
+
+```
+ui/button/
+├── components/
+│   ├── Button.tsx           # Component implementation
+│   ├── Button.styles.ts     # Emotion styles
+│   └── index.ts             # Component exports
+├── types/
+│   └── index.ts             # TypeScript types
+├── tests/
+│   └── Button.test.tsx      # Vitest tests
+└── index.ts                 # Barrel export
+```
+
+### Styling: 100% Emotion
+
+**ALL components use Emotion** for styling:
+
+- `@emotion/react` v11.14.0
+- `@emotion/styled` v11.14.1
+- `@emotion/cache` v11.14.0
+
+**NO SCSS modules** - All legacy `.module.scss` files have been removed and
+converted to Emotion.
+
+**CRITICAL: Use Direct Theme Token Access, NOT CSS Variables**
+
+Components MUST import and use theme tokens directly from `tokens/colors.ts`,
+NOT CSS variables.
+
+**❌ WRONG - CSS Variables (Don't exist in theme)**:
+
+```typescript
+// DON'T DO THIS - CSS variables don't exist!
+const StyledAlert = styled.div<{ $variant?: string }>`
+  color: var(--color-${props.$variant}-text);
+  background: var(--color-${props.$variant}-bg);
+`;
+```
+
+**✅ CORRECT - Direct Theme Token Access**:
+
+```typescript
+// Component.styles.ts
+import styled from '@emotion/styled';
+import { cssVars } from '../../../tokens/colors';
+
+type Variant = 'success' | 'warning' | 'danger';
+
+interface StyledProps {
+  $variant?: Variant;
+}
+
+// Helper function for variant mapping (recommended)
+const getVariantColors = (variant: Variant = 'success') => {
+  const variantMap = {
+    success: {
+      base: cssVars.colorSuccess,
+      light: cssVars.colorSuccessLight,
+      dark: cssVars.colorGreenDark,
+    },
+    warning: {
+      base: cssVars.colorWarning,
+      light: cssVars.colorWarningLight,
+      dark: cssVars.colorYellowDark,
+    },
+    danger: {
+      base: cssVars.colorDanger,
+      light: cssVars.colorDangerLight,
+      dark: cssVars.colorRedDark,
+    },
+  };
+  return variantMap[variant];
+};
+
+// Use template literals with destructured props
+const StyledComponent = styled.div<StyledProps>`
+  ${({ $variant = 'success' }) => {
+    const colors = getVariantColors($variant);
+    return `
+      color: ${colors.base};
+      background-color: ${colors.light}20; // 20 = hex opacity
+      border: 1px solid ${colors.base};
+
+      &:hover {
+        border-color: ${colors.dark};
+      }
+    `;
+  }}
+`;
+
+// Export pattern to avoid TS declaration errors
+export const Styled = {
+  Component: StyledComponent,
+};
+```
+
+**Available Theme Tokens** (from `tokens/colors.ts`):
+
+**Signal Colors**:
+
+- Success: `colorSuccess`, `colorSuccessLight`, `colorGreenDark`
+- Warning: `colorWarning`, `colorWarningLight`, `colorYellowDark`
+- Danger: `colorDanger`, `colorDangerLight`, `colorRedDark`
+- Info: `colorCyan`, `colorCyanLight`, `colorCyanDark`
+
+**Grays**: `gray0` to `gray1000` (comprehensive scale)
+
+**Main Colors**: `mainColor`, `mainColorLight1-9`, `mainColorDark1-6`
+
+**Key Principles**:
+
+1. **Import `cssVars`** from `tokens/colors.ts`
+2. **Use helper functions** for variant color mapping
+3. **Use template literals** with destructured props: `${({ $variant }) => ...}`
+4. **Export in `Styled` object** to avoid TS declaration errors
+5. **Add hex opacity** for transparent backgrounds: `${color}20` = 12% opacity
+6. **Prefix transient props** with `$` to avoid DOM warnings: `$variant`,
+   `$isFilled`
+
+### Theme System
+
+**Theme tokens** are defined in:
+
+- `src/theme/tokens/` - Colors, typography, spacing
+- `src/theme/theme.ts` - Main theme configuration
+- `src/tokens/` - Design system tokens
+
+**Usage**:
+
+```typescript
+import { ThemeWrapper, theme } from '@tavia/core';
+
+function App() {
+  return (
+    <ThemeWrapper theme={theme}>
+      {/* Your components */}
+    </ThemeWrapper>
+  );
+}
+```
+
+### Storybook Documentation
+
+**Location**: `apps/docs/src/stories/core/`
+
+**Structure** (Category-based, NOT atomic design):
+
+```
+apps/docs/src/stories/core/
+├── base/           # Base component stories (Button, Badge, etc.)
+├── radix/          # Radix UI component stories (Modal, Checkbox, etc.)
+├── form/           # Form component stories (Input, Select, etc.)
+├── dialog/         # Dialog component stories (Alert, Drawer, etc.)
+├── layout/         # Layout component stories (Card, Divider, etc.)
+├── navigation/     # Navigation component stories (Link, Pagination, etc.)
+├── state/          # State component stories (EmptyState, LoadingState, etc.)
+└── table/          # Table component stories (DataTable, Table)
+```
+
+**Story metadata pattern**:
+
+```typescript
+const meta = {
+  title: 'Core/Base/Button', // Core/Category/Component
+  component: Button,
+  // ...
+};
+```
+
+**❌ OLD (atomic design) - NO LONGER USED**:
+
+- `atoms/`, `molecules/`, `organisms/` folders deleted
+- Story titles like `Core/Atoms/Button` updated to `Core/Base/Button`
+
+### Development Workflow
+
+**Type-checking**:
+
+```bash
+cd packages/core
+pnpm type-check  # Must pass with 0 errors
+```
+
+**Building**:
+
+```bash
+pnpm build  # Uses tsup for bundling
+```
+
+**Testing**:
+
+```bash
+pnpm test  # Vitest
+```
+
+**Storybook**:
+
+```bash
+pnpm dev:storybook  # View components interactively
+```
+
+### Key Principles
+
+1. **Flat Structure** - All components in `ui/` folder, not categorized folders
+2. **Emotion-only** - No SCSS, all styling via Emotion
+3. **Radix UI Primitives** - Accessible foundations for complex components
+4. **Type-safe** - Full TypeScript coverage with exported types
+5. **Tree-shakeable** - Import only what you need
+6. **Storybook** - Category-based documentation (Base, Radix, Form, etc.)
+
 ## Common Gotchas
 
 1. **Always use catalog dependencies** - Never hardcode versions in package.json
@@ -1066,6 +1429,9 @@ When implementing new features:
     `@repo/eslint-config`
 11. **Commit with Commitizen** - Use `pnpm commit` for conventional commits
 12. **Format before committing** - Pre-commit hooks run automatically via Husky
+13. **No completion summaries** - Do NOT create migration completion docs,
+    summary files, or "COMPLETE.md" files. Keep only essential docs (README,
+    CHANGELOG). Documentation should be minimal and on-demand only.
 
 ## Testing Strategy (Future)
 
