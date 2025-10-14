@@ -1,3 +1,4 @@
+/** @jsxImportSource @emotion/react */
 import { X } from 'lucide-react';
 import { Icon } from '../icon';
 import { tagStyles } from './Tag.styles';
@@ -34,7 +35,7 @@ export const Tag = ({
       {...other}
     >
       {url ? (
-        <a href={url} target="_blank" css={tagStyles.body} className={className}>
+        <a href={url} target="_blank" css={tagStyles.body} className={className} rel="noreferrer">
           <span>{children}</span>
           {hasClose ? (
             <Icon

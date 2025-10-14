@@ -13,7 +13,7 @@ export const Stepper = React.forwardRef<HTMLInputElement, StepperProps>(
       value,
       onChange,
       errorMessage,
-      variant,
+      variant: _variant,
       isDisabled = false,
       isReadOnly = false,
       min = 0,
@@ -22,7 +22,7 @@ export const Stepper = React.forwardRef<HTMLInputElement, StepperProps>(
       ...other
     },
     ref
-  ): JSX.Element => {
+  ) => {
     const [internalValue, setInternalValue] = useState<number>(value || 0);
 
     useEffect(() => {

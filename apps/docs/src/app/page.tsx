@@ -1,7 +1,6 @@
 'use client';
 import { Global, ThemeProvider, css } from '@emotion/react';
 import { cssVars, GlobalStyles, theme, darkThemeCssVars } from '@tavia/core';
-import { ContactForm } from '@tavia/core';
 import { ThemeProvider as LocalThemeProvider } from '@/context/ThemeContext';
 
 export default function Home() {
@@ -31,7 +30,8 @@ export default function Home() {
         />
         {GlobalStyles()}
         <div>
-          <ContactForm />
+          <h1>Tavia Component Library</h1>
+          <p>View components in Storybook</p>
         </div>
       </ThemeProvider>
     </LocalThemeProvider>

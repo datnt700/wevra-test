@@ -14,7 +14,7 @@ const meta = {
   // More on argTypes: https://storybook.js.org/docs/react/api/argtypes
   argTypes: {
     url: { control: 'text' },
-    children: { control: 'component' },
+    children: { control: 'text' },
     target: { control: 'text' },
     type: { control: 'text' },
   },

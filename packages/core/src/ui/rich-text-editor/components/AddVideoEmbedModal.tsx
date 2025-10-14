@@ -42,7 +42,7 @@ export const AddVideoEmbedModal = ({
     // Basic URL validation (optional: you can use a regex for stricter validation)
     try {
       new URL(videoUrl);
-    } catch (error) {
+    } catch {
       setErrorMessage('The entered URL is invalid.');
       return;
     }

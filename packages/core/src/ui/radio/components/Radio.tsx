@@ -5,7 +5,7 @@ export const Radio = ({ ...other }: RadioProps) => {
   return <RadixRadio {...other} />;
 };
 
-const RadixRadio = ({ id, size = 'default', value, label, ...other }: RadioProps) => {
+const RadixRadio = ({ id, size: _size = 'default', value, label, ...other }: RadioProps) => {
   return (
     <Styled.RadioWrapper>
       <Styled.RadioItem value={value} id={id} {...other}>

@@ -14,7 +14,7 @@ import { MenuBarProps } from '../types';
  * - `data`: An array of menu items, where each item contains a label and sub-items.
  * - `side`: The side on which the menu content should appear (`top`, `right`, `bottom`, `left`).
  */
-export const MenuBar = ({ data, side, ...other }: MenuBarProps): JSX.Element => {
+export const MenuBar = ({ data, side, ...other }: MenuBarProps) => {
   return (
     <Styled.Root {...other}>
       {data?.map((menu) => (

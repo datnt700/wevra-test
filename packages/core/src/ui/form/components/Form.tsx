@@ -16,7 +16,7 @@ import { FormProps } from '..';
  * - Creating structured and accessible forms with consistent styling.
  * - Easily integrating with other styled components or design system elements.
  */
-export const Form = ({ children, className, ...other }: FormProps): JSX.Element => {
+export const Form = ({ children, className, ...other }: FormProps) => {
   return (
     <Styled.FormWrapper className={className} {...other}>
       {children}

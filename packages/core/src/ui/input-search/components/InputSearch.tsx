@@ -5,10 +5,7 @@ import { Search } from 'lucide-react';
 import { SearchInputProps } from '../types';
 
 export const InputSearch = React.forwardRef<HTMLInputElement, SearchInputProps>(
-  (
-    { id, name, className, placeholder, status, value, onChange, errorMessage },
-    ref
-  ): JSX.Element => {
+  ({ id, name, className, placeholder, status, value, onChange, errorMessage }, ref) => {
     return (
       <>
         <Styled.Wrapper className={className}>

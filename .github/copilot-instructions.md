@@ -670,6 +670,85 @@ export default [
 - Extend shared configs, add workspace-specific overrides
 - All workspaces use `catalog:` for ESLint dependencies
 - TypeScript ESLint v8.40.0 for type-aware linting
+- Import paths: Use bare specifiers (no `.js` extension) when importing from
+  `@repo/eslint-config`
+
+**@tavia/core ESLint Configuration:**
+
+```javascript
+// packages/core/eslint.config.js
+import { config as reactConfig } from '@repo/eslint-config/react-internal';
+
+export default [
+  ...reactConfig,
+  {
+    files: ['**/*.ts', '**/*.tsx'],
+    rules: {
+      '@typescript-eslint/no-explicit-any': 'off', // Allow any for flexibility
+      '@typescript-eslint/no-unused-vars': [
+        'error',
+        {
+          argsIgnorePattern: '^_',
+          varsIgnorePattern: '^_',
+        },
+      ],
+      '@typescript-eslint/no-empty-object-type': 'off',
+      'no-redeclare': 'off',
+      '@typescript-eslint/no-redeclare': 'off',
+      'react/prop-types': 'off',
+      'react/display-name': 'off',
+      'react/no-unknown-property': ['error', { ignore: ['css'] }], // Allow Emotion css prop
+      'react/jsx-no-target-blank': 'warn',
+      'react/no-children-prop': 'warn',
+      'react-hooks/exhaustive-deps': 'warn', // Warn instead of error
+      'react-hooks/set-state-in-effect': 'off', // Disabled - intentional pattern
+      'react-hooks/incompatible-library': 'off', // Disabled for TanStack Table
+      'react-hooks/use-memo': 'off',
+    },
+  },
+  {
+    files: ['**/*.test.ts', '**/*.test.tsx'],
+    rules: {
+      '@typescript-eslint/no-explicit-any': 'off',
+    },
+  },
+  {
+    ignores: [
+      'node_modules/**',
+      'dist/**',
+      '.turbo/**',
+      'coverage/**',
+      'tests/setup.ts',
+    ],
+  },
+];
+```
+
+**Package-level lint scripts:**
+
+- `@tavia/core`: `--max-warnings 10` (allows up to 10 warnings for React hooks
+  edge cases)
+- `@tavia/docs`: `--max-warnings 10` (allows up to 10 warnings for Storybook
+  stories)
+- `web`, `@repo/ui`: `--max-warnings 0` (strict - no warnings allowed)
+
+**Handling unused variables:**
+
+Prefix unused parameters/variables with `_` to satisfy ESLint:
+
+```typescript
+// ✅ Correct
+export const Component = ({ value, variant: _variant, ...other }: Props) => {
+  // _variant is intentionally unused
+  return <div>{value}</div>;
+};
+
+// ❌ Wrong
+export const Component = ({ value, variant, ...other }: Props) => {
+  // Warning: 'variant' is defined but never used
+  return <div>{value}</div>;
+};
+```
 
 ### Prettier
 
@@ -1321,6 +1400,65 @@ cd packages/core
 pnpm type-check  # Must pass with 0 errors
 ```
 
+**TypeScript Best Practices:**
+
+1. **Return Type Inference** - Let TypeScript infer return types instead of
+   explicit `: JSX.Element`
+
+   ```typescript
+   // ✅ Correct - TypeScript infers return type
+   export const Component = ({ children }: Props) => {
+     return <div>{children}</div>;
+   };
+
+   // ❌ Wrong - Explicit JSX.Element can cause namespace issues
+   export const Component = ({ children }: Props): JSX.Element => {
+     return <div>{children}</div>;
+   };
+   ```
+
+2. **Empty Module Files** - Don't export from empty files
+
+   ```typescript
+   // ❌ Wrong - Causes "is not a module" errors
+   // lib/index.ts
+   export * from './parse'; // parse.ts is empty
+
+   // ✅ Correct - Remove export or add content to parse.ts
+   export * from './date';
+   export * from './emotion-cache';
+   ```
+
+3. **Catch Blocks** - Omit unused error parameters
+
+   ```typescript
+   // ✅ Correct
+   try {
+     new URL(input);
+   } catch {
+     return { success: false, error: 'Invalid URL' };
+   }
+
+   // ❌ Wrong
+   try {
+     new URL(input);
+   } catch (error) {
+     // error is unused
+     return { success: false, error: 'Invalid URL' };
+   }
+   ```
+
+4. **Emotion css Prop** - Always add JSX pragma for components using css prop
+
+   ```typescript
+   // ✅ Correct
+   /** @jsxImportSource @emotion/react */
+   export const Tag = () => <div css={styles.wrapper}>...</div>;
+
+   // ❌ Wrong - TypeScript error: Property 'css' does not exist
+   export const Tag = () => <div css={styles.wrapper}>...</div>;
+   ```
+
 **Building**:
 
 ```bash
@@ -1342,11 +1480,16 @@ pnpm dev:storybook  # View components interactively
 ### Key Principles
 
 1. **Flat Structure** - All components in `ui/` folder, not categorized folders
-2. **Emotion-only** - No SCSS, all styling via Emotion
+2. **Emotion-only** - No SCSS, all styling via Emotion with direct theme token
+   access
 3. **Radix UI Primitives** - Accessible foundations for complex components
 4. **Type-safe** - Full TypeScript coverage with exported types
 5. **Tree-shakeable** - Import only what you need
 6. **Storybook** - Category-based documentation (Base, Radix, Form, etc.)
+7. **Lenient ESLint** - Allow warnings for edge cases (React hooks, TanStack
+   Table)
+8. **Inferred Types** - Let TypeScript infer return types, avoid explicit
+   `: JSX.Element`
 
 ## Common Gotchas
 
@@ -1355,11 +1498,20 @@ pnpm dev:storybook  # View components interactively
 3. **Store dates in UTC** - Convert to user timezone only on display
 4. **Unique constraint on bookings** - `@@unique([cafeId, date, timeSlot])`
 5. **Role-based access** - Always verify user role in server actions
-6. **Revalidate paths** after mutations for UI updates
-7. **Handle null values** - Many fields are optional in the schema
-8. **Use workspace protocol** - `workspace:*` for internal packages
-9. **Atomic operations** - Use `prisma.$transaction()` for multi-step operations
-10. **Edge compatibility** - Avoid Node.js-specific APIs in API routes
+6. **Import paths** - Remove `.js` extension when importing from
+   `@repo/eslint-config`
+7. **Unused variables** - Prefix with `_` to avoid ESLint warnings
+8. **Empty modules** - Don't export from empty files (remove export or add
+   content)
+9. **Emotion css prop** - Add `/** @jsxImportSource @emotion/react */` pragma
+10. **ESLint config imports** - Use bare specifiers:
+    `@repo/eslint-config/react-internal` not `react-internal.js`
+11. **Revalidate paths** after mutations for UI updates
+12. **Handle null values** - Many fields are optional in the schema
+13. **Use workspace protocol** - `workspace:*` for internal packages
+14. **Atomic operations** - Use `prisma.$transaction()` for multi-step
+    operations
+15. **Edge compatibility** - Avoid Node.js-specific APIs in API routes
 
 ## Security Checklist
 

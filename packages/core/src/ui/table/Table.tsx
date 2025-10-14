@@ -62,7 +62,7 @@ export const Table = <T, K extends keyof T>({
   error,
   isLoading,
   loading,
-}: TableProps<T, K>): JSX.Element => {
+}: TableProps<T, K>) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [sortField, setSortField] = useState<string>(columns[0]?.key || '');
   const [sortDirection, setSortDirection] = useState<SortDirection>('asc');

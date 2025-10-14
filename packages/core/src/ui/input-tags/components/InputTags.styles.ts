@@ -1,5 +1,4 @@
 import styled from '@emotion/styled';
-import { theme } from '@tavia/core'; // Đảm bảo import theme đúng
 
 export const Styled = {
   Wrapper: styled.div`

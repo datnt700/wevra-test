@@ -25,7 +25,7 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(
       ...other
     },
     ref
-  ): JSX.Element => {
+  ) => {
     const [filteredOptions, setFilteredOptions] = useState([...options]);
 
     useEffect(() => {

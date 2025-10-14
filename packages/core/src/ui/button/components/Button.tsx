@@ -24,7 +24,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       ...other
     },
     ref
-  ): JSX.Element => {
+  ) => {
     const buttonRef = useRef<HTMLButtonElement | null>(null);
     const contentRef = useRef<HTMLSpanElement | null>(null);
 

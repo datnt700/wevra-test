@@ -1,7 +1,6 @@
 import { CheckboxCardProps } from '../types';
 import { Styled } from './CheckboxCard.styles';
 import * as Checkbox from '@radix-ui/react-checkbox';
-import { Cross1Icon } from '@radix-ui/react-icons';
 
 /**
  * A reusable CheckboxCard component designed to provide a visually enhanced checkbox with a label and description.

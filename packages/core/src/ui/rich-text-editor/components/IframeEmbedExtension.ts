@@ -215,7 +215,7 @@ export const IframeEmbed = Node.create({
     try {
       new URL(src);
       return true;
-    } catch (error) {
+    } catch {
       return false;
     }
   },

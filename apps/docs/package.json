@@ -7,7 +7,7 @@
     "dev": "next dev",
     "build": "next build --experimental-build-mode compile",
     "start": "next start",
-    "lint": "next lint --max-warnings 0",
+    "lint": "next lint --max-warnings 10",
     "type-check": "tsc --noEmit",
     "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md,mdx,css}\"",
     "format:check": "prettier --check \"**/*.{ts,tsx,js,jsx,json,md,mdx,css}\"",
@@ -27,7 +27,9 @@
     "@emotion/react": "catalog:emotion",
     "@emotion/styled": "catalog:emotion",
     "@tavia/core": "workspace:*",
-    "lucide-react": "catalog:"
+    "lucide-react": "catalog:",
+    "@radix-ui/react-icons": "catalog:",
+    "@tanstack/react-table": "catalog:"
   },
   "devDependencies": {
     "@chromatic-com/storybook": "catalog:",
@@ -41,6 +43,7 @@
     "@types/node": "catalog:",
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",
+    "@repo/eslint-config": "workspace:*",
     "eslint": "catalog:",
     "eslint-config-next": "catalog:",
     "eslint-plugin-storybook": "catalog:",

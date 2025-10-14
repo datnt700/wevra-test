@@ -4,13 +4,13 @@ import { EmptyStateProps } from '../types';
 
 export const EmptyState = ({
   children,
-  className,
-  wrapperClassName,
+  className: _className,
+  wrapperClassName: _wrapperClassName,
   icon,
   title,
   subTitle,
   action,
-  ...other
+  ..._other
 }: EmptyStateProps) => {
   return (
     <Styled.Wrapper>

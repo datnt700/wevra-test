@@ -15,7 +15,7 @@ import { Styled } from './Field.styles';
  * - Form fields where a label is associated with an input (e.g., text inputs, selects, etc.).
  * - Dynamic sizing and alignment options for responsive designs.
  */
-export const Field = ({ label, input, type = 'column', ...other }: FieldProps): JSX.Element => {
+export const Field = ({ label, input, type = 'column', ...other }: FieldProps) => {
   return (
     <Styled.Wrapper $type={type} {...other}>
       <Styled.Label>{label}</Styled.Label>

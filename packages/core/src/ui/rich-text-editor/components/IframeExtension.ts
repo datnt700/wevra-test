@@ -202,7 +202,7 @@ export const Iframe = Node.create<IframeOptions>({
     try {
       new URL(src);
       return true;
-    } catch (error) {
+    } catch {
       return false;
     }
   },

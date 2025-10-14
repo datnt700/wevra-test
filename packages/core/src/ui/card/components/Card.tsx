@@ -4,9 +4,9 @@ import { CardProps } from '../types';
 
 export const Card = ({ children, className, header, wrapperClassName, ...other }: CardProps) => {
   return (
-    <Styled.Wrapper css={wrapperClassName} {...other}>
+    <Styled.Wrapper className={wrapperClassName} {...other}>
       {header && <Styled.Header>{header}</Styled.Header>}
-      <Styled.Body css={className}>{children}</Styled.Body>
+      <Styled.Body className={className}>{children}</Styled.Body>
     </Styled.Wrapper>
   );
 };

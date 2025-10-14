@@ -26,10 +26,11 @@ export const Basic: Story = {
         onChange={(value: string) => {
           console.log(value);
         }}
-        createUploadsFn={async ({ file }: { file: File }) => {
+        uploadImage={async ({ file }: { file: File }) => {
           await console.log(file);
           return file.name;
         }}
+        isUploadImagePending={false}
       ></ImageUpload>
     );
   },

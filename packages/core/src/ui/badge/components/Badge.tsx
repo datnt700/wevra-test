@@ -19,8 +19,8 @@ export const Badge = ({
       {...other}
     >
       {url ? (
-        <a href={url} target="_blank" className={className}>
-          <BodyStyled className="body">
+        <a href={url} target="_blank" rel="noreferrer">
+          <BodyStyled className={className}>
             <ContentStyled>{children}</ContentStyled>
           </BodyStyled>
         </a>

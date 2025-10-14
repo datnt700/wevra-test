@@ -22,7 +22,7 @@ export const InputNumber = React.forwardRef<HTMLInputElement, InputNumberProps>(
       ...other
     },
     ref
-  ): JSX.Element => {
+  ) => {
     const finalVariant = isDisabled ? 'disabled' : variant;
     return (
       <Styled.Wrapper className={className}>

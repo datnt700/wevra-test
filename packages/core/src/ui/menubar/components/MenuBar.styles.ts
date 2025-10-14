@@ -4,7 +4,6 @@ import { Menubar as RadixMenubar } from 'radix-ui';
 /**
  * Styled components for the MenuBar.
  */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const Styled: any = {
   Root: styled(RadixMenubar.Root)`
     display: inline-flex;

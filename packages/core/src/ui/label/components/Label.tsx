@@ -16,12 +16,7 @@ import { LabelProps } from '..';
  * - `children`: The label text or content.
  * - `required`: Boolean indicating whether the label represents a required field.
  */
-export const Label = ({
-  htmlFor,
-  className,
-  children,
-  required = false,
-}: LabelProps): JSX.Element | null => {
+export const Label = ({ htmlFor, className, children, required = false }: LabelProps) => {
   if (!children) return null;
 
   return (

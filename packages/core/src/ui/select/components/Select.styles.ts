@@ -4,7 +4,6 @@ import { Select } from 'radix-ui';
 /**
  * Styled components for the Select component.
  */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const Styled: any = {
   Root: styled(Select.Root)`
     /* Root container for the select */

@@ -49,7 +49,7 @@ export const Error: Story = {
 export const Disabled: Story = {
   args: {
     placeholder: 'Enter your name',
-    value: 'Hello',
+    value: 42,
     isDisabled: true,
     type: 'number',
   },
@@ -58,7 +58,7 @@ export const Disabled: Story = {
 export const ReadOnly: Story = {
   args: {
     placeholder: 'Enter your name',
-    value: 'Hello',
+    value: 42,
     isReadOnly: true,
     type: 'number',
   },

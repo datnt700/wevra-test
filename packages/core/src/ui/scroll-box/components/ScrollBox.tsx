@@ -3,8 +3,8 @@ import { Styled } from './ScrollBox.styles';
 import { ScrollBoxProps } from '../types';
 
 export const ScrollBox = ({ className, children, height, maxHeight, ...other }: ScrollBoxProps) => {
-  const [hasTopShadow, setHasTopShadow] = useState(false);
-  const [hasBottomShadow, setHasBottomShadow] = useState(false);
+  const [_hasTopShadow, setHasTopShadow] = useState(false);
+  const [_hasBottomShadow, setHasBottomShadow] = useState(false);
   const scrollDivRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {

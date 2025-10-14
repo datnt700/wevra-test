@@ -23,10 +23,7 @@ import { TextAreaProps } from '..';
  * - `errorMessage`: Error message to display below the textarea when validation fails.
  */
 export const TextArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(
-  (
-    { id, name, className, placeholder, validate, value, onChange, errorMessage },
-    ref
-  ): JSX.Element => {
+  ({ id, name, className, placeholder, validate, value, onChange, errorMessage }, ref) => {
     const hasError = validate === 'error';
 
     return (

@@ -52,6 +52,5 @@ export const Loading: Story = {
     src: 'https://picsum.photos/200/300',
     alt: 'This is an image',
     placeholder: 'Loading',
-    src: 'https://picsum.photos/200/300',
   },
 };

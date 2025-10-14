@@ -32,17 +32,17 @@ const sampleColumns: ColumnDef<SampleData, any>[] = [
   {
     accessorKey: 'name',
     header: 'Name',
-    cell: (info) => info.getValue(),
+    cell: (info: any) => info.getValue(),
   },
   {
     accessorKey: 'age',
     header: 'Age',
-    cell: (info) => `${info.getValue()} years old`,
+    cell: (info: any) => `${info.getValue()} years old`,
   },
   {
     accessorKey: 'occupation',
     header: 'Occupation',
-    cell: (info) => info.getValue(),
+    cell: (info: any) => info.getValue(),
   },
 ];
 
