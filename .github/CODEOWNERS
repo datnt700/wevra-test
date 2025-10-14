@@ -1,0 +1,27 @@
+# Code Owners for Tavia
+# These owners will be automatically requested for review when someone opens a pull request.
+
+# Default owners for everything in the repo
+* @tavia-io/maintainers
+
+# Apps
+/apps/web/ @tavia-io/web-team
+/apps/docs/ @tavia-io/docs-team
+
+# Packages
+/packages/core/ @tavia-io/ui-team
+/packages/eslint-config/ @tavia-io/maintainers
+/packages/typescript-config/ @tavia-io/maintainers
+
+# Infrastructure & Configuration
+/.github/ @tavia-io/maintainers
+/turbo.json @tavia-io/maintainers
+/pnpm-workspace.yaml @tavia-io/maintainers
+/package.json @tavia-io/maintainers
+
+# Documentation
+/README.md @tavia-io/maintainers
+/.github/copilot-instructions.md @tavia-io/maintainers
+
+# Database
+/prisma/ @tavia-io/backend-team

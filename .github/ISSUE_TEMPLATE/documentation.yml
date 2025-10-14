@@ -1,0 +1,84 @@
+name: 📝 Documentation
+description: Request documentation improvements or report documentation issues
+title: '[Docs]: '
+labels: ['documentation']
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for helping improve our documentation!
+
+  - type: dropdown
+    id: type
+    attributes:
+      label: Documentation Type
+      description: What type of documentation needs attention?
+      options:
+        - Missing documentation
+        - Incorrect documentation
+        - Unclear documentation
+        - Outdated documentation
+        - New documentation needed
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: Describe what documentation needs to be added or changed
+      placeholder: Tell us what's missing or incorrect
+    validations:
+      required: true
+
+  - type: textarea
+    id: location
+    attributes:
+      label: Documentation Location
+      description: Where should this documentation be added or updated?
+      placeholder: |
+        - README.md
+        - .github/copilot-instructions.md
+        - Specific component documentation
+        - API documentation
+    validations:
+      required: true
+
+  - type: dropdown
+    id: component
+    attributes:
+      label: Component
+      description: Which component does this relate to?
+      options:
+        - General/README
+        - Development Setup
+        - Authentication
+        - Booking System
+        - Cafe Management
+        - Database/Prisma
+        - UI Components (@tavia/core)
+        - API Routes
+        - Deployment
+        - CI/CD
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: suggestion
+    attributes:
+      label: Suggested Content
+      description: If you have specific content suggestions, add them here
+      placeholder: |
+        You can include:
+        - Code examples
+        - Explanations
+        - Links to resources
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: Additional Context
+      description: Add any other context about the documentation request

@@ -1,135 +1,306 @@
-# Turborepo starter
+# Tavia
 
-This Turborepo starter is maintained by the Turborepo core team.
+**Tavia** is a modern, serverless café and restaurant booking platform built
+with Next.js 15, designed for both clients (booking tables) and owners (managing
+venues and reservations).
 
-## Using this example
+## 🚀 Tech Stack
 
-Run the following command:
+- **Framework**: Next.js 15 (App Router) with React Server Components
+- **Auth**: Auth.js (NextAuth) with role-based access control
+- **Database**: PostgreSQL via Prisma ORM (Supabase/Neon)
+- **Styling**: Tailwind CSS + shadcn/ui components
+- **Realtime**: Supabase Realtime for live booking updates
+- **Notifications**: Resend (email) + FCM (push notifications)
+- **Payments**: Stripe (optional, for deposits)
+- **Package Manager**: pnpm with catalog dependencies
+- **Monorepo**: Turborepo for build orchestration and caching
+- **Deployment**: Vercel (fully serverless)
 
-```sh
-npx create-turbo@latest
-```
-
-## What's inside?
-
-This Turborepo includes the following packages/apps:
-
-### Apps and Packages
-
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `@repo/ui`: a stub React component library shared by both `web` and `docs` applications
-- `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
-
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
-
-### Utilities
-
-This Turborepo has some additional tools already setup for you:
-
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
-
-### Build
-
-To build all apps and packages, run the following command:
+## 📦 Monorepo Structure
 
 ```
-cd my-turborepo
-
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo build
-
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo build
-yarn dlx turbo build
-pnpm exec turbo build
+tavia/
+├── apps/
+│   ├── web/              # Next.js 15 app (client + owner interfaces)
+│   └── docs/             # Storybook documentation
+├── packages/
+│   ├── core/             # Shared UI component library
+│   ├── types/            # Shared TypeScript types
+│   ├── utils/            # Shared utilities
+│   ├── config/           # Shared configurations
+│   ├── eslint-config/    # ESLint configurations
+│   └── typescript-config/ # TypeScript configurations
+├── pnpm-workspace.yaml   # Workspace config with catalogs
+└── turbo.json            # Turborepo pipeline config
 ```
 
-You can build a specific package by using a [filter](https://turborepo.com/docs/crafting-your-repository/running-tasks#using-filters):
+## 🎯 Key Features
 
-```
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo build --filter=docs
+### For Clients
 
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo build --filter=docs
-yarn exec turbo build --filter=docs
-pnpm exec turbo build --filter=docs
-```
+- 🔍 Browse and search cafés/restaurants by location, cuisine, and availability
+- 📅 Real-time table booking with instant confirmation
+- 🔔 Email and push notifications for booking updates
+- ⭐ Review and rate venues
+- 📱 Mobile-responsive interface
 
-### Develop
+### For Owners
 
-To develop all apps and packages, run the following command:
+- 🏪 Manage multiple venues and locations
+- 📊 Dashboard with booking analytics
+- ⚡ Real-time booking management
+- 📅 Configure opening hours and capacity
+- 🎫 Accept/reject/manage reservations
+- 📈 Track occupancy and revenue
 
-```
-cd my-turborepo
+## 🛠️ Development Setup
 
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo dev
+### Prerequisites
 
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo dev
-yarn exec turbo dev
-pnpm exec turbo dev
-```
+- **Node.js**: v18+ (LTS recommended)
+- **pnpm**: v10.17.1+
+- **PostgreSQL**: Database (Supabase or Neon recommended)
 
-You can develop a specific package by using a [filter](https://turborepo.com/docs/crafting-your-repository/running-tasks#using-filters):
+### Installation
 
-```
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo dev --filter=web
+```bash
+# Clone the repository
+git clone https://github.com/tavia-io/tavia.git
+cd tavia
 
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo dev --filter=web
-yarn exec turbo dev --filter=web
-pnpm exec turbo dev --filter=web
-```
+# Install dependencies
+pnpm install
 
-### Remote Caching
+# Set up environment variables
+cp apps/web/.env.example apps/web/.env.local
+# Edit .env.local with your credentials
 
-> [!TIP]
-> Vercel Remote Cache is free for all plans. Get started today at [vercel.com](https://vercel.com/signup?/signup?utm_source=remote-cache-sdk&utm_campaign=free_remote_cache).
+# Run database migrations
+cd apps/web
+npx prisma migrate dev
 
-Turborepo can use a technique known as [Remote Caching](https://turborepo.com/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
-
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup?utm_source=turborepo-examples), then enter the following commands:
-
-```
-cd my-turborepo
-
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo login
-
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo login
-yarn exec turbo login
-pnpm exec turbo login
+# Generate Prisma Client
+npx prisma generate
 ```
 
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
+### Environment Variables
 
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
+Create `apps/web/.env.local`:
 
+```env
+# Database
+DATABASE_URL="postgresql://user:password@localhost:5432/tavia"
+
+# Auth
+NEXTAUTH_URL="http://localhost:3000"
+NEXTAUTH_SECRET="your-secret-key"
+GOOGLE_CLIENT_ID="your-google-client-id"
+GOOGLE_CLIENT_SECRET="your-google-client-secret"
+
+# Supabase (Realtime)
+NEXT_PUBLIC_SUPABASE_URL="https://xxx.supabase.co"
+NEXT_PUBLIC_SUPABASE_ANON_KEY="your-anon-key"
+
+# Email (Resend)
+RESEND_API_KEY="re_xxx"
+
+# Stripe (optional)
+STRIPE_SECRET_KEY="sk_test_xxx"
+STRIPE_WEBHOOK_SECRET="whsec_xxx"
 ```
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo link
 
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo link
-yarn exec turbo link
-pnpm exec turbo link
+## 🚦 Development Commands
+
+```bash
+# Start all apps in development mode
+pnpm dev
+
+# Start specific app
+pnpm dev:web          # Start web app on localhost:3000
+pnpm dev:storybook    # Start Storybook on localhost:6006
+
+# Build all apps
+pnpm build
+
+# Build specific app
+pnpm build --filter=web
+pnpm build --filter=@tavia/docs
+
+# Lint all packages
+pnpm lint
+
+# Format code
+pnpm format
+
+# Type check
+pnpm type-check
 ```
 
-## Useful Links
+## 🗄️ Database Commands
 
-Learn more about the power of Turborepo:
+```bash
+# Create and apply migration
+npx prisma migrate dev --name add_feature
 
-- [Tasks](https://turborepo.com/docs/crafting-your-repository/running-tasks)
-- [Caching](https://turborepo.com/docs/crafting-your-repository/caching)
-- [Remote Caching](https://turborepo.com/docs/core-concepts/remote-caching)
-- [Filtering](https://turborepo.com/docs/crafting-your-repository/running-tasks#using-filters)
-- [Configuration Options](https://turborepo.com/docs/reference/configuration)
-- [CLI Usage](https://turborepo.com/docs/reference/command-line-reference)
+# Apply migrations (production)
+npx prisma migrate deploy
+
+# Open Prisma Studio (GUI)
+npx prisma studio
+
+# Generate Prisma Client
+npx prisma generate
+
+# Reset database (development only)
+npx prisma migrate reset
+```
+
+## 📚 Component Library
+
+The `@tavia/core` package contains a comprehensive component library with:
+
+- ✅ **50+ React components** built with Emotion and Radix UI
+- ✅ **Lucide React icons** for consistent iconography
+- ✅ **Responsive design** with mobile-first approach
+- ✅ **Accessibility** (WCAG 2.1 AA compliant)
+- ✅ **Storybook documentation** with live examples
+- ✅ **TypeScript** for type safety
+
+View the component library:
+
+```bash
+pnpm dev:storybook
+# Open http://localhost:6006
+```
+
+## 🏗️ Architecture Patterns
+
+### Serverless-First
+
+All backend logic runs as Next.js API routes or Server Actions. No traditional
+server required.
+
+### Role-Based Access Control
+
+- `CLIENT`: Can browse cafés and create bookings
+- `OWNER`: Can manage venues and handle reservations
+
+### Atomic Booking Logic
+
+Uses Prisma transactions to prevent double-booking and ensure data consistency.
+
+### Timezone Management
+
+All timestamps stored in UTC, converted to user's timezone on display.
+
+### Real-time Updates
+
+Supabase Realtime for live booking notifications between clients and owners.
+
+## 📝 pnpm Catalog Dependencies
+
+This project uses pnpm catalogs for centralized dependency management. **Never
+hardcode versions in package.json**.
+
+```json
+{
+  "dependencies": {
+    "next": "catalog:", // ✅ Use catalog
+    "react": "catalog:", // ✅ Use catalog
+    "@tavia/core": "workspace:*" // ✅ Internal packages
+  }
+}
+```
+
+Add new dependencies to `pnpm-workspace.yaml` first:
+
+```yaml
+catalog:
+  new-package: ^1.0.0
+```
+
+Then reference in package.json:
+
+```json
+{
+  "dependencies": {
+    "new-package": "catalog:"
+  }
+}
+```
+
+## 🧪 Testing (Coming Soon)
+
+- **E2E Tests**: Playwright for critical booking flows
+- **Unit Tests**: Vitest for business logic
+- **API Tests**: Test server actions with mock Prisma
+- **Visual Tests**: Chromatic for Storybook components
+
+## 🚀 Deployment
+
+### Vercel (Recommended)
+
+```bash
+# Install Vercel CLI
+pnpm add -g vercel
+
+# Deploy to production
+vercel --prod
+
+# Or connect your GitHub repo for automatic deployments
+```
+
+### Database Migrations
+
+```bash
+# Production migrations
+npx prisma migrate deploy
+```
+
+### Environment Variables
+
+Set all environment variables in your Vercel project settings.
+
+## 📖 Documentation
+
+- **API Documentation**: See `.github/copilot-instructions.md`
+- **Component Library**: Run `pnpm dev:storybook`
+- **Database Schema**: See `prisma/schema.prisma`
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch: `git checkout -b feature/amazing-feature`
+3. Commit your changes: `git commit -m 'Add amazing feature'`
+4. Push to the branch: `git push origin feature/amazing-feature`
+5. Open a Pull Request
+
+### Coding Guidelines
+
+- Use TypeScript for all code
+- Follow ESLint and Prettier configurations
+- Use pnpm catalog dependencies
+- Write tests for new features
+- Update Storybook documentation for new components
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
+for details.
+
+## 🙏 Acknowledgments
+
+- Built with [Next.js 15](https://nextjs.org/)
+- Monorepo powered by [Turborepo](https://turborepo.org/)
+- Components built with [Radix UI](https://www.radix-ui.com/)
+- Icons from [Lucide React](https://lucide.dev/)
+- Database ORM by [Prisma](https://www.prisma.io/)
+
+## 📞 Support
+
+For support, email support@tavia.io or open an issue on GitHub.
+
+---
+
+**Built with ❤️ for the café and restaurant industry**

@@ -1,0 +1,75 @@
+version: 2
+updates:
+  # Enable version updates for pnpm
+  - package-ecosystem: 'npm'
+    directory: '/'
+    schedule:
+      interval: 'weekly'
+      day: 'monday'
+    open-pull-requests-limit: 10
+    labels:
+      - 'dependencies'
+      - 'automated'
+    commit-message:
+      prefix: 'chore(deps)'
+      include: 'scope'
+    groups:
+      # Group Next.js related updates
+      next:
+        patterns:
+          - 'next'
+          - '@next/*'
+      # Group React updates
+      react:
+        patterns:
+          - 'react'
+          - 'react-dom'
+          - '@types/react'
+          - '@types/react-dom'
+      # Group ESLint updates
+      eslint:
+        patterns:
+          - 'eslint'
+          - 'eslint-*'
+          - '@eslint/*'
+          - 'typescript-eslint'
+      # Group Storybook updates
+      storybook:
+        patterns:
+          - 'storybook'
+          - '@storybook/*'
+      # Group Prisma updates
+      prisma:
+        patterns:
+          - 'prisma'
+          - '@prisma/*'
+      # Group testing libraries
+      testing:
+        patterns:
+          - 'vitest'
+          - '@vitest/*'
+          - '@testing-library/*'
+          - 'playwright'
+      # Group dev tools
+      dev-tools:
+        patterns:
+          - 'prettier'
+          - 'prettier-*'
+          - 'husky'
+          - 'lint-staged'
+          - 'commitizen'
+          - '@commitlint/*'
+
+  # GitHub Actions
+  - package-ecosystem: 'github-actions'
+    directory: '/'
+    schedule:
+      interval: 'weekly'
+      day: 'monday'
+    labels:
+      - 'dependencies'
+      - 'github-actions'
+      - 'automated'
+    commit-message:
+      prefix: 'chore(ci)'
+      include: 'scope'

@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 💬 Discussions
+    url: https://github.com/tavia-io/tavia/discussions
+    about: Ask questions and discuss ideas with the community
+  - name: 💡 Ideas
+    url: https://github.com/tavia-io/tavia/discussions/categories/ideas
+    about: Share your ideas for the project
+  - name: 🙋 Q&A
+    url: https://github.com/tavia-io/tavia/discussions/categories/q-a
+    about: Ask questions about using Tavia
