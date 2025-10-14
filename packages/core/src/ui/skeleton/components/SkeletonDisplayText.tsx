@@ -4,14 +4,14 @@ import { SkeletonDisplayTextProps } from '../types';
 export const SkeletonDisplayText = ({
   width,
   height,
-  hasAnimation = false
+  hasAnimation = false,
 }: SkeletonDisplayTextProps) => {
   return (
     <Styled.Title
       hasAnimation={hasAnimation}
       style={{
         width,
-        height
+        height,
       }}
     />
   );

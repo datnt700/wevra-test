@@ -5,7 +5,7 @@ const sizeMap = {
   default: '1px',
   sm: '2px',
   md: '4px',
-  lg: '6px'
+  lg: '6px',
 };
 
 export const Styled = {
@@ -22,5 +22,5 @@ export const Styled = {
         ? `width: ${thickness}; height: 100%;`
         : `height: ${thickness}; width: 100%;`;
     }}
-  `
+  `,
 };

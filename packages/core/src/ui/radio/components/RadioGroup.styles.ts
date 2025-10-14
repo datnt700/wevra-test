@@ -9,5 +9,5 @@ export const RadioGroupStyles = {
     &[data-orientation='horizontal'] {
       flex-direction: row;
     }
-  `
+  `,
 };

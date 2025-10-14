@@ -26,5 +26,5 @@ export const Styled = {
     font-size: 1rem;
     font-weight: 500;
     line-height: normal;
-  `
+  `,
 };

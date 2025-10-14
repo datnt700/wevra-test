@@ -17,7 +17,7 @@ describe('Badge', () => {
       screen.getByText(/Hello/i),
       new MouseEvent('click', {
         bubbles: true,
-        cancelable: true
+        cancelable: true,
       })
     );
 

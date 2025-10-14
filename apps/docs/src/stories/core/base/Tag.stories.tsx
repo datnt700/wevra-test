@@ -4,7 +4,7 @@ import { Tag, Card } from '@tavia/core';
 
 const meta: Meta<typeof Tag> = {
   title: 'Core/Base/Tag',
-  component: Tag
+  component: Tag,
 };
 export default meta;
 
@@ -17,7 +17,7 @@ export const Basic: Story = {
         <Tag {...args}>Tag</Tag>
       </Card>
     );
-  }
+  },
 };
 
 export const Clickable: Story = {
@@ -29,7 +29,7 @@ export const Clickable: Story = {
         </Tag>
       </Card>
     );
-  }
+  },
 };
 
 export const Link: Story = {
@@ -41,5 +41,5 @@ export const Link: Story = {
         </Tag>
       </Card>
     );
-  }
+  },
 };

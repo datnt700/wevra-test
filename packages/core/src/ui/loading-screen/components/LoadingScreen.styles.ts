@@ -26,5 +26,5 @@ export const Styled = {
     border-radius: 6.405px;
     background: #868686;
     max-width: 20rem;
-  `
+  `,
 };

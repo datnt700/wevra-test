@@ -41,7 +41,7 @@ export const FontSize = Extension.create({
        * Specifies the mark types where the font size can be applied.
        * Default: ['textStyle']
        */
-      types: ['textStyle'] as const // Ensure type safety with `as const`
+      types: ['textStyle'] as const, // Ensure type safety with `as const`
     };
   },
 
@@ -71,12 +71,12 @@ export const FontSize = Extension.create({
                 return {};
               }
               return {
-                style: `font-size: ${attributes.fontSize};`
+                style: `font-size: ${attributes.fontSize};`,
               };
-            }
-          }
-        }
-      }
+            },
+          },
+        },
+      },
     ];
   },
 
@@ -111,7 +111,7 @@ export const FontSize = Extension.create({
       unsetFontSize:
         () =>
         ({ chain }) =>
-          chain().setMark('textStyle', { fontSize: null }).removeEmptyTextStyle().run()
+          chain().setMark('textStyle', { fontSize: null }).removeEmptyTextStyle().run(),
     };
   },
 
@@ -125,5 +125,5 @@ export const FontSize = Extension.create({
     const fontSizeRegex = /^(\d*\.?\d+)(px|em|rem|%|in|cm|mm|ex|pt|pc|vw|vh|vmin|vmax)$/;
 
     return fontSizeRegex.test(fontSize);
-  }
+  },
 });

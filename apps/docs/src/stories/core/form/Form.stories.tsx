@@ -4,7 +4,7 @@ import { Form, InputText, Label, Button, Field } from '@tavia/core';
 
 const meta: Meta<typeof Form> = {
   title: 'Core/Form/Form',
-  component: Form
+  component: Form,
 };
 export default meta;
 
@@ -19,5 +19,5 @@ export const Basic: Story = {
         <Button>Submit</Button>
       </Form>
     );
-  }
+  },
 };

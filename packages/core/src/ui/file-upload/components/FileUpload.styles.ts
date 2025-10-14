@@ -74,5 +74,5 @@ export const Styled = {
     font-size: 1rem;
     opacity: 0.5;
     color: var(--dark);
-  `
+  `,
 };

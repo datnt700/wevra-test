@@ -11,5 +11,5 @@ export default defineConfig({
   splitting: false,
   esbuildOptions(options) {
     options.loader = { '.css': 'css' }; // Ensures CSS is bundled
-  }
+  },
 });

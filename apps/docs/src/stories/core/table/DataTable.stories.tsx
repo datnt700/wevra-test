@@ -5,7 +5,7 @@ import { ColumnDef } from '@tanstack/react-table';
 
 const meta: Meta<typeof DataTable<any>> = {
   title: 'Core/Table/DataTable',
-  component: DataTable
+  component: DataTable,
 };
 export default meta;
 
@@ -25,25 +25,25 @@ const sampleData: SampleData[] = [
   { id: 4, name: 'Alice Brown', age: 30, occupation: 'Manager' },
   { id: 5, name: 'Alice Brown', age: 30, occupation: 'Manager' },
   { id: 6, name: 'Alice Brown', age: 30, occupation: 'Manager' },
-  { id: 6, name: 'Alice Brown', age: 30, occupation: 'Manager' }
+  { id: 6, name: 'Alice Brown', age: 30, occupation: 'Manager' },
 ];
 
 const sampleColumns: ColumnDef<SampleData, any>[] = [
   {
     accessorKey: 'name',
     header: 'Name',
-    cell: (info) => info.getValue()
+    cell: (info) => info.getValue(),
   },
   {
     accessorKey: 'age',
     header: 'Age',
-    cell: (info) => `${info.getValue()} years old`
+    cell: (info) => `${info.getValue()} years old`,
   },
   {
     accessorKey: 'occupation',
     header: 'Occupation',
-    cell: (info) => info.getValue()
-  }
+    cell: (info) => info.getValue(),
+  },
 ];
 
 export const Basic: Story = {
@@ -52,8 +52,8 @@ export const Basic: Story = {
     data: sampleData,
     columns: sampleColumns,
     pageSize: 3,
-    empty: <div>No data available</div>
-  }
+    empty: <div>No data available</div>,
+  },
 };
 
 export const Empty: Story = {
@@ -61,8 +61,8 @@ export const Empty: Story = {
   args: {
     data: [],
     columns: sampleColumns,
-    empty: <div>No data available</div>
-  }
+    empty: <div>No data available</div>,
+  },
 };
 
 export const WithRowClick: Story = {
@@ -73,8 +73,8 @@ export const WithRowClick: Story = {
     data: sampleData,
     columns: sampleColumns,
     pageSize: 2,
-    empty: <div>No data available</div>
-  }
+    empty: <div>No data available</div>,
+  },
 };
 
 export const Pagination: Story = {
@@ -84,10 +84,10 @@ export const Pagination: Story = {
       id: i + 1,
       name: `Person ${i + 1}`,
       age: 20 + (i % 30),
-      occupation: `Occupation ${i + 1}`
+      occupation: `Occupation ${i + 1}`,
     })),
     columns: sampleColumns,
     pageSize: 5,
-    empty: <div>No data available</div>
-  }
+    empty: <div>No data available</div>,
+  },
 };

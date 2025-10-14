@@ -81,5 +81,5 @@ export const Styled = {
   PopoverItemLink: styled.div`
     color: var(--dark);
     cursor: pointer;
-  `
+  `,
 };

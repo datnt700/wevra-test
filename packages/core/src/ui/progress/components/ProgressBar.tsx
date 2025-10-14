@@ -5,7 +5,7 @@ export const ProgressBar = ({
   progress,
   hasLabel,
   variant = 'default',
-  isIndeterminate = false
+  isIndeterminate = false,
 }: ProgressBarProps) => {
   return (
     <Styled.Wrapper
@@ -22,7 +22,7 @@ export const ProgressBar = ({
           isIndeterminate={isIndeterminate}
           style={{
             transform: `translateX(${progress}%)`,
-            transition: progress! > 0 && progress! < 105 ? `transform linear 0.5s` : 'none'
+            transition: progress! > 0 && progress! < 105 ? `transform linear 0.5s` : 'none',
           }}
         />
       </Styled.Bar>

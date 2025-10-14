@@ -119,5 +119,5 @@ export const Styled = {
     justify-content: flex-end;
     align-items: center;
     border-top: 1px solid var(--neutral); /* Visual separator between footer and content */
-  `
+  `,
 };

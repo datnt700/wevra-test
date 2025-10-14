@@ -24,7 +24,7 @@ export const FileUpload: React.FC<FileUploadProps> = ({
   label,
   children,
   multiple = false,
-  description
+  description,
 }) => {
   const [isDragZoneActive, setIsDragZoneActive] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);

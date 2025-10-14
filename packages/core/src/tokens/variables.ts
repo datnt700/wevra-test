@@ -7,5 +7,5 @@ export const styleVars = {
   sidebarOpenWidth: '16rem',
   sidebarHeight: '3.75rem',
   formHeight: '50px',
-  headerHeight: '4rem'
+  headerHeight: '4rem',
 };

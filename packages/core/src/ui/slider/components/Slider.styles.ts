@@ -69,5 +69,5 @@ export const Styled = {
       cursor: not-allowed;
       pointer-events: none;
     `}
-  `
+  `,
 };

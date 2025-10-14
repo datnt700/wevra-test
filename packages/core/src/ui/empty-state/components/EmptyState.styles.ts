@@ -37,5 +37,5 @@ export const Styled = {
     .subTitle {
       margin-bottom: 1rem;
     }
-  `
+  `,
 };

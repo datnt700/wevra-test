@@ -56,5 +56,5 @@ export const tagStyles = {
     &:hover {
       color: var(--dark-4);
     }
-  `
+  `,
 };

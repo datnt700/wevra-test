@@ -77,5 +77,5 @@ export const Styled = {
         color: var(--main-color);
       }
     }
-  `
+  `,
 };

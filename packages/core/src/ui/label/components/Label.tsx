@@ -20,7 +20,7 @@ export const Label = ({
   htmlFor,
   className,
   children,
-  required = false
+  required = false,
 }: LabelProps): JSX.Element | null => {
   if (!children) return null;
 

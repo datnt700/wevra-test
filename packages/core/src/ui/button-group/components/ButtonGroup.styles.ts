@@ -6,5 +6,5 @@ export const Styled = {
     align-items: center;
     gap: 1rem;
     flex-wrap: wrap;
-  `
+  `,
 };

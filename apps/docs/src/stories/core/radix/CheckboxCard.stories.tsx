@@ -9,20 +9,20 @@ const meta: Meta<typeof CheckboxCard> = {
     label: {
       control: 'text',
       description: 'The label of the checkbox card',
-      defaultValue: 'A1 Keyboard'
+      defaultValue: 'A1 Keyboard',
     },
     description: {
       control: 'text',
       description: 'The description of the checkbox card',
-      defaultValue: 'US Layout'
+      defaultValue: 'US Layout',
     },
     checked: {
       control: 'boolean',
       description: 'Indicates if the checkbox is checked',
-      defaultValue: false
+      defaultValue: false,
     },
-    onCheckedChange: { action: 'checked changed' }
-  }
+    onCheckedChange: { action: 'checked changed' },
+  },
 };
 
 export default meta;
@@ -34,7 +34,7 @@ export const Default: Story = {
     const [checkedItems, setCheckedItems] = useState<{ [key: string]: boolean }>({
       'A1 Keyboard': args.checked ?? false,
       'Pro Mouse': false,
-      'Lightning Mat': false
+      'Lightning Mat': false,
     });
 
     const handleCheckedChange = (label: string) => (newChecked: boolean | 'indeterminate') => {
@@ -70,6 +70,6 @@ export const Default: Story = {
     );
   },
   args: {
-    checked: false
-  }
+    checked: false,
+  },
 };

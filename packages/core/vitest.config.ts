@@ -11,7 +11,7 @@ export default defineConfig({
     exclude: ['./lib/common/*'],
     coverage: {
       provider: 'istanbul', // or 'c8',
-      all: true
-    }
-  }
+      all: true,
+    },
+  },
 });

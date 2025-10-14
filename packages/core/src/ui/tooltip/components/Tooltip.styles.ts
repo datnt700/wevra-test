@@ -23,5 +23,5 @@ export const Styled = {
   `,
   Arrow: styled(Tooltip.Arrow)`
     fill: var(--light);
-  `
+  `,
 };

@@ -6,7 +6,7 @@ const meta: Meta<typeof Toast> = {
   title: 'Core/Dialog/Toast',
   component: Toast,
   parameters: {
-    layout: 'centered'
+    layout: 'centered',
   },
   tags: ['autodocs'],
   argTypes: {
@@ -24,10 +24,10 @@ const meta: Meta<typeof Toast> = {
         'bottom-left',
         'top-left',
         'bottom-center',
-        'top-center'
-      ]
-    }
-  }
+        'top-center',
+      ],
+    },
+  },
 };
 
 export default meta;
@@ -51,6 +51,6 @@ export const Basic: Story = {
     canUndo: true,
     canClose: false,
     duration: 5000,
-    position: 'bottom-right'
-  }
+    position: 'bottom-right',
+  },
 };

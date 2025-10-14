@@ -70,5 +70,5 @@ export const Styled = {
       background-color: var(--light-4);
       cursor: pointer;
     }
-  `
+  `,
 };

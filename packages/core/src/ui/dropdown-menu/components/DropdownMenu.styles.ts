@@ -55,5 +55,5 @@ export const Styled = {
   `,
   Arrow: styled(RadixDropdownMenu.Arrow)`
     fill: var(--light);
-  `
+  `,
 };

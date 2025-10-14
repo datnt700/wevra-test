@@ -69,5 +69,5 @@ export const Styled = {
   ClearBtn: styled.button`
     background-color: transparent;
     border-radius: 0.75rem;
-  `
+  `,
 };

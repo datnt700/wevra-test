@@ -30,7 +30,7 @@ export const Drawer = ({
   children,
   footer,
   position = 'right',
-  className
+  className,
 }: DrawerProps): JSX.Element | null => {
   const [isVisible, setIsVisible] = useState(false);
 

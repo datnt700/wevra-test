@@ -1,8 +1,8 @@
 const nextConfig = {
   /* config options here */
   compiler: {
-    emotion: true
-  }
+    emotion: true,
+  },
 };
 
 export default nextConfig;

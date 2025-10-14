@@ -5,18 +5,18 @@ const meta = {
   title: 'Core/Form/Field',
   component: Field,
   parameters: {
-    layout: 'centered'
+    layout: 'centered',
   },
   tags: ['autodocs'],
   argTypes: {
     type: {
       control: 'radio',
       options: ['column', 'row'],
-      description: 'Layout type for the field (column or row)'
+      description: 'Layout type for the field (column or row)',
     },
     label: { control: 'text', description: 'Label for the field' },
-    input: { control: false, description: 'Input element for the field' }
-  }
+    input: { control: false, description: 'Input element for the field' },
+  },
 } satisfies Meta<typeof Field>;
 
 export default meta;
@@ -27,8 +27,8 @@ export const Basic: Story = {
   args: {
     label: <Label children={'Basic Input'} />,
     input: <InputText placeholder="Enter your text" />,
-    type: 'column'
-  }
+    type: 'column',
+  },
 };
 
 // Story với layout 'row'
@@ -36,8 +36,8 @@ export const RowLayout: Story = {
   args: {
     label: <Label children={'Row Input'} />,
     input: <InputText placeholder="Enter your text" />,
-    type: 'row'
-  }
+    type: 'row',
+  },
 };
 
 // Story với layout 'column'
@@ -45,6 +45,6 @@ export const ColumnLayout: Story = {
   args: {
     label: <Label children={'Column Input'} />,
     input: <InputText placeholder="Enter your text" />,
-    type: 'column'
-  }
+    type: 'column',
+  },
 };

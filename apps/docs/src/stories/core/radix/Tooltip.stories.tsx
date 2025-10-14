@@ -6,21 +6,21 @@ const meta: Meta<typeof Tooltip> = {
   title: 'Core/Radix/Tooltip',
   component: Tooltip,
   parameters: {
-    layout: 'centered'
+    layout: 'centered',
   },
   tags: ['autodocs'],
   argTypes: {
     side: {
       control: 'select',
-      options: ['top', 'right', 'bottom', 'left']
+      options: ['top', 'right', 'bottom', 'left'],
     },
     sideOffset: {
-      control: 'number'
+      control: 'number',
     },
     showArrow: {
-      control: 'boolean'
-    }
-  }
+      control: 'boolean',
+    },
+  },
 };
 
 export default meta;
@@ -36,6 +36,6 @@ export const Basic: Story = {
   args: {
     side: 'top',
     sideOffset: 5,
-    showArrow: true
-  }
+    showArrow: true,
+  },
 };

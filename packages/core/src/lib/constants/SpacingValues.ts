@@ -5,5 +5,5 @@ export const SPACING_VALUES = {
   md: '16px',
   lg: '24px',
   xl: '32px',
-  xxl: '48px'
+  xxl: '48px',
 };

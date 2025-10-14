@@ -14,7 +14,7 @@ export const VNPTPayLogo = (props: IconProps) => (
     <path
       d="M0 0h35.2v17.66H0z"
       style={{
-        fill: 'none'
+        fill: 'none',
       }}
     />
     <path

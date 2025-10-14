@@ -38,5 +38,5 @@ export const Styled = {
     .action {
       margin-bottom: 1rem;
     }
-  `
+  `,
 };

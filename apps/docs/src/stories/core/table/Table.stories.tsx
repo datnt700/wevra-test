@@ -4,7 +4,7 @@ import { Table } from '@tavia/core';
 
 const meta: Meta<typeof Table<any, keyof any>> = {
   title: 'Core/Table/Table',
-  component: Table
+  component: Table,
 };
 export default meta;
 
@@ -13,25 +13,25 @@ type Story = StoryObj<typeof Table<any, keyof any>>;
 const sampleData = [
   { id: 1, name: 'John Doe', age: 28, occupation: 'Engineer' },
   { id: 2, name: 'Jane Smith', age: 34, occupation: 'Designer' },
-  { id: 3, name: 'Sam Wilson', age: 25, occupation: 'Developer' }
+  { id: 3, name: 'Sam Wilson', age: 25, occupation: 'Developer' },
 ];
 
 const sampleColumns = [
   {
     key: 'name',
     header: 'Name',
-    sortable: true
+    sortable: true,
   },
   {
     key: 'age',
     header: 'Age',
     sortable: true,
-    render: (data: any) => <span>{data.age} years old</span>
+    render: (data: any) => <span>{data.age} years old</span>,
   },
   {
     key: 'occupation',
-    header: 'Occupation'
-  }
+    header: 'Occupation',
+  },
 ];
 
 export const Basic: Story = {
@@ -46,8 +46,8 @@ export const Basic: Story = {
   args: {
     selectable: true,
     searchable: true,
-    pagination: true
-  }
+    pagination: true,
+  },
 };
 
 export const Loading: Story = {
@@ -63,8 +63,8 @@ export const Loading: Story = {
   args: {
     selectable: false,
     searchable: false,
-    pagination: false
-  }
+    pagination: false,
+  },
 };
 
 export const Error: Story = {
@@ -80,8 +80,8 @@ export const Error: Story = {
   args: {
     selectable: false,
     searchable: false,
-    pagination: false
-  }
+    pagination: false,
+  },
 };
 
 export const Empty: Story = {
@@ -91,6 +91,6 @@ export const Empty: Story = {
   args: {
     selectable: false,
     searchable: false,
-    pagination: false
-  }
+    pagination: false,
+  },
 };

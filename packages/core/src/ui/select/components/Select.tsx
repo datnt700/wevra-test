@@ -26,7 +26,7 @@ export const Select = ({
   isDisabled,
   onValueChange = () => {},
   value,
-  required
+  required,
 }: SelectProps) => {
   return (
     <Styled.Root onValueChange={onValueChange} value={value}>

@@ -30,7 +30,7 @@ export const Modal = ({
   children,
   footer,
   position = 'center',
-  className
+  className,
 }: ModalProps): JSX.Element | null => {
   /**
    * Handles closing the modal with a delay for smooth animation.

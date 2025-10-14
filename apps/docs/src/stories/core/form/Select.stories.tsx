@@ -5,14 +5,14 @@ const meta: Meta<typeof Select> = {
   title: 'Core/Form/Select',
   component: Select,
   parameters: {
-    layout: 'centered'
+    layout: 'centered',
   },
   tags: ['autodocs'],
   argTypes: {
     placeholder: { control: 'text' },
     required: { control: 'boolean' },
-    options: { control: 'object' }
-  }
+    options: { control: 'object' },
+  },
 };
 
 export default meta;
@@ -24,27 +24,27 @@ const mockOptions = [
   { value: 'banana', label: 'Banana' },
   { value: 'blueberry', label: 'Blueberry' },
   { value: 'grapes', label: 'Grapes' },
-  { value: 'pineapple', label: 'Pineapple' }
+  { value: 'pineapple', label: 'Pineapple' },
 ];
 
 // Default story
 export const Default: Story = {
   args: {
     placeholder: 'Select your choice',
-    options: mockOptions
-  }
+    options: mockOptions,
+  },
 };
 
 export const Empty: Story = {
   args: {
-    options: []
-  }
+    options: [],
+  },
 };
 
 export const WithDisabledItem: Story = {
   args: {
     placeholder: 'Select your choice',
     isDisabled: true,
-    options: []
-  }
+    options: [],
+  },
 };

@@ -78,5 +78,5 @@ export const Styled = {
         color: ${({ $variant }) => getContentColor($variant)};
       }
     }
-  `
+  `,
 };

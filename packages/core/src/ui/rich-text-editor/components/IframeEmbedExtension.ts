@@ -58,8 +58,8 @@ export const IframeEmbed = Node.create({
         default: null,
         parseHTML: (element: HTMLElement) => element.getAttribute('src') || null,
         renderHTML: (attributes: Record<string, any>) => ({
-          src: attributes.src || ''
-        })
+          src: attributes.src || '',
+        }),
       },
 
       /**
@@ -71,8 +71,8 @@ export const IframeEmbed = Node.create({
         default: null,
         parseHTML: (element: HTMLElement) => element.getAttribute('title') || null,
         renderHTML: (attributes: Record<string, any>) => ({
-          title: attributes.title || ''
-        })
+          title: attributes.title || '',
+        }),
       },
 
       /**
@@ -84,8 +84,8 @@ export const IframeEmbed = Node.create({
         default: '100%',
         parseHTML: (element: HTMLElement) => element.getAttribute('width') || '100%',
         renderHTML: (attributes: Record<string, any>) => ({
-          width: attributes.width || '100%'
-        })
+          width: attributes.width || '100%',
+        }),
       },
 
       /**
@@ -97,8 +97,8 @@ export const IframeEmbed = Node.create({
         default: '360',
         parseHTML: (element: HTMLElement) => element.getAttribute('height') || '360',
         renderHTML: (attributes: Record<string, any>) => ({
-          height: attributes.height || '360'
-        })
+          height: attributes.height || '360',
+        }),
       },
 
       /**
@@ -110,8 +110,8 @@ export const IframeEmbed = Node.create({
         default: '0',
         parseHTML: (element: HTMLElement) => element.getAttribute('frameborder') || '0',
         renderHTML: (attributes: Record<string, any>) => ({
-          frameborder: attributes.frameborder || '0'
-        })
+          frameborder: attributes.frameborder || '0',
+        }),
       },
 
       /**
@@ -123,9 +123,9 @@ export const IframeEmbed = Node.create({
         default: true,
         parseHTML: (element: HTMLElement) => element.hasAttribute('allowfullscreen'),
         renderHTML: (attributes: Record<string, any>) => ({
-          allowfullscreen: attributes.allowfullscreen ? '' : undefined
-        })
-      }
+          allowfullscreen: attributes.allowfullscreen ? '' : undefined,
+        }),
+      },
     };
   },
 
@@ -150,10 +150,10 @@ export const IframeEmbed = Node.create({
             width: dom.getAttribute('width') || '100%',
             height: dom.getAttribute('height') || '360',
             frameborder: dom.getAttribute('frameborder') || '0',
-            allowfullscreen: dom.hasAttribute('allowfullscreen')
+            allowfullscreen: dom.hasAttribute('allowfullscreen'),
           };
-        }
-      }
+        },
+      },
     ];
   },
 
@@ -166,7 +166,7 @@ export const IframeEmbed = Node.create({
     return [
       'div',
       { class: 'iframe-wrapper' }, // Wrapper for responsive behavior
-      ['iframe', mergeAttributes(this.options.HTMLAttributes, HTMLAttributes)]
+      ['iframe', mergeAttributes(this.options.HTMLAttributes, HTMLAttributes)],
     ];
   },
 
@@ -197,10 +197,10 @@ export const IframeEmbed = Node.create({
               width: options.width || '100%',
               height: options.height || '360',
               frameborder: '0',
-              allowfullscreen: true
-            }
+              allowfullscreen: true,
+            },
           });
-        }
+        },
     };
   },
 
@@ -218,5 +218,5 @@ export const IframeEmbed = Node.create({
     } catch (error) {
       return false;
     }
-  }
+  },
 });

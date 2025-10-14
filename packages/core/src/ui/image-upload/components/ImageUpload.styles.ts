@@ -54,5 +54,5 @@ export const Styled = {
       color: var(--dark);
       opacity: 0.8;
     }
-  `
+  `,
 };

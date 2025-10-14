@@ -56,5 +56,5 @@ export const Styled = {
         width: 10%;
       }
     }
-  `
+  `,
 };

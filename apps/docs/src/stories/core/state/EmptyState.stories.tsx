@@ -5,7 +5,7 @@ import { FileText } from 'lucide-react';
 
 const meta: Meta<typeof EmptyState> = {
   title: 'Core/State/EmptyState',
-  component: EmptyState
+  component: EmptyState,
 };
 export default meta;
 
@@ -21,7 +21,7 @@ export const Basic: Story = {
         {...args}
       />
     );
-  }
+  },
 };
 
 export const WithAction: Story = {
@@ -35,7 +35,7 @@ export const WithAction: Story = {
         {...args}
       />
     );
-  }
+  },
 };
 
 export const CustomContent: Story = {
@@ -45,5 +45,5 @@ export const CustomContent: Story = {
         <h2>Empty</h2>
       </EmptyState>
     );
-  }
+  },
 };

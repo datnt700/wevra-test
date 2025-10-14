@@ -36,5 +36,5 @@ export const Styled = {
   `,
   Arrow: styled(RadixPopover.Arrow)`
     fill: var(--light);
-  `
+  `,
 };

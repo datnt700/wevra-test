@@ -5,7 +5,7 @@ import { Button } from '@tavia/core';
 import { HamburgerMenuIcon } from '@radix-ui/react-icons';
 const meta: Meta<typeof DropdownMenu> = {
   title: 'Core/Radix/DropdownMenu',
-  component: DropdownMenu
+  component: DropdownMenu,
 };
 export default meta;
 
@@ -24,9 +24,9 @@ export const Basic: Story = {
         items={[
           { label: 'Item 1', onSelect: () => console.log('Item 1 selected') },
           { label: 'Item 2', onSelect: () => console.log('Item 2 selected') },
-          { label: 'Disabled Item', isDisabled: true }
+          { label: 'Disabled Item', isDisabled: true },
         ]}
       />
     );
-  }
+  },
 };

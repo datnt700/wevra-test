@@ -7,35 +7,35 @@ const meta: Meta<typeof Modal> = {
   title: 'Core/Radix/Modal',
   component: Modal,
   parameters: {
-    layout: 'centered'
+    layout: 'centered',
   },
   tags: ['autodocs'],
   argTypes: {
     header: {
       control: 'text',
       description: 'Content for the modal header',
-      defaultValue: 'Default Modal Header'
+      defaultValue: 'Default Modal Header',
     },
     footer: {
       control: 'text',
       description: 'Content for the modal footer',
-      defaultValue: 'Default Modal Footer'
+      defaultValue: 'Default Modal Footer',
     },
     position: {
       control: { type: 'select' },
       options: ['center', 'top', 'bottom'],
       description: 'Position of the modal',
-      defaultValue: 'center'
+      defaultValue: 'center',
     },
     isOpen: {
       control: false,
-      description: 'Controls whether the modal is open'
+      description: 'Controls whether the modal is open',
     },
     onClose: {
       control: false,
-      description: 'Function to close the modal'
-    }
-  }
+      description: 'Function to close the modal',
+    },
+  },
 };
 export default meta;
 
@@ -59,5 +59,5 @@ export const Basic: Story = {
         </Modal>
       </>
     );
-  }
+  },
 };

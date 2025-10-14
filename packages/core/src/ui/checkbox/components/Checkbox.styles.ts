@@ -39,5 +39,5 @@ export const Styled = {
     font-size: ${({ $size }) => ($size === 'sm' ? '0.75rem' : $size === 'lg' ? '1.25rem' : '1rem')};
     line-height: 1;
     cursor: pointer;
-  `
+  `,
 };

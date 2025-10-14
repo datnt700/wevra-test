@@ -20,7 +20,7 @@ export const Styled = {
         right: 'flex-end',
         left: 'flex-start',
         top: 'stretch',
-        bottom: 'flex-end'
+        bottom: 'flex-end',
       })[$position]};
   `,
 
@@ -63,13 +63,13 @@ export const Styled = {
             right: 'translateX(0%)',
             left: 'translateX(0%)',
             top: 'translateY(0%)',
-            bottom: 'translateY(0%)'
+            bottom: 'translateY(0%)',
           }[$position]
         : {
             right: 'translateX(100%)',
             left: 'translateX(-100%)',
             top: 'translateY(-100%)',
-            bottom: 'translateY(100%)'
+            bottom: 'translateY(100%)',
           }[$position]};
     display: flex;
     flex-direction: column;
@@ -144,5 +144,5 @@ export const Styled = {
     display: flex;
     justify-content: flex-end;
     align-items: center;
-  `
+  `,
 };

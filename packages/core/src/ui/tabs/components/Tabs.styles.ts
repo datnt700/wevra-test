@@ -76,5 +76,5 @@ export const Styled = {
     background-color: var(--light);
     background-color: transparent;
     outline: none;
-  `
+  `,
 };

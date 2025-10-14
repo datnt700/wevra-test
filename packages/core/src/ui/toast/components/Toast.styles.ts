@@ -72,5 +72,5 @@ export const Styled = {
     background: transparent;
     border: none;
     cursor: pointer;
-  `
+  `,
 };

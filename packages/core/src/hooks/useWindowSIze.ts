@@ -9,7 +9,7 @@ export const useWindowSize = () => {
     height: number | undefined;
   }>({
     width: undefined,
-    height: undefined
+    height: undefined,
   });
 
   useEffect(() => {
@@ -19,7 +19,7 @@ export const useWindowSize = () => {
       // Set window width/height to state
       setWindowSize({
         width: window.innerWidth,
-        height: window.innerHeight
+        height: window.innerHeight,
       });
     }
 

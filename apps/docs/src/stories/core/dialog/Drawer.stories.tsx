@@ -8,7 +8,7 @@ const meta: Meta<typeof Drawer> = {
   component: Drawer,
   parameters: {
     // Optional parameter to center the component in the Canvas. More info: https://storybook.js.org/docs/react/configure/story-layout
-    layout: 'centered'
+    layout: 'centered',
   },
   // This component will have an automatically generated Autodocs entry: https://storybook.js.org/docs/react/writing-docs/autodocs
   tags: ['autodocs'],
@@ -16,28 +16,28 @@ const meta: Meta<typeof Drawer> = {
     header: {
       control: 'text',
       description: 'Content for the drawer header',
-      defaultValue: 'Default Drawer Header'
+      defaultValue: 'Default Drawer Header',
     },
     footer: {
       control: 'text',
       description: 'Content for the drawer footer',
-      defaultValue: 'Default Drawer Footer'
+      defaultValue: 'Default Drawer Footer',
     },
     position: {
       control: { type: 'select' },
       options: ['left', 'right', 'top', 'bottom'],
       description: 'Position of the drawer',
-      defaultValue: 'right'
+      defaultValue: 'right',
     },
     isOpen: {
       control: false,
-      description: 'Controls whether the drawer is open'
+      description: 'Controls whether the drawer is open',
     },
     onClose: {
       control: false,
-      description: 'Function to close the drawer'
-    }
-  }
+      description: 'Function to close the drawer',
+    },
+  },
 };
 export default meta;
 
@@ -61,5 +61,5 @@ export const Basic: Story = {
         </Drawer>
       </>
     );
-  }
+  },
 };

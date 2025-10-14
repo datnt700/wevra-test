@@ -125,7 +125,7 @@ export const cssVars = {
   overlay: 'rgba(0, 0, 0, 0.35)',
 
   inputColor: '',
-  inputBorderColor: '#000000'
+  inputBorderColor: '#000000',
 };
 
 // Dark theme variants
@@ -158,5 +158,5 @@ export const darkThemeCssVars = {
   shadowLarge: '0 0 64px rgba(80, 80, 80, 0.15)',
   overlay: 'rgba(5, 5, 5, 0.9)',
   inputColor: 'rgba(29, 29, 29, 1)',
-  inputBorderColor: 'rgba(69, 69, 69, 1)'
+  inputBorderColor: 'rgba(69, 69, 69, 1)',
 };

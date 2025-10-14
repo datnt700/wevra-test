@@ -25,7 +25,7 @@ const Styled = {
   BreadcrumbSeparator: styled.span`
     margin: 0 8px;
     color: #999;
-  `
+  `,
 };
 
 export default Styled;

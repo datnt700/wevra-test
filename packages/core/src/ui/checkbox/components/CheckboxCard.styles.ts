@@ -39,5 +39,5 @@ export const Styled = {
   Description: styled.span`
     font-size: 14px;
     color: #666;
-  `
+  `,
 };

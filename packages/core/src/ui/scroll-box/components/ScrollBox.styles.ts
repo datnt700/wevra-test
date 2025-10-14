@@ -31,5 +31,5 @@ export const Styled = {
     &::after {
       bottom: 0;
     }
-  `
+  `,
 };

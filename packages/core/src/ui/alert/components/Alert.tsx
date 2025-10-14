@@ -22,7 +22,7 @@ export const Alert = ({
   variant = 'success',
   title,
   description,
-  isFilled = false
+  isFilled = false,
 }: AlertProps): JSX.Element | null => {
   if (!title) return null; // Ensure there's always a title
 

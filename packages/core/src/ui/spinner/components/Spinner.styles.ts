@@ -6,18 +6,18 @@ export const sizes = {
   sm: {
     wrapperSize: '2rem',
     circleSize: '1.5rem',
-    borderSize: '0.125rem'
+    borderSize: '0.125rem',
   },
   lg: {
     wrapperSize: '4rem',
     circleSize: '3rem',
-    borderSize: '0.25rem'
+    borderSize: '0.25rem',
   },
   xxl: {
     wrapperSize: '8rem',
     circleSize: '6rem',
-    borderSize: '0.5rem'
-  }
+    borderSize: '0.5rem',
+  },
 };
 
 export const SpinnerStyled = styled.div<{ size: Size }>`

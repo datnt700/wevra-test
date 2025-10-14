@@ -66,8 +66,8 @@ export const Iframe = Node.create<IframeOptions>({
        * - Default: { class: 'iframe-wrapper' }
        */
       HTMLAttributes: {
-        class: 'iframe-wrapper'
-      }
+        class: 'iframe-wrapper',
+      },
     };
   },
 
@@ -86,8 +86,8 @@ export const Iframe = Node.create<IframeOptions>({
         default: null,
         parseHTML: (element: HTMLElement) => element.getAttribute('src') || null,
         renderHTML: (attributes: Record<string, any>) => ({
-          src: attributes.src || ''
-        })
+          src: attributes.src || '',
+        }),
       },
 
       /**
@@ -98,8 +98,8 @@ export const Iframe = Node.create<IframeOptions>({
         default: 0,
         parseHTML: (element: HTMLElement) => element.getAttribute('frameborder') || '0',
         renderHTML: (attributes: Record<string, any>) => ({
-          frameborder: attributes.frameborder || '0'
-        })
+          frameborder: attributes.frameborder || '0',
+        }),
       },
 
       /**
@@ -110,9 +110,9 @@ export const Iframe = Node.create<IframeOptions>({
         default: this.options.allowFullscreen,
         parseHTML: (element: HTMLElement) => element.hasAttribute('allowfullscreen'),
         renderHTML: (attributes: Record<string, any>) => ({
-          allowfullscreen: attributes.allowfullscreen ? '' : undefined
-        })
-      }
+          allowfullscreen: attributes.allowfullscreen ? '' : undefined,
+        }),
+      },
     };
   },
 
@@ -134,10 +134,10 @@ export const Iframe = Node.create<IframeOptions>({
           return {
             src,
             frameborder: dom.getAttribute('frameborder') || '0',
-            allowfullscreen: dom.hasAttribute('allowfullscreen')
+            allowfullscreen: dom.hasAttribute('allowfullscreen'),
           };
-        }
-      }
+        },
+      },
     ];
   },
 
@@ -179,7 +179,7 @@ export const Iframe = Node.create<IframeOptions>({
           const node = this.type.create({
             src: options.src,
             frameborder: '0',
-            allowfullscreen: this.options.allowFullscreen
+            allowfullscreen: this.options.allowFullscreen,
           });
 
           if (dispatch) {
@@ -187,7 +187,7 @@ export const Iframe = Node.create<IframeOptions>({
           }
 
           return true;
-        }
+        },
     };
   },
 
@@ -205,5 +205,5 @@ export const Iframe = Node.create<IframeOptions>({
     } catch (error) {
       return false;
     }
-  }
+  },
 });

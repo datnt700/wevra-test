@@ -65,5 +65,5 @@ export const Styled = {
       line-height: 30px;
       color: #6b6b6b;
     }
-  `
+  `,
 };

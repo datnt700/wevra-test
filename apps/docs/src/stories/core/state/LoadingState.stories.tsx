@@ -4,7 +4,7 @@ import { LoadingState } from '@tavia/core';
 
 const meta: Meta<typeof LoadingState> = {
   title: 'Core/State/LoadingState',
-  component: LoadingState
+  component: LoadingState,
 };
 export default meta;
 
@@ -13,7 +13,7 @@ type Story = StoryObj<typeof LoadingState>;
 export const Basic: Story = {
   render: (args) => {
     return <LoadingState title="This is loading" {...args} />;
-  }
+  },
 };
 
 export const CustomContent: Story = {
@@ -23,5 +23,5 @@ export const CustomContent: Story = {
         <h2>Empty</h2>
       </LoadingState>
     );
-  }
+  },
 };

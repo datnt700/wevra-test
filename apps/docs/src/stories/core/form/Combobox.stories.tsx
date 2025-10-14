@@ -5,7 +5,7 @@ const meta = {
   title: 'Core/Form/Combobox', // Đặt tên cho Story của bạn
   component: Combobox,
   parameters: {
-    layout: 'centered' // Căn giữa component trong canvas
+    layout: 'centered', // Căn giữa component trong canvas
   },
   tags: ['autodocs'], // Thêm tag autodocs để Storybook tự tạo tài liệu
   argTypes: {
@@ -15,8 +15,8 @@ const meta = {
     errorMessage: { control: 'text' },
     hasClearButton: { control: 'boolean' },
     isDisabled: { control: 'boolean' },
-    options: { control: 'object' }
-  }
+    options: { control: 'object' },
+  },
 } satisfies Meta<typeof Combobox>;
 
 export default meta;
@@ -32,9 +32,9 @@ export const Default: Story = {
     options: [
       { label: 'Option 1', value: 'option1' },
       { label: 'Option 2', value: 'option2' },
-      { label: 'Option 3', value: 'option3' }
-    ]
-  }
+      { label: 'Option 3', value: 'option3' },
+    ],
+  },
 };
 
 export const Danger: Story = {
@@ -47,9 +47,9 @@ export const Danger: Story = {
     options: [
       { label: 'Option 1', value: 'option1' },
       { label: 'Option 2', value: 'option2' },
-      { label: 'Option 3', value: 'option3' }
-    ]
-  }
+      { label: 'Option 3', value: 'option3' },
+    ],
+  },
 };
 
 export const Disabled: Story = {
@@ -62,9 +62,9 @@ export const Disabled: Story = {
     options: [
       { label: 'Option 1', value: 'option1' },
       { label: 'Option 2', value: 'option2' },
-      { label: 'Option 3', value: 'option3' }
-    ]
-  }
+      { label: 'Option 3', value: 'option3' },
+    ],
+  },
 };
 
 export const WithError: Story = {
@@ -78,7 +78,7 @@ export const WithError: Story = {
     options: [
       { label: 'Option 1', value: 'option1' },
       { label: 'Option 2', value: 'option2' },
-      { label: 'Option 3', value: 'option3' }
-    ]
-  }
+      { label: 'Option 3', value: 'option3' },
+    ],
+  },
 };

@@ -26,5 +26,5 @@ export const Styled = {
             ? 'var(--color-red)'
             : 'inherit'};
     }
-  `
+  `,
 };

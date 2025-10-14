@@ -4,7 +4,7 @@ import { Badge, Card } from '@tavia/core';
 
 const meta: Meta<typeof Badge> = {
   title: 'Core/Base/Badge',
-  component: Badge
+  component: Badge,
 };
 export default meta;
 
@@ -17,7 +17,7 @@ export const Basic: Story = {
         <Badge {...args}>Tag</Badge>
       </Card>
     );
-  }
+  },
 };
 
 export const Clickable: Story = {
@@ -29,7 +29,7 @@ export const Clickable: Story = {
         </Badge>
       </Card>
     );
-  }
+  },
 };
 
 export const Link: Story = {
@@ -41,5 +41,5 @@ export const Link: Story = {
         </Badge>
       </Card>
     );
-  }
+  },
 };

@@ -4,7 +4,7 @@ import { ScrollBox, Card } from '@tavia/core';
 
 const meta: Meta<typeof ScrollBox> = {
   title: 'Core/Layout/ScrollBox',
-  component: ScrollBox
+  component: ScrollBox,
 };
 export default meta;
 
@@ -31,5 +31,5 @@ export const Basic: Story = {
         </ScrollBox>
       </Card>
     );
-  }
+  },
 };

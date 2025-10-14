@@ -7,7 +7,7 @@ const meta = {
   component: Switch,
   parameters: {
     // Optional parameter to center the component in the Canvas. More info: https://storybook.js.org/docs/react/configure/story-layout
-    layout: 'centered'
+    layout: 'centered',
   },
   // This component will have an automatically generated Autodocs entry: https://storybook.js.org/docs/react/writing-docs/autodocs
   tags: ['autodocs'],
@@ -24,8 +24,8 @@ const meta = {
     isRequired: { control: 'boolean' },
     name: { control: 'text' },
     value: { control: 'text' },
-    hasShadow: { control: 'boolean' }
-  }
+    hasShadow: { control: 'boolean' },
+  },
 } satisfies Meta<typeof Switch>;
 
 export default meta;
@@ -37,24 +37,24 @@ export const Default: Story = {
   args: {
     labelLeft: 'Off',
     labelRight: 'On',
-    defaultChecked: false
-  }
+    defaultChecked: false,
+  },
 };
 
 export const Checked: Story = {
   args: {
     labelLeft: 'Off',
     labelRight: 'On',
-    checked: true
-  }
+    checked: true,
+  },
 };
 
 export const Disabled: Story = {
   args: {
     labelLeft: 'Off',
     labelRight: 'On',
-    isDisabled: true
-  }
+    isDisabled: true,
+  },
 };
 
 export const WithIcons: Story = {
@@ -63,14 +63,14 @@ export const WithIcons: Story = {
     labelRight: 'On',
     iconLeft: '🌙', // Example icon
     iconRight: '🌞', // Example icon
-    defaultChecked: false
-  }
+    defaultChecked: false,
+  },
 };
 
 export const Required: Story = {
   args: {
     labelLeft: 'Off',
     labelRight: 'On',
-    isRequired: true
-  }
+    isRequired: true,
+  },
 };

@@ -71,5 +71,5 @@ export const Styled = {
     background-color: var(--light);
     transform: translateX(1rem);
     padding: 0.5rem 1rem;
-  `
+  `,
 };

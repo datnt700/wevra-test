@@ -95,5 +95,5 @@ export const Styled: any = {
     &[data-state='closed'] {
       transform: rotate(0deg);
     }
-  `
+  `,
 };

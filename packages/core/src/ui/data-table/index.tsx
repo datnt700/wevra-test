@@ -4,7 +4,7 @@ import {
   ColumnDef,
   getCoreRowModel,
   getPaginationRowModel,
-  flexRender
+  flexRender,
 } from '@tanstack/react-table';
 import { Table, Container, Wrapper } from './Data.styles';
 
@@ -23,14 +23,14 @@ export const DataTable = <T,>({
   columns,
   pageSize = 10,
   onRowClick,
-  empty
+  empty,
 }: DataTableProps<T>) => {
   const table = useReactTable({
     data,
     columns,
     pageCount: Math.ceil(data.length / pageSize),
     getCoreRowModel: getCoreRowModel(),
-    getPaginationRowModel: getPaginationRowModel()
+    getPaginationRowModel: getPaginationRowModel(),
   });
 
   return (

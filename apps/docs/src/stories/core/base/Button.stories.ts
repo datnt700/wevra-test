@@ -8,7 +8,7 @@ const meta = {
   component: Button,
   parameters: {
     // Optional parameter to center the component in the Canvas. More info: https://storybook.js.org/docs/react/configure/story-layout
-    layout: 'centered'
+    layout: 'centered',
   },
   // This component will have an automatically generated Autodocs entry: https://storybook.js.org/docs/react/writing-docs/autodocs
   tags: ['autodocs'],
@@ -17,8 +17,8 @@ const meta = {
     children: { control: 'text' },
     isLoading: { control: 'boolean' },
     variant: { control: 'text' },
-    shape: { control: 'text' }
-  }
+    shape: { control: 'text' },
+  },
 } satisfies Meta<typeof Button>;
 
 export default meta;
@@ -28,43 +28,43 @@ type Story = StoryObj<typeof meta>;
 export const Primary: Story = {
   args: {
     children: 'Hello World 🌍!',
-    variant: 'primary'
-  }
+    variant: 'primary',
+  },
 };
 
 export const Secondary: Story = {
   args: {
     children: 'Hello Mars🚀!',
-    variant: 'secondary'
-  }
+    variant: 'secondary',
+  },
 };
 
 export const Dark: Story = {
   args: {
     children: 'Hello Mars🚀!',
-    variant: 'dark'
-  }
+    variant: 'dark',
+  },
 };
 
 export const Tertiary: Story = {
   args: {
     children: 'Hello Mars🚀!',
-    variant: 'tertiary'
-  }
+    variant: 'tertiary',
+  },
 };
 
 export const Loading: Story = {
   args: {
     children: 'Hello Mars🚀!',
-    isLoading: true
-  }
+    isLoading: true,
+  },
 };
 
 export const LoadingOnly: Story = {
   args: {
     isLoading: true,
-    shape: 'square'
-  }
+    shape: 'square',
+  },
 };
 
 /*export const WithIcon: Story = {
@@ -86,6 +86,6 @@ export const IconOnly: Story = {
 export const disabled: Story = {
   args: {
     children: 'Hello Mars🚀!',
-    disabled: true
-  }
+    disabled: true,
+  },
 };

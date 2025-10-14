@@ -24,5 +24,5 @@ export const Styled = {
     color: var(--dark);
     font-size: 1rem;
     line-height: 1.5;
-  `
+  `,
 };

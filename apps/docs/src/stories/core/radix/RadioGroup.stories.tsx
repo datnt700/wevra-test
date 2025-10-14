@@ -9,15 +9,15 @@ const meta: Meta<typeof RadioGroup> = {
   argTypes: {
     orientation: {
       control: { type: 'radio' },
-      options: ['horizontal', 'vertical']
+      options: ['horizontal', 'vertical'],
     },
     dir: {
       control: { type: 'radio' },
-      options: ['ltr', 'rtl']
+      options: ['ltr', 'rtl'],
     },
     defaultValue: { control: 'text' },
-    onValueChange: { action: 'value changed' }
-  }
+    onValueChange: { action: 'value changed' },
+  },
 };
 
 export default meta;
@@ -34,8 +34,8 @@ export const VerticalGroup: Story = {
   ),
   args: {
     orientation: 'vertical',
-    defaultValue: 'option-1'
-  }
+    defaultValue: 'option-1',
+  },
 };
 
 export const HorizontalGroup: Story = {
@@ -48,8 +48,8 @@ export const HorizontalGroup: Story = {
   ),
   args: {
     orientation: 'horizontal',
-    defaultValue: 'option-2'
-  }
+    defaultValue: 'option-2',
+  },
 };
 
 export const WithCustomDirection: Story = {
@@ -62,6 +62,6 @@ export const WithCustomDirection: Story = {
   args: {
     dir: 'rtl',
     orientation: 'vertical',
-    defaultValue: 'option-a'
-  }
+    defaultValue: 'option-a',
+  },
 };

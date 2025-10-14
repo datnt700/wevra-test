@@ -7,7 +7,7 @@ const meta = {
   component: Link,
   parameters: {
     // Optional parameter to center the component in the Canvas. More info: https://storybook.js.org/docs/react/configure/story-layout
-    layout: 'centered'
+    layout: 'centered',
   },
   // This component will have an automatically generated Autodocs entry: https://storybook.js.org/docs/react/writing-docs/autodocs
   tags: ['autodocs'],
@@ -16,8 +16,8 @@ const meta = {
     url: { control: 'text' },
     children: { control: 'component' },
     target: { control: 'text' },
-    type: { control: 'text' }
-  }
+    type: { control: 'text' },
+  },
 } satisfies Meta<typeof Link>;
 
 export default meta;
@@ -27,16 +27,16 @@ type Story = StoryObj<typeof meta>;
 export const Basic: Story = {
   args: {
     url: 'https://www.google.com',
-    children: 'This is a link'
-  }
+    children: 'This is a link',
+  },
 };
 
 export const External: Story = {
   args: {
     url: 'https://www.google.com',
     children: 'This is a link',
-    target: '_blank'
-  }
+    target: '_blank',
+  },
 };
 
 export const Monochrome: Story = {
@@ -44,8 +44,8 @@ export const Monochrome: Story = {
     url: 'https://www.google.com',
     children: 'This is a link',
     target: '_blank',
-    type: 'monochrome'
-  }
+    type: 'monochrome',
+  },
 };
 
 export const Underlined: Story = {
@@ -54,6 +54,6 @@ export const Underlined: Story = {
     children: 'This is a link',
     target: '_blank',
     type: 'monochrome',
-    undelined: true
-  }
+    undelined: true,
+  },
 };

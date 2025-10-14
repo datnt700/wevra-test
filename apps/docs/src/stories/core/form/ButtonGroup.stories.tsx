@@ -4,7 +4,7 @@ import { ButtonGroup, Button } from '@tavia/core';
 
 const meta: Meta<typeof ButtonGroup> = {
   title: 'Core/Form/ButtonGroup',
-  component: ButtonGroup
+  component: ButtonGroup,
 };
 export default meta;
 
@@ -18,5 +18,5 @@ export const Basic: Story = {
         <Button variant="secondary">Hello</Button>
       </ButtonGroup>
     );
-  }
+  },
 };

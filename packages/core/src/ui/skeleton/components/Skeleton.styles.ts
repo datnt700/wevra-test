@@ -74,5 +74,5 @@ export const Styled = {
     width: 100%;
     height: 0.75rem;
     border-radius: var(--border-radius-medium);
-  `
+  `,
 };

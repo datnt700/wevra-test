@@ -13,5 +13,5 @@ export const Styled = {
   `,
   Body: styled.div`
     padding: 1rem;
-  `
+  `,
 };

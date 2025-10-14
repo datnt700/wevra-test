@@ -6,15 +6,15 @@ const meta = {
   title: 'Core/Form/RichTextEditor',
   component: RichTextEditor,
   parameters: {
-    layout: 'centered'
+    layout: 'centered',
   },
   tags: ['autodocs'],
   argTypes: {
     defaultValue: { control: 'text' },
     value: { control: 'text' },
     setValue: { action: 'setValue' },
-    uploadImage: { action: 'uploadImage' }
-  }
+    uploadImage: { action: 'uploadImage' },
+  },
 } satisfies Meta<typeof RichTextEditor>;
 
 export default meta;
@@ -26,6 +26,6 @@ export const Default: Story = {
     defaultValue: content,
     uploadImage: async ({ file }) => {
       return new Promise((resolve) => setTimeout(() => resolve('image-url'), 1000));
-    }
-  }
+    },
+  },
 };

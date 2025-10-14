@@ -24,7 +24,7 @@ export const Switch = ({
   isRequired = false,
   name,
   value,
-  hasShadow = false
+  hasShadow = false,
 }: SwitchProps) => {
   return (
     <Styled.Wrapper>

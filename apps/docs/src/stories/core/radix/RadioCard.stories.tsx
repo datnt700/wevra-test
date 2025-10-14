@@ -10,9 +10,9 @@ const meta: Meta<typeof RadioCard> = {
     label: {
       control: 'text',
       description: 'The label of the radio card',
-      defaultValue: 'Select an option'
-    }
-  }
+      defaultValue: 'Select an option',
+    },
+  },
 };
 
 export default meta;
@@ -55,6 +55,6 @@ export const Default: Story = {
   },
   args: {
     label: 'Select an option',
-    value: 'option1'
-  }
+    value: 'option1',
+  },
 };

@@ -20,5 +20,5 @@ export const Styled = {
     gap: 8px;
     border: none;
     background: transparent;
-  `
+  `,
 };

@@ -8,23 +8,23 @@ const meta: Meta<typeof Tabs> = {
   component: Tabs,
   args: {
     orientation: 'horizontal',
-    activationMode: 'automatic'
+    activationMode: 'automatic',
   },
   argTypes: {
     orientation: {
       control: 'select',
-      options: ['horizontal', 'vertical']
+      options: ['horizontal', 'vertical'],
     },
     activationMode: {
       control: 'select',
-      options: ['automatic', 'manual']
+      options: ['automatic', 'manual'],
     },
     dir: {
       control: 'select',
-      options: ['ltr', 'rtl']
+      options: ['ltr', 'rtl'],
     },
-    onValueChange: { action: 'changed' }
-  }
+    onValueChange: { action: 'changed' },
+  },
 };
 export default meta;
 
@@ -38,7 +38,7 @@ const items = [
         <Home size={18} /> Home
       </div>
     ),
-    children: <div>Welcome to the Home tab!</div>
+    children: <div>Welcome to the Home tab!</div>,
   },
   {
     value: 'profile',
@@ -47,7 +47,7 @@ const items = [
         <User size={18} /> Profile
       </div>
     ),
-    children: <div>This is the Profile tab content.</div>
+    children: <div>This is the Profile tab content.</div>,
   },
   {
     value: 'settings',
@@ -56,12 +56,12 @@ const items = [
         <Settings size={18} /> Settings
       </div>
     ),
-    children: <div>Here you can configure Settings.</div>
-  }
+    children: <div>Here you can configure Settings.</div>,
+  },
 ];
 
 export const Basic: Story = {
-  render: (args: TabsProps) => <Tabs {...args} items={items} defaultValue="home" />
+  render: (args: TabsProps) => <Tabs {...args} items={items} defaultValue="home" />,
 };
 
 export const VerticalTabs: Story = {
@@ -69,8 +69,8 @@ export const VerticalTabs: Story = {
     <Tabs {...args} items={items} orientation="vertical" defaultValue="profile" />
   ),
   args: {
-    orientation: 'vertical'
-  }
+    orientation: 'vertical',
+  },
 };
 
 export const DisabledTab: Story = {
@@ -83,10 +83,10 @@ export const DisabledTab: Story = {
           value: 'disabled',
           label: 'Disabled Tab',
           children: <div>This tab is disabled.</div>,
-          isDisabled: true
-        }
+          isDisabled: true,
+        },
       ]}
       defaultValue="home"
     />
-  )
+  ),
 };

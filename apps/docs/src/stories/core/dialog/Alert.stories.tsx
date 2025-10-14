@@ -7,10 +7,10 @@ const meta: Meta<typeof Alert> = {
   component: Alert,
   parameters: {
     // Optional parameter to center the component in the Canvas. More info: https://storybook.js.org/docs/react/configure/story-layout
-    layout: 'centered'
+    layout: 'centered',
   },
   // This component will have an automatically generated Autodocs entry: https://storybook.js.org/docs/react/writing-docs/autodocs
-  tags: ['autodocs']
+  tags: ['autodocs'],
 };
 export default meta;
 
@@ -22,8 +22,8 @@ export const Basic: Story = {
   },
   args: {
     title: 'Alert title',
-    description: 'Alert description'
-  }
+    description: 'Alert description',
+  },
 };
 
 export const Success: Story = {
@@ -33,8 +33,8 @@ export const Success: Story = {
   args: {
     title: 'Alert title',
     description: 'Alert description',
-    variant: 'success'
-  }
+    variant: 'success',
+  },
 };
 
 export const Warning: Story = {
@@ -44,8 +44,8 @@ export const Warning: Story = {
   args: {
     title: 'Alert title',
     description: 'Alert description',
-    variant: 'warning'
-  }
+    variant: 'warning',
+  },
 };
 
 export const Info: Story = {
@@ -55,8 +55,8 @@ export const Info: Story = {
   args: {
     title: 'Alert title',
     description: 'Alert description',
-    variant: 'info'
-  }
+    variant: 'info',
+  },
 };
 
 export const Danger: Story = {
@@ -66,6 +66,6 @@ export const Danger: Story = {
   args: {
     title: 'Alert title',
     description: 'Alert description',
-    variant: 'danger'
-  }
+    variant: 'danger',
+  },
 };

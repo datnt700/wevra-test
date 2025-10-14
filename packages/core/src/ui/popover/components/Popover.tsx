@@ -55,7 +55,7 @@ const Radix = ({
   className,
   side,
   sideOffset,
-  showArrow
+  showArrow,
 }: PopoverProps) => {
   return (
     <RadixPopover.Root>

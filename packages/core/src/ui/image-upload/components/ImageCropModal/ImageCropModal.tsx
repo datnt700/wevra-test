@@ -22,7 +22,7 @@ function centerAspectCrop(mediaWidth: number, mediaHeight: number, aspect: numbe
     makeAspectCrop(
       {
         unit: '%',
-        width: 90
+        width: 90,
       },
       aspect,
       mediaWidth,
@@ -41,7 +41,7 @@ export const ImageCropModal: React.FC<UploadCropImageProps> = ({
   uploadFileFn,
   isUploadImagePending,
   cropWidth = 536,
-  cropHeight = 270
+  cropHeight = 270,
 }: UploadCropImageProps) => {
   // const [src, setSrc] = useState<string | null>(null);
   const [crop, setCrop] = useState<Crop | undefined>({
@@ -49,7 +49,7 @@ export const ImageCropModal: React.FC<UploadCropImageProps> = ({
     x: 0,
     y: 0,
     width: cropWidth,
-    height: cropHeight
+    height: cropHeight,
   });
   const [completedCrop, setCompletedCrop] = useState<PixelCrop>();
 
@@ -134,13 +134,13 @@ export const ImageCropModal: React.FC<UploadCropImageProps> = ({
     // You might want { type: "image/jpeg", quality: <0 to 1> } to
     // reduce image size
     const blob = await offscreen.convertToBlob({
-      type: 'image/png'
+      type: 'image/png',
     });
 
     const file = new File([blob], selectedImage?.name || '', { type: selectedImage?.type });
 
     uploadFileFn({
-      file
+      file,
     });
 
     // if (blobUrlRef.current) {
@@ -200,7 +200,7 @@ export const ImageCropModal: React.FC<UploadCropImageProps> = ({
                 border: '1px solid black',
                 objectFit: 'contain',
                 width: completedCrop.width,
-                height: completedCrop.height
+                height: completedCrop.height,
               }}
             />
           )}

@@ -7,7 +7,7 @@ const meta = {
   component: ProgressBar,
   parameters: {
     // Optional parameter to center the component in the Canvas. More info: https://storybook.js.org/docs/react/configure/story-layout
-    layout: 'centered'
+    layout: 'centered',
   },
   // This component will have an automatically generated Autodocs entry: https://storybook.js.org/docs/react/writing-docs/autodocs
   tags: ['autodocs'],
@@ -16,8 +16,8 @@ const meta = {
     progress: { control: 'number' },
     hasLabel: { control: 'boolean' },
     variant: { control: 'text' },
-    isIndeterminate: { control: 'boolean' }
-  }
+    isIndeterminate: { control: 'boolean' },
+  },
 } satisfies Meta<typeof ProgressBar>;
 
 export default meta;
@@ -27,16 +27,16 @@ type Story = StoryObj<typeof meta>;
 export const Basic: Story = {
   args: {
     progress: 20,
-    hasLabel: false
-  }
+    hasLabel: false,
+  },
 };
 
 // More on writing stories with args: https://storybook.js.org/docs/react/writing-stories/args
 export const HasLabel: Story = {
   args: {
     progress: 20,
-    hasLabel: true
-  }
+    hasLabel: true,
+  },
 };
 
 // More on writing stories with args: https://storybook.js.org/docs/react/writing-stories/args
@@ -44,6 +44,6 @@ export const Success: Story = {
   args: {
     progress: 20,
     hasLabel: true,
-    variant: 'success'
-  }
+    variant: 'success',
+  },
 };

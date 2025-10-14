@@ -6,7 +6,7 @@ import { ServerOff } from 'lucide-react';
 
 const meta: Meta<typeof ErrorState> = {
   title: 'Core/State/ErrorState',
-  component: ErrorState
+  component: ErrorState,
 };
 export default meta;
 
@@ -22,7 +22,7 @@ export const Basic: Story = {
         {...args}
       />
     );
-  }
+  },
 };
 
 export const WithAction: Story = {
@@ -36,7 +36,7 @@ export const WithAction: Story = {
         {...args}
       />
     );
-  }
+  },
 };
 
 export const CustomContent: Story = {
@@ -46,5 +46,5 @@ export const CustomContent: Story = {
         <h2>Error</h2>
       </ErrorState>
     );
-  }
+  },
 };

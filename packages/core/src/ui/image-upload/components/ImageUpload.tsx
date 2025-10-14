@@ -29,7 +29,7 @@ export const ImageUpload = ({
   uploadImage,
   isUploadImagePending,
   cropWidth = 16,
-  cropHeight = 9
+  cropHeight = 9,
 }: ImageUploadProps) => {
   const [isDragZoneActive, setIsDragZoneActive] = useState(false);
   const [preview, setPreview] = useState<string | null>(value || null);
