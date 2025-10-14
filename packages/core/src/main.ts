@@ -1,72 +1,89 @@
-// Theme
-export { theme } from './styles/theme';
-export * from './styles/breakpoints';
-export * from './styles/global';
+/**
+ * @tavia/core - UI Component Library
+ * Flat structure with shadcn/Radix UI-inspired organization
+ */
 
-// Tokens
-export { cssVars, darkThemeCssVars } from './tokens/colors';
-export * from './tokens/typography';
+// ========================================
+// Theme & Design Tokens
+// ========================================
+export { theme } from './theme/theme';
+export * from './theme/breakpoints';
+export * from './theme/global';
+export { cssVars, darkThemeCssVars } from './theme/tokens/colors';
+export * from './theme/tokens/typography';
 
-// Icons
+// ========================================
+// Providers & Context
+// ========================================
+export * from './providers';
+
+// ========================================
+// Utilities & Helpers
+// ========================================
+export * from './lib';
 export * from './types';
-
 export * from './hooks';
 
-export * from './utils';
+// ========================================
+// UI Components
+// ========================================
 
-// General
-export * from './createEmotionCache';
+// Base Components
+export { Avatar, type AvatarProps } from './ui/avatar';
+export { Badge, type BadgeProps } from './ui/badge';
+export { Button } from './ui/button';
+export { Code } from './ui/code';
+export { Icon } from './ui/icon';
+export { Image, type ImageProps } from './ui/image';
+export { Spinner, type SpinnerProps } from './ui/spinner';
+export { Tag, type TagProps } from './ui/tag';
 
-// form
-export { Button } from './components/form/Button';
-export { InputText, InputNumber, InputTags, Stepper } from './components/form/inputs';
-
-export { type InputProps, type InputTagsProps, type StepperProps } from './components/form/inputs';
-export { Label } from './components/form/Label';
-export { Field } from './components/form/Field';
-export { ButtonGroup, type ButtonGroupProps } from './components/form/ButtonGroup';
-export { Form, type FormProps } from './components/form/Form';
-export { InputSearch } from './components/form/inputs/InputSearch/components';
-export { TextArea, type TextAreaProps } from './components/form/TextArea';
-export { RichTextEditor, type RichTextEditorProps } from './components/form/RichTextEditor';
-export {
-  Checkbox,
-  CheckboxCard,
-  type CheckboxProps,
-  type CheckboxCardProps
-} from './components/form/Checkbox';
+// Radix UI Components
+export { Accordion, type AccordionProps, type AccordionTriggerProps } from './ui/accordion';
+export { Checkbox, CheckboxCard, type CheckboxProps, type CheckboxCardProps } from './ui/checkbox';
+export { DropdownMenu, type DropdownMenuProps } from './ui/dropdown-menu';
+export { Modal, type ModalProps } from './ui/modal';
+export { Popover, type PopoverProps } from './ui/popover';
 export {
   Radio,
   RadioGroup,
   RadioCard,
   type RadioProps,
   type RadioGroupProps,
-  type RadioCardProps
-} from './components/form/Radio';
-export { Select, type SelectProps } from './components/form/Select/components';
-export { Slider, type SliderProps } from './components/form/Slider';
-// export { Combobox, type ComboboxProps } from './components/form/Combobox'
+  type RadioCardProps,
+} from './ui/radio';
+export { Tabs, type TabsProps } from './ui/tabs';
+export { Tooltip, type TooltipProps } from './ui/tooltip';
 
-export { Switch } from './components/form/Switch/components';
+// Form Components
+export { InputText, type InputProps } from './ui/input';
+export { InputNumber, Stepper, type StepperProps } from './ui/input-number';
+export { InputTags, type InputTagsProps } from './ui/input-tags';
+export { InputSearch } from './ui/input-search';
+export { Label } from './ui/label';
+export { Field } from './ui/field';
+export { ButtonGroup, type ButtonGroupProps } from './ui/button-group';
+export { Form, type FormProps } from './ui/form';
+export { TextArea, type TextAreaProps } from './ui/textarea';
+export { RichTextEditor, type RichTextEditorProps } from './ui/rich-text-editor';
+export { Select, type SelectProps } from './ui/select';
+export { Slider, type SliderProps } from './ui/slider';
+export { Combobox, type ComboboxProps } from './ui/combobox';
+export { Switch } from './ui/switch';
+export { FileUpload, type FileUploadProps } from './ui/file-upload';
+export { ImageUpload, type ImageUploadProps } from './ui/image-upload';
 
-export { FileUpload, type FileUploadProps } from './components/form/FileUpload';
-export { ImageUpload, type ImageUploadProps } from './components/form/ImageUpload';
+// Dialog Components
+export { Alert, type AlertProps } from './ui/alert';
+export { Drawer, type DrawerProps } from './ui/drawer';
+export { MenuBar, type MenuBarProps } from './ui/menubar';
+export { Toast, ToastsContainer, type ToastProps } from './ui/toast';
 
-// dialogs
-export { Modal, type ModalProps } from './components/dialogs/Modal';
-export { Drawer, type DrawerProps } from './components/dialogs/Drawer';
-export { Alert, type AlertProps } from './components/dialogs/Alert';
-
-export { Toast, ToastsContainer, type ToastProps } from './components/dialogs/Toast';
-export { Popover, type PopoverProps } from './components/dialogs/Popover';
-export { Tooltip, type TooltipProps } from './components/dialogs/Tooltip';
-
-// //layout
-export { Card, type CardProps } from './components/layout/Card';
-export { LoadingScreen } from './components/layout/LoadingScreen';
-export { ThemeWrapper, type ThemeWrapperProps } from './components/layout/Theme';
-export { ScrollBox } from './components/layout/ScrollBox';
-export { Divider, type DividerProps } from './components/layout/Divider';
+// Layout Components
+export { Card, type CardProps } from './ui/card';
+export { Divider, type DividerProps } from './ui/divider';
+export { LoadingScreen } from './ui/loading-screen';
+export { ScrollBox } from './ui/scroll-box';
 export {
   SkeletonDisplayText,
   SkeletonBodyText,
@@ -75,42 +92,23 @@ export {
   type SkeletonBodyTextProps,
   type SkeletonCardProps,
   type SkeletonDisplayTextProps,
-  type SkeletonProps
-} from './components/layout/Skeleton';
-export {
-  Accordion,
-  type AccordionProps,
-  type AccordionTriggerProps
-} from './components/layout/Accordion';
+  type SkeletonProps,
+} from './ui/skeleton';
+export { ThemeWrapper, type ThemeWrapperProps } from './ui/theme-provider';
 
-// //misc
-export { Avatar, type AvatarProps } from './components/misc/Avatar';
-export { Icon } from './components/misc/Icon';
-export { Spinner, type SpinnerProps } from './components/misc/Spinner';
-export { EmptyState, type EmptyStateProps } from './components/misc/EmptyState';
-export { LoadingState, type LoadingStateProps } from './components/misc/LoadingState';
-export { ErrorState, type ErrorStateProps } from './components/misc/ErrorState';
-export { ProgressBar, type ProgressBarProps } from './components/misc/ProgressBar';
-export { Image, type ImageProps } from './components/misc/Image';
-export { Breadcrumb, type BreadcrumbProps } from './components/misc/Breadcrumb';
+// Navigation Components
+export { Breadcrumb, type BreadcrumbProps } from './ui/breadcrumb';
+export { Link, type LinkProps } from './ui/link';
+export { Pagination, type PaginationProps } from './ui/pagination';
+export { Sidebar } from './ui/sidebar';
 
-// // nav
-export { Link, type LinkProps } from './components/nav/Link';
-export { Pagination, type PaginationProps } from './components/nav/Pagination';
-export { Tabs, type TabsProps } from './components/nav/Tabs';
-export { DropdownMenu, type DropdownMenuProps } from './components/nav/DropdownMenu';
+// State Components
+export { EmptyState, type EmptyStateProps } from './ui/empty-state';
+export { ErrorState, type ErrorStateProps } from './ui/error-state';
+export { LoadingLogo } from './ui/loading-logo';
+export { LoadingState, type LoadingStateProps } from './ui/loading-state';
+export { ProgressBar, type ProgressBarProps } from './ui/progress';
 
-// // pills
-export { Tag, type TagProps } from './components/pills/Tag';
-export { Badge, type BadgeProps } from './components/pills/Badge';
-
-// // typography
-export { Code } from './components/typography/Code';
-
-// // table
-// export { IndexTable } from './components/table/IndexTable'
-export { DataTable } from './components/table/DataTable';
-export { Table } from './components/table';
-
-// menu bar
-export { MenuBar, type MenuBarProps } from './components/dialogs/MenuBar';
+// Table Components
+export { DataTable } from './ui/data-table';
+export { Table } from './ui/table';

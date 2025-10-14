@@ -40,8 +40,10 @@
     "react-dom": "catalog:react18"
   },
   "dependencies": {
+    "@emotion/cache": "catalog:",
+    "@radix-ui/react-checkbox": "catalog:",
     "@radix-ui/react-icons": "catalog:",
-    "@tabler/icons-react": "^3.31.0",
+    "@radix-ui/react-radio-group": "catalog:",
     "@tanstack/react-table": "catalog:",
     "@tiptap/core": "catalog:",
     "@tiptap/extension-color": "catalog:",
@@ -62,7 +64,6 @@
     "react-image-crop": "catalog:"
   },
   "devDependencies": {
-    "tsup": "catalog:",
     "@repo/eslint-config": "workspace:*",
     "@repo/typescript-config": "workspace:*",
     "@testing-library/jest-dom": "catalog:",
@@ -77,6 +78,7 @@
     "eslint-plugin-react-hooks": "catalog:",
     "eslint-plugin-react-refresh": "catalog:",
     "jsdom": "catalog:",
+    "tsup": "catalog:",
     "typescript": "catalog:",
     "vitest": "catalog:"
   }
