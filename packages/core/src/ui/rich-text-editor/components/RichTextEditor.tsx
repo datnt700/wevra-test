@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useEditor } from '@tiptap/react';
 import Heading from '@tiptap/extension-heading';
 import StarterKit from '@tiptap/starter-kit';
-import TextStyle from '@tiptap/extension-text-style';
+import { TextStyle } from '@tiptap/extension-text-style';
 import { FontSize } from './FontSizeExtension';
 import TextAlign from '@tiptap/extension-text-align';
 import { Iframe } from './IframeExtension';
@@ -91,7 +91,7 @@ export const RichTextEditor = ({
 
   useEffect(() => {
     if (editor && value) {
-      editor.commands.setContent(value, false); // Preserve history
+      editor.commands.setContent(value, { emitUpdate: false });
     }
   }, [value, editor]);
 
@@ -99,7 +99,7 @@ export const RichTextEditor = ({
     return () => {
       editor?.destroy();
     };
-  }, []);
+  }, [editor]);
 
   const handleFontSizeChange = useCallback(
     (event: React.ChangeEvent<HTMLSelectElement>) => {

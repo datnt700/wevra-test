@@ -114,16 +114,16 @@ export const FontSize = Extension.create({
           chain().setMark('textStyle', { fontSize: null }).removeEmptyTextStyle().run(),
     };
   },
-
-  /**
-   * Validates whether the provided font size is a valid CSS value.
-   * @param fontSize - The font size value to validate.
-   * @returns True if the font size is valid, false otherwise.
-   */
-  validateFontSize(fontSize: string): boolean {
-    // Regex to validate CSS font size values (e.g., '16px', '20em', '1.5rem')
-    const fontSizeRegex = /^(\d*\.?\d+)(px|em|rem|%|in|cm|mm|ex|pt|pc|vw|vh|vmin|vmax)$/;
-
-    return fontSizeRegex.test(fontSize);
-  },
 });
+
+/**
+ * Validates whether the provided font size is a valid CSS value.
+ * @param fontSize - The font size value to validate.
+ * @returns True if the font size is valid, false otherwise.
+ */
+export function validateFontSize(fontSize: string): boolean {
+  // Regex to validate CSS font size values (e.g., '16px', '20em', '1.5rem')
+  const fontSizeRegex = /^(\d*\.?\d+)(px|em|rem|%|in|cm|mm|ex|pt|pc|vw|vh|vmin|vmax)$/;
+
+  return fontSizeRegex.test(fontSize);
+}

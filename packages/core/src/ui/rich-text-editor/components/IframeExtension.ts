@@ -190,20 +190,20 @@ export const Iframe = Node.create<IframeOptions>({
         },
     };
   },
-
-  /**
-   * Validates whether the provided `src` is a valid URL.
-   * @param src - The URL to validate.
-   * @returns True if the URL is valid, false otherwise.
-   */
-  validateSrc(src: string | null): boolean {
-    if (!src) return false;
-
-    try {
-      new URL(src);
-      return true;
-    } catch {
-      return false;
-    }
-  },
 });
+
+/**
+ * Validates whether the provided `src` is a valid URL.
+ * @param src - The URL to validate.
+ * @returns True if the URL is valid, false otherwise.
+ */
+export function validateIframeSrc(src: string | null): boolean {
+  if (!src) return false;
+
+  try {
+    new URL(src);
+    return true;
+  } catch {
+    return false;
+  }
+}
