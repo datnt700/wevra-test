@@ -22,15 +22,16 @@ export const Switch = ({
   onCheckedChange,
   isDisabled = false,
   isRequired = false,
+  id,
   name,
   value,
   hasShadow = false,
 }: SwitchProps) => {
   return (
     <Styled.Wrapper>
-      {labelLeft && <Styled.Label htmlFor={name}>{labelLeft}</Styled.Label>}
+      {labelLeft && <Styled.Label htmlFor={id || name}>{labelLeft}</Styled.Label>}
       <Styled.SwitchRoot
-        id={name}
+        id={id || name}
         $hasShadow={hasShadow}
         $variant={variant}
         defaultChecked={defaultChecked}
@@ -43,7 +44,7 @@ export const Switch = ({
       >
         <Styled.SwitchThumb>{checked ? iconRight : iconLeft}</Styled.SwitchThumb>
       </Styled.SwitchRoot>
-      {labelRight && <Styled.Label htmlFor={name}>{labelRight}</Styled.Label>}
+      {labelRight && <Styled.Label htmlFor={id || name}>{labelRight}</Styled.Label>}
     </Styled.Wrapper>
   );
 };

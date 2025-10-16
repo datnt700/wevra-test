@@ -13,6 +13,7 @@ import { ReactNode } from 'react';
  * - `onCheckedChange`: Callback function triggered when the checked state changes.
  * - `isDisabled`: Optional boolean to disable the switch.
  * - `isRequired`: Optional boolean to mark the switch as required.
+ * - `id`: Optional id attribute for the switch element.
  * - `name`: Optional name attribute for form submission.
  * - `value`: Optional value attribute for form submission.
  * - `hasShadow`: Optional boolean to enable a shadow effect on the switch.
@@ -28,6 +29,7 @@ export interface SwitchProps {
   onCheckedChange?: (checked: boolean) => void; // Callback for checked state changes
   isDisabled?: boolean; // Disable the switch
   isRequired?: boolean; // Mark the switch as required
+  id?: string; // ID attribute for the switch element
   name?: string; // Name attribute for form submission
   value?: string; // Value attribute for form submission
   hasShadow?: boolean; // Enable shadow effect on the switch
