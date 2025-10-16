@@ -1,36 +1,70 @@
+/**
+ * React hook for tracking window dimensions with SSR support
+ * Prevents hydration mismatch by initializing with undefined values
+ * @module useWindowSize
+ */
+
 'use client';
+
 import { useEffect, useState } from 'react';
 
-export const useWindowSize = () => {
-  // Initialize state with undefined width/height so server and client renders match
-  // Learn more here: https://joshwcomeau.com/react/the-perils-of-rehydration/
-  const [windowSize, setWindowSize] = useState<{
-    width: number | undefined;
-    height: number | undefined;
-  }>({
+/**
+ * Window dimensions interface
+ */
+export interface WindowSize {
+  /** Window width in pixels (undefined during SSR) */
+  width: number | undefined;
+  /** Window height in pixels (undefined during SSR) */
+  height: number | undefined;
+}
+
+/**
+ * Hook to track window dimensions with SSR-safe initialization
+ *
+ * Initializes with undefined width/height to prevent hydration mismatches
+ * between server and client renders. Updates on window resize events.
+ *
+ * @returns Window dimensions object with width and height
+ *
+ * @example
+ * ```tsx
+ * import { useWindowSize } from '@tavia/core/hooks';
+ *
+ * const Component = () => {
+ *   const { width, height } = useWindowSize();
+ *
+ *   if (!width) return <div>Loading...</div>;
+ *
+ *   return <div>Window is {width}x{height}</div>;
+ * };
+ * ```
+ *
+ * @see https://joshwcomeau.com/react/the-perils-of-rehydration/
+ */
+export const useWindowSize = (): WindowSize => {
+  const [windowSize, setWindowSize] = useState<WindowSize>({
     width: undefined,
     height: undefined,
   });
 
   useEffect(() => {
-    // only execute all the code below in client side
-    // Handler to call on window resize
-    function handleResize() {
-      // Set window width/height to state
+    // Handler to update window dimensions
+    const handleResize = () => {
       setWindowSize({
         width: window.innerWidth,
         height: window.innerHeight,
       });
-    }
+    };
 
-    // Add event listener
+    // Add resize event listener
     window.addEventListener('resize', handleResize);
 
-    // Call handler right away so state gets updated with initial window size
+    // Set initial window size
     handleResize();
 
-    // Remove event listener on cleanup
+    // Cleanup: remove event listener
     return () => window.removeEventListener('resize', handleResize);
-  }, []); // Empty array ensures that effect is only run on mount
+  }, []);
+
   return windowSize;
 };

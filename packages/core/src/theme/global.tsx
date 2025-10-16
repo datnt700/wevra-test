@@ -1,36 +1,37 @@
 /** @jsxImportSource @emotion/react */
 import { Global, css } from '@emotion/react';
 import { cssVars, darkThemeCssVars } from './tokens/colors';
-import { theme } from './theme';
 import { styleVars } from './tokens/variables';
+import { breakpoints } from './breakpoints';
+
+/**
+ * Convert camelCase to kebab-case for CSS variables
+ */
+const toKebabCase = (str: string) =>
+  str.replace(/[A-Z0-9]/g, (letter) => `-${letter.toLowerCase()}`);
+
+/**
+ * Generate CSS custom properties from object
+ */
+const generateCSSVars = (obj: Record<string, string | number>) =>
+  Object.entries(obj)
+    .map(([key, value]) => `--${toKebabCase(key)}: ${value};`)
+    .join('\n');
 
 export const globalStyles = css`
+  /* Font imports */
   @import url('https://diverse-public.s3.eu-west-3.amazonaws.com/fonts/fonts.css');
   @import url('https://cdn.rawgit.com/mfd/f3d96ec7f0e8f034cc22ea73b3797b59/raw/856f1dbb8d807aabceb80b6d4f94b464df461b3e/gotham.css');
 
+  /* CSS Custom Properties for light theme */
   :root {
-    ${Object.entries(cssVars)
-      .map(
-        ([key, value]) =>
-          `--${key.replace(/[A-Z0-9]/g, (letter) => `-${letter.toLowerCase()}`)}: ${value};`
-      )
-      .join('\n')}
-
-    ${Object.entries(styleVars)
-      .map(
-        ([key, value]) =>
-          `--${key.replace(/[A-Z0-9]/g, (letter) => `-${letter.toLowerCase()}`)}: ${value};`
-      )
-      .join('\n')}
+    ${generateCSSVars(cssVars)}
+    ${generateCSSVars(styleVars)}
   }
 
+  /* CSS Custom Properties for dark theme */
   [data-theme='dark'] {
-    ${Object.entries(darkThemeCssVars)
-      .map(
-        ([key, value]) =>
-          `--${key.replace(/[A-Z0-9]/g, (letter) => `-${letter.toLowerCase()}`)}: ${value};`
-      )
-      .join('\n')}
+    ${generateCSSVars(darkThemeCssVars)}
   }
 
   *,
@@ -39,37 +40,47 @@ export const globalStyles = css`
     box-sizing: border-box;
   }
 
-  /* Set global font styles */
+  /* Reset and base styles */
   html,
   body {
-    font-family: 'GothamPro', 'SVN-Gotham', cursive, sans-serif;
+    font-family:
+      'GothamPro',
+      'SVN-Gotham',
+      'Gilroy',
+      -apple-system,
+      BlinkMacSystemFont,
+      'Segoe UI',
+      'Roboto',
+      'Oxygen',
+      'Ubuntu',
+      'Cantarell',
+      sans-serif;
     max-width: 100vw;
     margin: 0;
     padding: 0;
     font-size: 10px;
     line-height: 1.6;
-    color: #333;
-    background-color: #fff;
-    margin: 0;
-    padding: 0;
     color: var(--dark);
     background: var(--background-color);
     overflow-x: hidden;
     min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 
-    @media screen and (min-width: ${theme.breakpoints.xs}) {
+    /* Responsive font sizing */
+    @media screen and (min-width: ${breakpoints.xs}) {
       font-size: 12px;
     }
 
-    @media screen and (min-width: ${theme.breakpoints.lg}) {
+    @media screen and (min-width: ${breakpoints.lg}) {
       font-size: 14px;
     }
 
-    @media screen and (min-width: ${theme.breakpoints.xl}) {
+    @media screen and (min-width: ${breakpoints.xl}) {
       font-size: 16px;
     }
 
-    @media screen and (min-width: ${theme.breakpoints['2xl']}) {
+    @media screen and (min-width: ${breakpoints['2xl']}) {
       font-size: 16px;
     }
   }

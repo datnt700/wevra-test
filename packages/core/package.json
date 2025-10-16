@@ -6,8 +6,8 @@
   "exports": {
     ".": "./src/main.ts",
     "./globals.css": "./src/globals.css",
-    "./fonts.css": "./src/assets/styles/fonts.css",
     "./lib/*": "./src/lib/*.ts",
+    "./tokens/*": "./src/tokens/*.ts",
     "./hooks/*": [
       "./src/hooks/*.ts",
       "./src/hooks/*.tsx"

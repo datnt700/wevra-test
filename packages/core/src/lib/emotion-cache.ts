@@ -1,7 +1,5 @@
-import createCache from '@emotion/cache';
-
-// const isBrowser = typeof document !== 'undefined'
-
-export const createEmotionCache = () => {
-  return createCache({ key: 'css', prepend: true });
-};
+/**
+ * Re-export Emotion cache utilities
+ * @see ./createEmotionCache.ts for implementation
+ */
+export { createEmotionCache, createClientCache, createServerCache } from './createEmotionCache';

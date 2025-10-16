@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { cssVars } from '../../../tokens/colors';
+import { cssVars } from '../../../theme/tokens/colors';
 
 type AlertVariant = 'success' | 'warning' | 'info' | 'danger' | 'error';
 

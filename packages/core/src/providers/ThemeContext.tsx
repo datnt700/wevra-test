@@ -1,33 +1,77 @@
-import { createContext, useContext, useEffect, useState } from 'react';
+import { ThemeProvider as EmotionThemeProvider } from '@emotion/react';
+import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
+import { darkTheme, lightTheme, type ColorMode, type TaviaTheme } from '../theme/theme';
 
-type Theme = 'light' | 'dark';
-
-interface ThemeContextProps {
-  theme: Theme;
-  toggleTheme: () => void;
+interface ThemeContextValue {
+  mode: ColorMode;
+  theme: TaviaTheme;
+  toggleMode: () => void;
+  setMode: (mode: ColorMode) => void;
 }
 
-const ThemeContext = createContext<ThemeContextProps | undefined>(undefined);
+const ThemeContext = createContext<ThemeContextValue | undefined>(undefined);
 
-export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
-  const [theme, setTheme] = useState<Theme>('dark');
+interface ThemeProviderProps {
+  children: React.ReactNode;
+  defaultMode?: ColorMode;
+  storageKey?: string;
+}
 
+export const ThemeProvider = ({
+  children,
+  defaultMode = 'light',
+  storageKey = 'tavia-theme-mode',
+}: ThemeProviderProps) => {
+  const [mode, setModeState] = useState<ColorMode>(defaultMode);
+
+  // Load saved theme from localStorage on mount
   useEffect(() => {
-    const savedTheme = (localStorage.getItem('theme') as Theme) || 'dark';
-    if (savedTheme) {
-      setTheme(savedTheme);
-      document.documentElement.setAttribute('data-theme', savedTheme);
+    if (typeof window === 'undefined') return;
+
+    const savedMode = localStorage.getItem(storageKey) as ColorMode | null;
+    if (savedMode === 'light' || savedMode === 'dark') {
+      setModeState(savedMode);
+      document.documentElement.setAttribute('data-theme', savedMode);
+    } else {
+      // Check system preference
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      const systemMode = prefersDark ? 'dark' : 'light';
+      setModeState(systemMode);
+      document.documentElement.setAttribute('data-theme', systemMode);
     }
-  }, []);
+  }, [storageKey]);
 
-  const toggleTheme = () => {
-    const newTheme = theme === 'light' ? 'dark' : 'light';
-    setTheme(newTheme);
-    document.documentElement.setAttribute('data-theme', newTheme);
-    localStorage.setItem('theme', newTheme);
-  };
+  const theme = useMemo(() => (mode === 'dark' ? darkTheme : lightTheme), [mode]);
 
-  return <ThemeContext.Provider value={{ theme, toggleTheme }}>{children}</ThemeContext.Provider>;
+  const setMode = useCallback(
+    (newMode: ColorMode) => {
+      setModeState(newMode);
+      document.documentElement.setAttribute('data-theme', newMode);
+      localStorage.setItem(storageKey, newMode);
+    },
+    [storageKey]
+  );
+
+  const toggleMode = useCallback(() => {
+    const newMode = mode === 'light' ? 'dark' : 'light';
+    setMode(newMode);
+  }, [mode, setMode]);
+
+  const value = useMemo(
+    () => ({
+      mode,
+      theme,
+      toggleMode,
+      setMode,
+    }),
+    [mode, theme, toggleMode, setMode]
+  );
+
+  return (
+    <ThemeContext.Provider value={value}>
+      <EmotionThemeProvider theme={theme}>{children}</EmotionThemeProvider>
+    </ThemeContext.Provider>
+  );
 };
 
 export const useTheme = () => {
@@ -37,3 +81,6 @@ export const useTheme = () => {
   }
   return context;
 };
+
+// Export for backward compatibility
+export { type TaviaTheme, type ColorMode };

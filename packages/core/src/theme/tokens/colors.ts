@@ -1,11 +1,14 @@
-// src/styles/theme.ts
+/**
+ * Color tokens for light and dark themes
+ * These are the raw color values used throughout the theme system
+ */
+
 export const cssVars = {
-  // Theme
+  // Brand colors
   mainColor: '#ff695c',
   titleColor: '#ebebeb',
   mainGradientStart: '#438ccb',
   mainGradientEnd: '#0bc2ed',
-
   primaryButtonColor: 'linear-gradient(#ff7872 0%, #ff5f4e 100%)',
 
   // Main Color Variants (Light)
@@ -116,19 +119,23 @@ export const cssVars = {
   light8: '#aaaaaa',
   light9: '#9a9a9a',
 
-  // Shadows
+  // Shadows (deprecated - use theme.shadows)
   shadowSmall: '0 0 10px rgba(0, 0, 0, 0.075)',
   shadowMedium: '0 0 24px rgba(0, 0, 0, 0.1)',
   shadowLarge: '0 0 64px rgba(0, 0, 0, 0.15)',
 
-  // Overlay
+  // Overlay (deprecated - use theme.colors.overlay)
   overlay: 'rgba(0, 0, 0, 0.35)',
 
+  // Input colors
   inputColor: '',
   inputBorderColor: '#000000',
-};
+} as const;
 
-// Dark theme variants
+/**
+ * Dark theme color variants
+ * @deprecated Use the darkTheme object from theme.ts instead
+ */
 export const darkThemeCssVars = {
   ...cssVars,
   backgroundColor: cssVars.backgroundColorDark,
@@ -159,4 +166,23 @@ export const darkThemeCssVars = {
   overlay: 'rgba(5, 5, 5, 0.9)',
   inputColor: 'rgba(29, 29, 29, 1)',
   inputBorderColor: 'rgba(69, 69, 69, 1)',
-};
+} as const;
+
+/**
+ * Semantic color mappings for better developer experience
+ */
+export const semanticColors = {
+  // State colors
+  success: cssVars.colorSuccess,
+  warning: cssVars.colorWarning,
+  danger: cssVars.colorDanger,
+  info: cssVars.colorCyan,
+
+  // Brand
+  primary: cssVars.mainColor,
+  secondary: cssVars.mainColorGray,
+
+  // Neutral
+  white: cssVars.gray0,
+  black: cssVars.gray1000,
+} as const;

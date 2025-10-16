@@ -1,8 +1,13 @@
-// Utilities
+/**
+ * Library utilities barrel export
+ * @module lib
+ */
+
+// Date utilities
 export * from './date';
 
-// Emotion cache
+// Emotion cache utilities
 export * from './emotion-cache';
 
-// Constants
-export * from './constants/SpacingValues';
+// Design constants
+export * from './constants';
