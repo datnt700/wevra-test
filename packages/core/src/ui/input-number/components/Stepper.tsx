@@ -50,9 +50,9 @@ export const Stepper = React.forwardRef<HTMLInputElement, StepperProps>(
     return (
       <Styled.Wrapper className={className}>
         <Styled.InputWrapper
-          isDisabled={isDisabled}
-          isReadOnly={isReadOnly}
-          hasError={!!errorMessage}
+          $isDisabled={isDisabled}
+          $isReadOnly={isReadOnly}
+          $hasError={!!errorMessage}
         >
           <Button
             variant="tertiary"
@@ -67,7 +67,7 @@ export const Stepper = React.forwardRef<HTMLInputElement, StepperProps>(
             value={internalValue}
             onChange={(e) => onChange?.({ target: { value: e.currentTarget.value } } as any)}
             ref={ref}
-            hasError={!!errorMessage}
+            $hasError={!!errorMessage}
             disabled={isDisabled}
             readOnly={isReadOnly}
             min={min}
