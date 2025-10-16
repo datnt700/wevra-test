@@ -1,5 +1,126 @@
+/**
+ * Emotion styles for Slider component with direct theme token access.
+ * Follows best practices: helper functions, transient props, TypeScript types.
+ */
 import styled from '@emotion/styled';
 import { Slider } from 'radix-ui';
+import { cssVars } from '../../../theme/tokens/colors';
+
+type SliderOrientation = 'horizontal' | 'vertical';
+
+interface OrientationStyles {
+  rootWidth: string;
+  rootHeight: string;
+  trackHeight: string;
+  trackWidth: string;
+}
+
+/**
+ * Helper function to get orientation-specific styles for Slider component.
+ */
+const getOrientationStyles = (orientation: SliderOrientation = 'horizontal'): OrientationStyles => {
+  const orientationMap: Record<SliderOrientation, OrientationStyles> = {
+    horizontal: {
+      rootWidth: '200px',
+      rootHeight: '20px',
+      trackHeight: '3px',
+      trackWidth: '100%',
+    },
+    vertical: {
+      rootWidth: '20px',
+      rootHeight: '200px',
+      trackHeight: '100%',
+      trackWidth: '3px',
+    },
+  };
+  return orientationMap[orientation];
+};
+
+const StyledRoot = styled(Slider.Root)<{
+  $orientation?: SliderOrientation;
+  $disabled?: boolean;
+}>`
+  ${({ $orientation = 'horizontal', $disabled }) => {
+    const styles = getOrientationStyles($orientation);
+    return `
+      position: relative;
+      display: flex;
+      align-items: center;
+      user-select: none;
+      touch-action: none;
+      width: ${styles.rootWidth};
+      height: ${styles.rootHeight};
+      cursor: ${$disabled ? 'not-allowed' : 'pointer'};
+      opacity: ${$disabled ? '0.5' : '1'};
+      transition: opacity 0.2s ease;
+    `;
+  }}
+`;
+
+const StyledTrack = styled(Slider.Track)<{ $orientation?: SliderOrientation }>`
+  ${({ $orientation = 'horizontal' }) => {
+    const styles = getOrientationStyles($orientation);
+    return `
+      background-color: ${cssVars.gray400};
+      position: relative;
+      flex-grow: 1;
+      border-radius: 9999px;
+      height: ${styles.trackHeight};
+      width: ${styles.trackWidth};
+      transition: background-color 0.2s ease;
+
+      &:hover {
+        background-color: ${cssVars.gray500};
+      }
+    `;
+  }}
+`;
+
+const StyledRange = styled(Slider.Range)`
+  position: absolute;
+  background-color: ${cssVars.mainColor};
+  border-radius: 9999px;
+  height: 100%;
+  transition: background-color 0.2s ease;
+`;
+
+const StyledThumb = styled(Slider.Thumb)<{ $disabled?: boolean }>`
+  ${({ $disabled }) => `
+    display: block;
+    width: 20px;
+    height: 20px;
+    background-color: ${cssVars.gray0};
+    border: 2px solid ${cssVars.mainColor};
+    border-radius: 50%;
+    box-shadow: 0 2px 4px ${cssVars.gray600}40;
+    transition: all 0.2s ease;
+    cursor: ${$disabled ? 'not-allowed' : 'grab'};
+
+    &:hover:not(:disabled) {
+      border-color: ${cssVars.mainColorDark};
+      box-shadow: 0 4px 8px ${cssVars.gray600}60;
+      transform: scale(1.1);
+    }
+
+    &:active:not(:disabled) {
+      cursor: grabbing;
+      transform: scale(1.2);
+      box-shadow: 0 6px 12px ${cssVars.gray600}80;
+    }
+
+    &:focus-visible {
+      outline: 2px solid ${cssVars.mainColor};
+      outline-offset: 2px;
+    }
+
+    &:disabled {
+      background-color: ${cssVars.gray300};
+      border-color: ${cssVars.gray500};
+      box-shadow: none;
+      pointer-events: none;
+    }
+  `}
+`;
 
 /**
  * Styled components for the Slider.
@@ -10,64 +131,8 @@ import { Slider } from 'radix-ui';
  * - `Thumb`: The draggable thumb of the slider.
  */
 export const Styled = {
-  Root: styled(Slider.Root)<{ $orientation?: 'horizontal' | 'vertical'; $disabled?: boolean }>`
-    position: relative;
-    display: flex;
-    align-items: center;
-    user-select: none;
-    touch-action: none;
-    width: ${({ $orientation }) => ($orientation === 'vertical' ? '20px' : '200px')};
-    height: ${({ $orientation }) => ($orientation === 'vertical' ? '200px' : '20px')};
-    cursor: ${({ $disabled }) => ($disabled ? 'not-allowed' : 'pointer')};
-    opacity: ${({ $disabled }) => ($disabled ? '0.5' : '1')};
-  `,
-
-  Track: styled(Slider.Track)<{ $orientation?: 'horizontal' | 'vertical' }>`
-    background-color: var(--dark);
-    position: relative;
-    flex-grow: 1;
-    border-radius: 9999px;
-    height: ${({ $orientation }) => ($orientation === 'vertical' ? '100%' : '3px')};
-    width: ${({ $orientation }) => ($orientation === 'vertical' ? '3px' : '100%')};
-  `,
-
-  Range: styled(Slider.Range)<{ $orientation?: 'horizontal' | 'vertical' }>`
-    position: absolute;
-    background-color: var(--light);
-    border-radius: 9999px;
-    height: ${({ $orientation }) => ($orientation === 'vertical' ? '100%' : '100%')};
-    width: ${({ $orientation }) => ($orientation === 'vertical' ? '100%' : '100%')};
-  `,
-
-  Thumb: styled(Slider.Thumb)<{ $disabled?: boolean }>`
-    display: block;
-    width: 20px;
-    height: 20px;
-    background-color: var(--dark);
-    border-radius: 50%;
-    transition:
-      background-color 0.3s ease,
-      transform 0.2s ease;
-
-    &:hover {
-      background-color: var(--main-color);
-    }
-
-    &:active {
-      transform: scale(1.2);
-    }
-
-    &:focus {
-      outline: none;
-      box-shadow: 0 0 0 2px var(--main-color-light-6);
-    }
-
-    ${({ $disabled }) =>
-      $disabled &&
-      `
-      background-color: var(--neutral);
-      cursor: not-allowed;
-      pointer-events: none;
-    `}
-  `,
+  Root: StyledRoot,
+  Track: StyledTrack,
+  Range: StyledRange,
+  Thumb: StyledThumb,
 };
