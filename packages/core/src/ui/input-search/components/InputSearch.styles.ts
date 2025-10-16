@@ -1,69 +1,103 @@
+/**
+ * InputSearch component styles using Emotion
+ * Follows Emotion best practices with direct theme token access
+ * @module InputSearch.styles
+ */
 import styled from '@emotion/styled';
-import { theme } from '@tavia/core'; // Đảm bảo import theme đúng
+import { cssVars } from '../../../theme/tokens/colors';
+import { styleVars } from '../../../theme/tokens/variables';
+
+type SearchStatus = 'default' | 'error';
+
+interface StatusStyles {
+  bg: string;
+  border: string;
+  boxShadow: string;
+  focusBorder: string;
+}
+
+/**
+ * Get status styles from theme tokens
+ */
+const getStatusStyles = (status: SearchStatus = 'default'): StatusStyles => {
+  const statusMap: Record<SearchStatus, StatusStyles> = {
+    default: {
+      bg: cssVars.light,
+      border: cssVars.gray400,
+      boxShadow: 'none',
+      focusBorder: cssVars.mainColor,
+    },
+    error: {
+      bg: cssVars.gray200,
+      border: cssVars.colorDanger,
+      boxShadow: `0 0 3px ${cssVars.colorDanger}`,
+      focusBorder: cssVars.colorDanger,
+    },
+  };
+
+  return statusMap[status];
+};
+
+const StyledWrapper = styled.div<{ $status?: SearchStatus }>`
+  ${({ $status = 'default' }) => {
+    const styles = getStatusStyles($status);
+
+    return `
+      display: flex;
+      align-items: center;
+      background-color: ${styles.bg};
+      border: 1px solid ${styles.border};
+      border-radius: ${styleVars.borderRadiusMedium};
+      outline: none;
+      padding-left: 0.75rem;
+      transition: all 0.2s ease-in-out;
+      ${styles.boxShadow !== 'none' ? `box-shadow: ${styles.boxShadow};` : ''}
+
+      &:focus-within {
+        border-color: ${styles.focusBorder};
+        box-shadow: 0 0 3px ${styles.focusBorder};
+      }
+    `;
+  }}
+`;
+
+const StyledIcon = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.75rem;
+  color: ${cssVars.gray700};
+`;
+
+const StyledInput = styled.input`
+  height: 2.5rem;
+  background-color: transparent;
+  outline: none;
+  color: ${cssVars.dark};
+  padding: 0.5rem 1rem;
+  width: 100%;
+  font-size: 1rem;
+  border: 0;
+  border-radius: ${styleVars.borderRadiusMedium};
+
+  &::placeholder {
+    font-weight: 300;
+    line-height: 1.875rem;
+    color: ${cssVars.gray600};
+  }
+`;
+
+const StyledErrorMessage = styled.span`
+  color: ${cssVars.colorDanger};
+  font-size: 0.75rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+`;
 
 export const Styled = {
-  Wrapper: styled.div`
-    display: flex;
-    align-items: center;
-    background-color: var(--light);
-    border: 1px solid var(--dark-4);
-    border-radius: var(--border-radius-medium);
-    outline: none;
-    padding-left: 0.75rem;
-
-    &.error {
-      border: 1px solid #f00;
-      background: #d9d9d9;
-    }
-
-    &:focus-within {
-      border-color: var(--light);
-      box-shadow: 0 0 3px var(--light);
-    }
-  `,
-
-  Icon: styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 0.75rem;
-    color: var(--dark7);
-  `,
-
-  ErrorMessage: styled.span`
-    color: var(--color-red);
-    font-size: 0.75rem;
-    font-style: normal;
-    font-weight: 600;
-    line-height: normal;
-  `,
-
-  Input: styled.input`
-    height: ${theme.common.size.input.height.medium};
-    background-color: transparent;
-    outline: none;
-    color: var(--dark);
-    padding: 0.5rem 1rem;
-    width: 100%;
-    font-size: 1rem;
-    border: 1px solid var(--light-4);
-    outline: 0;
-    border: 0 !important;
-    border-radius: var(--border-radius-medium);
-
-    &:active {
-      outline: 0;
-      border: 0;
-    }
-
-    &:focus {
-      outline: 0;
-    }
-
-    &::placeholder {
-      font-weight: 300;
-      line-height: 30px;
-      color: #6b6b6b;
-    }
-  `,
+  Wrapper: StyledWrapper,
+  Icon: StyledIcon,
+  Input: StyledInput,
+  ErrorMessage: StyledErrorMessage,
 };

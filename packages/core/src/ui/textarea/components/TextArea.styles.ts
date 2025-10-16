@@ -1,56 +1,76 @@
+/**
+ * TextArea component styles using Emotion
+ * Follows Emotion best practices with direct theme token access
+ * @module TextArea.styles
+ */
 import styled from '@emotion/styled';
+import { cssVars } from '../../../theme/tokens/colors';
+import { styleVars } from '../../../theme/tokens/variables';
 
-export const Styled = {
-  Wrapper: styled.div<{ $hasError?: boolean }>`
+const StyledWrapper = styled.div<{ $hasError?: boolean }>`
+  ${({ $hasError = false }) => `
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
-    border: 1px solid var(--input-border-color);
-    border-radius: var(--border-radius-medium);
+    width: 100%;
+    border: 1px solid ${$hasError ? cssVars.colorDanger : cssVars.gray400};
+    border-radius: ${styleVars.borderRadiusMedium};
+    transition: all 0.2s ease-in-out;
 
     &:focus-within {
-      border-color: var(--light4);
-      box-shadow: 0 0 3px var(--dark);
+      border-color: ${$hasError ? cssVars.colorDanger : cssVars.mainColor};
+      box-shadow: 0 0 3px ${$hasError ? cssVars.colorDanger : cssVars.mainColor};
     }
+  `}
+`;
 
-    ${({ $hasError }) =>
-      $hasError &&
-      `
-      border-color: var(--color-red);
-      box-shadow: none;
-    `}
-  `,
-
-  TextArea: styled.textarea<{ $hasError?: boolean }>`
+const StyledTextArea = styled.textarea<{ $hasError?: boolean }>`
+  ${({ $hasError = false }) => `
     min-height: 8rem;
-    background: var(--light);
+    background: ${cssVars.light};
     outline: none;
-    color: var(--dark);
+    color: ${cssVars.dark};
     padding: 0.5rem 1rem;
     width: 100%;
     font-size: 1rem;
-    border-radius: var(--border-radius-medium);
-    border: 1px solid
-      ${({ $hasError }) => ($hasError ? 'var(--color-red)' : 'var(--input-border-color)')};
+    border-radius: ${styleVars.borderRadiusMedium};
+    border: 1px solid ${$hasError ? cssVars.colorDanger : cssVars.gray400};
     font-family: inherit;
+    transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    resize: vertical;
 
     &:focus {
-      box-shadow: 0 0 3px var(--dark);
+      outline: none;
+      border-color: ${$hasError ? cssVars.colorDanger : cssVars.mainColor};
+      box-shadow: 0 0 3px ${$hasError ? cssVars.colorDanger : cssVars.mainColor};
     }
 
     &::placeholder {
       font-style: italic;
       font-weight: 300;
-      line-height: 30px;
-      color: #6b6b6b;
+      line-height: 1.875rem;
+      color: ${cssVars.gray600};
     }
-  `,
 
-  ErrorMessage: styled.span`
-    color: var(--color-red);
-    font-size: 0.75rem;
-    font-style: normal;
-    font-weight: 600;
-    line-height: normal;
-  `,
+    &:disabled {
+      background-color: ${cssVars.gray200};
+      cursor: not-allowed;
+      opacity: 0.6;
+    }
+  `}
+`;
+
+const StyledErrorMessage = styled.span`
+  color: ${cssVars.colorDanger};
+  font-size: 0.75rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  padding: 0 0.25rem;
+`;
+
+export const Styled = {
+  Wrapper: StyledWrapper,
+  TextArea: StyledTextArea,
+  ErrorMessage: StyledErrorMessage,
 };

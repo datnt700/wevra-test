@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import React from 'react';
 import { Styled } from './InputStyles.styles';
 import { Icon } from '../../icon';
@@ -23,14 +22,11 @@ export const InputText = React.forwardRef<HTMLInputElement, InputProps>(
     },
     ref
   ) => {
-    const finalVariant = isDisabled ? 'disabled' : variant;
+    const finalVariant = errorMessage ? 'danger' : isDisabled ? 'disabled' : variant;
+
     return (
       <Styled.Wrapper className={className}>
-        <Styled.InputWrapper
-          className={[errorMessage && Styled.Variants.danger, Styled.Variants[finalVariant]].join(
-            ' '
-          )}
-        >
+        <Styled.InputWrapper $variant={finalVariant}>
           <Styled.Input
             type="text"
             id={id}
@@ -48,7 +44,7 @@ export const InputText = React.forwardRef<HTMLInputElement, InputProps>(
             <Styled.ClearBtn
               variant="tertiary"
               shape="square"
-              icon={<Icon source={<X width={16} height={16} stroke="black" />} />}
+              icon={<Icon source={<X width={16} height={16} stroke={undefined} />} />}
             />
           )}
         </Styled.InputWrapper>
@@ -57,3 +53,5 @@ export const InputText = React.forwardRef<HTMLInputElement, InputProps>(
     );
   }
 );
+
+InputText.displayName = 'InputText';

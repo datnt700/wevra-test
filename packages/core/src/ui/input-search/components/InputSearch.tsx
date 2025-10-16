@@ -4,11 +4,15 @@ import { Icon } from '../../icon';
 import { Search } from 'lucide-react';
 import { SearchInputProps } from '../types';
 
+type SearchStatus = 'default' | 'error';
+
 export const InputSearch = React.forwardRef<HTMLInputElement, SearchInputProps>(
   ({ id, name, className, placeholder, status, value, onChange, errorMessage }, ref) => {
+    const finalStatus: SearchStatus = errorMessage || status === 'error' ? 'error' : 'default';
+
     return (
       <>
-        <Styled.Wrapper className={className}>
+        <Styled.Wrapper className={className} $status={finalStatus}>
           <Styled.Icon>
             <Icon source={<Search size={24} />} />
           </Styled.Icon>
@@ -18,7 +22,6 @@ export const InputSearch = React.forwardRef<HTMLInputElement, SearchInputProps>(
             name={name}
             placeholder={placeholder}
             data-testid="input"
-            className={status === 'error' ? 'error' : ''}
             value={value}
             onChange={onChange}
             ref={ref}
@@ -29,3 +32,5 @@ export const InputSearch = React.forwardRef<HTMLInputElement, SearchInputProps>(
     );
   }
 );
+
+InputSearch.displayName = 'InputSearch';
