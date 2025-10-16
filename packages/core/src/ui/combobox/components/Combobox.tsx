@@ -2,8 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { Styled } from './Combobox.styles';
 import { Icon } from '../../icon';
 import { X } from 'lucide-react';
-import { Button } from '@tavia/core';
-import clsx from 'clsx';
 import { ComboboxProps } from '../types';
 import { Popover } from '../../popover';
 
@@ -40,18 +38,20 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(
       }
     }, [value]);
 
+    const comboboxVariant: 'default' | 'danger' | 'success' | 'disabled' = isDisabled
+      ? 'disabled'
+      : errorMessage
+        ? 'danger'
+        : variant === 'success'
+          ? 'success'
+          : 'default';
+
     return (
       <Popover
         hasClose={false}
         trigger={
-          <Styled.Wrapper
-            className={clsx(
-              variant && Styled[variant as keyof typeof Styled],
-              isDisabled && Styled.Disabled,
-              className
-            )}
-          >
-            <Styled.InputWrapper>
+          <Styled.Wrapper $variant={comboboxVariant} className={className}>
+            <Styled.InputWrapper $variant={comboboxVariant}>
               <Styled.Input
                 type="text"
                 id={id}
@@ -64,30 +64,28 @@ export const Combobox = React.forwardRef<HTMLInputElement, ComboboxProps>(
                 readOnly={isReadOnly}
                 {...other}
               />
-              {hasClearButton && (
-                <Button
-                  variant="tertiary"
-                  shape="square"
-                  icon={<Icon source={<X width={16} height={16} stroke="black" />} />}
-                  className={Styled.Dropdown}
-                />
+              {hasClearButton && value && !isDisabled && !isReadOnly && (
+                <Styled.ClearBtn type="button">
+                  <Icon source={<X width={16} height={16} stroke="black" />} />
+                </Styled.ClearBtn>
               )}
             </Styled.InputWrapper>
             {errorMessage && <Styled.ErrorMessage>{errorMessage}</Styled.ErrorMessage>}
           </Styled.Wrapper>
         }
         side="bottom"
-        className={clsx(Styled.Dropdown)}
       >
-        <ul tabIndex={-1} role="listbox">
-          {filteredOptions.map((option) => (
-            <Styled.Option key={option.value}>
-              <button tabIndex={-1} role="option">
-                {option.label}
-              </button>
-            </Styled.Option>
-          ))}
-        </ul>
+        <Styled.Dropdown>
+          <ul tabIndex={-1} role="listbox">
+            {filteredOptions.map((option) => (
+              <Styled.Option key={option.value}>
+                <button tabIndex={-1} role="option">
+                  {option.label}
+                </button>
+              </Styled.Option>
+            ))}
+          </ul>
+        </Styled.Dropdown>
       </Popover>
     );
   }
