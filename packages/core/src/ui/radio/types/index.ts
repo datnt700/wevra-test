@@ -3,8 +3,8 @@ export interface RadioProps {
   size?: 'default' | 'sm' | 'md' | 'lg';
   label?: string;
   value: string;
-  isDisabled?: string;
-  isRequired?: string;
+  isDisabled?: boolean;
+  isRequired?: boolean;
 }
 
 /**
