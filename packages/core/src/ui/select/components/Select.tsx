@@ -43,7 +43,7 @@ export const Select = ({
           </Styled.ScrollUpButton>
           <Styled.Viewport>
             {options?.map((option) => (
-              <Styled.Item key={option.value} value={option.value} $isDisabled={isDisabled}>
+              <Styled.Item key={option.value} value={option.value} disabled={isDisabled}>
                 <Styled.ItemText>{option.label}</Styled.ItemText>
                 <Styled.Indicator>
                   <CheckIcon />
