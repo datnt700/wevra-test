@@ -7,7 +7,7 @@ import { SearchInputProps } from '../types';
 type SearchStatus = 'default' | 'error';
 
 export const InputSearch = React.forwardRef<HTMLInputElement, SearchInputProps>(
-  ({ id, name, className, placeholder, status, value, onChange, errorMessage }, ref) => {
+  ({ id, name, className, placeholder, status, value, onChange, errorMessage, ...other }, ref) => {
     const finalStatus: SearchStatus = errorMessage || status === 'error' ? 'error' : 'default';
 
     return (
@@ -25,6 +25,7 @@ export const InputSearch = React.forwardRef<HTMLInputElement, SearchInputProps>(
             value={value}
             onChange={onChange}
             ref={ref}
+            {...other}
           />
         </Styled.Wrapper>
         {errorMessage && <Styled.ErrorMessage>{errorMessage}</Styled.ErrorMessage>}
