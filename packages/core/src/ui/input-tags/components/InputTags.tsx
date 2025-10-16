@@ -4,6 +4,35 @@ import { Styled } from './InputTags.styles';
 import { Tag } from '../../tag';
 import { InputTagsProps } from '../types';
 
+/**
+ * InputTags component for entering multiple tag values with autocomplete suggestions.
+ *
+ * @component
+ * @example
+ * // Basic usage
+ * <InputTags
+ *   placeholder="Add tags..."
+ *   tags={[{ id: '1', name: 'React' }]}
+ *   onChange={(tag) => handleAddTag(tag)}
+ *   removeTag={(id) => handleRemoveTag(id)}
+ * />
+ *
+ * @example
+ * // With suggestions
+ * <InputTags
+ *   tags={tags}
+ *   tagsSuggestion={[{ id: '1', name: 'TypeScript' }, { id: '2', name: 'JavaScript' }]}
+ *   onChange={(tag) => handleAddTag(tag)}
+ * />
+ *
+ * @example
+ * // Error state
+ * <InputTags
+ *   status="error"
+ *   placeholder="Required field"
+ *   tags={tags}
+ * />
+ */
 export const InputTags = ({
   id,
   type = 'text',
@@ -31,7 +60,7 @@ export const InputTags = ({
   return (
     <>
       <Styled.Wrapper className={className}>
-        <Styled.InputWrapper status={status}>
+        <Styled.InputWrapper $status={status}>
           <Styled.Tags>
             {tags.map((tag) => (
               <Tag key={tag.id} hasClose onCloseClick={() => removeTag?.(tag.id)}>
