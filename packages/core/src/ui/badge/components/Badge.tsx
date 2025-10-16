@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import { WrapperStyled, BodyStyled, ContentStyled } from './Badge.styles';
 import { BadgeProps } from '..';
 
@@ -13,8 +12,8 @@ export const Badge = ({
   return (
     <WrapperStyled
       onClick={() => onClick?.()}
-      isClickable={!!onClick}
-      hasUrl={!!url}
+      $isClickable={!!onClick}
+      $hasUrl={!!url}
       className={wrapperClassName}
       {...other}
     >
