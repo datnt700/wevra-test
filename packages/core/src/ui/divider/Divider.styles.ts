@@ -1,24 +1,41 @@
 import styled from '@emotion/styled';
 import { Separator as RadixSeparator } from 'radix-ui';
+import { cssVars } from '../../theme/tokens/colors';
+import { DividerSize } from './types';
 
-const sizeMap = {
-  default: '1px',
-  sm: '2px',
-  md: '4px',
-  lg: '6px',
+interface RootProps {
+  $orientation?: 'horizontal' | 'vertical';
+  $size?: DividerSize | number;
+}
+
+/**
+ * Get thickness value from size prop
+ */
+const getThickness = (size?: DividerSize | number): string => {
+  if (typeof size === 'number') {
+    return `${size}px`;
+  }
+
+  const sizeMap: Record<DividerSize, string> = {
+    default: '1px',
+    sm: '2px',
+    md: '4px',
+    lg: '6px',
+  };
+
+  return sizeMap[size || 'default'];
 };
 
 export const Styled = {
-  Root: styled(RadixSeparator.Root)<{
-    orientation?: 'horizontal' | 'vertical';
-    size?: 'default' | 'sm' | 'md' | 'lg' | number;
-  }>`
-    background-color: var(--dark);
+  Root: styled(RadixSeparator.Root, {
+    shouldForwardProp: (prop) => !prop.startsWith('$'),
+  })<RootProps>`
+    background-color: ${cssVars.gray300};
 
-    ${({ orientation, size }) => {
-      const thickness = typeof size === 'number' ? `${size}px` : sizeMap[size || 'default'];
+    ${({ $orientation = 'horizontal', $size }) => {
+      const thickness = getThickness($size);
 
-      return orientation === 'vertical'
+      return $orientation === 'vertical'
         ? `width: ${thickness}; height: 100%;`
         : `height: ${thickness}; width: 100%;`;
     }}
