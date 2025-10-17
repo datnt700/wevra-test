@@ -1,5 +1,20 @@
+/**
+ * Link component - Styled anchor element with variants
+ *
+ * @example
+ * // Basic usage
+ * <Link url="https://example.com">Click here</Link>
+ *
+ * @example
+ * // Monochrome variant (inherits color)
+ * <Link url="/about" variant="monochrome">About</Link>
+ *
+ * @example
+ * // Underlined link
+ * <Link url="/contact" underlined>Contact Us</Link>
+ */
 import React from 'react';
-import { LinkStyled } from './Link.styles';
+import { Styled } from './Link.styles';
 import { LinkProps } from '../types';
 
 export const Link = ({
@@ -8,13 +23,13 @@ export const Link = ({
   children,
   target,
   className,
-  undelined,
-  type = 'default',
+  underlined = false,
+  variant = 'default',
   onClick,
   accessibilityLabel,
   ...other
 }: LinkProps) => {
-  const onLinkClick = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+  const handleClick = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
     if (onClick) {
       e.preventDefault();
       e.stopPropagation();
@@ -23,18 +38,21 @@ export const Link = ({
   };
 
   return (
-    <LinkStyled
+    <Styled.Link
       id={id}
       href={url}
       aria-label={accessibilityLabel}
       target={target}
-      type={type}
-      undelined={undelined}
+      rel={target === '_blank' ? 'noopener noreferrer' : undefined}
+      $variant={variant}
+      $underlined={underlined}
       className={className}
-      onClick={onLinkClick}
+      onClick={handleClick}
       {...other}
     >
       {children}
-    </LinkStyled>
+    </Styled.Link>
   );
 };
+
+Link.displayName = 'Link';
