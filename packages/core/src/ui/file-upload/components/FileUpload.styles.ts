@@ -1,14 +1,36 @@
+/**
+ * @file FileUpload component styles
+ * @description Emotion-based styles for the FileUpload component with drag-and-drop support
+ */
+
 import styled from '@emotion/styled';
+import { cssVars } from '../../../theme/tokens/colors';
+import { radii } from '../../../theme/tokens/radii';
 
-export const Styled = {
-  InputUpload: styled.input`
-    display: none;
-  `,
+/**
+ * Props for styled Wrapper component
+ */
+interface WrapperProps {
+  /** Whether the drag zone is currently active (file being dragged over) */
+  $isActive?: boolean;
+}
 
-  Wrapper: styled.div<{ $isActive?: boolean }>`
+/**
+ * Hidden input element for file selection
+ */
+const InputUpload = styled.input`
+  display: none;
+`;
+
+/**
+ * Wrapper for the drag-and-drop upload zone
+ * Handles active state when files are dragged over
+ */
+const Wrapper = styled.div<WrapperProps>`
+  ${({ $isActive = false }) => `
     background: transparent;
-    border-radius: 0.5rem;
-    border: 1px dashed var(--dark-3);
+    border-radius: ${radii.md};
+    border: 1px dashed ${cssVars.dark3};
     margin: 1rem 0;
     display: flex;
     align-items: center;
@@ -17,62 +39,94 @@ export const Styled = {
     cursor: pointer;
     padding: 1rem 2rem;
     width: 100%;
-    ${({ $isActive }) =>
-      $isActive &&
-      `
-      border-color: var(--main-color) !important;
-    `}
-  `,
 
-  Label: styled.label`
-    font-size: 1rem;
-    color: var(--dark);
-    font-weight: 500;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    .errorMessage {
-      color: var(--main-color);
-      font-size: 1rem;
-      font-weight: 600;
+    ${
+      $isActive
+        ? `
+      border-color: ${cssVars.mainColor} !important;
+    `
+        : ''
     }
+  `}
+`;
 
-    .title {
-      color: var(--dark);
-      font-size: 1rem;
-    }
-  `,
+/**
+ * Label for the file upload input
+ */
+const Label = styled.label`
+  font-size: 1rem;
+  color: ${cssVars.dark};
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 
-  Content: styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    gap: 1rem;
-    z-index: 2;
-  `,
-
-  TitleWrapper: styled.div`
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-  `,
-
-  Title: styled.h2`
-    color: var(--dark-4);
+  .errorMessage {
+    color: ${cssVars.mainColor};
     font-size: 1rem;
-    line-height: 1.625rem;
-  `,
+    font-weight: 600;
+  }
 
-  Highlight: styled.span`
-    font-weight: 700;
-    color: var(--main-color);
-  `,
-
-  Description: styled.p`
+  .title {
+    color: ${cssVars.dark};
     font-size: 1rem;
-    opacity: 0.5;
-    color: var(--dark);
-  `,
+  }
+`;
+
+/**
+ * Content wrapper for the upload zone elements
+ */
+const Content = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 1rem;
+  z-index: 2;
+`;
+
+/**
+ * Wrapper for title and icon
+ */
+const TitleWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+`;
+
+/**
+ * Title text for the upload zone
+ */
+const Title = styled.h2`
+  color: ${cssVars.dark4};
+  font-size: 1rem;
+  line-height: 1.625rem;
+`;
+
+/**
+ * Highlighted text within the upload zone
+ */
+const Highlight = styled.span`
+  font-weight: 700;
+  color: ${cssVars.mainColor};
+`;
+
+/**
+ * Description text for the upload zone
+ */
+const Description = styled.p`
+  font-size: 1rem;
+  opacity: 0.5;
+  color: ${cssVars.dark};
+`;
+
+export const Styled = {
+  InputUpload,
+  Wrapper,
+  Label,
+  Content,
+  TitleWrapper,
+  Title,
+  Highlight,
+  Description,
 };

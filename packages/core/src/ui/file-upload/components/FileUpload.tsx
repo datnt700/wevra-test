@@ -1,3 +1,8 @@
+/**
+ * @file FileUpload component
+ * @description A reusable file upload component with drag-and-drop support
+ */
+
 import React, { useState, DragEvent, useRef, ChangeEvent } from 'react';
 import { Icon } from '@tavia/core';
 import { CloudUpload } from 'lucide-react';
@@ -5,20 +10,36 @@ import { FileUploadProps } from '..';
 import { Styled } from './FileUpload.styles';
 
 /**
- * A reusable FileUpload component designed to handle file selection and drag-and-drop functionality.
+ * FileUpload component for handling file selection and drag-and-drop uploads.
  *
- * Features:
- * - Supports multiple file uploads with the `multiple` prop.
- * - Provides a drag-and-drop zone with visual feedback when files are dragged over the area.
- * - Includes a hidden input field for traditional file selection via click.
- * - Displays customizable content (e.g., icons, titles, descriptions) for user guidance.
- * - Fully accessible with proper ARIA attributes and keyboard support.
- * - Styled using Emotion's `styled` API for modularity and reusability.
- * - Grouped styles under a `Styled` object for better organization and maintainability.
+ * @component
+ * @example
+ * // Basic usage
+ * <FileUpload label="Upload Document" />
  *
- * Use Cases:
- * - File upload forms where users can select or drag-and-drop files.
- * - Customizable upload zones with dynamic styling based on interaction states (e.g., drag-over).
+ * @example
+ * // Multiple files with description
+ * <FileUpload
+ *   label="Upload Files"
+ *   multiple
+ *   description="Supported formats: PDF, JPG, PNG (Max 10MB)"
+ * />
+ *
+ * @example
+ * // Custom content
+ * <FileUpload label="Upload Image">
+ *   <div>
+ *     <p>Drop your image here</p>
+ *     <p>or click to browse</p>
+ *   </div>
+ * </FileUpload>
+ *
+ * @param props - Component props
+ * @param props.label - Label text for the file input
+ * @param props.children - Custom content to display in the upload zone
+ * @param props.multiple - Allow multiple file selection
+ * @param props.description - Description text shown below the upload zone
+ * @returns A file upload component with drag-and-drop support
  */
 export const FileUpload: React.FC<FileUploadProps> = ({
   label,
