@@ -20,7 +20,7 @@ export const WrapperStyled = styled.div<{
   align-items: center;
   justify-content: center;
   padding: 0.25rem 0.5rem;
-  background-color: ${cssVars.gray200};
+  background-color: ${cssVars.light4};
   border-radius: ${styleVars.borderRadiusMedium};
   color: ${cssVars.dark};
   width: max-content;
@@ -34,7 +34,7 @@ export const WrapperStyled = styled.div<{
     $isClickable &&
     `
     &:hover {
-      background-color: ${cssVars.gray300};
+      background-color: ${cssVars.light4};
       transform: translateY(-1px);
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
@@ -49,7 +49,7 @@ export const WrapperStyled = styled.div<{
     $hasUrl &&
     `
     &:hover {
-      background-color: ${cssVars.gray300};
+      background-color: ${cssVars.light4};
       transform: translateY(-1px);
 
       a.body {

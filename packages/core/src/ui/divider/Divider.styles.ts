@@ -30,7 +30,7 @@ export const Styled = {
   Root: styled(RadixSeparator.Root, {
     shouldForwardProp: (prop) => !prop.startsWith('$'),
   })<RootProps>`
-    background-color: ${cssVars.gray300};
+    background-color: ${cssVars.light4};
 
     ${({ $orientation = 'horizontal', $size }) => {
       const thickness = getThickness($size);

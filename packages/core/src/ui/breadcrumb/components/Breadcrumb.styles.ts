@@ -7,14 +7,14 @@ const Styled = {
     display: flex;
     align-items: center;
     font-size: 14px;
-    color: ${cssVars.gray600};
+    color: ${cssVars.dark6};
   `,
   BreadcrumbItem: styled('div', {
     shouldForwardProp: (prop) => prop !== 'isLast',
   })<{ isLast: boolean }>`
     display: flex;
     align-items: center;
-    color: ${(props) => (props.isLast ? cssVars.gray900 : 'inherit')};
+    color: ${(props) => (props.isLast ? cssVars.dark : 'inherit')};
     font-weight: ${(props) => (props.isLast ? 'bold' : 'normal')};
   `,
   BreadcrumbLink: styled.a`
@@ -27,7 +27,7 @@ const Styled = {
   `,
   BreadcrumbSeparator: styled.span`
     margin: 0 8px;
-    color: ${cssVars.gray400};
+    color: ${cssVars.light5};
   `,
 };
 

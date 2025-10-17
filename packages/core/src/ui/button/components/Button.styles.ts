@@ -30,18 +30,18 @@ const getVariantColors = (variant: ButtonVariant = 'primary'): VariantColors => 
       border: cssVars.mainColor,
     },
     secondary: {
-      bg: cssVars.gray200,
+      bg: cssVars.light4,
       color: cssVars.dark,
-      hoverBg: cssVars.gray300,
-      activeBg: cssVars.gray400,
-      border: cssVars.gray300,
+      hoverBg: cssVars.light4,
+      activeBg: cssVars.light5,
+      border: cssVars.light4,
     },
     tertiary: {
-      bg: cssVars.gray100,
-      color: cssVars.gray700,
-      hoverBg: cssVars.gray200,
-      activeBg: cssVars.gray300,
-      border: cssVars.gray200,
+      bg: cssVars.light3,
+      color: cssVars.dark3,
+      hoverBg: cssVars.light4,
+      activeBg: cssVars.light4,
+      border: cssVars.light4,
     },
     dark: {
       bg: cssVars.dark,
@@ -136,9 +136,9 @@ const StyledButton = styled.button<{
       }
 
       &:disabled {
-        background-color: ${cssVars.gray300};
-        color: ${cssVars.gray500};
-        border-color: ${cssVars.gray300};
+        background-color: ${cssVars.light4};
+        color: ${cssVars.dark6};
+        border-color: ${cssVars.light4};
         cursor: not-allowed;
         opacity: 0.6;
       }
