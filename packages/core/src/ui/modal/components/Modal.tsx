@@ -1,3 +1,8 @@
+/**
+ * Modal component
+ * A reusable dialog/modal component with accessibility support
+ * @module Modal
+ */
 import { useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import { Styled } from './Modal.styles';
@@ -6,22 +11,32 @@ import { X } from 'lucide-react';
 import { ModalProps } from '../types';
 
 /**
- * A reusable Modal component designed for displaying dialogs or panels.
+ * A reusable modal component for displaying dialogs, forms, or overlays
  *
  * Features:
- * - Supports multiple positions (`center`, `top`, `bottom`) for flexible placement.
- * - Provides smooth animations and overlays for better user experience.
- * - Includes accessible close functionality and keyboard navigation.
- * - Styled using Emotion's `styled` API for modularity and reusability.
+ * - Position variants (center, top, bottom)
+ * - Keyboard navigation (Escape to close)
+ * - Click-outside to close
+ * - Portal rendering for proper z-index layering
+ * - Accessible ARIA attributes
  *
- * Props:
- * - `header`: Optional header content (e.g., title or actions).
- * - `isOpen`: Boolean indicating whether the modal is open.
- * - `onClose`: Callback function triggered when the modal closes.
- * - `children`: The main content of the modal.
- * - `footer`: Optional footer content (e.g., buttons or actions).
- * - `position`: The position of the modal (`center`, `top`, `bottom`).
- * - `className`: Optional class name for additional styling.
+ * @example
+ * ```tsx
+ * // Basic modal
+ * <Modal isOpen={isOpen} onClose={() => setIsOpen(false)} header="Confirm Action">
+ *   <p>Are you sure you want to continue?</p>
+ * </Modal>
+ *
+ * // Modal with footer
+ * <Modal
+ *   isOpen={isOpen}
+ *   onClose={handleClose}
+ *   header="Edit Profile"
+ *   footer={<Button onClick={handleSave}>Save</Button>}
+ * >
+ *   <Form />
+ * </Modal>
+ * ```
  */
 export const Modal = ({
   header,
@@ -33,59 +48,64 @@ export const Modal = ({
   className,
 }: ModalProps) => {
   /**
-   * Handles closing the modal with a delay for smooth animation.
+   * Handle modal close with callback
    */
   const handleClose = () => {
-    if (onClose) {
-      onClose();
-    }
+    onClose?.();
   };
 
   /**
-   * Handles keyboard events to close the modal on `Escape` key press.
+   * Handle keyboard events (Escape to close)
    */
-  const handleKeyDown = (event: KeyboardEvent) => {
-    if (event.key === 'Escape') {
-      handleClose();
-    }
-  };
-
   useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape' && isOpen) {
+        onClose?.();
+      }
+    };
+
     if (isOpen) {
-      document.addEventListener('keydown', handleKeyDown); // Add global event listener for Escape key
-    } else {
-      document.removeEventListener('keydown', handleKeyDown); // Clean up event listener
+      document.addEventListener('keydown', handleKeyDown);
+      // Prevent body scroll when modal is open
+      document.body.style.overflow = 'hidden';
     }
 
     return () => {
-      document.removeEventListener('keydown', handleKeyDown); // Ensure cleanup on unmount
+      document.removeEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = '';
     };
-  }, [isOpen]);
+  }, [isOpen, onClose]);
 
   if (!isOpen) return null;
 
   return ReactDOM.createPortal(
     <Styled.Wrapper $position={position}>
-      {/* Overlay for clicking outside */}
-      <Styled.Overlay onClick={handleClose} />
+      {/* Overlay - click to close */}
+      <Styled.Overlay onClick={handleClose} aria-hidden="true" />
 
-      {/* Main Modal Content */}
-      <Styled.Main role="dialog" aria-modal="true" tabIndex={-1}>
+      {/* Modal content */}
+      <Styled.Main role="dialog" aria-modal="true" aria-labelledby="modal-header">
         <Styled.Container className={className}>
-          {/* Header Section */}
+          {/* Header */}
           {header && (
             <Styled.Header>
-              <div className="header">{header}</div>
-              <Styled.CloseButton data-dismiss="modal" onClick={handleClose}>
+              <div id="modal-header" className="header">
+                {header}
+              </div>
+              <Styled.CloseButton
+                onClick={handleClose}
+                aria-label="Close modal"
+                type="button"
+              >
                 <Icon source={<X size={24} />} />
               </Styled.CloseButton>
             </Styled.Header>
           )}
 
-          {/* Content Section */}
+          {/* Content */}
           <Styled.Content>{children}</Styled.Content>
 
-          {/* Footer Section */}
+          {/* Footer */}
           {footer && <Styled.Footer>{footer}</Styled.Footer>}
         </Styled.Container>
       </Styled.Main>
@@ -93,3 +113,6 @@ export const Modal = ({
     document.body
   );
 };
+
+Modal.displayName = 'Modal';
+

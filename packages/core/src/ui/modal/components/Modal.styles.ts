@@ -1,123 +1,183 @@
+/**
+ * Modal styles using Emotion
+ * Follows Emotion best practices with direct theme token access
+ * @module Modal.styles
+ */
 import styled from '@emotion/styled';
-import { css } from '@emotion/react';
+import { cssVars } from '../../../theme/tokens/colors';
+import { radii } from '../../../theme/tokens/radii';
+
+type ModalPosition = 'center' | 'top' | 'bottom';
+
+interface PositionProps {
+  $position?: ModalPosition;
+}
 
 /**
- * Styled components for the Modal.
+ * Get position styles based on modal position
  */
-export const Styled = {
-  Wrapper: styled.div<{ $position?: 'center' | 'top' | 'bottom' }>`
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 1040;
-    min-width: 100vw;
-    min-height: 100vh;
-    overflow-x: hidden;
-    backdrop-filter: blur(4px);
-
-    ${({ $position }) =>
-      $position === 'center' &&
-      css`
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      `}
-
-    ${({ $position }) =>
-      $position === 'top' &&
-      css`
-        align-items: flex-start;
-        padding-top: 1rem;
-      `}
-
-    ${({ $position }) =>
-      $position === 'bottom' &&
-      css`
-        align-items: flex-end;
-        padding-bottom: 1rem;
-      `}
-  `,
-
-  Overlay: styled.div`
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 1040;
-    min-width: 100vw;
-    min-height: 100vh;
-    background-color: var(--dark);
-    opacity: 0.5;
-    cursor: pointer;
-    backdrop-filter: blur(4px);
-  `,
-
-  Main: styled.div`
-    z-index: 1041;
-    outline: 0;
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    max-width: 60rem; /* Limit maximum width for better responsiveness */
-    margin: 0 auto;
-  `,
-
-  Container: styled.div`
-    z-index: 1041;
-    background: var(--light);
-    position: relative;
-    border-radius: 0.5rem;
-    min-width: 30rem;
-    max-height: 90vh; /* Prevent modal from exceeding viewport height */
-    overflow-y: auto; /* Add scrollbar if content overflows */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Subtle shadow for better visual separation */
-  `,
-
-  Header: styled.div`
-    display: flex;
-    justify-content: space-between;
-    padding: 2rem;
-    padding-bottom: 1rem;
-    align-items: center;
-    border-bottom: 1px solid var(--neutral); /* Visual separator between header and content */
-    .header {
+const getPositionStyles = (position: ModalPosition = 'center'): string => {
+  const positionMap: Record<ModalPosition, string> = {
+    center: `
       display: flex;
       align-items: center;
-      font-weight: bold;
-      font-size: 1.25rem;
-    }
-  `,
+      justify-content: center;
+    `,
+    top: `
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      padding-top: 1rem;
+    `,
+    bottom: `
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      padding-bottom: 1rem;
+    `,
+  };
 
-  CloseButton: styled.button`
-    font-size: 1.5rem;
-    line-height: 1;
-    color: var(--dark);
-    opacity: 0.5;
-    cursor: pointer;
-    border: none;
-    background: transparent;
-    transition: opacity 0.3s ease;
+  return positionMap[position];
+};
 
-    &:hover {
-      opacity: 1;
-    }
+/**
+ * Wrapper container for the modal with backdrop
+ */
+const Wrapper = styled.div<PositionProps>`
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1040;
+  width: 100vw;
+  height: 100vh;
+  overflow-x: hidden;
+  overflow-y: auto;
+  backdrop-filter: blur(4px);
 
-    &[data-dismiss='modal'] {
-      aria-label: 'Close Modal';
-    }
-  `,
+  ${({ $position = 'center' }) => getPositionStyles($position)}
+`;
 
-  Content: styled.div`
-    padding: 1rem 2rem;
-    flex: 1; /* Allow content to take up remaining space */
-    overflow-y: auto; /* Handle overflowing content gracefully */
-  `,
+/**
+ * Overlay background with blur effect
+ */
+const Overlay = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1040;
+  width: 100vw;
+  height: 100vh;
+  background-color: ${cssVars.dark};
+  opacity: 0.5;
+  cursor: pointer;
+  backdrop-filter: blur(4px);
+`;
 
-  Footer: styled.div`
-    padding: 1rem 2rem;
+/**
+ * Main modal container
+ */
+const Main = styled.div`
+  z-index: 1041;
+  outline: 0;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 60rem;
+  margin: 0 auto;
+`;
+
+/**
+ * Container for modal content with background and shadow
+ */
+const Container = styled.div`
+  z-index: 1041;
+  background-color: ${cssVars.light};
+  position: relative;
+  border-radius: ${radii.md};
+  min-width: 30rem;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 10px 25px ${cssVars.dark}33; /* 33 = 20% opacity */
+`;
+
+/**
+ * Modal header with title and close button
+ */
+const Header = styled.div`
+  display: flex;
+  justify-content: space-between;
+  padding: 2rem;
+  padding-bottom: 1rem;
+  align-items: center;
+  border-bottom: 1px solid ${cssVars.light4};
+
+  .header {
     display: flex;
-    flex-direction: row;
-    justify-content: flex-end;
     align-items: center;
-    border-top: 1px solid var(--neutral); /* Visual separator between footer and content */
-  `,
+    font-weight: 600;
+    font-size: 1.25rem;
+    color: ${cssVars.dark};
+  }
+`;
+
+/**
+ * Close button in header
+ */
+const CloseButton = styled.button`
+  font-size: 1.5rem;
+  line-height: 1;
+  color: ${cssVars.dark};
+  opacity: 0.5;
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  transition: opacity 0.3s ease;
+  padding: 0.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+    opacity: 1;
+  }
+
+  &:focus-visible {
+    outline: 2px solid ${cssVars.mainColor};
+    outline-offset: 2px;
+    border-radius: ${radii.sm};
+  }
+`;
+
+/**
+ * Modal content area
+ */
+const Content = styled.div`
+  padding: 1rem 2rem;
+  flex: 1;
+  overflow-y: auto;
+  color: ${cssVars.dark};
+`;
+
+/**
+ * Modal footer with action buttons
+ */
+const Footer = styled.div`
+  padding: 1rem 2rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 0.75rem;
+  border-top: 1px solid ${cssVars.light4};
+`;
+
+export const Styled = {
+  Wrapper,
+  Overlay,
+  Main,
+  Container,
+  Header,
+  CloseButton,
+  Content,
+  Footer,
 };
