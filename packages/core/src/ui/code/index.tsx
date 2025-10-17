@@ -11,10 +11,10 @@ const StyledCode = styled.code`
   font-family: 'Courier New', Courier, monospace;
   font-size: 0.875em;
   padding: 0.2em 0.4em;
-  background-color: ${cssVars.gray100};
-  border: 1px solid ${cssVars.gray300};
+  background-color: ${cssVars.light3};
+  border: 1px solid ${cssVars.light4};
   border-radius: ${radii.sm};
-  color: ${cssVars.gray900};
+  color: ${cssVars.dark};
 `;
 
 /**
