@@ -88,10 +88,7 @@ export const MenuBar = ({ data, side, ...other }: MenuBarProps) => {
             <Styled.Portal>
               <Styled.Content $side={side} align="start" sideOffset={5} alignOffset={-3}>
                 {menu.items.map((item) => (
-                  <Styled.Item
-                    key={item.id}
-                    data-testid="menu-item"
-                  >
+                  <Styled.Item key={item.id} data-testid="menu-item">
                     {item.children}
                   </Styled.Item>
                 ))}

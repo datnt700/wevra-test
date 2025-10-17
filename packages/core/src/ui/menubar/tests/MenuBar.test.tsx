@@ -76,14 +76,14 @@ describe('MenuBar', () => {
     it('displays correct data-state attribute when closed', () => {
       render(<MenuBar data={basicMenuData} />);
       const fileTrigger = screen.getByText('File');
-      
+
       // Check that trigger exists
       expect(fileTrigger).toBeInTheDocument();
     });
 
     it('renders multiple menu triggers correctly', () => {
       render(<MenuBar data={basicMenuData} />);
-      
+
       expect(screen.getByText('File')).toBeInTheDocument();
       expect(screen.getByText('Edit')).toBeInTheDocument();
     });
@@ -232,9 +232,7 @@ describe('MenuBar', () => {
     });
 
     it('passes additional props through', () => {
-      const { container } = render(
-        <MenuBar data={basicMenuData} data-testid="custom-menu" />
-      );
+      const { container } = render(<MenuBar data={basicMenuData} data-testid="custom-menu" />);
       expect(container.querySelector('[data-testid="custom-menu"]')).toBeInTheDocument();
     });
   });
@@ -270,7 +268,7 @@ describe('MenuBar', () => {
 
       const fileTrigger = screen.getByText('File');
       await user.tab();
-      
+
       // Trigger should be focusable
       expect(document.activeElement).toBe(fileTrigger);
     });
