@@ -16,7 +16,7 @@ const meta = {
     url: { control: 'text' },
     children: { control: 'text' },
     target: { control: 'text' },
-    type: { control: 'text' },
+    variant: { control: 'select', options: ['default', 'monochrome'] },
   },
 } satisfies Meta<typeof Link>;
 
@@ -44,7 +44,7 @@ export const Monochrome: Story = {
     url: 'https://www.google.com',
     children: 'This is a link',
     target: '_blank',
-    type: 'monochrome',
+    variant: 'monochrome',
   },
 };
 
@@ -53,7 +53,7 @@ export const Underlined: Story = {
     url: 'https://www.google.com',
     children: 'This is a link',
     target: '_blank',
-    type: 'monochrome',
-    undelined: true,
+    variant: 'monochrome',
+    underlined: true,
   },
 };
