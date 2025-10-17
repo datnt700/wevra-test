@@ -5,7 +5,7 @@
  */
 import styled from '@emotion/styled';
 import { cssVars } from '../../../theme/tokens/colors';
-import { styleVars } from '../../../theme/tokens/variables';
+import { radii } from '../../../theme/tokens/radii';
 import { Button } from '../../button';
 
 type InputVariant = 'default' | 'danger' | 'success' | 'warning' | 'disabled';
@@ -73,7 +73,7 @@ const StyledInputWrapper = styled.div<{ $variant?: InputVariant }>`
       align-items: center;
       background-color: ${styles.bg};
       border: 1px solid ${styles.border};
-      border-radius: ${styleVars.borderRadiusMedium};
+      border-radius: ${radii.md};
       transition: all 0.2s ease-in-out;
       ${styles.boxShadow !== 'none' ? `box-shadow: ${styles.boxShadow};` : ''}
 
@@ -100,7 +100,7 @@ const StyledInputWrapper = styled.div<{ $variant?: InputVariant }>`
 
 const StyledClearBtn = styled(Button)`
   background-color: transparent;
-  border-radius: ${styleVars.borderRadiusMedium};
+  border-radius: ${radii.md};
   color: ${cssVars.dark6};
 
   &:hover {
@@ -115,7 +115,7 @@ const StyledInput = styled.input`
   padding: 0.5rem 1rem;
   width: 100%;
   font-size: 1rem;
-  border-radius: ${styleVars.borderRadiusMedium};
+  border-radius: ${radii.md};
   border: 0;
   background-color: transparent;
 
