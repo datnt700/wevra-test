@@ -1,19 +1,41 @@
+/**
+ * Field component
+ * A form field wrapper that groups a label with an input element
+ * @module Field
+ */
 import { FieldProps } from '..';
 import { Styled } from './Field.styles';
 
 /**
- * A reusable Field component designed to group a label and an input together.
+ * A reusable field component for form inputs
  *
  * Features:
- * - Supports dynamic layout (column or row) for flexible positioning of label and input.
- * - Provides accessibility support with proper ARIA attributes and semantic HTML structure.
- * - Includes styled components for consistent styling of the wrapper, label, and input.
- * - Styled using Emotion's `styled` API for modularity and reusability.
- * - Grouped styles under a `Styled` object for better organization and maintainability.
+ * - Flexible layout (column or row orientation)
+ * - Semantic HTML with proper label association
+ * - Accessible label-input pairing
+ * - Consistent spacing and styling
  *
- * Use Cases:
- * - Form fields where a label is associated with an input (e.g., text inputs, selects, etc.).
- * - Dynamic sizing and alignment options for responsive designs.
+ * @example
+ * ```tsx
+ * // Basic field with column layout
+ * <Field
+ *   label="Email"
+ *   input={<input type="email" placeholder="Enter email" />}
+ * />
+ *
+ * // Field with row layout
+ * <Field
+ *   type="row"
+ *   label="Subscribe"
+ *   input={<input type="checkbox" />}
+ * />
+ *
+ * // Field with custom input component
+ * <Field
+ *   label="Description"
+ *   input={<textarea rows={4} />}
+ * />
+ * ```
  */
 export const Field = ({ label, input, type = 'column', ...other }: FieldProps) => {
   return (
