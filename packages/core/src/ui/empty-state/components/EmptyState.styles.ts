@@ -4,7 +4,7 @@ import { cssVars } from '../../../theme/tokens/colors';
 /**
  * Styled components for the EmptyState.
  */
-export const Styled: any = {
+export const Styled = {
   Wrapper: styled.div`
     background-color: transparent;
     width: 100%;

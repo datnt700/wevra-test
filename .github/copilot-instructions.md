@@ -1294,7 +1294,7 @@ const getVariantColors = (variant: Variant = 'success') => {
 /**
  * Styled components for the ComponentName.
  */
-export const Styled: any = {
+export const Styled = {
   Wrapper: styled.div<StyledWrapperProps>`
     padding: 0.75rem 1rem;
     border-radius: ${radii.md};
@@ -1416,12 +1416,12 @@ export * from './ComponentNameProps';
    import { radii } from '../../../theme/tokens/radii';
    ```
 
-2. ✅ **Use `export const Styled: any = {` pattern** (NOT separate const
+2. ✅ **Use `export const Styled = {` pattern** (NOT separate const
    declarations):
 
    ```typescript
    // ✅ CORRECT
-   export const Styled: any = {
+   export const Styled = {
      Wrapper: styled.div`...`,
      Content: styled.div`...`,
    };
@@ -1590,7 +1590,7 @@ export interface ComponentNameProps {
 /**
  * Styled components for the [ComponentName].
  */
-export const Styled: any = { ... };
+export const Styled = { ... };
 ```
 
 ### Theme System
