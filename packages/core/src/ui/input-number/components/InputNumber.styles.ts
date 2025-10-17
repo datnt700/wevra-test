@@ -24,7 +24,7 @@ const getVariantStyles = (variant: InputVariant = 'default'): VariantStyles => {
   const variantMap: Record<InputVariant, VariantStyles> = {
     default: {
       bg: cssVars.light,
-      border: cssVars.gray400,
+      border: cssVars.light5,
       boxShadow: 'none',
       focusBorder: cssVars.mainColor,
     },
@@ -47,10 +47,10 @@ const getVariantStyles = (variant: InputVariant = 'default'): VariantStyles => {
       focusBorder: cssVars.colorWarning,
     },
     disabled: {
-      bg: cssVars.gray200,
-      border: cssVars.gray300,
+      bg: cssVars.light4,
+      border: cssVars.light4,
       boxShadow: 'none',
-      focusBorder: cssVars.gray300,
+      focusBorder: cssVars.light4,
     },
   };
 
@@ -101,7 +101,7 @@ const StyledInputWrapper = styled.div<{ $variant?: InputVariant }>`
 const StyledClearBtn = styled(Button)`
   background-color: transparent;
   border-radius: ${styleVars.borderRadiusMedium};
-  color: ${cssVars.gray600};
+  color: ${cssVars.dark6};
 
   &:hover {
     color: ${cssVars.dark};
@@ -122,7 +122,7 @@ const StyledInput = styled.input`
   &::placeholder {
     font-weight: 300;
     line-height: 1.875rem;
-    color: ${cssVars.gray600};
+    color: ${cssVars.dark6};
   }
 
   &:disabled {
@@ -152,7 +152,7 @@ const StyledErrorMessage = styled.span`
 // Legacy variant class names for backward compatibility
 const StyledVariantDefault = styled.div`
   background-color: ${cssVars.light};
-  border: 1px solid ${cssVars.gray400};
+  border: 1px solid ${cssVars.light5};
 `;
 
 const StyledVariantDanger = styled.div`
@@ -177,7 +177,7 @@ const StyledVariantWarning = styled.div`
 `;
 
 const StyledVariantDisabled = styled.div`
-  background-color: ${cssVars.gray200};
+  background-color: ${cssVars.light4};
   cursor: not-allowed;
   opacity: 0.6;
 

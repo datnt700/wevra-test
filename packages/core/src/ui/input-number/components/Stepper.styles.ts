@@ -26,16 +26,16 @@ const getInputWrapperStyles = ({
 }: InputWrapperProps): WrapperStyles => {
   if ($isDisabled || $isReadOnly) {
     return {
-      backgroundColor: cssVars.gray100,
-      borderColor: cssVars.gray300,
-      focusBorderColor: cssVars.gray300,
+      backgroundColor: cssVars.light3,
+      borderColor: cssVars.light4,
+      focusBorderColor: cssVars.light4,
       isInteractive: false,
     };
   }
 
   return {
-    backgroundColor: cssVars.gray0,
-    borderColor: $hasError ? cssVars.colorDanger : cssVars.gray300,
+    backgroundColor: cssVars.light,
+    borderColor: $hasError ? cssVars.colorDanger : cssVars.light4,
     focusBorderColor: $hasError ? cssVars.colorDanger : cssVars.mainColor,
     isInteractive: true,
   };
@@ -77,13 +77,13 @@ const StyledInput = styled.input<InputProps>`
       outline: none;
       padding: 0;
       font-size: 1rem;
-      color: ${cssVars.gray900};
-      ${$hasError ? `background: ${cssVars.gray300};` : ''}
+      color: ${cssVars.dark};
+      ${$hasError ? `background: ${cssVars.light4};` : ''}
 
       &::placeholder {
         font-style: italic;
         font-weight: 300;
-        color: ${cssVars.gray500};
+        color: ${cssVars.dark6};
       }
 
       &::-webkit-inner-spin-button,

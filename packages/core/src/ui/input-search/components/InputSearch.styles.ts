@@ -23,12 +23,12 @@ const getStatusStyles = (status: SearchStatus = 'default'): StatusStyles => {
   const statusMap: Record<SearchStatus, StatusStyles> = {
     default: {
       bg: cssVars.light,
-      border: cssVars.gray400,
+      border: cssVars.light5,
       boxShadow: 'none',
       focusBorder: cssVars.mainColor,
     },
     error: {
-      bg: cssVars.gray200,
+      bg: cssVars.light4,
       border: cssVars.colorDanger,
       boxShadow: `0 0 3px ${cssVars.colorDanger}`,
       focusBorder: cssVars.colorDanger,
@@ -66,7 +66,7 @@ const StyledIcon = styled.div`
   align-items: center;
   justify-content: center;
   border-radius: 0.75rem;
-  color: ${cssVars.gray700};
+  color: ${cssVars.dark3};
 `;
 
 const StyledInput = styled.input`
@@ -83,7 +83,7 @@ const StyledInput = styled.input`
   &::placeholder {
     font-weight: 300;
     line-height: 1.875rem;
-    color: ${cssVars.gray600};
+    color: ${cssVars.dark6};
   }
 `;
 

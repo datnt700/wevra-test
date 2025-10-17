@@ -13,7 +13,7 @@ const StyledWrapper = styled.div<{ $hasError?: boolean }>`
     flex-direction: column;
     gap: 0.5rem;
     width: 100%;
-    border: 1px solid ${$hasError ? cssVars.colorDanger : cssVars.gray400};
+    border: 1px solid ${$hasError ? cssVars.colorDanger : cssVars.light5};
     border-radius: ${styleVars.borderRadiusMedium};
     transition: all 0.2s ease-in-out;
 
@@ -34,7 +34,7 @@ const StyledTextArea = styled.textarea<{ $hasError?: boolean }>`
     width: 100%;
     font-size: 1rem;
     border-radius: ${styleVars.borderRadiusMedium};
-    border: 1px solid ${$hasError ? cssVars.colorDanger : cssVars.gray400};
+    border: 1px solid ${$hasError ? cssVars.colorDanger : cssVars.light5};
     font-family: inherit;
     transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
     resize: vertical;
@@ -49,11 +49,11 @@ const StyledTextArea = styled.textarea<{ $hasError?: boolean }>`
       font-style: italic;
       font-weight: 300;
       line-height: 1.875rem;
-      color: ${cssVars.gray600};
+      color: ${cssVars.dark6};
     }
 
     &:disabled {
-      background-color: ${cssVars.gray200};
+      background-color: ${cssVars.light4};
       cursor: not-allowed;
       opacity: 0.6;
     }

@@ -6,7 +6,7 @@ export const Styled = {
     shouldForwardProp: (prop) => !prop.startsWith('$'),
   })<{ $required?: boolean }>`
     font-size: 1rem;
-    color: ${cssVars.gray900};
+    color: ${cssVars.dark};
     font-style: normal;
     font-weight: 500;
     line-height: normal;
@@ -25,7 +25,7 @@ export const Styled = {
   `,
   Title: styled.p`
     margin: 0; /* Remove default paragraph margins */
-    color: ${cssVars.gray900};
+    color: ${cssVars.dark};
     font-size: 1rem;
     font-weight: 500;
     line-height: normal;
