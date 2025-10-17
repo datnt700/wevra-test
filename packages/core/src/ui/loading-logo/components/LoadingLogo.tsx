@@ -1,6 +1,35 @@
+/**
+ * LoadingLogo component
+ * An animated logo SVG component for loading states
+ * @module LoadingLogo
+ */
 import { Styled } from './LoadingLogo.styles';
 import { IconType } from '../types';
 
+/**
+ * An animated logo component for loading states
+ *
+ * Features:
+ * - Scalable SVG logo
+ * - Customizable width and height
+ * - Theme-aware fill color
+ * - Optimized for loading screens
+ *
+ * @example
+ * ```tsx
+ * // Default size
+ * <LoadingLogo />
+ *
+ * // Custom size
+ * <LoadingLogo width={150} height={65} />
+ *
+ * // In loading screen
+ * <div className="loading-container">
+ *   <LoadingLogo width={120} height={52} />
+ *   <p>Loading...</p>
+ * </div>
+ * ```
+ */
 export const LoadingLogo = (props: IconType) => (
   <svg
     id="Layer_1"
@@ -20,3 +49,5 @@ export const LoadingLogo = (props: IconType) => (
     <Styled.logoColor d="M93.26,33.24H89.44V30.69H99.86v2.55H96v10H93.26Z" />
   </svg>
 );
+
+LoadingLogo.displayName = 'LoadingLogo';
