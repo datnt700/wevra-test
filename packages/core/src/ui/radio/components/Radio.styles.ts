@@ -66,11 +66,11 @@ const StyledRadioItem = styled(RadioGroup.Item)<{
   ${({ $size = 'default', $isDisabled }) => {
     const styles = getSizeStyles($size);
     return `
-      background-color: ${cssVars.gray0};
+      background-color: ${cssVars.light};
       width: ${styles.itemSize};
       height: ${styles.itemSize};
       border-radius: 100%;
-      border: 2px solid ${cssVars.gray600};
+      border: 2px solid ${cssVars.dark6};
       transition: all 0.2s ease;
       cursor: ${$isDisabled ? 'not-allowed' : 'pointer'};
       opacity: ${$isDisabled ? '0.5' : '1'};
@@ -87,13 +87,13 @@ const StyledRadioItem = styled(RadioGroup.Item)<{
 
       &[data-state="checked"] {
         border-color: ${cssVars.mainColor};
-        background-color: ${cssVars.gray0};
+        background-color: ${cssVars.light};
       }
 
       &:disabled {
         cursor: not-allowed;
         opacity: 0.5;
-        background-color: ${cssVars.gray200};
+        background-color: ${cssVars.light4};
       }
     `;
   }}
@@ -135,7 +135,7 @@ const StyledLabel = styled.label<{
   ${({ $size = 'default', $isDisabled }) => {
     const styles = getSizeStyles($size);
     return `
-      color: ${$isDisabled ? cssVars.gray600 : cssVars.gray1000};
+      color: ${$isDisabled ? cssVars.dark6 : cssVars.dark};
       font-size: ${styles.fontSize};
       line-height: 1.5;
       cursor: ${$isDisabled ? 'not-allowed' : 'pointer'};
@@ -143,7 +143,7 @@ const StyledLabel = styled.label<{
       transition: color 0.2s ease;
 
       &:hover {
-        color: ${$isDisabled ? cssVars.gray600 : cssVars.mainColor};
+        color: ${$isDisabled ? cssVars.dark6 : cssVars.mainColor};
       }
     `;
   }}

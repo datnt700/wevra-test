@@ -20,11 +20,11 @@ interface VariantStyles {
 const getVariantStyles = (variant: SwitchVariant = 'default'): VariantStyles => {
   const variantMap: Record<SwitchVariant, VariantStyles> = {
     default: {
-      bgUnchecked: cssVars.gray600,
+      bgUnchecked: cssVars.dark6,
       bgChecked: cssVars.mainColor,
     },
     primary: {
-      bgUnchecked: cssVars.gray400,
+      bgUnchecked: cssVars.light5,
       bgChecked: cssVars.mainColor,
     },
   };
