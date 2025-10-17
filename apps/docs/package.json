@@ -1,6 +1,7 @@
 {
   "name": "@tavia/docs",
   "version": "0.1.0",
+  "type": "module",
   "private": true,
   "scripts": {
     "preinstall": "npx only-allow pnpm",
@@ -13,7 +14,7 @@
     "format:check": "prettier --check \"**/*.{ts,tsx,js,jsx,json,md,mdx,css}\"",
     "storybook": "storybook dev -p 6006",
     "storybook:dev": "storybook dev -p 6006",
-    "storybook:build": "storybook buil --quiet",
+    "storybook:build": "storybook build --quiet",
     "storybook:move": "mv storybook-static ../../storybook-static",
     "build-storybook": "storybook build",
     "chromatic": "npx chromatic --project-token=chpt_09e7d5fec3ce56f",
