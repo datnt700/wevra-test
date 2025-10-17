@@ -33,7 +33,7 @@ describe('DataTable', () => {
 
     it('renders all column headers', () => {
       render(<DataTable data={mockData} columns={basicColumns} />);
-      
+
       expect(screen.getByText('ID')).toBeInTheDocument();
       expect(screen.getByText('Name')).toBeInTheDocument();
       expect(screen.getByText('Email')).toBeInTheDocument();
@@ -41,7 +41,7 @@ describe('DataTable', () => {
 
     it('renders all row data', () => {
       render(<DataTable data={mockData} columns={basicColumns} />);
-      
+
       expect(screen.getByText('John Doe')).toBeInTheDocument();
       expect(screen.getByText('jane@example.com')).toBeInTheDocument();
       expect(screen.getByText('Bob Johnson')).toBeInTheDocument();
@@ -50,13 +50,13 @@ describe('DataTable', () => {
     it('renders correct number of rows', () => {
       const { container } = render(<DataTable data={mockData} columns={basicColumns} />);
       const rows = container.querySelectorAll('tbody tr');
-      
+
       expect(rows).toHaveLength(3);
     });
 
     it('renders empty state when no data', () => {
       render(<DataTable data={[]} columns={basicColumns} />);
-      
+
       expect(screen.getByText('No data available')).toBeInTheDocument();
     });
   });
@@ -64,14 +64,14 @@ describe('DataTable', () => {
   describe('Empty State', () => {
     it('renders default empty state message', () => {
       render(<DataTable data={[]} columns={basicColumns} />);
-      
+
       expect(screen.getByText('No data available')).toBeInTheDocument();
     });
 
     it('renders custom empty state', () => {
       const customEmpty = <div>No users found</div>;
       render(<DataTable data={[]} columns={basicColumns} empty={customEmpty} />);
-      
+
       expect(screen.getByText('No users found')).toBeInTheDocument();
       expect(screen.queryByText('No data available')).not.toBeInTheDocument();
     });
@@ -84,7 +84,7 @@ describe('DataTable', () => {
         </div>
       );
       render(<DataTable data={[]} columns={basicColumns} empty={customEmpty} />);
-      
+
       expect(screen.getByText('No data')).toBeInTheDocument();
       expect(screen.getByText('Try adjusting your filters')).toBeInTheDocument();
     });
@@ -94,28 +94,28 @@ describe('DataTable', () => {
     it('calls onRowClick when row is clicked', async () => {
       const user = userEvent.setup();
       const handleRowClick = vi.fn();
-      
+
       render(<DataTable data={mockData} columns={basicColumns} onRowClick={handleRowClick} />);
-      
+
       const firstRow = screen.getByText('John Doe').closest('tr');
       if (firstRow) {
         await user.click(firstRow);
       }
-      
+
       expect(handleRowClick).toHaveBeenCalledWith(mockData[0]);
     });
 
     it('passes correct row data to onRowClick', async () => {
       const user = userEvent.setup();
       const handleRowClick = vi.fn();
-      
+
       render(<DataTable data={mockData} columns={basicColumns} onRowClick={handleRowClick} />);
-      
+
       const secondRow = screen.getByText('Jane Smith').closest('tr');
       if (secondRow) {
         await user.click(secondRow);
       }
-      
+
       expect(handleRowClick).toHaveBeenCalledWith(mockData[1]);
       expect(handleRowClick).toHaveBeenCalledWith(
         expect.objectContaining({
@@ -128,15 +128,15 @@ describe('DataTable', () => {
 
     it('works without onRowClick prop', async () => {
       const user = userEvent.setup();
-      
+
       render(<DataTable data={mockData} columns={basicColumns} />);
-      
+
       const firstRow = screen.getByText('John Doe').closest('tr');
       if (firstRow) {
         // Should not throw error
         await user.click(firstRow);
       }
-      
+
       expect(screen.getByText('John Doe')).toBeInTheDocument();
     });
   });
@@ -151,10 +151,10 @@ describe('DataTable', () => {
           cell: ({ getValue }) => <strong>{getValue() as string}</strong>,
         },
       ];
-      
+
       const { container } = render(<DataTable data={mockData} columns={customColumns} />);
       const strongElements = container.querySelectorAll('strong');
-      
+
       expect(strongElements).toHaveLength(3); // 3 rows with strong tags
     });
 
@@ -166,9 +166,9 @@ describe('DataTable', () => {
         },
         { accessorKey: 'name', header: 'Name' },
       ];
-      
+
       render(<DataTable data={mockData} columns={customColumns} />);
-      
+
       expect(screen.getByText('User ID')).toBeInTheDocument();
     });
   });
@@ -176,14 +176,14 @@ describe('DataTable', () => {
   describe('Pagination', () => {
     it('accepts pageSize prop', () => {
       render(<DataTable data={mockData} columns={basicColumns} pageSize={2} />);
-      
+
       // Table should render with custom page size (though pagination controls not visible in this simple version)
       expect(screen.getByText('John Doe')).toBeInTheDocument();
     });
 
     it('uses default pageSize of 10', () => {
       render(<DataTable data={mockData} columns={basicColumns} />);
-      
+
       // All 3 items should be visible (within default page size of 10)
       expect(screen.getByText('John Doe')).toBeInTheDocument();
       expect(screen.getByText('Jane Smith')).toBeInTheDocument();
@@ -193,9 +193,9 @@ describe('DataTable', () => {
 
   describe('Edge Cases', () => {
     it('handles single row', () => {
-      const singleData = [mockData[0]];
+      const singleData = [{ id: 1, name: 'John Doe', email: 'john@example.com', age: 30 }];
       render(<DataTable data={singleData} columns={basicColumns} />);
-      
+
       expect(screen.getByText('John Doe')).toBeInTheDocument();
       expect(screen.queryByText('Jane Smith')).not.toBeInTheDocument();
     });
@@ -206,9 +206,9 @@ describe('DataTable', () => {
         name: `User ${i + 1}`,
         email: `user${i + 1}@example.com`,
       }));
-      
+
       render(<DataTable data={largeData} columns={basicColumns} />);
-      
+
       // First item should be visible
       expect(screen.getByText('User 1')).toBeInTheDocument();
     });
@@ -217,19 +217,17 @@ describe('DataTable', () => {
       const dataWithMissing: TestUser[] = [
         { id: 1, name: 'John Doe', email: 'john@example.com' }, // age is optional
       ];
-      
+
       render(<DataTable data={dataWithMissing} columns={basicColumns} />);
-      
+
       expect(screen.getByText('John Doe')).toBeInTheDocument();
     });
 
     it('handles single column', () => {
-      const singleColumn: ColumnDef<TestUser>[] = [
-        { accessorKey: 'name', header: 'Name' },
-      ];
-      
+      const singleColumn: ColumnDef<TestUser>[] = [{ accessorKey: 'name', header: 'Name' }];
+
       render(<DataTable data={mockData} columns={singleColumn} />);
-      
+
       expect(screen.getByText('Name')).toBeInTheDocument();
       expect(screen.getByText('John Doe')).toBeInTheDocument();
       expect(screen.queryByText('ID')).not.toBeInTheDocument();
@@ -238,7 +236,7 @@ describe('DataTable', () => {
     it('renders empty row with correct colspan', () => {
       const { container } = render(<DataTable data={[]} columns={basicColumns} />);
       const emptyCell = container.querySelector('tbody td');
-      
+
       expect(emptyCell).toHaveAttribute('colspan', '3');
     });
   });
@@ -246,7 +244,7 @@ describe('DataTable', () => {
   describe('Accessibility', () => {
     it('renders semantic table structure', () => {
       const { container } = render(<DataTable data={mockData} columns={basicColumns} />);
-      
+
       expect(container.querySelector('table')).toBeInTheDocument();
       expect(container.querySelector('thead')).toBeInTheDocument();
       expect(container.querySelector('tbody')).toBeInTheDocument();
@@ -255,14 +253,14 @@ describe('DataTable', () => {
     it('renders table headers with th elements', () => {
       const { container } = render(<DataTable data={mockData} columns={basicColumns} />);
       const headers = container.querySelectorAll('th');
-      
+
       expect(headers).toHaveLength(3);
     });
 
     it('renders table cells with td elements', () => {
       const { container } = render(<DataTable data={mockData} columns={basicColumns} />);
       const cells = container.querySelectorAll('tbody td');
-      
+
       // 3 rows × 3 columns = 9 cells
       expect(cells.length).toBeGreaterThan(0);
     });
@@ -270,7 +268,7 @@ describe('DataTable', () => {
     it('maintains proper table row structure', () => {
       const { container } = render(<DataTable data={mockData} columns={basicColumns} />);
       const rows = container.querySelectorAll('tbody tr');
-      
+
       rows.forEach((row) => {
         const cells = row.querySelectorAll('td');
         expect(cells.length).toBe(3); // Each row should have 3 cells
@@ -286,9 +284,7 @@ describe('DataTable', () => {
         price: number;
       }
 
-      const products: Product[] = [
-        { sku: 'ABC123', title: 'Product 1', price: 29.99 },
-      ];
+      const products: Product[] = [{ sku: 'ABC123', title: 'Product 1', price: 29.99 }];
 
       const productColumns: ColumnDef<Product>[] = [
         { accessorKey: 'sku', header: 'SKU' },
@@ -297,7 +293,7 @@ describe('DataTable', () => {
       ];
 
       render(<DataTable data={products} columns={productColumns} />);
-      
+
       expect(screen.getByText('ABC123')).toBeInTheDocument();
       expect(screen.getByText('Product 1')).toBeInTheDocument();
     });
