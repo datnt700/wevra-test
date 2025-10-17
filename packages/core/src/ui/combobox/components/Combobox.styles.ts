@@ -5,7 +5,7 @@
  */
 import styled from '@emotion/styled';
 import { cssVars } from '../../../theme/tokens/colors';
-import { styleVars } from '../../../theme/tokens/variables';
+import { radii } from '../../../theme/tokens/radii';
 
 type ComboboxVariant = 'default' | 'danger' | 'success' | 'disabled';
 
@@ -77,7 +77,7 @@ const StyledInputWrapper = styled.div<{ $variant?: ComboboxVariant }>`
       align-items: center;
       background-color: ${styles.bg};
       border: 1px solid ${styles.border};
-      border-radius: ${styleVars.borderRadiusMedium};
+      border-radius: ${radii.md};
       transition: all 0.2s ease-in-out;
       ${styles.boxShadow !== 'none' ? `box-shadow: ${styles.boxShadow};` : ''}
 
@@ -102,7 +102,7 @@ const StyledInputWrapper = styled.div<{ $variant?: ComboboxVariant }>`
 
 const StyledClearBtn = styled.button`
   background-color: transparent;
-  border-radius: ${styleVars.borderRadiusMedium};
+  border-radius: ${radii.md};
   color: ${cssVars.dark6};
   border: none;
   cursor: pointer;
@@ -124,7 +124,7 @@ const StyledInput = styled.input`
   padding: 0.5rem 1rem;
   width: 100%;
   font-size: 1rem;
-  border-radius: ${styleVars.borderRadiusMedium};
+  border-radius: ${radii.md};
   border: 0;
   background-color: transparent;
 
@@ -152,7 +152,7 @@ const StyledDropdown = styled.div`
   overflow-x: hidden;
   overflow-y: auto;
   position: relative;
-  border-radius: ${styleVars.borderRadiusSmall};
+  border-radius: ${radii.sm};
   background-color: ${cssVars.light};
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 `;
