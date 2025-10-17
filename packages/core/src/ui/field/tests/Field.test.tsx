@@ -17,21 +17,14 @@ describe('Field', () => {
     });
 
     it('should render with default column layout', () => {
-      const { container } = render(
-        <Field label="Name" input={<input type="text" />} />
-      );
+      const { container } = render(<Field label="Name" input={<input type="text" />} />);
 
       const wrapper = container.firstChild as HTMLElement;
       expect(wrapper).toHaveStyle({ flexDirection: 'column' });
     });
 
     it('should render with textarea input', () => {
-      render(
-        <Field
-          label="Description"
-          input={<textarea rows={4} data-testid="description" />}
-        />
-      );
+      render(<Field label="Description" input={<textarea rows={4} data-testid="description" />} />);
 
       expect(screen.getByText('Description')).toBeInTheDocument();
       expect(screen.getByTestId('description')).toBeInTheDocument();
@@ -69,22 +62,14 @@ describe('Field', () => {
 
   describe('Input Types', () => {
     it('should render with text input', () => {
-      render(
-        <Field
-          label="Username"
-          input={<input type="text" data-testid="username" />}
-        />
-      );
+      render(<Field label="Username" input={<input type="text" data-testid="username" />} />);
 
       expect(screen.getByTestId('username')).toHaveAttribute('type', 'text');
     });
 
     it('should render with checkbox input', () => {
       render(
-        <Field
-          label="Remember Me"
-          input={<input type="checkbox" data-testid="remember" />}
-        />
+        <Field label="Remember Me" input={<input type="checkbox" data-testid="remember" />} />
       );
 
       expect(screen.getByTestId('remember')).toHaveAttribute('type', 'checkbox');
@@ -111,11 +96,7 @@ describe('Field', () => {
   describe('Custom Props', () => {
     it('should pass custom className to wrapper', () => {
       const { container } = render(
-        <Field
-          className="custom-field"
-          label="Name"
-          input={<input type="text" />}
-        />
+        <Field className="custom-field" label="Name" input={<input type="text" />} />
       );
 
       const wrapper = container.firstChild as HTMLElement;
@@ -124,11 +105,7 @@ describe('Field', () => {
 
     it('should pass other props to wrapper', () => {
       const { container } = render(
-        <Field
-          label="Email"
-          input={<input type="email" />}
-          data-testid="field-wrapper"
-        />
+        <Field label="Email" input={<input type="email" />} data-testid="field-wrapper" />
       );
 
       expect(container.firstChild).toHaveAttribute('data-testid', 'field-wrapper');
@@ -136,15 +113,10 @@ describe('Field', () => {
 
     it('should render with custom styled input component', () => {
       const StyledInput = () => (
-        <input
-          style={{ border: '2px solid red' }}
-          data-testid="styled-input"
-        />
+        <input style={{ border: '2px solid red' }} data-testid="styled-input" />
       );
 
-      render(
-        <Field label="Custom" input={<StyledInput />} />
-      );
+      render(<Field label="Custom" input={<StyledInput />} />);
 
       expect(screen.getByTestId('styled-input')).toBeInTheDocument();
     });
@@ -152,9 +124,7 @@ describe('Field', () => {
 
   describe('Edge Cases', () => {
     it('should render with empty label', () => {
-      render(
-        <Field label="" input={<input type="text" data-testid="input" />} />
-      );
+      render(<Field label="" input={<input type="text" data-testid="input" />} />);
 
       expect(screen.getByTestId('input')).toBeInTheDocument();
     });
@@ -167,9 +137,7 @@ describe('Field', () => {
         </div>
       );
 
-      render(
-        <Field label="Multiple Inputs" input={<ComplexInput />} />
-      );
+      render(<Field label="Multiple Inputs" input={<ComplexInput />} />);
 
       expect(screen.getByTestId('input1')).toBeInTheDocument();
       expect(screen.getByTestId('input2')).toBeInTheDocument();

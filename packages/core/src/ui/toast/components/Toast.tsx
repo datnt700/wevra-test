@@ -1,3 +1,8 @@
+/**
+ * Toast component
+ * A notification toast component using Radix UI primitives
+ * @module Toast
+ */
 import { Toast as RadixToast } from 'radix-ui';
 
 import { Styled } from './Toast.styles';
@@ -6,15 +11,24 @@ import { Icon } from '@tavia/core';
 import { X } from 'lucide-react';
 
 export interface ToastProps {
+  /** Toast title */
   title?: React.ReactNode;
+  /** Toast content/description */
   content?: React.ReactNode;
+  /** Whether the toast is currently showing */
   isShowing: boolean;
+  /** Callback to control toast visibility */
   setShowing?: (value: boolean) => void;
+  /** Custom children to render instead of title/content */
   children?: React.ReactNode;
+  /** Duration before auto-close (ms) */
   duration?: number;
+  /** Show undo action button */
   canUndo?: boolean;
+  /** Show close button */
   canClose?: boolean;
-  position:
+  /** Toast position on screen */
+  position?:
     | 'bottom-right'
     | 'top-right'
     | 'bottom-left'
@@ -23,44 +37,52 @@ export interface ToastProps {
     | 'top-center';
 }
 
+/**
+ * A notification toast component with Radix UI
+ *
+ * Features:
+ * - Multiple position options (6 positions)
+ * - Auto-dismiss with configurable duration
+ * - Optional undo and close actions
+ * - Swipe to dismiss (right direction)
+ * - Accessible with ARIA labels
+ *
+ * @example
+ * ```tsx
+ * // Basic toast
+ * <Toast
+ *   isShowing={showToast}
+ *   setShowing={setShowToast}
+ *   title="Success"
+ *   content="Your changes have been saved"
+ *   position="bottom-right"
+ * />
+ *
+ * // Toast with undo action
+ * <Toast
+ *   isShowing={showToast}
+ *   setShowing={setShowToast}
+ *   title="Item deleted"
+ *   content="The item was removed"
+ *   canUndo
+ *   canClose
+ *   position="top-center"
+ * />
+ *
+ * // Custom content toast
+ * <Toast isShowing={showToast} setShowing={setShowToast} position="bottom-left">
+ *   <div>Custom notification content</div>
+ * </Toast>
+ * ```
+ */
 export const Toast = ({ children, ...other }: ToastProps) => {
   return <Radix {...other}>{children}</Radix>;
 };
 
-/* const Revt = ({ isShowing, hideToast, duration = TOAST_TIMEOUT, children }: ToastProps) => {
-  const [node] = useState(document.createElement('div'));
-  const removeNode = () => {
-    if (!document) return;
-    if (document.querySelector('#ToastContainer')?.children.length) {
-      document.querySelector('#ToastContainer')?.childNodes[0].remove();
-    }
-  };
+Toast.displayName = 'Toast';
 
-  useEffect(() => {
-    if (isShowing) {
-      document?.querySelector('#ToastContainer')?.appendChild(node).classList.add(styles.toast);
-
-      setTimeout(() => {
-        removeNode();
-        setShowing(false);
-      }, duration);
-    } else {
-      removeNode();
-    }
-
-    return () => removeNode();
-  }, [node, isShowing]);
-
-  return ReactDOM.createPortal(
-    <div className={styles.toast}>
-      <div className={styles.content}>{children}</div>
-      <div className={styles.closeBtn} onClick={() => setShowing(false)}>
-        <Icon source={<X width={24} height={24} stroke={'white'} />} />
-      </div>
-    </div>,
-    node,
-  );
-};
+/**
+ * Internal Radix Toast implementation
  */
 const Radix = ({
   title,
@@ -79,7 +101,7 @@ const Radix = ({
         open={isShowing}
         onOpenChange={setShowing}
         duration={duration}
-        position={position}
+        $position={position}
       >
         {children ? (
           <Styled.Description asChild>{children}</Styled.Description>
