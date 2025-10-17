@@ -1,3 +1,8 @@
+/**
+ * Accordion component
+ * An expandable/collapsible content section using Radix UI primitives
+ * @module Accordion
+ */
 import clsx from 'clsx';
 import React from 'react';
 import { AccordionContentProps, AccordionProps, AccordionTriggerProps } from '../types';
@@ -5,9 +10,53 @@ import { Styled } from './Accordion.styles';
 import { Icon } from '../../icon';
 import { ChevronDown } from 'lucide-react';
 
+/**
+ * A collapsible accordion component with Radix UI
+ *
+ * Features:
+ * - Single or multiple item expansion
+ * - Smooth slide animations
+ * - Keyboard navigation support
+ * - Disabled state support
+ * - Chevron indicator rotation
+ *
+ * @example
+ * ```tsx
+ * // Single accordion (only one item open at a time)
+ * <Accordion
+ *   type="single"
+ *   items={[
+ *     {
+ *       value: 'item-1',
+ *       trigger: { content: 'Section 1' },
+ *       content: { content: 'Content for section 1' }
+ *     },
+ *     {
+ *       value: 'item-2',
+ *       trigger: { content: 'Section 2' },
+ *       content: { content: 'Content for section 2' }
+ *     }
+ *   ]}
+ * />
+ *
+ * // Multiple accordion (multiple items can be open)
+ * <Accordion
+ *   type="multiple"
+ *   items={[...]}
+ * />
+ *
+ * // Disabled accordion
+ * <Accordion
+ *   isDisabled
+ *   items={[...]}
+ * />
+ * ```
+ */
 export const Accordion = ({ ...other }: AccordionProps) => {
   return <Radix {...other} />;
 };
+
+Accordion.displayName = 'Accordion';
 
 const Radix = ({ items = [], type = 'single', isDisabled, ...other }: AccordionProps) => {
   return (
@@ -26,7 +75,9 @@ interface ExtendedAccordionTriggerProps extends AccordionTriggerProps {
   'data-state'?: 'open' | 'closed';
 }
 
-// AccordionTrigger
+/**
+ * AccordionTrigger - Internal trigger button component
+ */
 const AccordionTrigger = React.forwardRef<HTMLButtonElement, ExtendedAccordionTriggerProps>(
   ({ children, className, ...props }, forwardedRef) => {
     const isOpen = (props as any)['data-state'] === 'open';
@@ -44,7 +95,11 @@ const AccordionTrigger = React.forwardRef<HTMLButtonElement, ExtendedAccordionTr
   }
 );
 
-// AccordionContent
+AccordionTrigger.displayName = 'AccordionTrigger';
+
+/**
+ * AccordionContent - Internal content container component
+ */
 const AccordionContent = React.forwardRef<HTMLDivElement, AccordionContentProps>(
   ({ children, className, ...props }, forwardedRef) => (
     <Styled.Content className={clsx(className)} {...props} ref={forwardedRef}>
@@ -52,3 +107,5 @@ const AccordionContent = React.forwardRef<HTMLDivElement, AccordionContentProps>
     </Styled.Content>
   )
 );
+
+AccordionContent.displayName = 'AccordionContent';
