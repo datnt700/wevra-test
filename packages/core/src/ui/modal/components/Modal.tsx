@@ -92,11 +92,7 @@ export const Modal = ({
               <div id="modal-header" className="header">
                 {header}
               </div>
-              <Styled.CloseButton
-                onClick={handleClose}
-                aria-label="Close modal"
-                type="button"
-              >
+              <Styled.CloseButton onClick={handleClose} aria-label="Close modal" type="button">
                 <Icon source={<X size={24} />} />
               </Styled.CloseButton>
             </Styled.Header>
@@ -115,4 +111,3 @@ export const Modal = ({
 };
 
 Modal.displayName = 'Modal';
-

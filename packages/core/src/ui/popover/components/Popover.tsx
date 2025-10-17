@@ -1,3 +1,8 @@
+/**
+ * Popover component
+ * A floating content container built with Radix UI primitives
+ * @module Popover
+ */
 import { Popover as RadixPopover } from 'radix-ui';
 import { Icon } from '@tavia/core';
 import { Styled } from './Popover.styles';
@@ -5,23 +10,33 @@ import { X } from 'lucide-react';
 import { PopoverProps } from '../types';
 
 /**
- * A reusable Popover component built with Radix UI primitives.
+ * A reusable popover component for displaying floating content
  *
  * Features:
- * - Displays content in a popover triggered by a specified element.
- * - Supports dynamic positioning (`top`, `right`, `bottom`, `left`) with optional offsets.
- * - Includes an optional close button for dismissing the popover.
- * - Provides an optional arrow for better visual alignment.
- * - Styled using Emotion's `styled` API for modularity and reusability.
+ * - Built on Radix UI for accessibility
+ * - Positioning support (top, right, bottom, left)
+ * - Optional arrow pointing to trigger
+ * - Optional close button
+ * - Keyboard navigation (Escape to close)
  *
- * Props:
- * - `trigger`: The element that triggers the popover.
- * - `children`: The content to display inside the popover.
- * - `hasClose`: Boolean indicating whether the popover should include a close button.
- * - `className`: Optional class name for additional styling.
- * - `side`: The side on which the popover should appear (`top`, `right`, `bottom`, `left`).
- * - `sideOffset`: Offset distance from the trigger element.
- * - `showArrow`: Boolean indicating whether the popover should display an arrow.
+ * @example
+ * ```tsx
+ * // Basic popover
+ * <Popover trigger={<button>Open</button>}>
+ *   <p>Popover content</p>
+ * </Popover>
+ *
+ * // With close button and arrow
+ * <Popover
+ *   trigger={<button>Info</button>}
+ *   hasClose
+ *   showArrow
+ *   side="bottom"
+ *   sideOffset={10}
+ * >
+ *   <div>Detailed information here</div>
+ * </Popover>
+ * ```
  */
 export const Popover = ({
   trigger,
@@ -34,43 +49,21 @@ export const Popover = ({
   ...other
 }: PopoverProps) => {
   return (
-    <Radix
-      trigger={trigger}
-      hasClose={hasClose}
-      className={className}
-      side={side}
-      sideOffset={sideOffset}
-      showArrow={showArrow}
-      {...other}
-    >
-      {children}
-    </Radix>
-  );
-};
-
-const Radix = ({
-  trigger,
-  children,
-  hasClose,
-  className,
-  side,
-  sideOffset,
-  showArrow,
-}: PopoverProps) => {
-  return (
     <RadixPopover.Root>
       <RadixPopover.Trigger asChild>{trigger}</RadixPopover.Trigger>
       <RadixPopover.Portal>
-        <Styled.Content className={className} sideOffset={sideOffset} side={side}>
+        <Styled.Content className={className} sideOffset={sideOffset} side={side} {...other}>
           {children}
-          {hasClose ? (
-            <Styled.Close aria-label="Close">
-              <Icon source={<X size={24} />} />
+          {hasClose && (
+            <Styled.Close aria-label="Close popover">
+              <Icon source={<X size={16} />} />
             </Styled.Close>
-          ) : null}
-          {showArrow ? <Styled.Arrow /> : null}
+          )}
+          {showArrow && <Styled.Arrow />}
         </Styled.Content>
       </RadixPopover.Portal>
     </RadixPopover.Root>
   );
 };
+
+Popover.displayName = 'Popover';
