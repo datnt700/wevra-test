@@ -3,7 +3,7 @@
  * Tests basic rendering, variants, error states, and user interactions
  */
 import { render, screen, fireEvent } from '@testing-library/react';
-import { InputText } from './InputText';
+import { InputText } from '../components/InputText';
 import { describe, it, expect, vi } from 'vitest';
 
 describe('InputText Component', () => {

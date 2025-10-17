@@ -3,7 +3,7 @@
  * Tests number input specific behaviors
  */
 import { render, screen, fireEvent } from '@testing-library/react';
-import { InputNumber } from './InputNumber';
+import { InputNumber } from '../components/InputNumber';
 import { describe, it, expect, vi } from 'vitest';
 
 describe('InputNumber Component', () => {
