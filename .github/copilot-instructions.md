@@ -1215,22 +1215,32 @@ import { Modal } from '@tavia/core/components/dialogs/Modal';
 
 ### Component Structure Pattern
 
-Each component follows this structure:
+Each component MUST follow this exact structure:
 
 ```
-ui/button/
+ui/component-name/
 ├── components/
-│   ├── Button.tsx           # Component implementation
-│   ├── Button.styles.ts     # Emotion styles
-│   └── index.ts             # Component exports
+│   ├── ComponentName.tsx           # Component implementation
+│   ├── ComponentName.styles.ts     # Emotion styles
+│   └── index.ts                    # Component exports
 ├── types/
-│   └── index.ts             # TypeScript types
+│   ├── ComponentNameProps.ts       # TypeScript prop types
+│   └── index.ts                    # Type exports
 ├── tests/
-│   └── Button.test.tsx      # Vitest tests
-└── index.ts                 # Barrel export
+│   └── ComponentName.test.tsx      # Vitest tests (15-50 tests)
+└── index.ts                        # Barrel export
 ```
 
-### Styling: 100% Emotion
+**CRITICAL RULES**:
+
+1. **Folder name**: lowercase-with-dashes (e.g., `empty-state`, `button`)
+2. **Component name**: PascalCase (e.g., `EmptyState`, `Button`)
+3. **File naming**: `ComponentName.tsx`, `ComponentName.styles.ts`,
+   `ComponentName.test.tsx`
+4. **Types folder**: MUST have separate `ComponentNameProps.ts` file
+5. **Tests folder**: MUST exist with comprehensive tests (minimum 15 tests)
+
+### Styling: 100% Emotion with Theme Tokens
 
 **ALL components use Emotion** for styling:
 
@@ -1241,37 +1251,27 @@ ui/button/
 **NO SCSS modules** - All legacy `.module.scss` files have been removed and
 converted to Emotion.
 
-**CRITICAL: Use Direct Theme Token Access, NOT CSS Variables**
+#### Emotion Styling Pattern (MUST FOLLOW)
 
-Components MUST import and use theme tokens directly from `tokens/colors.ts`,
-NOT CSS variables.
-
-**❌ WRONG - CSS Variables (Don't exist in theme)**:
+**1. Styles File Structure** (`ComponentName.styles.ts`):
 
 ```typescript
-// DON'T DO THIS - CSS variables don't exist!
-const StyledAlert = styled.div<{ $variant?: string }>`
-  color: var(--color-${props.$variant}-text);
-  background: var(--color-${props.$variant}-bg);
-`;
-```
-
-**✅ CORRECT - Direct Theme Token Access**:
-
-```typescript
-// Component.styles.ts
 import styled from '@emotion/styled';
-import { cssVars } from '../../../tokens/colors';
+import { cssVars } from '../../../theme/tokens/colors';
+import { radii } from '../../../theme/tokens/radii';
 
 type Variant = 'success' | 'warning' | 'danger';
 
-interface StyledProps {
+interface StyledWrapperProps {
   $variant?: Variant;
+  $isFilled?: boolean;
 }
 
-// Helper function for variant mapping (recommended)
+/**
+ * Helper function for variant color mapping
+ */
 const getVariantColors = (variant: Variant = 'success') => {
-  const variantMap = {
+  const variantMap: Record<Variant, VariantColors> = {
     success: {
       base: cssVars.colorSuccess,
       light: cssVars.colorSuccessLight,
@@ -1291,42 +1291,239 @@ const getVariantColors = (variant: Variant = 'success') => {
   return variantMap[variant];
 };
 
-// Use template literals with destructured props
-const StyledComponent = styled.div<StyledProps>`
-  ${({ $variant = 'success' }) => {
-    const colors = getVariantColors($variant);
-    return `
-      color: ${colors.base};
-      background-color: ${colors.light}20; // 20 = hex opacity
-      border: 1px solid ${colors.base};
+/**
+ * Styled components for the ComponentName.
+ */
+export const Styled: any = {
+  Wrapper: styled.div<StyledWrapperProps>`
+    padding: 0.75rem 1rem;
+    border-radius: ${radii.md};
 
-      &:hover {
-        border-color: ${colors.dark};
+    ${({ $variant = 'success', $isFilled = false }) => {
+      const colors = getVariantColors($variant);
+
+      if ($isFilled) {
+        return `
+          color: ${colors.dark};
+          background-color: ${colors.light};
+          border: 1px solid ${colors.base};
+        `;
       }
-    `;
-  }}
-`;
 
-// Export pattern to avoid TS declaration errors
-export const Styled = {
-  Component: StyledComponent,
+      return `
+        color: ${colors.base};
+        background-color: ${colors.light}20; // 20 = 12% opacity
+        border: 1px solid ${colors.base};
+      `;
+    }}
+
+    &:hover {
+      opacity: 0.9;
+    }
+  `,
+
+  Content: styled.div`
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: ${cssVars.gray900};
+  `,
 };
 ```
 
-**Available Theme Tokens** (from `tokens/colors.ts`):
+**2. Component File Structure** (`ComponentName.tsx`):
+
+```typescript
+import { Styled } from './ComponentName.styles';
+import { ComponentNameProps } from '../types';
+
+/**
+ * A reusable ComponentName component designed to [purpose].
+ *
+ * Features:
+ * - [Feature 1]
+ * - [Feature 2]
+ * - Styled using Emotion's `styled` API with theme tokens for modularity and reusability.
+ *
+ * Props:
+ * - `variant`: The variant of the component (`success`, `warning`, `danger`).
+ * - `isFilled`: Boolean indicating whether the component should have a filled background.
+ */
+export const ComponentName = ({
+  variant = 'success',
+  isFilled = false,
+  children,
+  className: _className, // Transient prop (not applied to DOM)
+  ...other
+}: ComponentNameProps) => {
+  return (
+    <Styled.Wrapper $variant={variant} $isFilled={isFilled} {...other}>
+      <Styled.Content>{children}</Styled.Content>
+    </Styled.Wrapper>
+  );
+};
+
+ComponentName.displayName = 'ComponentName';
+```
+
+**3. Types File Structure** (`types/ComponentNameProps.ts`):
+
+```typescript
+import React from 'react';
+
+/**
+ * Props for the ComponentName component.
+ */
+export interface ComponentNameProps {
+  /**
+   * Custom content to display.
+   */
+  children?: React.ReactNode;
+
+  /**
+   * The variant of the component (`success`, `warning`, `danger`).
+   * - Default: 'success'
+   */
+  variant?: 'success' | 'warning' | 'danger';
+
+  /**
+   * Boolean indicating whether the component should have a filled background.
+   * - Default: false
+   */
+  isFilled?: boolean;
+
+  /**
+   * Additional CSS class for styling (transient prop, not applied to DOM).
+   */
+  className?: string;
+}
+```
+
+**4. Types Index** (`types/index.ts`):
+
+```typescript
+export * from './ComponentNameProps';
+```
+
+#### Critical Emotion Best Practices
+
+**MUST DO**:
+
+1. ✅ **Import theme tokens directly**:
+
+   ```typescript
+   import { cssVars } from '../../../theme/tokens/colors';
+   import { radii } from '../../../theme/tokens/radii';
+   ```
+
+2. ✅ **Use `export const Styled: any = {` pattern** (NOT separate const
+   declarations):
+
+   ```typescript
+   // ✅ CORRECT
+   export const Styled: any = {
+     Wrapper: styled.div`...`,
+     Content: styled.div`...`,
+   };
+
+   // ❌ WRONG
+   const StyledWrapper = styled.div`...`;
+   const StyledContent = styled.div`...`;
+   export const Styled = { Wrapper: StyledWrapper, Content: StyledContent };
+   ```
+
+3. ✅ **Prefix transient props with `$`** (avoid DOM warnings):
+
+   ```typescript
+   // Component
+   <Styled.Wrapper $variant={variant} $isFilled={isFilled} />
+
+   // Styles
+   styled.div<{ $variant?: string; $isFilled?: boolean }>`
+   ```
+
+4. ✅ **Use helper functions for variant mapping**:
+
+   ```typescript
+   const getVariantColors = (variant: Variant) => { ... };
+   ```
+
+5. ✅ **Use template literals with destructured props**:
+
+   ```typescript
+   ${({ $variant = 'success', $isFilled = false }) => {
+     const colors = getVariantColors($variant);
+     return `...`;
+   }}
+   ```
+
+6. ✅ **Use `radii` tokens for border-radius** (NEVER hardcode px):
+
+   ```typescript
+   border-radius: ${radii.md}; // ✅ CORRECT
+   border-radius: 8px;         // ❌ WRONG
+   ```
+
+7. ✅ **Add hex opacity for transparent backgrounds**:
+
+   ```typescript
+   background-color: ${colors.light}20; // 20 = 12% opacity
+   ```
+
+8. ✅ **Keep Radix CSS variables** (don't replace `--radix-*`):
+   ```typescript
+   height: var(--radix-accordion-content-height); // ✅ Keep these
+   ```
+
+**NEVER DO**:
+
+1. ❌ **Don't use CSS variables** (they don't exist):
+
+   ```typescript
+   color: var(--color-${variant}-text); // ❌ WRONG
+   ```
+
+2. ❌ **Don't hardcode colors or radii**:
+
+   ```typescript
+   color: #ff0000;           // ❌ WRONG
+   border-radius: 12px;      // ❌ WRONG
+   ```
+
+3. ❌ **Don't use props without `$` prefix for styled components**:
+
+   ```typescript
+   styled.div<{ variant?: string }>`  // ❌ Causes DOM warnings
+   ```
+
+4. ❌ **Don't export without `Styled` object**:
+   ```typescript
+   export const Wrapper = styled.div`...`; // ❌ WRONG
+   ```
+
+#### Available Theme Tokens
+
+**Colors** (from `theme/tokens/colors.ts`):
 
 **Signal Colors**:
 
-- Success: `colorSuccess`, `colorSuccessLight`, `colorGreenDark`
-- Warning: `colorWarning`, `colorWarningLight`, `colorYellowDark`
-- Danger: `colorDanger`, `colorDangerLight`, `colorRedDark`
-- Info: `colorCyan`, `colorCyanLight`, `colorCyanDark`
+- Success: `cssVars.colorSuccess`, `cssVars.colorSuccessLight`,
+  `cssVars.colorGreenDark`
+- Warning: `cssVars.colorWarning`, `cssVars.colorWarningLight`,
+  `cssVars.colorYellowDark`
+- Danger: `cssVars.colorDanger`, `cssVars.colorDangerLight`,
+  `cssVars.colorRedDark`
+- Info: `cssVars.colorCyan`, `cssVars.colorCyanLight`, `cssVars.colorCyanDark`
 
-**Grays**: `gray0` to `gray1000` (comprehensive scale)
+**Grays**: `cssVars.gray0` to `cssVars.gray1000` (comprehensive scale)
 
-**Main Colors**: `mainColor`, `mainColorLight1-9`, `mainColorDark1-6`
+- Common: `gray100`, `gray200`, `gray300`, `gray400`, `gray500`, `gray600`,
+  `gray700`, `gray800`, `gray900`
 
-**Border Radius Tokens** (from `tokens/radii.ts`):
+**Main Colors**: `cssVars.mainColor`, `cssVars.mainColorLight1-9`,
+`cssVars.mainColorDark1-6`
+
+**Border Radius** (from `theme/tokens/radii.ts`):
 
 - `radii.none` - 0
 - `radii.sm` - 0.25rem (4px)
@@ -1335,39 +1532,65 @@ export const Styled = {
 - `radii.xl` - 1rem (16px)
 - `radii.full` - 9999px (fully rounded)
 
-**Key Principles**:
+**Spacing** (use rem units):
 
-1. **Import `cssVars`** from `tokens/colors.ts` for colors
-2. **Import `radii`** from `tokens/radii.ts` for border-radius
-3. **Use helper functions** for variant color mapping
-4. **Use template literals** with destructured props: `${({ $variant }) => ...}`
-5. **Export in `Styled` object** to avoid TS declaration errors
-6. **Add hex opacity** for transparent backgrounds: `${color}20` = 12% opacity
-7. **Prefix transient props** with `$` to avoid DOM warnings: `$variant`,
-   `$isFilled`
-8. **NEVER use hardcoded px** for border-radius - always use `radii` tokens
-9. **Keep Radix CSS variables** - Don't replace `--radix-*` variables (they're
-   from Radix UI primitives)
+- `0.25rem` (4px), `0.5rem` (8px), `0.75rem` (12px), `1rem` (16px), `1.5rem`
+  (24px), `2rem` (32px)
 
-**Example with radii tokens**:
+#### JSDoc Documentation Pattern
+
+**Component JSDoc** (above component function):
 
 ```typescript
-import styled from '@emotion/styled';
-import { cssVars } from '../../../tokens/colors';
-import { radii } from '../../../tokens/radii';
+/**
+ * A reusable [ComponentName] component designed to [purpose].
+ *
+ * Features:
+ * - [Feature 1 with details]
+ * - [Feature 2 with details]
+ * - Styled using Emotion's `styled` API with theme tokens for modularity and reusability.
+ * - [Any Radix UI or special implementation details]
+ *
+ * Props:
+ * - `propName`: Brief description with type info.
+ * - `variant`: The variant (`value1`, `value2`). Default: 'value1'.
+ * - `isActive`: Boolean for state. Default: false.
+ */
+```
 
-const StyledCard = styled.div`
-  background-color: ${cssVars.gray0};
-  border: 1px solid ${cssVars.gray300};
-  border-radius: ${radii.lg}; // ✅ Use radii tokens
-  padding: 1rem;
+**Types JSDoc** (in `ComponentNameProps.ts`):
 
-  /* ❌ WRONG - Don't use hardcoded px */
-  /* border-radius: 12px; */
+```typescript
+/**
+ * Props for the [ComponentName] component.
+ */
+export interface ComponentNameProps {
+  /**
+   * Detailed description of the prop.
+   * Include usage examples if needed.
+   */
+  propName: string;
 
-  /* ✅ CORRECT - Keep Radix CSS variables */
-  height: var(--radix-accordion-content-height);
-`;
+  /**
+   * The variant of the component (`success`, `warning`, `danger`).
+   * - Default: 'success'
+   */
+  variant?: 'success' | 'warning' | 'danger';
+
+  /**
+   * @deprecated This prop is not currently implemented.
+   */
+  deprecatedProp?: string;
+}
+```
+
+**Styles JSDoc** (above `Styled` export):
+
+```typescript
+/**
+ * Styled components for the [ComponentName].
+ */
+export const Styled: any = { ... };
 ```
 
 ### Theme System
@@ -1426,6 +1649,80 @@ const meta = {
 - Story titles like `Core/Atoms/Button` updated to `Core/Base/Button`
 
 ### Development Workflow
+
+**Testing**:
+
+```bash
+cd packages/core
+pnpm test component-name  # Test specific component
+pnpm test                  # Run all tests
+```
+
+**Component Testing Best Practices**:
+
+1. **Test Coverage** - Each component should have 15-50 tests covering:
+   - Basic rendering (3-5 tests)
+   - All variants/sizes (1 test per variant)
+   - State changes (loading, disabled, active, etc.)
+   - Event handlers (click, change, blur, etc.)
+   - Accessibility (ARIA attributes, keyboard navigation)
+   - Edge cases (empty strings, null values, undefined props)
+   - Display name verification
+
+2. **Test Organization** - Group tests with describe blocks:
+
+   ```typescript
+   describe('ComponentName', () => {
+     describe('Basic Rendering', () => { ... });
+     describe('Variants', () => { ... });
+     describe('Event Handlers', () => { ... });
+     describe('Accessibility', () => { ... });
+     describe('Edge Cases', () => { ... });
+   });
+   ```
+
+3. **Radix UI Testing** - Adjust expectations for Radix UI components:
+   - Use `container.querySelector()` for multiple elements of same type
+   - Check for Radix-specific attributes (`data-state`, `data-disabled`)
+   - Test interactions may require `waitFor` for async behavior
+   - Some props (like `name` on Checkbox) may not appear in DOM
+
+4. **Test Examples**:
+
+   ```typescript
+   // Basic rendering
+   it('should render with default props', () => {
+     const { container } = render(<Component />);
+     expect(container.firstChild).toBeTruthy();
+   });
+
+   // Variants
+   it('should render success variant', () => {
+     render(<Component variant="success" />);
+     const element = screen.getByTestId('component');
+     expect(element).toHaveAttribute('data-variant', 'success');
+   });
+
+   // Event handlers
+   it('should call onClick when clicked', async () => {
+     const handleClick = vi.fn();
+     render(<Component onClick={handleClick} />);
+     await userEvent.click(screen.getByRole('button'));
+     expect(handleClick).toHaveBeenCalledTimes(1);
+   });
+
+   // Accessibility
+   it('should have correct ARIA attributes', () => {
+     render(<Component label="Test" />);
+     expect(screen.getByRole('button')).toHaveAccessibleName('Test');
+   });
+
+   // Edge cases
+   it('should handle undefined props gracefully', () => {
+     const { container } = render(<Component title={undefined} />);
+     expect(container.firstChild).toBeTruthy();
+   });
+   ```
 
 **Type-checking**:
 
