@@ -1,16 +1,7 @@
 import { X } from 'lucide-react';
 import { Icon } from '../icon';
 import { Styled } from './Tag.styles';
-
-export interface TagProps extends React.HTMLAttributes<HTMLDivElement> {
-  children?: React.ReactNode;
-  className?: string;
-  wrapperClassName?: string;
-  onClick?: () => void;
-  url?: string;
-  hasClose?: boolean;
-  onCloseClick?: () => void;
-}
+import type { TagProps } from './types';
 
 /**
  * Tag component - A compact label or badge with optional close button
