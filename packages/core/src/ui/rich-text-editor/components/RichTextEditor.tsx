@@ -1,3 +1,8 @@
+/**
+ * @fileoverview RichTextEditor component built with TipTap
+ * Provides WYSIWYG editing with formatting, images, videos, and iframe embeds
+ */
+
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useEditor } from '@tiptap/react';
 import Heading from '@tiptap/extension-heading';
@@ -30,19 +35,77 @@ import {
 } from 'lucide-react';
 
 /**
- * A reusable Rich Text Editor component built with Tiptap.
+ * RichTextEditor - WYSIWYG editor with rich formatting and media embedding
  *
- * Features:
- * - Supports rich text formatting (bold, italic, headings, lists, etc.).
- * - Allows embedding images, videos, and iframes.
- * - Provides a customizable menu bar for easy access to formatting options.
- * - Styled using Emotion's `styled` API for modularity and reusability.
+ * @description
+ * A feature-rich text editor built on TipTap that provides:
+ * - Text formatting (bold, italic, headings, alignment)
+ * - Lists (bullet, numbered)
+ * - Block elements (blockquotes, code blocks)
+ * - Media embedding (images, videos, iframes)
+ * - Custom font sizes
+ * - Undo/redo functionality
+ * - Controlled or uncontrolled modes
  *
- * Props:
- * - `defaultValue`: Optional default value for the editor content.
- * - `value`: Controlled value for the editor content.
- * - `setValue`: Callback function to update the editor content.
- * - `uploadImage`: Function to handle image uploads and return the uploaded URL.
+ * The editor integrates with TipTap extensions for maximum flexibility and includes
+ * custom extensions for font size, iframe embedding, and video embeds.
+ *
+ * @example
+ * // Basic uncontrolled editor
+ * ```tsx
+ * <RichTextEditor
+ *   defaultValue="<p>Hello world!</p>"
+ *   setValue={(html) => console.log(html)}
+ * />
+ * ```
+ *
+ * @example
+ * // Controlled editor with image upload
+ * ```tsx
+ * const [content, setContent] = useState('<p>Initial content</p>');
+ *
+ * <RichTextEditor
+ *   value={content}
+ *   setValue={setContent}
+ *   uploadImage={async ({ file }) => {
+ *     const formData = new FormData();
+ *     formData.append('file', file);
+ *     const response = await fetch('/api/upload', {
+ *       method: 'POST',
+ *       body: formData,
+ *     });
+ *     const { url } = await response.json();
+ *     return url;
+ *   }}
+ * />
+ * ```
+ *
+ * @example
+ * // Blog post editor with default content
+ * ```tsx
+ * const [blogContent, setBlogContent] = useState('');
+ *
+ * <RichTextEditor
+ *   defaultValue="<h1>My Blog Post</h1><p>Start writing...</p>"
+ *   value={blogContent}
+ *   setValue={setBlogContent}
+ *   uploadImage={uploadToCloudinary}
+ * />
+ * ```
+ *
+ * @example
+ * // Rich text field in a form
+ * ```tsx
+ * <form onSubmit={handleSubmit}>
+ *   <label>Description</label>
+ *   <RichTextEditor
+ *     value={formData.description}
+ *     setValue={(html) => setFormData({ ...formData, description: html })}
+ *     uploadImage={uploadImage}
+ *   />
+ *   <button type="submit">Save</button>
+ * </form>
+ * ```
  */
 export const RichTextEditor = ({
   defaultValue,
@@ -351,3 +414,5 @@ export const RichTextEditor = ({
     </Styled.Wrapper>
   );
 };
+
+RichTextEditor.displayName = 'RichTextEditor';

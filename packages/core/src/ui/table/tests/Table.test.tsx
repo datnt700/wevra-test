@@ -41,13 +41,7 @@ describe('Table', () => {
     });
 
     it('should render empty state when data is empty', () => {
-      render(
-        <Table
-          columns={basicColumns}
-          data={[]}
-          empty={<div>No users found</div>}
-        />
-      );
+      render(<Table columns={basicColumns} data={[]} empty={<div>No users found</div>} />);
 
       expect(screen.getByText('No users found')).toBeInTheDocument();
       expect(screen.queryByText('Alice Johnson')).not.toBeInTheDocument();
@@ -55,12 +49,7 @@ describe('Table', () => {
 
     it('should render loading state', () => {
       render(
-        <Table
-          columns={basicColumns}
-          data={mockUsers}
-          isLoading
-          loading={<div>Loading...</div>}
-        />
+        <Table columns={basicColumns} data={mockUsers} isLoading loading={<div>Loading...</div>} />
       );
 
       expect(screen.getByText('Loading...')).toBeInTheDocument();
