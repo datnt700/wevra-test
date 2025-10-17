@@ -1,18 +1,82 @@
+/**
+ * @fileoverview MenuBar component built with Radix UI primitives
+ * Provides accessible navigation menu with keyboard support
+ */
+
 import { Styled } from './MenuBar.styles';
 import { MenuBarProps } from '../types';
 
 /**
- * A reusable MenuBar component built with Radix UI primitives.
+ * MenuBar - Horizontal navigation menu with dropdown items
  *
+ * @description
+ * A fully accessible menu bar component built on Radix UI primitives.
  * Features:
- * - Displays a collection of menus with triggers and items.
- * - Supports dynamic alignment of the menu content based on the `side` prop.
- * - Styled using Emotion's `styled` API for modularity and reusability.
- * - Grouped styles under a `Styled` object for better organization and maintainability.
+ * - Horizontal menu layout with dropdown submenus
+ * - Keyboard navigation (Arrow keys, Enter, Escape)
+ * - Customizable menu positioning (top, right, bottom, left)
+ * - Highlighted and disabled item states
+ * - Automatic focus management
  *
- * Props:
- * - `data`: An array of menu items, where each item contains a label and sub-items.
- * - `side`: The side on which the menu content should appear (`top`, `right`, `bottom`, `left`).
+ * Built with Radix UI for accessibility compliance (ARIA, keyboard navigation).
+ *
+ * @example
+ * // Basic menu bar with two menus
+ * ```tsx
+ * const menuData = [
+ *   {
+ *     id: '1',
+ *     label: 'File',
+ *     items: [
+ *       { id: '1-1', children: 'New File' },
+ *       { id: '1-2', children: 'Open' },
+ *       { id: '1-3', children: 'Save' },
+ *     ],
+ *   },
+ *   {
+ *     id: '2',
+ *     label: 'Edit',
+ *     items: [
+ *       { id: '2-1', children: 'Undo' },
+ *       { id: '2-2', children: 'Redo' },
+ *     ],
+ *   },
+ * ];
+ *
+ * <MenuBar data={menuData} side="bottom" />
+ * ```
+ *
+ * @example
+ * // Menu with custom content (icons + text)
+ * ```tsx
+ * import { FileIcon, EditIcon } from 'lucide-react';
+ *
+ * const menuData = [
+ *   {
+ *     id: '1',
+ *     label: 'File',
+ *     items: [
+ *       {
+ *         id: '1-1',
+ *         children: (
+ *           <>
+ *             <FileIcon size={14} />
+ *             <span>New File</span>
+ *           </>
+ *         ),
+ *       },
+ *     ],
+ *   },
+ * ];
+ *
+ * <MenuBar data={menuData} side="bottom" />
+ * ```
+ *
+ * @example
+ * // Menu positioned on the right side
+ * ```tsx
+ * <MenuBar data={menuData} side="right" />
+ * ```
  */
 export const MenuBar = ({ data, side, ...other }: MenuBarProps) => {
   return (
@@ -26,8 +90,6 @@ export const MenuBar = ({ data, side, ...other }: MenuBarProps) => {
                 {menu.items.map((item) => (
                   <Styled.Item
                     key={item.id}
-                    $highlighted={false}
-                    $disabled={false}
                     data-testid="menu-item"
                   >
                     {item.children}
@@ -41,3 +103,5 @@ export const MenuBar = ({ data, side, ...other }: MenuBarProps) => {
     </Styled.Root>
   );
 };
+
+MenuBar.displayName = 'MenuBar';

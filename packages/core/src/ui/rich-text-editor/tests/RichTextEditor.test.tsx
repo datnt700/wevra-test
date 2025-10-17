@@ -175,9 +175,7 @@ describe('RichTextEditor', () => {
 
     it('should have uploadImage prop for handling uploads', () => {
       const uploadImage = vi.fn().mockResolvedValue('https://example.com/image.jpg');
-      const { container } = render(
-        <RichTextEditor setValue={vi.fn()} uploadImage={uploadImage} />
-      );
+      const { container } = render(<RichTextEditor setValue={vi.fn()} uploadImage={uploadImage} />);
 
       const fileInput = container.querySelector('input[type="file"]');
       expect(fileInput).toBeInTheDocument();
@@ -192,9 +190,7 @@ describe('RichTextEditor', () => {
       // Find video button (has Video icon)
       const buttons = container.querySelectorAll('button');
       // Video button is one of the later buttons in toolbar
-      const videoButton = Array.from(buttons).find((btn) =>
-        btn.querySelector('svg')
-      );
+      const videoButton = Array.from(buttons).find((btn) => btn.querySelector('svg'));
 
       if (videoButton) {
         await user.click(videoButton);
@@ -256,9 +252,7 @@ describe('RichTextEditor', () => {
 
   describe('Edge Cases', () => {
     it('should handle empty defaultValue', () => {
-      const { container } = render(
-        <RichTextEditor defaultValue="" setValue={vi.fn()} />
-      );
+      const { container } = render(<RichTextEditor defaultValue="" setValue={vi.fn()} />);
 
       waitFor(() => {
         const proseMirror = container.querySelector('.ProseMirror');
