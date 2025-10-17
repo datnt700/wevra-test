@@ -5,7 +5,7 @@
  */
 import styled from '@emotion/styled';
 import { cssVars } from '../../../theme/tokens/colors';
-import { styleVars } from '../../../theme/tokens/variables';
+import { radii } from '../../../theme/tokens/radii';
 
 /**
  * Badge wrapper with interactive states
@@ -21,7 +21,7 @@ export const WrapperStyled = styled.div<{
   justify-content: center;
   padding: 0.25rem 0.5rem;
   background-color: ${cssVars.light4};
-  border-radius: ${styleVars.borderRadiusMedium};
+  border-radius: ${radii.md};
   color: ${cssVars.dark};
   width: max-content;
   font-size: 0.875rem;
