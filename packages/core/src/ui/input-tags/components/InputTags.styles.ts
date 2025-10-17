@@ -9,7 +9,7 @@ interface InputWrapperProps {
 const getStatusStyles = (status: 'default' | 'error') => {
   const statusMap = {
     default: {
-      borderColor: cssVars.gray300,
+      borderColor: cssVars.light4,
       focusBorderColor: cssVars.mainColor,
       focusShadow: `0 0 3px ${cssVars.mainColor}`,
     },
@@ -49,7 +49,7 @@ const StyledInputWrapper = styled.div<InputWrapperProps>`
       padding: 0.5rem 1rem;
       min-height: 3rem;
       width: 100%;
-      background-color: ${cssVars.gray0};
+      background-color: ${cssVars.light};
       border: 1px solid ${styles.borderColor};
       border-radius: ${radii.md};
 
@@ -69,12 +69,12 @@ const StyledInput = styled.input`
   outline: none;
   padding: 0;
   font-size: 1rem;
-  color: ${cssVars.gray900};
+  color: ${cssVars.dark};
 
   &::placeholder {
     font-style: italic;
     font-weight: 300;
-    color: ${cssVars.gray500};
+    color: ${cssVars.dark6};
   }
 `;
 
@@ -83,8 +83,8 @@ const StyledTagsSuggestion = styled.div`
   top: 100%;
   left: 0;
   width: 100%;
-  background-color: ${cssVars.gray0};
-  border: 1px solid ${cssVars.gray300};
+  background-color: ${cssVars.light};
+  border: 1px solid ${cssVars.light4};
   border-radius: ${radii.md};
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   z-index: 10;
@@ -96,7 +96,7 @@ const StyledTagsSuggestion = styled.div`
     transition: background-color 0.2s ease;
 
     &:hover {
-      background-color: ${cssVars.gray100};
+      background-color: ${cssVars.light3};
     }
 
     &:first-of-type {

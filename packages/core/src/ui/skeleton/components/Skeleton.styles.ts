@@ -23,12 +23,12 @@ export const Styled = {
     display: flex;
     flex-direction: column;
     gap: 1rem;
-    background-color: ${cssVars.gray0};
+    background-color: ${cssVars.light};
     border-radius: ${radii.lg};
   `,
 
   SkeletonImageStyled: styled.div<{ hasAnimation: boolean }>`
-    background-color: ${cssVars.gray200};
+    background-color: ${cssVars.light4};
     width: 100%;
     height: 10rem;
     max-height: 20rem;
@@ -56,7 +56,7 @@ export const Styled = {
     border-radius: ${radii.md};
     max-width: 12rem;
 
-    background-color: ${cssVars.gray200};
+    background-color: ${cssVars.light4};
 
     &[data-orientation='vertical'] {
       border-radius: ${radii.md};
@@ -64,7 +64,7 @@ export const Styled = {
   `,
 
   Title: styled.div<{ hasAnimation: boolean }>`
-    background-color: ${cssVars.gray200};
+    background-color: ${cssVars.light4};
     width: 100%;
     height: 100%;
     min-height: 2rem;
@@ -72,7 +72,7 @@ export const Styled = {
   `,
 
   Row: styled.div<{ hasAnimation: boolean }>`
-    background-color: ${cssVars.gray200};
+    background-color: ${cssVars.light4};
     width: 100%;
     height: 0.75rem;
     border-radius: ${radii.md};

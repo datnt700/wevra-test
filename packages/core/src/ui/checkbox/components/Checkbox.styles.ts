@@ -6,7 +6,7 @@
 import styled from '@emotion/styled';
 import { Checkbox as RadixCheckbox } from 'radix-ui';
 import { cssVars } from '../../../theme/tokens/colors';
-import { styleVars } from '../../../theme/tokens/variables';
+import { radii } from '../../../theme/tokens/radii';
 
 type CheckboxSize = 'sm' | 'default' | 'md' | 'lg';
 
@@ -59,7 +59,7 @@ const StyledCheckboxRoot = styled(RadixCheckbox.Root)<{
       background-color: ${cssVars.light};
       width: ${styles.size};
       height: ${styles.size};
-      border-radius: ${styleVars.borderRadiusSmall};
+      border-radius: ${radii.sm};
       display: flex;
       align-items: center;
       justify-content: center;

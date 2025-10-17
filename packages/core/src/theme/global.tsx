@@ -1,18 +1,21 @@
 /** @jsxImportSource @emotion/react */
 import { Global, css } from '@emotion/react';
 import { cssVars, darkThemeCssVars } from './tokens/colors';
-import { styleVars } from './tokens/variables';
 import { breakpoints } from './breakpoints';
 
 /**
- * Convert camelCase to kebab-case for CSS variables
+ * LEGACY: CSS variable generation utilities
+ *
+ * @deprecated These functions generate CSS custom properties for backward compatibility.
+ * Modern components should import tokens directly via:
+ * - import { cssVars } from './tokens/colors'
+ * - import { radii } from './tokens/radii'
+ *
+ * TODO: Remove once all components migrated from var(--xxx) to direct token access
  */
 const toKebabCase = (str: string) =>
   str.replace(/[A-Z0-9]/g, (letter) => `-${letter.toLowerCase()}`);
 
-/**
- * Generate CSS custom properties from object
- */
 const generateCSSVars = (obj: Record<string, string | number>) =>
   Object.entries(obj)
     .map(([key, value]) => `--${toKebabCase(key)}: ${value};`)
@@ -23,13 +26,23 @@ export const globalStyles = css`
   @import url('https://diverse-public.s3.eu-west-3.amazonaws.com/fonts/fonts.css');
   @import url('https://cdn.rawgit.com/mfd/f3d96ec7f0e8f034cc22ea73b3797b59/raw/856f1dbb8d807aabceb80b6d4f94b464df461b3e/gotham.css');
 
-  /* CSS Custom Properties for light theme */
+  /*
+   * CSS Custom Properties (Legacy Support Only)
+   *
+   * NOTE: These are for backward compatibility with old components that use var(--x).
+   * NEW COMPONENTS: Import tokens directly instead of using CSS variables.
+   *
+   * Example:
+   * ❌ OLD: color: var(--main-color);
+   * ✅ NEW: import { cssVars } from 'tokens/colors'; color: ${cssVars.mainColor};
+   */
   :root {
-    ${generateCSSVars(cssVars)}
-    ${generateCSSVars(styleVars)}
+    ${generateCSSVars(
+      cssVars
+    )}/* styleVars deprecated - use radii, spacing, sizing from theme instead */
   }
 
-  /* CSS Custom Properties for dark theme */
+  /* Dark theme CSS variables (Legacy) */
   [data-theme='dark'] {
     ${generateCSSVars(darkThemeCssVars)}
   }

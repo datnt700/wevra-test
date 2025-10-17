@@ -16,17 +16,17 @@ interface VariantStyles {
 const getVariantStyles = (variant: CardVariant): VariantStyles => {
   const variantMap: Record<CardVariant, VariantStyles> = {
     elevated: {
-      backgroundColor: cssVars.gray0,
+      backgroundColor: cssVars.light,
       border: 'none',
       boxShadow: '0px 4px 24px rgba(0, 0, 0, 0.08)',
     },
     outlined: {
-      backgroundColor: cssVars.gray0,
-      border: `1px solid ${cssVars.gray300}`,
+      backgroundColor: cssVars.light,
+      border: `1px solid ${cssVars.light4}`,
       boxShadow: 'none',
     },
     flat: {
-      backgroundColor: cssVars.gray0,
+      backgroundColor: cssVars.light,
       border: 'none',
       boxShadow: 'none',
     },
@@ -50,14 +50,14 @@ const StyledWrapper = styled.div<WrapperProps>`
 
 const StyledHeader = styled.div`
   padding: 1rem 1.5rem;
-  border-bottom: 1px solid ${cssVars.gray200};
+  border-bottom: 1px solid ${cssVars.light4};
   font-weight: 600;
-  color: ${cssVars.gray900};
+  color: ${cssVars.dark};
 `;
 
 const StyledBody = styled.div`
   padding: 1.5rem;
-  color: ${cssVars.gray800};
+  color: ${cssVars.dark2};
 `;
 
 export const Styled = {

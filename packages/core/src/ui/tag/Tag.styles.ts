@@ -13,9 +13,9 @@ const StyledWrapper = styled.div<WrapperProps>`
   max-width: 100%;
   align-items: center;
   padding: 0.125rem 0.375rem;
-  background-color: ${cssVars.gray100};
+  background-color: ${cssVars.light3};
   border-radius: ${radii.md};
-  color: ${cssVars.gray900};
+  color: ${cssVars.dark};
   width: max-content;
   transition: background-color 0.3s ease;
 
@@ -25,7 +25,7 @@ const StyledWrapper = styled.div<WrapperProps>`
     cursor: pointer;
 
     &:hover {
-      background-color: ${cssVars.gray200};
+      background-color: ${cssVars.light4};
     }
   `}
 
@@ -59,7 +59,7 @@ const StyledCloseIcon = styled.div`
   transition: color 0.2s;
 
   &:hover {
-    color: ${cssVars.gray600};
+    color: ${cssVars.dark5};
   }
 `;
 

@@ -1,43 +1,46 @@
 import styled from '@emotion/styled';
+import { cssVars } from '../../../theme/tokens/colors';
+import { radii } from '../../../theme/tokens/radii';
 
 export const Styled = {
   Wrapper: styled.div<{ checked?: boolean }>`
     display: flex;
     align-items: center;
-    gap: 12px;
-    padding: 16px;
-    border: 1px solid ${({ checked }) => (checked ? 'var(--main-color)' : '#ccc')};
-    border-radius: 8px;
+    gap: 0.75rem;
+    padding: 1rem;
+    border: 1px solid ${({ checked }) => (checked ? cssVars.mainColor : cssVars.light4)};
+    border-radius: ${radii.lg};
     cursor: pointer;
     transition:
       background 0.2s,
       border-color 0.2s;
-    background: var(--light);
-    width: 220px;
+    background: ${cssVars.light};
+    width: 13.75rem;
 
     &:hover {
-      background: #f5f5f5;
+      background: ${cssVars.light2};
     }
   `,
   CheckboxIndicator: styled.div`
-    width: 20px;
-    height: 20px;
+    width: 1.25rem;
+    height: 1.25rem;
     display: none;
     align-items: center;
     justify-content: center;
-    border: 2px solid #3b82f6;
-    border-radius: 4px;
-    background: white;
+    border: 2px solid ${cssVars.mainColor};
+    border-radius: ${radii.sm};
+    background: ${cssVars.light};
   `,
   Content: styled.div`
     display: flex;
     flex-direction: column;
   `,
   Label: styled.span`
-    font-weight: bold;
+    font-weight: 600;
+    color: ${cssVars.dark};
   `,
   Description: styled.span`
-    font-size: 14px;
-    color: #666;
+    font-size: 0.875rem;
+    color: ${cssVars.dark5};
   `,
 };
