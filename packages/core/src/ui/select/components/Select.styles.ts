@@ -6,7 +6,7 @@
 import styled from '@emotion/styled';
 import { Select } from 'radix-ui';
 import { cssVars } from '../../../theme/tokens/colors';
-import { styleVars } from '../../../theme/tokens/variables';
+import { radii } from '../../../theme/tokens/radii';
 
 const StyledRoot = styled(Select.Root)`
   /* Root container for the select */
@@ -17,7 +17,7 @@ const StyledTrigger = styled(Select.Trigger)<{ $isDisabled?: boolean; $isInvalid
     display: inline-flex;
     align-items: center;
     justify-content: space-between;
-    border-radius: ${styleVars.borderRadiusMedium};
+    border-radius: ${radii.md};
     padding: 0 1rem;
     font-size: 0.875rem;
     line-height: 1;
@@ -75,7 +75,7 @@ const StyledPortal = styled(Select.Portal)`
 const StyledContent = styled(Select.Content)`
   overflow: hidden;
   background-color: ${cssVars.light};
-  border-radius: ${styleVars.borderRadiusMedium};
+  border-radius: ${radii.md};
   box-shadow:
     0px 10px 38px -10px rgba(22, 23, 24, 0.35),
     0px 10px 20px -15px rgba(22, 23, 24, 0.2);
@@ -125,7 +125,7 @@ const StyledScrollDownButton = styled(Select.ScrollDownButton)`
 const StyledItem = styled(Select.Item)`
   font-size: 0.875rem;
   line-height: 1;
-  border-radius: ${styleVars.borderRadiusSmall};
+  border-radius: ${radii.sm};
   display: flex;
   align-items: center;
   height: 3rem;
@@ -164,7 +164,7 @@ const StyledItemText = styled(Select.ItemText)`
   color: ${cssVars.dark};
 `;
 
-const StyledIndicator = styled.div`
+const StyledIndicator = styled(Select.SelectItemIndicator)`
   position: absolute;
   left: 0;
   width: 2rem;

@@ -1,36 +1,62 @@
-import React from 'react';
 import { CheckIcon, ChevronDownIcon, ChevronUpIcon } from '@radix-ui/react-icons';
-import { SelectProps } from '..';
+import { SelectProps } from '../types';
 import { Styled } from './Select.styles';
-import { Select as RadixSelect } from 'radix-ui';
 
 /**
  * A reusable Select component built with Radix UI primitives.
  *
  * Features:
  * - Fully accessible dropdown menu with support for options, placeholders, and disabled states.
- * - Styled using Emotion's `styled` API for modularity and reusability.
- * - Grouped styles under a `Styled` object for better organization and maintainability.
+ * - Styled using Emotion's `styled` API with theme tokens for modularity and reusability.
+ * - Supports controlled and uncontrolled modes.
+ * - Includes validation state (isInvalid) for form integration.
  *
  * Props:
- * - `options`: Array of option objects with `value` and `label` properties.
+ * - `options`: Array of option objects with `value`, `label`, and optional `disabled` properties.
  * - `placeholder`: Placeholder text displayed when no value is selected.
- * - `isDisabled`: Boolean indicating whether the select is disabled.
+ * - `isDisabled`: Boolean indicating whether the entire select is disabled.
+ * - `isInvalid`: Boolean indicating whether the select is in an invalid state.
  * - `onValueChange`: Callback function triggered when the selected value changes.
- * - `value`: Current selected value.
+ * - `value`: Current selected value (controlled mode).
+ * - `defaultValue`: Default value for uncontrolled mode.
  * - `required`: Boolean indicating whether the select is required.
+ * - `name`: Name attribute for form submission.
+ * - `ariaLabel`: Accessible label for the select.
  */
 export const Select = ({
-  options,
-  placeholder,
-  isDisabled,
-  onValueChange = () => {},
+  options = [],
+  placeholder = 'Select an option',
+  isDisabled = false,
+  isInvalid = false,
+  onValueChange,
   value,
-  required,
+  defaultValue,
+  required = false,
+  name,
+  ariaLabel,
+  testId,
+  className: _className,
 }: SelectProps) => {
+  // Handle null/undefined options safely
+  const safeOptions = options || [];
+  // Filter out options with empty value strings (not allowed by Radix UI)
+  const validOptions = safeOptions.filter((opt) => opt.value !== '');
+
   return (
-    <Styled.Root onValueChange={onValueChange} value={value}>
-      <Styled.Trigger $isDisabled={isDisabled} $isInvalid={required && !value}>
+    <Styled.Root
+      onValueChange={onValueChange}
+      value={value}
+      defaultValue={defaultValue}
+      name={name}
+      required={required}
+      disabled={isDisabled}
+    >
+      <Styled.Trigger
+        $isDisabled={isDisabled}
+        $isInvalid={isInvalid}
+        aria-label={ariaLabel}
+        data-testid={testId}
+      >
         <Styled.Value placeholder={placeholder} />
         <Styled.Icon>
           <ChevronDownIcon />
@@ -42,15 +68,18 @@ export const Select = ({
             <ChevronUpIcon />
           </Styled.ScrollUpButton>
           <Styled.Viewport>
-            {options?.map((option) => (
-              <Styled.Item key={option.value} value={option.value} disabled={isDisabled}>
+            {validOptions.map((option) => (
+              <Styled.Item
+                key={option.value}
+                value={option.value}
+                disabled={option.disabled || isDisabled}
+              >
                 <Styled.ItemText>{option.label}</Styled.ItemText>
                 <Styled.Indicator>
                   <CheckIcon />
                 </Styled.Indicator>
               </Styled.Item>
             ))}
-            <Styled.Separator />
           </Styled.Viewport>
           <Styled.ScrollDownButton>
             <ChevronDownIcon />
@@ -61,20 +90,4 @@ export const Select = ({
   );
 };
 
-/**
- * A reusable SelectItem component for rendering individual options in the dropdown.
- */
-const SelectItem = React.forwardRef<HTMLDivElement, RadixSelect.SelectItemProps>(
-  ({ children, ...props }, forwardedRef) => {
-    return (
-      <Styled.Item {...props} ref={forwardedRef}>
-        <Styled.ItemText>{children}</Styled.ItemText>
-        <Styled.Indicator>
-          <CheckIcon />
-        </Styled.Indicator>
-      </Styled.Item>
-    );
-  }
-);
-
-SelectItem.displayName = 'SelectItem';
+Select.displayName = 'Select';
