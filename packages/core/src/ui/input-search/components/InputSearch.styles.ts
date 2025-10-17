@@ -5,7 +5,7 @@
  */
 import styled from '@emotion/styled';
 import { cssVars } from '../../../theme/tokens/colors';
-import { styleVars } from '../../../theme/tokens/variables';
+import { radii } from '../../../theme/tokens/radii';
 
 type SearchStatus = 'default' | 'error';
 
@@ -47,7 +47,7 @@ const StyledWrapper = styled.div<{ $status?: SearchStatus }>`
       align-items: center;
       background-color: ${styles.bg};
       border: 1px solid ${styles.border};
-      border-radius: ${styleVars.borderRadiusMedium};
+      border-radius: ${radii.md};
       outline: none;
       padding-left: 0.75rem;
       transition: all 0.2s ease-in-out;
@@ -78,7 +78,7 @@ const StyledInput = styled.input`
   width: 100%;
   font-size: 1rem;
   border: 0;
-  border-radius: ${styleVars.borderRadiusMedium};
+  border-radius: ${radii.md};
 
   &::placeholder {
     font-weight: 300;
