@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { radii } from '../../../theme/tokens/radii';
 import type { ButtonGroupVariant, ButtonGroupOrientation } from '../types';
 
 interface VariantStyles {
@@ -52,13 +53,13 @@ const StyledButtonGroup = styled.div<StyledProps>`
           $orientation === 'horizontal'
             ? `
           > *:first-of-type {
-            border-top-left-radius: 0.375rem;
-            border-bottom-left-radius: 0.375rem;
+            border-top-left-radius: ${radii.md};
+            border-bottom-left-radius: ${radii.md};
           }
 
           > *:last-of-type {
-            border-top-right-radius: 0.375rem;
-            border-bottom-right-radius: 0.375rem;
+            border-top-right-radius: ${radii.md};
+            border-bottom-right-radius: ${radii.md};
           }
 
           > *:not(:last-of-type) {
@@ -67,13 +68,13 @@ const StyledButtonGroup = styled.div<StyledProps>`
         `
             : `
           > *:first-of-type {
-            border-top-left-radius: 0.375rem;
-            border-top-right-radius: 0.375rem;
+            border-top-left-radius: ${radii.md};
+            border-top-right-radius: ${radii.md};
           }
 
           > *:last-of-type {
-            border-bottom-left-radius: 0.375rem;
-            border-bottom-right-radius: 0.375rem;
+            border-bottom-left-radius: ${radii.md};
+            border-bottom-right-radius: ${radii.md};
           }
 
           > *:not(:last-of-type) {

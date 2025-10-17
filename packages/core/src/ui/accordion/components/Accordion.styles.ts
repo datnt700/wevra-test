@@ -1,6 +1,8 @@
 import { Accordion as RadixAccordion } from 'radix-ui';
 import styled from '@emotion/styled';
 import { keyframes } from '@emotion/react';
+import { cssVars } from '../../../theme/tokens/colors';
+import { radii } from '../../../theme/tokens/radii';
 
 const slideDown = keyframes`
   from { height: 0; }
@@ -14,23 +16,23 @@ const slideUp = keyframes`
 
 export const Styled: any = {
   Root: styled(RadixAccordion.Root)`
-    border-radius: var(--border-radius-medium);
+    border-radius: ${radii.md};
     width: 100%;
-    background-color: var(--light);
+    background-color: ${cssVars.gray0};
   `,
 
   Item: styled(RadixAccordion.Item)`
     margin-top: 1px;
 
-    &:first-child {
+    &:first-of-type {
       margin-top: 0;
-      border-top-left-radius: var(--border-radius-medium);
-      border-top-right-radius: var(--border-radius-medium);
+      border-top-left-radius: ${radii.md};
+      border-top-right-radius: ${radii.md};
     }
 
-    &:last-child {
-      border-bottom-left-radius: var(--border-radius-medium);
-      border-bottom-right-radius: var(--border-radius-medium);
+    &:last-of-type {
+      border-bottom-left-radius: ${radii.md};
+      border-bottom-right-radius: ${radii.md};
     }
 
     &:focus-within {
@@ -55,21 +57,21 @@ export const Styled: any = {
     justify-content: space-between;
     font-size: 1rem;
     line-height: 1;
-    color: var(--dark);
-    background-color: var(--light);
+    color: ${cssVars.gray900};
+    background-color: ${cssVars.gray0};
     border: 0;
-    border-bottom: 1px solid var(--dark-4);
+    border-bottom: 1px solid ${cssVars.gray300};
 
     &:hover {
-      background-color: var(--light-4);
+      background-color: ${cssVars.gray100};
     }
   `,
 
   Content: styled(RadixAccordion.Content)`
     overflow: hidden;
     font-size: 1rem;
-    color: var(--dark);
-    background-color: var(--light);
+    color: ${cssVars.gray900};
+    background-color: ${cssVars.gray0};
 
     &[data-state='open'] {
       animation: ${slideDown} 300ms cubic-bezier(0.87, 0, 0.13, 1);
@@ -85,7 +87,7 @@ export const Styled: any = {
   `,
 
   ChevronIcon: styled.div`
-    color: var(--violet-10);
+    color: ${cssVars.mainColor};
     transition: transform 300ms cubic-bezier(0.87, 0, 0.13, 1);
 
     &[data-state='open'] {

@@ -1,75 +1,42 @@
-/** @jsxImportSource @emotion/react */
-import { useState } from 'react';
-import { AvatarStyled, AvaImageStyled, AvaLabelStyled, FallbackStyled } from './Avatar.styles';
-import { AvatarProps } from '../';
+import { Styled } from './Avatar.styles';
+import type { AvatarProps } from '../types';
 
 /**
- * Avatar component for displaying user profile images or initials.
+ * Avatar component - Displays user profile images or fallback initials
  *
- * @component
  * @example
  * // With image
- * <Avatar src="/user.jpg" label="John Doe" />
+ * <Avatar src="/avatar.jpg" alt="John Doe" />
  *
  * @example
- * // With initials fallback
- * <Avatar label="John Doe" />
+ * // With fallback label
+ * <Avatar label="JD" />
  *
  * @example
  * // Different sizes
- * <Avatar src="/user.jpg" label="John Doe" size="sm" />
- * <Avatar src="/user.jpg" label="John Doe" size="lg" />
- * <Avatar src="/user.jpg" label="John Doe" size="xl" />
+ * <Avatar src="/avatar.jpg" size="sm" />
+ * <Avatar src="/avatar.jpg" size="lg" />
  */
-export const Avatar = ({ src, label, className, size = 'md' }: AvatarProps) => {
-  return (
-    <AvatarStyled className={className} $size={size}>
-      <Image src={src} label={label} size={size} />
-    </AvatarStyled>
-  );
-};
-
-const Image = ({
+export const Avatar = ({
   src,
+  alt,
   label,
+  fallback,
   size = 'md',
-}: {
-  src?: string;
-  label: string;
-  size?: AvatarProps['size'];
-}) => {
-  const [isLoaded, setLoaded] = useState(false);
-  const [isError, setError] = useState<string | null>(null);
-
-  return isError ? (
-    <Fallback text={label} size={size} />
-  ) : (
-    <>
-      <AvaImageStyled
-        hidden
-        src={src}
-        alt={label}
-        onLoad={() => setLoaded(true)}
-        onError={() => setError('error')}
-      />
-      {isLoaded ? (
-        <AvaImageStyled src={src} alt={label} />
+  color = 'default',
+  ...other
+}: AvatarProps) => {
+  return (
+    <Styled.Avatar $size={size} $color={color} {...other}>
+      {src ? (
+        <Styled.Image src={src} alt={alt || ''} />
+      ) : label ? (
+        <Styled.Label $size={size}>{label}</Styled.Label>
       ) : (
-        <AvaLabelStyled $size={size}>{label}</AvaLabelStyled>
+        <Styled.Fallback $size={size}>{fallback || '?'}</Styled.Fallback>
       )}
-    </>
+    </Styled.Avatar>
   );
-};
-
-const Fallback = ({ text, size = 'md' }: { text?: string; size?: AvatarProps['size'] }) => {
-  const initials = text
-    ?.split(' ')
-    .map((word) => word[0])
-    .join('')
-    .toUpperCase()
-    .slice(0, 2);
-
-  return <FallbackStyled $size={size}>{initials}</FallbackStyled>;
 };
 
 Avatar.displayName = 'Avatar';

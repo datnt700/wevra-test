@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import { cssVars } from '../../../theme/tokens/colors';
+import { radii } from '../../../theme/tokens/radii';
 
 interface InputWrapperProps {
   $isDisabled: boolean;
@@ -11,19 +12,32 @@ interface InputProps {
   $hasError: boolean;
 }
 
-const getInputWrapperStyles = (props: InputWrapperProps) => {
-  const { $isDisabled, $isReadOnly, $hasError } = props;
+interface WrapperStyles {
+  backgroundColor: string;
+  borderColor: string;
+  focusBorderColor: string;
+  isInteractive: boolean;
+}
 
-  const borderColor = $hasError ? cssVars.colorDanger : cssVars.gray500;
-  const focusBorderColor = $hasError ? cssVars.colorDanger : cssVars.mainColor;
-  const backgroundColor = $isDisabled || $isReadOnly ? cssVars.gray100 : cssVars.gray0;
-  const disabledBorderColor = cssVars.gray300;
+const getInputWrapperStyles = ({
+  $isDisabled,
+  $isReadOnly,
+  $hasError,
+}: InputWrapperProps): WrapperStyles => {
+  if ($isDisabled || $isReadOnly) {
+    return {
+      backgroundColor: cssVars.gray100,
+      borderColor: cssVars.gray300,
+      focusBorderColor: cssVars.gray300,
+      isInteractive: false,
+    };
+  }
 
   return {
-    borderColor: $isDisabled || $isReadOnly ? disabledBorderColor : borderColor,
-    focusBorderColor,
-    backgroundColor,
-    isInteractive: !($isDisabled || $isReadOnly),
+    backgroundColor: cssVars.gray0,
+    borderColor: $hasError ? cssVars.colorDanger : cssVars.gray300,
+    focusBorderColor: $hasError ? cssVars.colorDanger : cssVars.mainColor,
+    isInteractive: true,
   };
 };
 
@@ -42,7 +56,7 @@ const StyledInputWrapper = styled.div<InputWrapperProps>`
       align-items: center;
       background-color: ${styles.backgroundColor};
       border: 1px solid ${styles.borderColor};
-      border-radius: 0.375rem;
+      border-radius: ${radii.md};
       pointer-events: ${styles.isInteractive ? 'auto' : 'none'};
 
       &:focus-within {

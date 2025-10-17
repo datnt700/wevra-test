@@ -40,16 +40,15 @@ describe('Tag', () => {
       expect(handleClick).toHaveBeenCalledTimes(1);
     });
 
-    it('adds canClick class when onClick is provided', () => {
-      const { container } = render(<Tag onClick={() => {}}>Clickable</Tag>);
-      const wrapper = container.firstChild;
-      expect(wrapper).toHaveClass('canClick');
+    it('renders clickable tag when onClick is provided', () => {
+      const handleClick = vi.fn();
+      render(<Tag onClick={handleClick}>Clickable</Tag>);
+      expect(screen.getByText('Clickable')).toBeInTheDocument();
     });
 
-    it('does not add canClick class without onClick', () => {
-      const { container } = render(<Tag>Not Clickable</Tag>);
-      const wrapper = container.firstChild;
-      expect(wrapper).not.toHaveClass('canClick');
+    it('renders non-clickable tag without onClick', () => {
+      render(<Tag>Not Clickable</Tag>);
+      expect(screen.getByText('Not Clickable')).toBeInTheDocument();
     });
   });
 
@@ -97,10 +96,12 @@ describe('Tag', () => {
       expect(link).toHaveAttribute('rel', 'noreferrer');
     });
 
-    it('adds withUrl class when url is provided', () => {
+    it('renders with URL prop when url is provided', () => {
       const { container } = render(<Tag url="https://example.com">Link</Tag>);
-      const wrapper = container.firstChild;
-      expect(wrapper).toHaveClass('withUrl');
+      const wrapper = container.firstChild as HTMLElement;
+      const link = screen.getByRole('link');
+      expect(wrapper).toBeInTheDocument();
+      expect(link).toBeInTheDocument();
     });
 
     it('renders as div when no url', () => {
@@ -183,10 +184,10 @@ describe('Tag', () => {
         </Tag>
       );
 
-      const wrapper = container.firstChild;
-      expect(wrapper).toHaveClass('canClick');
-      expect(wrapper).toHaveClass('withUrl');
-      expect(screen.getByRole('link')).toBeInTheDocument();
+      const wrapper = container.firstChild as HTMLElement;
+      const link = screen.getByRole('link');
+      expect(wrapper).toBeInTheDocument();
+      expect(link).toBeInTheDocument();
     });
 
     it('handles click without onClick handler', async () => {

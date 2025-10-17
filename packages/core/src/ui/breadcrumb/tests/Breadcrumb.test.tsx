@@ -74,14 +74,7 @@ describe('Breadcrumb', () => {
     });
 
     it('renders spans for items without href', () => {
-      render(
-        <Breadcrumb
-          items={[
-            { label: 'First' },
-            { label: 'Second' },
-          ]}
-        />
-      );
+      render(<Breadcrumb items={[{ label: 'First' }, { label: 'Second' }]} />);
 
       expect(screen.queryByRole('link')).not.toBeInTheDocument();
       expect(screen.getByText('First')).toBeInTheDocument();
@@ -91,15 +84,7 @@ describe('Breadcrumb', () => {
 
   describe('Separators', () => {
     it('renders separators between items', () => {
-      render(
-        <Breadcrumb
-          items={[
-            { label: 'First' },
-            { label: 'Second' },
-            { label: 'Third' },
-          ]}
-        />
-      );
+      render(<Breadcrumb items={[{ label: 'First' }, { label: 'Second' }, { label: 'Third' }]} />);
 
       // Separators contain "/" text
       const separators = screen.getAllByText('/');
@@ -107,14 +92,7 @@ describe('Breadcrumb', () => {
     });
 
     it('does not render separator after last item', () => {
-      render(
-        <Breadcrumb
-          items={[
-            { label: 'First' },
-            { label: 'Last' },
-          ]}
-        />
-      );
+      render(<Breadcrumb items={[{ label: 'First' }, { label: 'Last' }]} />);
 
       const separators = screen.getAllByText('/');
       expect(separators).toHaveLength(1);
@@ -129,14 +107,7 @@ describe('Breadcrumb', () => {
 
   describe('Last Item Styling', () => {
     it('renders last item without link', () => {
-      render(
-        <Breadcrumb
-          items={[
-            { label: 'First' },
-            { label: 'Last' },
-          ]}
-        />
-      );
+      render(<Breadcrumb items={[{ label: 'First' }, { label: 'Last' }]} />);
 
       expect(screen.getByText('Last')).toBeInTheDocument();
       expect(screen.queryByRole('link', { name: 'Last' })).not.toBeInTheDocument();
@@ -182,10 +153,7 @@ describe('Breadcrumb', () => {
     it('handles special characters in labels', () => {
       render(
         <Breadcrumb
-          items={[
-            { label: 'Home & Garden', href: '/' },
-            { label: 'Tools & Equipment' },
-          ]}
+          items={[{ label: 'Home & Garden', href: '/' }, { label: 'Tools & Equipment' }]}
         />
       );
 

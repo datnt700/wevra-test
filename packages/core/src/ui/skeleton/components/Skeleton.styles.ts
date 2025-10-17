@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import { cssVars } from '../../../theme/tokens/colors';
+import { radii } from '../../../theme/tokens/radii';
 
 export const Styled = {
   SkeletonBodyTextStyled: styled.div`
@@ -23,7 +24,7 @@ export const Styled = {
     flex-direction: column;
     gap: 1rem;
     background-color: ${cssVars.gray0};
-    border-radius: 8px;
+    border-radius: ${radii.lg};
   `,
 
   SkeletonImageStyled: styled.div<{ hasAnimation: boolean }>`
@@ -31,7 +32,7 @@ export const Styled = {
     width: 100%;
     height: 10rem;
     max-height: 20rem;
-    border-radius: 6px;
+    border-radius: ${radii.md};
   `,
 
   Tabs: styled.div`
@@ -52,13 +53,13 @@ export const Styled = {
     line-height: 1;
     user-select: none;
     border: 0;
-    border-radius: 6px;
+    border-radius: ${radii.md};
     max-width: 12rem;
 
     background-color: ${cssVars.gray200};
 
     &[data-orientation='vertical'] {
-      border-radius: 6px;
+      border-radius: ${radii.md};
     }
   `,
 
@@ -67,13 +68,13 @@ export const Styled = {
     width: 100%;
     height: 100%;
     min-height: 2rem;
-    border-radius: 6px;
+    border-radius: ${radii.md};
   `,
 
   Row: styled.div<{ hasAnimation: boolean }>`
     background-color: ${cssVars.gray200};
     width: 100%;
     height: 0.75rem;
-    border-radius: 6px;
+    border-radius: ${radii.md};
   `,
 };

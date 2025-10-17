@@ -1,9 +1,11 @@
 import styled from '@emotion/styled';
 import { cssVars } from '../../../theme/tokens/colors';
-import type { AvatarSize } from '../types';
+import { radii } from '../../../theme/tokens/radii';
+import type { AvatarSize, AvatarColor } from '../types';
 
 interface AvatarStyledProps {
   $size?: AvatarSize;
+  $color?: AvatarColor;
 }
 
 interface SizeStyles {
@@ -34,33 +36,50 @@ const getSizeStyles = (size: AvatarSize): SizeStyles => {
   return sizeMap[size];
 };
 
-export const AvatarStyled = styled.div<AvatarStyledProps>`
-  ${({ $size = 'md' }) => {
+const StyledAvatar = styled.div<AvatarStyledProps>`
+  ${({ $size = 'md', $color = 'default' }) => {
     const styles = getSizeStyles($size);
+    const getBackgroundColor = () => {
+      if ($color === 'primary') return cssVars.mainColorLight2;
+      if ($color === 'success') return cssVars.colorSuccessLight;
+      if ($color === 'warning') return cssVars.colorWarningLight;
+      if ($color === 'danger') return cssVars.colorDangerLight;
+      return cssVars.gray300;
+    };
+
+    const getColor = () => {
+      if ($color === 'primary') return cssVars.mainColor;
+      if ($color === 'success') return cssVars.colorSuccess;
+      if ($color === 'warning') return cssVars.colorWarning;
+      if ($color === 'danger') return cssVars.colorDanger;
+      return cssVars.gray700;
+    };
+
     return `
       width: ${styles.size};
       height: ${styles.size};
-      border-radius: 50%;
-      background-size: cover;
-      background-position: center;
-      display: flex;
+      border-radius: ${radii.full};
+      overflow: hidden;
+      display: inline-flex;
       align-items: center;
       justify-content: center;
-      border: 1px solid ${cssVars.gray300};
-      overflow: hidden;
+      background-color: ${getBackgroundColor()};
+      color: ${getColor()};
+      font-weight: 500;
+      user-select: none;
       flex-shrink: 0;
     `;
   }}
 `;
 
-export const AvaImageStyled = styled.img`
+const StyledImage = styled.img`
   width: 100%;
   height: 100%;
-  border-radius: 50%;
+  border-radius: ${radii.full};
   object-fit: cover;
 `;
 
-export const AvaLabelStyled = styled.p<AvatarStyledProps>`
+const StyledLabel = styled.p<AvatarStyledProps>`
   ${({ $size = 'md' }) => {
     const styles = getSizeStyles($size);
     return `
@@ -74,7 +93,7 @@ export const AvaLabelStyled = styled.p<AvatarStyledProps>`
   }}
 `;
 
-export const FallbackStyled = styled.div<AvatarStyledProps>`
+const StyledFallback = styled.div<AvatarStyledProps>`
   ${({ $size = 'md' }) => {
     const styles = getSizeStyles($size);
     return `
@@ -91,3 +110,10 @@ export const FallbackStyled = styled.div<AvatarStyledProps>`
     `;
   }}
 `;
+
+export const Styled = {
+  Avatar: StyledAvatar,
+  Image: StyledImage,
+  Label: StyledLabel,
+  Fallback: StyledFallback,
+};

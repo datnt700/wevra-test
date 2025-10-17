@@ -1,8 +1,6 @@
-/** @jsxImportSource @emotion/react */
 import { X } from 'lucide-react';
 import { Icon } from '../icon';
-import { tagStyles } from './Tag.styles';
-import clsx from 'clsx';
+import { Styled } from './Tag.styles';
 
 export interface TagProps extends React.HTMLAttributes<HTMLDivElement> {
   children?: React.ReactNode;
@@ -47,31 +45,34 @@ export const Tag = ({
   const hasUrl = !!url;
 
   return (
-    <div
-      css={tagStyles.wrapper}
-      className={clsx({ canClick: isClickable, withUrl: hasUrl }, wrapperClassName)}
+    <Styled.Wrapper
+      $canClick={isClickable}
+      $withUrl={hasUrl}
+      className={wrapperClassName}
       onClick={() => onClick?.()}
       {...other}
     >
       {url ? (
-        <a href={url} target="_blank" css={tagStyles.body} className={className} rel="noreferrer">
-          <span>{children}</span>
-          {hasClose ? (
-            <Icon
-              source={<X width={16} height={16} css={tagStyles.closeIcon} onClick={onCloseClick} />}
-            />
-          ) : null}
+        <a href={url} target="_blank" className={className} rel="noreferrer">
+          <Styled.Body>
+            <span>{children}</span>
+            {hasClose ? (
+              <Styled.CloseIcon onClick={onCloseClick}>
+                <Icon source={<X width={16} height={16} />} />
+              </Styled.CloseIcon>
+            ) : null}
+          </Styled.Body>
         </a>
       ) : (
-        <div css={tagStyles.body} className={className}>
+        <Styled.Body className={className}>
           <span>{children}</span>
           {hasClose ? (
-            <Icon
-              source={<X width={16} height={16} css={tagStyles.closeIcon} onClick={onCloseClick} />}
-            />
+            <Styled.CloseIcon onClick={onCloseClick}>
+              <Icon source={<X width={16} height={16} />} />
+            </Styled.CloseIcon>
           ) : null}
-        </div>
+        </Styled.Body>
       )}
-    </div>
+    </Styled.Wrapper>
   );
 };

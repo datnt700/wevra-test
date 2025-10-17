@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import { cssVars } from '../../../theme/tokens/colors';
+import { radii } from '../../../theme/tokens/radii';
 
 interface InputWrapperProps {
   $status: 'default' | 'error';
@@ -50,7 +51,7 @@ const StyledInputWrapper = styled.div<InputWrapperProps>`
       width: 100%;
       background-color: ${cssVars.gray0};
       border: 1px solid ${styles.borderColor};
-      border-radius: 0.375rem;
+      border-radius: ${radii.md};
 
       &:focus-within {
         border-color: ${styles.focusBorderColor};
@@ -84,7 +85,7 @@ const StyledTagsSuggestion = styled.div`
   width: 100%;
   background-color: ${cssVars.gray0};
   border: 1px solid ${cssVars.gray300};
-  border-radius: 0.375rem;
+  border-radius: ${radii.md};
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   z-index: 10;
   margin-top: 0.25rem;
@@ -99,13 +100,13 @@ const StyledTagsSuggestion = styled.div`
     }
 
     &:first-of-type {
-      border-top-left-radius: 0.375rem;
-      border-top-right-radius: 0.375rem;
+      border-top-left-radius: ${radii.md};
+      border-top-right-radius: ${radii.md};
     }
 
     &:last-of-type {
-      border-bottom-left-radius: 0.375rem;
-      border-bottom-right-radius: 0.375rem;
+      border-bottom-left-radius: ${radii.md};
+      border-bottom-right-radius: ${radii.md};
     }
   }
 `;

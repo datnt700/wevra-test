@@ -1326,15 +1326,49 @@ export const Styled = {
 
 **Main Colors**: `mainColor`, `mainColorLight1-9`, `mainColorDark1-6`
 
+**Border Radius Tokens** (from `tokens/radii.ts`):
+
+- `radii.none` - 0
+- `radii.sm` - 0.25rem (4px)
+- `radii.md` - 0.5rem (8px)
+- `radii.lg` - 0.75rem (12px)
+- `radii.xl` - 1rem (16px)
+- `radii.full` - 9999px (fully rounded)
+
 **Key Principles**:
 
-1. **Import `cssVars`** from `tokens/colors.ts`
-2. **Use helper functions** for variant color mapping
-3. **Use template literals** with destructured props: `${({ $variant }) => ...}`
-4. **Export in `Styled` object** to avoid TS declaration errors
-5. **Add hex opacity** for transparent backgrounds: `${color}20` = 12% opacity
-6. **Prefix transient props** with `$` to avoid DOM warnings: `$variant`,
+1. **Import `cssVars`** from `tokens/colors.ts` for colors
+2. **Import `radii`** from `tokens/radii.ts` for border-radius
+3. **Use helper functions** for variant color mapping
+4. **Use template literals** with destructured props: `${({ $variant }) => ...}`
+5. **Export in `Styled` object** to avoid TS declaration errors
+6. **Add hex opacity** for transparent backgrounds: `${color}20` = 12% opacity
+7. **Prefix transient props** with `$` to avoid DOM warnings: `$variant`,
    `$isFilled`
+8. **NEVER use hardcoded px** for border-radius - always use `radii` tokens
+9. **Keep Radix CSS variables** - Don't replace `--radix-*` variables (they're
+   from Radix UI primitives)
+
+**Example with radii tokens**:
+
+```typescript
+import styled from '@emotion/styled';
+import { cssVars } from '../../../tokens/colors';
+import { radii } from '../../../tokens/radii';
+
+const StyledCard = styled.div`
+  background-color: ${cssVars.gray0};
+  border: 1px solid ${cssVars.gray300};
+  border-radius: ${radii.lg}; // ✅ Use radii tokens
+  padding: 1rem;
+
+  /* ❌ WRONG - Don't use hardcoded px */
+  /* border-radius: 12px; */
+
+  /* ✅ CORRECT - Keep Radix CSS variables */
+  height: var(--radix-accordion-content-height);
+`;
+```
 
 ### Theme System
 

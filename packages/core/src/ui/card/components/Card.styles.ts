@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import { cssVars } from '../../../theme/tokens/colors';
+import { radii } from '../../../theme/tokens/radii';
 import type { CardVariant } from '../types';
 
 interface WrapperProps {
@@ -40,7 +41,7 @@ const StyledWrapper = styled.div<WrapperProps>`
     return `
       background-color: ${styles.backgroundColor};
       box-shadow: ${styles.boxShadow};
-      border-radius: 0.75rem;
+      border-radius: ${radii.lg};
       border: ${styles.border};
       overflow: hidden;
     `;

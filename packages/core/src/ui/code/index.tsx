@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import { cssVars } from '../../theme/tokens/colors';
+import { radii } from '../../theme/tokens/radii';
 
 export interface CodeProps extends React.HTMLAttributes<HTMLElement> {
   children: React.ReactNode;
@@ -12,7 +13,7 @@ const StyledCode = styled.code`
   padding: 0.2em 0.4em;
   background-color: ${cssVars.gray100};
   border: 1px solid ${cssVars.gray300};
-  border-radius: 4px;
+  border-radius: ${radii.sm};
   color: ${cssVars.gray900};
 `;
 
