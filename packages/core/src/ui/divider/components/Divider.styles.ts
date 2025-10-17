@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { Separator as RadixSeparator } from 'radix-ui';
-import { cssVars } from '../../theme/tokens/colors';
-import { DividerSize } from './types';
+import { cssVars } from '../../../theme/tokens/colors';
+import { DividerSize } from '../types';
 
 interface RootProps {
   $orientation?: 'horizontal' | 'vertical';

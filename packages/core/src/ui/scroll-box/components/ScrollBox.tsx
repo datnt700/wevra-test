@@ -55,3 +55,5 @@ export const ScrollBox = ({ className, children, height, maxHeight, ...other }: 
     </Styled.self>
   );
 };
+
+ScrollBox.displayName = 'ScrollBox';

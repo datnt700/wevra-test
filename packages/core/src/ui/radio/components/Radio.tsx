@@ -15,6 +15,8 @@ export const Radio = ({ ...other }: RadioProps) => {
   return <RadixRadio {...other} />;
 };
 
+Radio.displayName = 'Radio';
+
 const RadixRadio = ({
   id,
   size = 'default',

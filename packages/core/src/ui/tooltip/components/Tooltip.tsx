@@ -27,16 +27,13 @@ export const Tooltip = ({
   ...other
 }: TooltipProps) => {
   return (
-    <Radix
-      children={children}
-      trigger={trigger}
-      side={side}
-      sideOffset={sideOffset}
-      showArrow={showArrow}
-      {...other}
-    />
+    <Radix trigger={trigger} side={side} sideOffset={sideOffset} showArrow={showArrow} {...other}>
+      {children}
+    </Radix>
   );
 };
+
+Tooltip.displayName = 'Tooltip';
 
 const Radix = ({ trigger, children, side, sideOffset, showArrow }: TooltipProps) => (
   <Styled.Provider>

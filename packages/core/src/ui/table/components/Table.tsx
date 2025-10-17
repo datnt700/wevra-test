@@ -5,44 +5,13 @@
 
 import React, { useState } from 'react';
 import { ChevronDown, ChevronUp } from 'lucide-react';
-import { Pagination } from '../pagination';
-import { InputSearch } from '../input-search';
-import { Checkbox } from '../checkbox';
+import { Pagination } from '../../pagination';
+import { InputSearch } from '../../input-search';
+import { Checkbox } from '../../checkbox';
 import { Styled } from './Table.styles';
+import { SortDirection, TableProps } from '../types';
 
-type SortDirection = 'asc' | 'desc';
-type RowAlign = 'center' | 'left' | 'right';
-
-export interface Column<T, K extends keyof T> {
-  key: string;
-  header: React.ReactNode;
-  styles?: React.CSSProperties;
-  className?: string;
-  accessor?: K;
-  sortable?: boolean;
-  width?: string;
-  align?: RowAlign;
-  onClick?: any;
-
-  render?(data: T): React.ReactNode;
-}
-
-type TableProps<T, K extends keyof T> = {
-  columns: Array<Column<T, K>>;
-  data: any;
-  selectable?: boolean;
-  searchable?: boolean;
-  pagination?: boolean;
-  onSelectionChange?: (selectedIds: Set<any>) => void;
-  onSort?: (field: string, direction: SortDirection) => void;
-  onSearch?: (term: string) => void;
-  empty?: React.ReactNode;
-  onRowClick?: (data: T) => void;
-  isLoading?: boolean;
-  loading?: React.ReactNode;
-  isError?: boolean;
-  error?: React.ReactNode;
-};
+export type { Column, RowAlign, SortDirection, TableProps } from '../types';
 
 /**
  * Table - Data table with sorting, filtering, pagination, and selection

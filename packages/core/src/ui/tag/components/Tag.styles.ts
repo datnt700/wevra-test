@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
-import { cssVars } from '../../theme/tokens/colors';
-import { radii } from '../../theme/tokens/radii';
+import { cssVars } from '../../../theme/tokens/colors';
+import { radii } from '../../../theme/tokens/radii';
 
 interface WrapperProps {
   $canClick?: boolean;

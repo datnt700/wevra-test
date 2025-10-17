@@ -15,3 +15,5 @@ export const RadioGroup = ({ defaultValue, children, ...other }: RadioGroupProps
     </RadixRadioGroup.Root>
   );
 };
+
+RadioGroup.displayName = 'RadioGroup';

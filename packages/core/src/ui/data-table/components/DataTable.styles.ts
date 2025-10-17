@@ -4,7 +4,7 @@
  */
 
 import styled from '@emotion/styled';
-import { cssVars } from '../../theme/tokens/colors';
+import { cssVars } from '../../../theme/tokens/colors';
 
 /**
  * Wrapper container for the data table

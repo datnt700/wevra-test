@@ -5,6 +5,8 @@ export const Slider = ({ ...other }: SliderProps) => {
   return <Radix {...other} />;
 };
 
+Slider.displayName = 'Slider';
+
 /**
  * A reusable Slider component built with Radix UI primitives.
  *

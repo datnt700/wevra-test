@@ -1,7 +1,7 @@
 import { X } from 'lucide-react';
-import { Icon } from '../icon';
+import { Icon } from '../../icon';
 import { Styled } from './Tag.styles';
-import type { TagProps } from './types';
+import type { TagProps } from '../types';
 
 /**
  * Tag component - A compact label or badge with optional close button

@@ -1,5 +1,5 @@
 import { Styled } from './Divider.styles';
-import { DividerProps } from './types';
+import { DividerProps } from '../types';
 
 /**
  * Divider component - Visually separates content with a horizontal or vertical line

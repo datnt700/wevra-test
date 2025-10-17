@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it, vi } from 'vitest';
-import { Tag } from '../Tag';
+import { Tag } from '../components/Tag';
 
 describe('Tag', () => {
   describe('Basic Rendering', () => {

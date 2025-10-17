@@ -11,17 +11,10 @@ import {
   getPaginationRowModel,
   flexRender,
 } from '@tanstack/react-table';
-import { Table, Container, Wrapper } from './Data.styles';
+import { Table, Container, Wrapper } from './DataTable.styles';
+import { DataTableProps } from '../types';
 
-// type RowAlign = 'center' | 'left' | 'right';
-
-type DataTableProps<T> = {
-  data: T[];
-  columns: ColumnDef<T, any>[];
-  pageSize?: number;
-  onRowClick?: (data: T) => void;
-  empty?: React.ReactNode;
-};
+export type { DataTableProps } from '../types';
 
 /**
  * DataTable - Flexible data table component with TanStack Table
