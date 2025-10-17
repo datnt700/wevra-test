@@ -1,4 +1,5 @@
 import { css } from '@emotion/react';
+import { cssVars } from '../../theme/tokens/colors';
 
 export const tagStyles = {
   wrapper: css`
@@ -7,16 +8,16 @@ export const tagStyles = {
     max-width: 100%;
     align-items: center;
     padding: 0.125rem 0.375rem;
-    background-color: var(--light-7);
-    border-radius: var(--border-radius-medium);
-    color: var(--dark);
+    background-color: ${cssVars.gray100};
+    border-radius: 6px;
+    color: ${cssVars.gray900};
     width: max-content;
     transition: background-color 0.3s ease;
 
     &.canClick {
       cursor: pointer;
       &:hover {
-        background-color: var(--light-4);
+        background-color: ${cssVars.gray200};
       }
     }
 
@@ -28,7 +29,7 @@ export const tagStyles = {
       }
 
       &:hover {
-        background-color: var(--light-4);
+        background-color: ${cssVars.gray200};
 
         .body {
           text-decoration: underline;
@@ -54,7 +55,7 @@ export const tagStyles = {
     transition: color 0.2s;
 
     &:hover {
-      color: var(--dark-4);
+      color: ${cssVars.gray600};
     }
   `,
 };

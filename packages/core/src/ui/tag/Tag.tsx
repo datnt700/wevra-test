@@ -14,6 +14,25 @@ export interface TagProps extends React.HTMLAttributes<HTMLDivElement> {
   onCloseClick?: () => void;
 }
 
+/**
+ * Tag component - A compact label or badge with optional close button
+ *
+ * @example
+ * // Basic tag
+ * <Tag>Label</Tag>
+ *
+ * @example
+ * // Clickable tag
+ * <Tag onClick={() => console.log('clicked')}>Clickable</Tag>
+ *
+ * @example
+ * // Tag with close button
+ * <Tag hasClose onCloseClick={() => console.log('removed')}>Removable</Tag>
+ *
+ * @example
+ * // Tag with URL
+ * <Tag url="https://example.com">Link Tag</Tag>
+ */
 export const Tag = ({
   children,
   onClick,
