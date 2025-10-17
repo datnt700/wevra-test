@@ -1,3 +1,8 @@
+/**
+ * Drawer component
+ * A slide-in panel component for navigation, forms, or additional content
+ * @module Drawer
+ */
 import { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 import { Styled } from './Drawer.styles';
@@ -6,22 +11,34 @@ import { DrawerProps } from '../types';
 import { Icon } from '@tavia/core';
 
 /**
- * A reusable Drawer component designed for side or bottom panels.
+ * A reusable drawer component for slide-in panels
  *
  * Features:
- * - Supports multiple positions (`right`, `left`, `top`, `bottom`).
- * - Provides smooth animations for opening and closing.
- * - Includes accessible close functionality and keyboard navigation.
- * - Styled using Emotion's `styled` API for modularity and reusability.
+ * - Position variants (right, left, top, bottom)
+ * - Smooth slide animations
+ * - Keyboard navigation (Escape to close)
+ * - Click-outside to close
+ * - Portal rendering for proper z-index layering
+ * - Accessible ARIA attributes
  *
- * Props:
- * - `header`: Optional header content (e.g., title or actions).
- * - `isOpen`: Boolean indicating whether the drawer is open.
- * - `onClose`: Callback function triggered when the drawer closes.
- * - `children`: The main content of the drawer.
- * - `footer`: Optional footer content (e.g., buttons or actions).
- * - `position`: The position of the drawer (`right`, `left`, `top`, `bottom`).
- * - `className`: Optional class name for additional styling.
+ * @example
+ * ```tsx
+ * // Basic drawer
+ * <Drawer isOpen={isOpen} onClose={() => setIsOpen(false)} header="Settings">
+ *   <p>Drawer content here</p>
+ * </Drawer>
+ *
+ * // Drawer with footer and custom position
+ * <Drawer
+ *   isOpen={isOpen}
+ *   onClose={handleClose}
+ *   header="Filters"
+ *   footer={<Button onClick={handleApply}>Apply</Button>}
+ *   position="left"
+ * >
+ *   <FilterForm />
+ * </Drawer>
+ * ```
  */
 export const Drawer = ({
   header,
@@ -35,65 +52,69 @@ export const Drawer = ({
   const [isVisible, setIsVisible] = useState(false);
 
   /**
-   * Handles closing the drawer with a delay for smooth animation.
+   * Handle drawer close with animation
    */
   const handleClose = () => {
     setIsVisible(false);
-
-    // Add a timeout to ensure the animation completes before calling `onClose`
+    // Wait for animation to complete before unmounting
     setTimeout(() => {
       onClose();
-    }, 500);
+    }, 300); // Match transition duration in styles
   };
 
   /**
-   * Handles keyboard events to close the drawer on `Escape` key press.
+   * Handle keyboard events and body scroll
    */
-  const handleKeyDown = (event: KeyboardEvent) => {
-    if (event.key === 'Escape') {
-      handleClose();
-    }
-  };
-
   useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape' && isOpen) {
+        setIsVisible(false);
+        setTimeout(() => {
+          onClose();
+        }, 300);
+      }
+    };
+
     if (isOpen) {
+      // Trigger opening animation
       setIsVisible(true);
-      document.addEventListener('keydown', handleKeyDown); // Add global event listener for Escape key
-    } else {
-      document.removeEventListener('keydown', handleKeyDown); // Clean up event listener
+      document.addEventListener('keydown', handleKeyDown);
+      // Prevent body scroll when drawer is open
+      document.body.style.overflow = 'hidden';
     }
 
     return () => {
-      document.removeEventListener('keydown', handleKeyDown); // Ensure cleanup on unmount
+      document.removeEventListener('keydown', handleKeyDown);
+      document.body.style.overflow = '';
     };
-  }, [isOpen]);
+  }, [isOpen, onClose]);
 
   if (!isOpen) return null;
 
   return ReactDOM.createPortal(
     <Styled.Wrapper $position={position} $isOpen={isVisible}>
-      {/* Overlay for clicking outside */}
-      <Styled.Overlay $isOpen={isVisible} onClick={handleClose} />
+      {/* Overlay - click to close */}
+      <Styled.Overlay $isOpen={isVisible} onClick={handleClose} aria-hidden="true" />
 
-      {/* Main Drawer Content */}
-      <Styled.Main role="dialog" aria-modal="true" tabIndex={-1}>
+      {/* Drawer content */}
+      <Styled.Main role="dialog" aria-modal="true" aria-labelledby="drawer-header">
         <Styled.Container $position={position} $isOpen={isVisible} className={className}>
-          {/* Header Section */}
+          {/* Header */}
           {header && (
             <Styled.Header>
-              <div className="header">{header}</div>
-              <Styled.CloseButton data-dismiss="drawer" onClick={handleClose}>
+              <div id="drawer-header" className="header">
+                {header}
+              </div>
+              <Styled.CloseButton onClick={handleClose} aria-label="Close drawer" type="button">
                 <Icon source={<X size={24} />} />
               </Styled.CloseButton>
             </Styled.Header>
           )}
 
-          {/* Content Section */}
-          <Styled.Content>
-            <div className="content">{children}</div>
-          </Styled.Content>
+          {/* Content */}
+          <Styled.Content>{children}</Styled.Content>
 
-          {/* Footer Section */}
+          {/* Footer */}
           {footer && <Styled.Footer>{footer}</Styled.Footer>}
         </Styled.Container>
       </Styled.Main>
@@ -101,3 +122,5 @@ export const Drawer = ({
     document.body
   );
 };
+
+Drawer.displayName = 'Drawer';
