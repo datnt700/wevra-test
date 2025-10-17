@@ -18,7 +18,7 @@ export const Styled: any = {
   Root: styled(RadixAccordion.Root)`
     border-radius: ${radii.md};
     width: 100%;
-    background-color: ${cssVars.gray0};
+    background-color: ${cssVars.light};
   `,
 
   Item: styled(RadixAccordion.Item)`
@@ -57,21 +57,21 @@ export const Styled: any = {
     justify-content: space-between;
     font-size: 1rem;
     line-height: 1;
-    color: ${cssVars.gray900};
-    background-color: ${cssVars.gray0};
+    color: ${cssVars.dark};
+    background-color: ${cssVars.light};
     border: 0;
-    border-bottom: 1px solid ${cssVars.gray300};
+    border-bottom: 1px solid ${cssVars.light4};
 
     &:hover {
-      background-color: ${cssVars.gray100};
+      background-color: ${cssVars.light3};
     }
   `,
 
   Content: styled(RadixAccordion.Content)`
     overflow: hidden;
     font-size: 1rem;
-    color: ${cssVars.gray900};
-    background-color: ${cssVars.gray0};
+    color: ${cssVars.dark};
+    background-color: ${cssVars.light};
 
     &[data-state='open'] {
       animation: ${slideDown} 300ms cubic-bezier(0.87, 0, 0.13, 1);

@@ -44,7 +44,7 @@ const StyledAvatar = styled.div<AvatarStyledProps>`
       if ($color === 'success') return cssVars.colorSuccessLight;
       if ($color === 'warning') return cssVars.colorWarningLight;
       if ($color === 'danger') return cssVars.colorDangerLight;
-      return cssVars.gray300;
+      return cssVars.light4;
     };
 
     const getColor = () => {
@@ -52,7 +52,7 @@ const StyledAvatar = styled.div<AvatarStyledProps>`
       if ($color === 'success') return cssVars.colorSuccess;
       if ($color === 'warning') return cssVars.colorWarning;
       if ($color === 'danger') return cssVars.colorDanger;
-      return cssVars.gray700;
+      return cssVars.dark3;
     };
 
     return `
@@ -83,7 +83,7 @@ const StyledLabel = styled.p<AvatarStyledProps>`
   ${({ $size = 'md' }) => {
     const styles = getSizeStyles($size);
     return `
-      color: ${cssVars.gray700};
+      color: ${cssVars.dark3};
       font-size: ${styles.fontSize};
       font-weight: 500;
       margin: 0;
@@ -102,8 +102,8 @@ const StyledFallback = styled.div<AvatarStyledProps>`
       justify-content: center;
       width: 100%;
       height: 100%;
-      background-color: ${cssVars.gray200};
-      color: ${cssVars.gray700};
+      background-color: ${cssVars.light4};
+      color: ${cssVars.dark3};
       font-size: ${styles.fontSize};
       font-weight: 500;
       text-transform: uppercase;
