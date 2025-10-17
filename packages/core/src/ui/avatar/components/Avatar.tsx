@@ -26,10 +26,13 @@ export const Avatar = ({
   color = 'default',
   ...other
 }: AvatarProps) => {
+  // Use alt if provided, otherwise use label as alt text for accessibility
+  const imageAlt = alt || label || '';
+
   return (
     <Styled.Avatar $size={size} $color={color} {...other}>
       {src ? (
-        <Styled.Image src={src} alt={alt || ''} />
+        <Styled.Image src={src} alt={imageAlt} />
       ) : label ? (
         <Styled.Label $size={size}>{label}</Styled.Label>
       ) : (

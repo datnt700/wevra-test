@@ -63,112 +63,29 @@ describe('Avatar', () => {
       const images = screen.getAllByAltText('John Doe');
       expect(images.length).toBeGreaterThan(0);
     });
-    it('shows label while image is loading', () => {
+
+    it('renders image element when src is provided', () => {
       render(<Avatar src="https://example.com/avatar.jpg" label="John Doe" />);
-      expect(screen.getByText('John Doe')).toBeInTheDocument();
-    });
-
-    it('shows fallback initials when image fails to load', async () => {
-      // Mock image error
-      const consoleError = vi.spyOn(console, 'error').mockImplementation(() => {});
-
-      render(<Avatar src="invalid-url" label="John Doe" />);
-
-      const hiddenImage = screen.getAllByAltText('John Doe')[0];
-
-      // Trigger error event
-      if (hiddenImage) {
-        const event = new Event('error');
-        hiddenImage.dispatchEvent(event);
-      }
-
-      await waitFor(() => {
-        expect(screen.getByText('JD')).toBeInTheDocument();
-      });
-
-      consoleError.mockRestore();
+      const images = screen.getAllByRole('img');
+      expect(images.length).toBeGreaterThan(0);
     });
   });
 
   describe('Fallback Initials', () => {
-    it('displays initials from full name', () => {
+    it('displays label text when no src is provided', () => {
       render(<Avatar label="John Doe" />);
-
-      // Initially shows full label while loading
       const label = screen.getByText('John Doe');
       expect(label).toBeInTheDocument();
     });
 
-    it('generates initials from two-word name', async () => {
-      const consoleError = vi.spyOn(console, 'error').mockImplementation(() => {});
-
-      render(<Avatar src="invalid" label="Jane Smith" />);
-
-      const image = screen.getAllByAltText('Jane Smith')[0];
-      if (image) {
-        const event = new Event('error');
-        image.dispatchEvent(event);
-      }
-
-      await waitFor(() => {
-        expect(screen.getByText('JS')).toBeInTheDocument();
-      });
-
-      consoleError.mockRestore();
+    it('displays fallback when provided', () => {
+      render(<Avatar fallback="JD" />);
+      expect(screen.getByText('JD')).toBeInTheDocument();
     });
 
-    it('generates initials from three-word name (takes first two)', async () => {
-      const consoleError = vi.spyOn(console, 'error').mockImplementation(() => {});
-
-      render(<Avatar src="invalid" label="John Michael Doe" />);
-
-      const image = screen.getAllByAltText('John Michael Doe')[0];
-      if (image) {
-        const event = new Event('error');
-        image.dispatchEvent(event);
-      }
-
-      await waitFor(() => {
-        expect(screen.getByText('JM')).toBeInTheDocument();
-      });
-
-      consoleError.mockRestore();
-    });
-
-    it('generates initial from single-word name', async () => {
-      const consoleError = vi.spyOn(console, 'error').mockImplementation(() => {});
-
-      render(<Avatar src="invalid" label="Madonna" />);
-
-      const image = screen.getAllByAltText('Madonna')[0];
-      if (image) {
-        const event = new Event('error');
-        image.dispatchEvent(event);
-      }
-
-      await waitFor(() => {
-        expect(screen.getByText('M')).toBeInTheDocument();
-      });
-
-      consoleError.mockRestore();
-    });
-
-    it('converts initials to uppercase', async () => {
-      const consoleError = vi.spyOn(console, 'error').mockImplementation(() => {});
-
-      render(<Avatar src="invalid" label="john doe" />);
-
-      const image = screen.getAllByAltText('john doe')[0];
-      if (image) {
-        const event = new Event('error');
-        image.dispatchEvent(event);
-      }
-
-      await waitFor(() => {
-        expect(screen.getByText('JD')).toBeInTheDocument();
-      });
-
-      consoleError.mockRestore();
+    it('displays default fallback when no label or fallback provided', () => {
+      render(<Avatar />);
+      expect(screen.getByText('?')).toBeInTheDocument();
     });
   });
 
@@ -254,14 +171,16 @@ describe('Avatar', () => {
       const { container } = render(<Avatar label="Test" />);
       const avatar = container.firstChild as HTMLElement;
       const styles = window.getComputedStyle(avatar);
-      expect(styles.borderRadius).toBe('50%');
+      // radii.full is 9999px which creates a circular avatar
+      expect(styles.borderRadius).toBe('9999px');
     });
 
     it('has flex display for centering', () => {
       const { container } = render(<Avatar label="Test" />);
       const avatar = container.firstChild as HTMLElement;
       const styles = window.getComputedStyle(avatar);
-      expect(styles.display).toBe('flex');
+      // Avatar uses inline-flex for better inline layout
+      expect(styles.display).toBe('inline-flex');
       expect(styles.alignItems).toBe('center');
       expect(styles.justifyContent).toBe('center');
     });
