@@ -58,7 +58,7 @@ describe('Label', () => {
     it('shows asterisk when required is true', () => {
       const { container } = render(<Label required>Required Field</Label>);
       const label = container.querySelector('label');
-      
+
       // Check for asterisk in pseudo-element via computed styles or content
       expect(label).toBeInTheDocument();
       expect(screen.getByText('Required Field')).toBeInTheDocument();
@@ -182,7 +182,7 @@ describe('Label', () => {
     });
 
     it('handles special characters', () => {
-      render(<Label>{"Email (required) - user@example.com"}</Label>);
+      render(<Label>{'Email (required) - user@example.com'}</Label>);
       expect(screen.getByText('Email (required) - user@example.com')).toBeInTheDocument();
     });
   });

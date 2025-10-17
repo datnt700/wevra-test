@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { cssVars } from '../../../theme/tokens/colors';
 
 export const Styled = {
   SkeletonBodyTextStyled: styled.div`
@@ -21,16 +22,16 @@ export const Styled = {
     display: flex;
     flex-direction: column;
     gap: 1rem;
-    background-color: var(--light);
-    border-radius: var(--border-radius-large);
+    background-color: ${cssVars.gray0};
+    border-radius: 8px;
   `,
 
   SkeletonImageStyled: styled.div<{ hasAnimation: boolean }>`
-    background-color: var(--light-4);
+    background-color: ${cssVars.gray200};
     width: 100%;
     height: 10rem;
     max-height: 20rem;
-    border-radius: var(--border-radius-medium);
+    border-radius: 6px;
   `,
 
   Tabs: styled.div`
@@ -51,28 +52,28 @@ export const Styled = {
     line-height: 1;
     user-select: none;
     border: 0;
-    border-radius: var(--border-radius-medium);
+    border-radius: 6px;
     max-width: 12rem;
 
-    background-color: var(--light-4);
+    background-color: ${cssVars.gray200};
 
     &[data-orientation='vertical'] {
-      border-radius: var(--border-radius-medium);
+      border-radius: 6px;
     }
   `,
 
   Title: styled.div<{ hasAnimation: boolean }>`
-    background-color: var(--light-4);
+    background-color: ${cssVars.gray200};
     width: 100%;
     height: 100%;
     min-height: 2rem;
-    border-radius: var(--border-radius-medium);
+    border-radius: 6px;
   `,
 
   Row: styled.div<{ hasAnimation: boolean }>`
-    background-color: var(--light-4);
+    background-color: ${cssVars.gray200};
     width: 100%;
     height: 0.75rem;
-    border-radius: var(--border-radius-medium);
+    border-radius: 6px;
   `,
 };
