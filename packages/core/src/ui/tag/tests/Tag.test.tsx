@@ -33,10 +33,10 @@ describe('Tag', () => {
       const user = userEvent.setup();
       const handleClick = vi.fn();
       const { container } = render(<Tag onClick={handleClick}>Clickable</Tag>);
-      
+
       const wrapper = container.firstChild as HTMLElement;
       await user.click(wrapper);
-      
+
       expect(handleClick).toHaveBeenCalledTimes(1);
     });
 
@@ -123,7 +123,11 @@ describe('Tag', () => {
 
   describe('HTML Attributes', () => {
     it('passes through additional HTML attributes', () => {
-      render(<Tag data-testid="custom-tag" id="tag-1">Content</Tag>);
+      render(
+        <Tag data-testid="custom-tag" id="tag-1">
+          Content
+        </Tag>
+      );
       const tag = screen.getByTestId('custom-tag');
       expect(tag).toBeInTheDocument();
       expect(tag).toHaveAttribute('id', 'tag-1');
@@ -178,7 +182,7 @@ describe('Tag', () => {
           Both
         </Tag>
       );
-      
+
       const wrapper = container.firstChild;
       expect(wrapper).toHaveClass('canClick');
       expect(wrapper).toHaveClass('withUrl');
@@ -189,7 +193,7 @@ describe('Tag', () => {
       const user = userEvent.setup();
       const { container } = render(<Tag>No Handler</Tag>);
       const wrapper = container.firstChild as HTMLElement;
-      
+
       // Should not throw error
       await user.click(wrapper);
       expect(wrapper).toBeInTheDocument();
@@ -199,7 +203,7 @@ describe('Tag', () => {
       const user = userEvent.setup();
       const { container } = render(<Tag hasClose>No Handler</Tag>);
       const closeIcon = container.querySelector('svg') as SVGElement;
-      
+
       // Should not throw error
       await user.click(closeIcon);
       expect(closeIcon).toBeInTheDocument();
@@ -215,7 +219,7 @@ describe('Tag', () => {
           <Tag>Tag 3</Tag>
         </div>
       );
-      
+
       expect(screen.getByText('Tag 1')).toBeInTheDocument();
       expect(screen.getByText('Tag 2')).toBeInTheDocument();
       expect(screen.getByText('Tag 3')).toBeInTheDocument();

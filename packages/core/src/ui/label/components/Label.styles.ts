@@ -1,9 +1,12 @@
 import styled from '@emotion/styled';
+import { cssVars } from '../../../theme/tokens/colors';
 
 export const Styled = {
-  Label: styled.label<{ $required?: boolean }>`
+  Label: styled('label', {
+    shouldForwardProp: (prop) => !prop.startsWith('$'),
+  })<{ $required?: boolean }>`
     font-size: 1rem;
-    color: var(--dark);
+    color: ${cssVars.gray900};
     font-style: normal;
     font-weight: 500;
     line-height: normal;
@@ -16,13 +19,13 @@ export const Styled = {
       `
         &::after {
           content: ' *';
-          color: var(--main-color);
+          color: ${cssVars.mainColor};
         }
       `}
   `,
   Title: styled.p`
     margin: 0; /* Remove default paragraph margins */
-    color: var(--dark);
+    color: ${cssVars.gray900};
     font-size: 1rem;
     font-weight: 500;
     line-height: normal;

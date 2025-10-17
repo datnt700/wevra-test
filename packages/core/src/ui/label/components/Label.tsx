@@ -16,11 +16,17 @@ import { LabelProps } from '..';
  * - `children`: The label text or content.
  * - `required`: Boolean indicating whether the label represents a required field.
  */
-export const Label = ({ htmlFor, className, children, required = false }: LabelProps) => {
+export const Label = ({
+  htmlFor,
+  className,
+  children,
+  required = false,
+  ...other
+}: LabelProps) => {
   if (!children) return null;
 
   return (
-    <Styled.Label htmlFor={htmlFor} className={className} $required={required}>
+    <Styled.Label htmlFor={htmlFor} className={className} $required={required} {...other}>
       <Styled.Title>{children}</Styled.Title>
     </Styled.Label>
   );

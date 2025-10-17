@@ -54,7 +54,11 @@ describe('Code', () => {
 
   describe('HTML Attributes', () => {
     it('passes through additional HTML attributes', () => {
-      render(<Code data-testid="my-code" id="code-1">test</Code>);
+      render(
+        <Code data-testid="my-code" id="code-1">
+          test
+        </Code>
+      );
       const code = screen.getByTestId('my-code');
       expect(code).toBeInTheDocument();
       expect(code).toHaveAttribute('id', 'code-1');
