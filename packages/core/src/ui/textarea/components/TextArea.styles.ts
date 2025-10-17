@@ -5,7 +5,7 @@
  */
 import styled from '@emotion/styled';
 import { cssVars } from '../../../theme/tokens/colors';
-import { styleVars } from '../../../theme/tokens/variables';
+import { radii } from '../../../theme/tokens/radii';
 
 const StyledWrapper = styled.div<{ $hasError?: boolean }>`
   ${({ $hasError = false }) => `
@@ -14,7 +14,7 @@ const StyledWrapper = styled.div<{ $hasError?: boolean }>`
     gap: 0.5rem;
     width: 100%;
     border: 1px solid ${$hasError ? cssVars.colorDanger : cssVars.light5};
-    border-radius: ${styleVars.borderRadiusMedium};
+    border-radius: ${radii.md};
     transition: all 0.2s ease-in-out;
 
     &:focus-within {
@@ -33,7 +33,7 @@ const StyledTextArea = styled.textarea<{ $hasError?: boolean }>`
     padding: 0.5rem 1rem;
     width: 100%;
     font-size: 1rem;
-    border-radius: ${styleVars.borderRadiusMedium};
+    border-radius: ${radii.md};
     border: 1px solid ${$hasError ? cssVars.colorDanger : cssVars.light5};
     font-family: inherit;
     transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
