@@ -1,31 +1,52 @@
-import styled from '@emotion/styled';
+/**
+ * @fileoverview Table component styles using Emotion
+ * Provides styled components for data table with sorting, filtering, and pagination
+ */
 
-export const TableWrapper = styled.div`
+import styled from '@emotion/styled';
+import { cssVars } from '../../theme/tokens/colors';
+import { radii } from '../../theme/tokens/radii';
+
+/**
+ * Wrapper for the entire table component
+ * Contains search, table, and pagination sections
+ */
+const TableWrapper = styled.div`
   margin: 0;
   padding: 0;
-  background-color: var(--light);
+  background-color: ${cssVars.light};
   border: 1px solid transparent;
   border-spacing: 0;
   width: 100%;
   max-width: 100%;
-  border-radius: var(--border-radius-medium);
+  border-radius: ${radii.md};
 `;
 
-export const Header = styled.div`
+/**
+ * Header section for table controls (e.g., search)
+ */
+const Header = styled.div`
   padding: 1rem;
-  background-color: var(--light);
-  border-bottom: 1px solid var(--light);
+  background-color: ${cssVars.light};
+  border-bottom: 1px solid ${cssVars.light};
 `;
 
-export const TableElement = styled.table`
+/**
+ * Main HTML table element
+ */
+const TableElement = styled.table`
   width: 100%;
   border-spacing: 0;
 `;
 
-export const TableHeader = styled.th`
+/**
+ * Table header cell (th element)
+ * Includes sorting functionality
+ */
+const TableHeader = styled.th`
   padding: 1rem;
   vertical-align: middle;
-  color: var(--dark);
+  color: ${cssVars.dark};
   cursor: pointer;
 
   .headerContent {
@@ -35,30 +56,54 @@ export const TableHeader = styled.th`
   }
 `;
 
-export const TableRow = styled.tr`
+/**
+ * Table row (tr element)
+ * Supports hover and selection states
+ */
+const TableRow = styled.tr`
   text-align: left;
   cursor: pointer;
   transition: all 0.5s ease-out;
 
   &:hover {
-    background-color: var(--light-4);
+    background-color: ${cssVars.light4};
   }
 
   &.selectedRow {
-    background-color: var(--primary-light);
+    background-color: ${cssVars.mainColorLight};
   }
 `;
 
-export const TableCell = styled.td`
+/**
+ * Table data cell (td element)
+ */
+const TableCell = styled.td`
   padding: 1rem;
   vertical-align: middle;
-  color: var(--dark);
+  color: ${cssVars.dark};
 `;
 
-export const Footer = styled.div`
+/**
+ * Footer section for pagination controls
+ */
+const Footer = styled.div`
   padding: 1rem;
 `;
 
-export const SearchWrapper = styled.div`
+/**
+ * Wrapper for search input component
+ */
+const SearchWrapper = styled.div`
   margin-bottom: 1rem;
 `;
+
+export const Styled = {
+  TableWrapper,
+  Header,
+  TableElement,
+  TableHeader,
+  TableRow,
+  TableCell,
+  Footer,
+  SearchWrapper,
+};

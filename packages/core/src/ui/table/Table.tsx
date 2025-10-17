@@ -1,17 +1,14 @@
+/**
+ * @fileoverview Table component with sorting, filtering, pagination, and row selection
+ * Features: searchable columns, sortable headers, pagination, multi-row selection
+ */
+
 import React, { useState } from 'react';
 import { ChevronDown, ChevronUp } from 'lucide-react';
 import { Pagination } from '../pagination';
 import { InputSearch } from '../input-search';
 import { Checkbox } from '../checkbox';
-import {
-  TableWrapper,
-  TableElement,
-  TableHeader,
-  TableRow,
-  TableCell,
-  Footer,
-  SearchWrapper,
-} from './Table.styles';
+import { Styled } from './Table.styles';
 
 type SortDirection = 'asc' | 'desc';
 type RowAlign = 'center' | 'left' | 'right';
@@ -47,6 +44,90 @@ type TableProps<T, K extends keyof T> = {
   error?: React.ReactNode;
 };
 
+/**
+ * Table - Data table with sorting, filtering, pagination, and selection
+ *
+ * @description
+ * Feature-rich data table component with built-in support for:
+ * - Column sorting (ascending/descending)
+ * - Row filtering via search
+ * - Pagination with configurable page size
+ * - Multi-row selection with checkboxes
+ * - Custom cell rendering
+ * - Loading and error states
+ *
+ * @example
+ * // Basic table with user data
+ * ```tsx
+ * interface User {
+ *   id: number;
+ *   name: string;
+ *   email: string;
+ *   role: string;
+ * }
+ *
+ * const columns: Column<User, keyof User>[] = [
+ *   { key: 'name', header: 'Name' },
+ *   { key: 'email', header: 'Email' },
+ *   { key: 'role', header: 'Role', sortable: false },
+ * ];
+ *
+ * const users: User[] = [
+ *   { id: 1, name: 'Alice', email: 'alice@example.com', role: 'Admin' },
+ *   { id: 2, name: 'Bob', email: 'bob@example.com', role: 'User' },
+ * ];
+ *
+ * <Table columns={columns} data={users} />
+ * ```
+ *
+ * @example
+ * // Table with custom rendering and selection
+ * ```tsx
+ * const columns: Column<User, keyof User>[] = [
+ *   { key: 'name', header: 'Name', width: '200px' },
+ *   {
+ *     key: 'status',
+ *     header: 'Status',
+ *     render: (user) => (
+ *       <Badge variant={user.status === 'active' ? 'success' : 'warning'}>
+ *         {user.status}
+ *       </Badge>
+ *     ),
+ *   },
+ * ];
+ *
+ * <Table
+ *   columns={columns}
+ *   data={users}
+ *   selectable
+ *   onSelectionChange={(ids) => console.log('Selected:', ids)}
+ * />
+ * ```
+ *
+ * @example
+ * // Table without search or pagination
+ * ```tsx
+ * <Table
+ *   columns={columns}
+ *   data={users}
+ *   searchable={false}
+ *   pagination={false}
+ *   selectable={false}
+ * />
+ * ```
+ *
+ * @example
+ * // Table with loading state
+ * ```tsx
+ * <Table
+ *   columns={columns}
+ *   data={users}
+ *   isLoading={isLoading}
+ *   loading={<Spinner />}
+ *   empty={<EmptyState message="No users found" />}
+ * />
+ * ```
+ */
 export const Table = <T, K extends keyof T>({
   columns,
   data,
@@ -136,30 +217,30 @@ export const Table = <T, K extends keyof T>({
   };
 
   return data && data.length ? (
-    <TableWrapper>
+    <Styled.TableWrapper>
       {searchable && (
-        <SearchWrapper>
+        <Styled.SearchWrapper>
           <InputSearch
             placeholder="Search property ..."
             value={searchTerm}
             onChange={(e) => handleSearch(e.target.value)}
           />
-        </SearchWrapper>
+        </Styled.SearchWrapper>
       )}
 
-      <TableElement>
+      <Styled.TableElement>
         <thead>
-          <TableRow>
+          <Styled.TableRow>
             {selectable && (
-              <TableHeader>
+              <Styled.TableHeader>
                 <Checkbox
                   checked={selectedRows.size === paginatedData.length}
                   onCheckedChange={handleSelectAll}
                 />
-              </TableHeader>
+              </Styled.TableHeader>
             )}
             {columns.map((column) => (
-              <TableHeader
+              <Styled.TableHeader
                 key={column.key}
                 style={{ width: column.width }}
                 onClick={() => column.sortable !== false && handleSort(column.key)}
@@ -170,36 +251,38 @@ export const Table = <T, K extends keyof T>({
                     sortField === column.key &&
                     (sortDirection === 'asc' ? <ChevronUp size={16} /> : <ChevronDown size={16} />)}
                 </div>
-              </TableHeader>
+              </Styled.TableHeader>
             ))}
-          </TableRow>
+          </Styled.TableRow>
         </thead>
         <tbody>
           {paginatedData.map((row) => (
-            <TableRow key={row.id} className={selectedRows.has(row.id) ? 'selectedRow' : ''}>
+            <Styled.TableRow key={row.id} className={selectedRows.has(row.id) ? 'selectedRow' : ''}>
               {selectable && (
-                <TableCell>
+                <Styled.TableCell>
                   <Checkbox
                     checked={selectedRows.has(row.id)}
                     onCheckedChange={() => handleSelectRow(row.id)}
                   />
-                </TableCell>
+                </Styled.TableCell>
               )}
               {columns.map((column) => (
-                <TableCell key={column.key} onClick={() => column.onClick?.(row)}>
+                <Styled.TableCell key={column.key} onClick={() => column.onClick?.(row)}>
                   {column.render ? column.render(row) : row[column.key]}
-                </TableCell>
+                </Styled.TableCell>
               ))}
-            </TableRow>
+            </Styled.TableRow>
           ))}
         </tbody>
-      </TableElement>
+      </Styled.TableElement>
 
-      <Footer>
+      <Styled.Footer>
         {pagination && <Pagination numPages={totalPages} currentPage={currentPage} />}
-      </Footer>
-    </TableWrapper>
+      </Styled.Footer>
+    </Styled.TableWrapper>
   ) : (
     <>{empty}</>
   );
 };
+
+Table.displayName = 'Table';
