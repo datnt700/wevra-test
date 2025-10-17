@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { cssVars } from '../../../theme/tokens/colors';
 
 type Size = 'sm' | 'lg' | 'xxl';
 
@@ -56,14 +57,14 @@ export const SpinnerStyled = styled.div<{ size: Size }>`
 
     &::before {
       ${({ size }) => `
-        border-top: ${sizes[size].borderSize} solid var(--dark);
+        border-top: ${sizes[size].borderSize} solid ${cssVars.dark};
       `}
       animation: rotate1 2s linear infinite;
     }
 
     &::after {
       ${({ size }) => `
-        border-top: ${sizes[size].borderSize} solid var(--main-color);
+        border-top: ${sizes[size].borderSize} solid ${cssVars.mainColor};
       `}
       animation: rotate1 2s linear reverse infinite;
       height: 80%;
