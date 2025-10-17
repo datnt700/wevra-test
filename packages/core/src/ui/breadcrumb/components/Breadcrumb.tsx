@@ -2,6 +2,17 @@ import React from 'react';
 import Styled from './Breadcrumb.styles';
 import { BreadcrumbProps } from '../types';
 
+/**
+ * Breadcrumb component - Navigation breadcrumbs for hierarchical navigation
+ *
+ * @example
+ * // Basic usage
+ * <Breadcrumb items={[
+ *   { label: 'Home', href: '/' },
+ *   { label: 'Products', href: '/products' },
+ *   { label: 'Category' }
+ * ]} />
+ */
 export const Breadcrumb: React.FC<BreadcrumbProps> = ({ items }) => {
   return (
     <Styled.Breadcrumb>
