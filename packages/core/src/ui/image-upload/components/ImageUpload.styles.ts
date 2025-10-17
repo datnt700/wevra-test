@@ -1,14 +1,36 @@
+/**
+ * @file ImageUpload component styles
+ * @description Emotion-based styles for the ImageUpload component with drag-and-drop and preview support
+ */
+
 import styled from '@emotion/styled';
+import { cssVars } from '../../../theme/tokens/colors';
+import { radii } from '../../../theme/tokens/radii';
 
-export const Styled = {
-  InputUpload: styled.input`
-    display: none;
-  `,
+/**
+ * Props for styled Wrapper component
+ */
+interface WrapperProps {
+  /** Whether the drag zone is currently active (image being dragged over) */
+  $isActive?: boolean;
+}
 
-  Wrapper: styled.label<{ $isActive?: boolean }>`
+/**
+ * Hidden input element for image file selection
+ */
+const InputUpload = styled.input`
+  display: none;
+`;
+
+/**
+ * Wrapper for the drag-and-drop upload zone
+ * Handles active state when images are dragged over
+ */
+const Wrapper = styled.label<WrapperProps>`
+  ${({ $isActive = false }) => `
     background: transparent;
-    border-radius: 0.5rem;
-    border: 1px dashed var(--dark);
+    border-radius: ${radii.md};
+    border: 1px dashed ${cssVars.dark};
     margin-left: auto;
     margin-right: auto;
     width: 100%;
@@ -20,39 +42,54 @@ export const Styled = {
     min-width: 16rem;
     cursor: pointer;
 
-    ${({ $isActive }) =>
-      $isActive &&
-      `
-        border-color: var(--main-color);
-      `}
+    ${
+      $isActive
+        ? `
+      border-color: ${cssVars.mainColor};
+    `
+        : ''
+    }
 
     &:focus-within {
-      border-color: var(--main-color);
-      box-shadow: 0 0 3px var(--main-color);
+      border-color: ${cssVars.mainColor};
+      box-shadow: 0 0 3px ${cssVars.mainColor};
     }
-  `,
+  `}
+`;
 
-  Preview: styled.img`
-    width: 100%;
-    z-index: 1;
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    object-fit: cover; /* Ensures the preview image fits the container */
-  `,
+/**
+ * Preview image displayed when an image is uploaded
+ */
+const Preview = styled.img`
+  width: 100%;
+  z-index: 1;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  object-fit: cover;
+`;
 
-  Content: styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 1rem;
-    z-index: 2;
+/**
+ * Content wrapper for the upload zone elements
+ */
+const Content = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  z-index: 2;
 
-    p {
-      color: var(--dark);
-      opacity: 0.8;
-    }
-  `,
+  p {
+    color: ${cssVars.dark};
+    opacity: 0.8;
+  }
+`;
+
+export const Styled = {
+  InputUpload,
+  Wrapper,
+  Preview,
+  Content,
 };

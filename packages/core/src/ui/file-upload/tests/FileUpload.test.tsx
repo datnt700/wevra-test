@@ -156,9 +156,9 @@ describe('FileUpload', () => {
       if (wrapper) {
         const event = new Event('dragover', { bubbles: true, cancelable: true });
         const preventDefaultSpy = vi.spyOn(event, 'preventDefault');
-        
+
         fireEvent(wrapper, event);
-        
+
         expect(preventDefaultSpy).toHaveBeenCalled();
       }
     });
@@ -170,13 +170,14 @@ describe('FileUpload', () => {
       if (wrapper) {
         const event = new Event('drop', { bubbles: true, cancelable: true });
         const preventDefaultSpy = vi.spyOn(event, 'preventDefault');
-        
+
         fireEvent(wrapper, event);
-        
+
         expect(preventDefaultSpy).toHaveBeenCalled();
       }
     });
-  });  describe('Multiple Props Combination', () => {
+  });
+  describe('Multiple Props Combination', () => {
     it('should render with label, description, and multiple', () => {
       render(
         <FileUpload label="Upload Documents" description="PDF, DOC, DOCX supported" multiple />
@@ -236,7 +237,7 @@ describe('FileUpload', () => {
     it('should handle very long description', () => {
       const longDescription =
         'This is a very long description that explains all the file upload requirements in great detail including supported formats, maximum file size, and other important information.';
-      
+
       render(<FileUpload description={longDescription} />);
 
       expect(screen.getByText(longDescription)).toBeInTheDocument();
@@ -262,7 +263,8 @@ describe('FileUpload', () => {
         expect(wrapper).toBeInTheDocument();
       }
     });
-  });  describe('Accessibility', () => {
+  });
+  describe('Accessibility', () => {
     it('should have proper label association', () => {
       render(<FileUpload label="Upload File" />);
 
