@@ -61,7 +61,7 @@ const StyledTrack = styled(Slider.Track)<{ $orientation?: SliderOrientation }>`
   ${({ $orientation = 'horizontal' }) => {
     const styles = getOrientationStyles($orientation);
     return `
-      background-color: ${cssVars.gray400};
+      background-color: ${cssVars.light5};
       position: relative;
       flex-grow: 1;
       border-radius: 9999px;
@@ -70,7 +70,7 @@ const StyledTrack = styled(Slider.Track)<{ $orientation?: SliderOrientation }>`
       transition: background-color 0.2s ease;
 
       &:hover {
-        background-color: ${cssVars.gray500};
+        background-color: ${cssVars.light6};
       }
     `;
   }}
@@ -89,23 +89,23 @@ const StyledThumb = styled(Slider.Thumb)<{ $disabled?: boolean }>`
     display: block;
     width: 20px;
     height: 20px;
-    background-color: ${cssVars.gray0};
+    background-color: ${cssVars.light};
     border: 2px solid ${cssVars.mainColor};
     border-radius: 50%;
-    box-shadow: 0 2px 4px ${cssVars.gray600}40;
+    box-shadow: 0 2px 4px ${cssVars.dark6}40;
     transition: all 0.2s ease;
     cursor: ${$disabled ? 'not-allowed' : 'grab'};
 
     &:hover:not(:disabled) {
       border-color: ${cssVars.mainColorDark};
-      box-shadow: 0 4px 8px ${cssVars.gray600}60;
+      box-shadow: 0 4px 8px ${cssVars.dark6}60;
       transform: scale(1.1);
     }
 
     &:active:not(:disabled) {
       cursor: grabbing;
       transform: scale(1.2);
-      box-shadow: 0 6px 12px ${cssVars.gray600}80;
+      box-shadow: 0 6px 12px ${cssVars.dark6}80;
     }
 
     &:focus-visible {
@@ -114,8 +114,8 @@ const StyledThumb = styled(Slider.Thumb)<{ $disabled?: boolean }>`
     }
 
     &:disabled {
-      background-color: ${cssVars.gray300};
-      border-color: ${cssVars.gray500};
+      background-color: ${cssVars.light4};
+      border-color: ${cssVars.light6};
       box-shadow: none;
       pointer-events: none;
     }

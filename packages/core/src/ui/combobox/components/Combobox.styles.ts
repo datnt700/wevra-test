@@ -23,7 +23,7 @@ const getVariantStyles = (variant: ComboboxVariant = 'default'): VariantStyles =
   const variantMap: Record<ComboboxVariant, VariantStyles> = {
     default: {
       bg: cssVars.light,
-      border: cssVars.gray400,
+      border: cssVars.light5,
       boxShadow: 'none',
       focusBorder: cssVars.mainColor,
     },
@@ -40,10 +40,10 @@ const getVariantStyles = (variant: ComboboxVariant = 'default'): VariantStyles =
       focusBorder: cssVars.colorSuccess,
     },
     disabled: {
-      bg: cssVars.gray200,
-      border: cssVars.gray300,
+      bg: cssVars.light4,
+      border: cssVars.light4,
       boxShadow: 'none',
-      focusBorder: cssVars.gray300,
+      focusBorder: cssVars.light4,
     },
   };
 
@@ -103,7 +103,7 @@ const StyledInputWrapper = styled.div<{ $variant?: ComboboxVariant }>`
 const StyledClearBtn = styled.button`
   background-color: transparent;
   border-radius: ${styleVars.borderRadiusMedium};
-  color: ${cssVars.gray600};
+  color: ${cssVars.dark6};
   border: none;
   cursor: pointer;
   padding: 0.5rem;
@@ -131,7 +131,7 @@ const StyledInput = styled.input`
   &::placeholder {
     font-weight: 300;
     line-height: 1.875rem;
-    color: ${cssVars.gray600};
+    color: ${cssVars.dark6};
   }
 
   &:disabled {
@@ -175,11 +175,11 @@ const StyledOption = styled.li`
   }
 
   &:hover {
-    background-color: ${cssVars.gray100};
+    background-color: ${cssVars.light3};
   }
 
   &:active {
-    background-color: ${cssVars.gray200};
+    background-color: ${cssVars.light4};
   }
 `;
 

@@ -23,8 +23,8 @@ const StyledTrigger = styled(Select.Trigger)<{ $isDisabled?: boolean; $isInvalid
     line-height: 1;
     height: 3rem;
     gap: 0.5rem;
-    background-color: ${$isDisabled ? cssVars.gray200 : cssVars.light};
-    border: 1px solid ${$isInvalid ? cssVars.colorDanger : cssVars.gray400};
+    background-color: ${$isDisabled ? cssVars.light4 : cssVars.light};
+    border: 1px solid ${$isInvalid ? cssVars.colorDanger : cssVars.light5};
     min-width: 10rem;
     cursor: ${$isDisabled ? 'not-allowed' : 'pointer'};
     outline: none;
@@ -88,7 +88,7 @@ const StyledViewport = styled(Select.Viewport)`
 
 const StyledSeparator = styled(Select.Separator)`
   height: 1px;
-  background-color: ${cssVars.gray300};
+  background-color: ${cssVars.light4};
   margin: 0.3125rem 0;
 `;
 
@@ -103,7 +103,7 @@ const StyledScrollUpButton = styled(Select.ScrollUpButton)`
   transition: background-color 0.2s ease;
 
   &:hover {
-    background-color: ${cssVars.gray100};
+    background-color: ${cssVars.light3};
   }
 `;
 
@@ -118,7 +118,7 @@ const StyledScrollDownButton = styled(Select.ScrollDownButton)`
   transition: background-color 0.2s ease;
 
   &:hover {
-    background-color: ${cssVars.gray100};
+    background-color: ${cssVars.light3};
   }
 `;
 
@@ -137,7 +137,7 @@ const StyledItem = styled(Select.Item)`
 
   &[data-disabled] {
     pointer-events: none;
-    color: ${cssVars.gray500};
+    color: ${cssVars.dark6};
     opacity: 0.6;
   }
 
@@ -147,7 +147,7 @@ const StyledItem = styled(Select.Item)`
   }
 
   &:hover:not([data-disabled]) {
-    background-color: ${cssVars.gray100};
+    background-color: ${cssVars.light3};
   }
 
   &[data-state='checked'] {
