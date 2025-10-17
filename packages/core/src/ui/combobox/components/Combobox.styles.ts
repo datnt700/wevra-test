@@ -185,10 +185,6 @@ const StyledOption = styled.li`
 
 export const Styled = {
   Wrapper: StyledWrapper,
-  Default: '',
-  Danger: 'danger',
-  Success: 'success',
-  Disabled: 'disabled',
   InputWrapper: StyledInputWrapper,
   ClearBtn: StyledClearBtn,
   Input: StyledInput,
