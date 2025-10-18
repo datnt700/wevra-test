@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Button } from '@tavia/core';
-// import { FileAnalytics, Search } from '@tavia/diverse-icons';
+import { Button, Icon } from '@tavia/core';
+import { Search, FileText } from 'lucide-react';
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 const meta = {
@@ -67,23 +67,30 @@ export const LoadingOnly: Story = {
   },
 };
 
-/*export const WithIcon: Story = {
+export const WithIcon: Story = {
   render: (args) => {
     return (
-      <Button icon={<Icon source={<Search stroke="white" width={16} height={16} />} />} {...args}>
-        This is a button with icon
+      <Button icon={<Icon source={<Search size={16} />} />} {...args}>
+        Search
       </Button>
     );
+  },
+  args: {
+    variant: 'primary',
   },
 };
 
 export const IconOnly: Story = {
   render: (args) => {
-    return <Button icon={<Icon source={<FileAnalytics stroke="white" width={16} height={16} />} />} {...args} />;
+    return <Button icon={<Icon source={<FileText size={16} />} />} {...args} />;
   },
-};*/
+  args: {
+    variant: 'primary',
+    shape: 'square',
+  },
+};
 
-export const disabled: Story = {
+export const Disabled: Story = {
   args: {
     children: 'Hello Mars🚀!',
     disabled: true,

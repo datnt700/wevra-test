@@ -1,56 +1,112 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { Image } from '@tavia/core';
 
-// More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 const meta = {
   title: 'Core/Base/Image',
   component: Image,
   parameters: {
-    // Optional parameter to center the component in the Canvas. More info: https://storybook.js.org/docs/react/configure/story-layout
     layout: 'centered',
+    docs: {
+      description: {
+        component:
+          'Image component with lazy loading, error handling, and fallback support. Automatically shows placeholder while loading and handles failed image loads gracefully.',
+      },
+    },
   },
-  // This component will have an automatically generated Autodocs entry: https://storybook.js.org/docs/react/writing-docs/autodocs
   tags: ['autodocs'],
-  // More on argTypes: https://storybook.js.org/docs/react/api/argtypes
   argTypes: {
-    src: { control: 'text' },
-    alt: { control: 'text' },
-    fallbackSrc: { control: 'text' },
-    placeholder: { control: 'text' },
+    src: { control: 'text', description: 'Primary image source URL' },
+    alt: { control: 'text', description: 'Alternative text for accessibility' },
+    fallbackSrc: { control: 'text', description: 'Fallback image URL if primary fails' },
+    placeholder: { control: 'text', description: 'Placeholder content while loading' },
+    width: { control: 'text', description: 'Image width (CSS value)' },
+    height: { control: 'text', description: 'Image height (CSS value)' },
   },
 } satisfies Meta<typeof Image>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-// More on writing stories with args: https://storybook.js.org/docs/react/writing-stories/args
 export const Basic: Story = {
   args: {
     src: 'https://picsum.photos/200/300',
-    alt: 'This is an image',
+    alt: 'Random landscape image',
   },
 };
 
-export const Fallback: Story = {
+export const WithFallback: Story = {
   args: {
-    src: 'https://picsum.ph/200/300',
-    alt: 'This is an image',
+    src: 'https://invalid-url.example.com/image.jpg',
+    alt: 'Image with fallback',
     fallbackSrc: 'https://picsum.photos/200/300',
   },
 };
 
-export const Error: Story = {
+export const ErrorState: Story = {
   args: {
-    src: 'https://picsum.ph/200/300',
-    alt: 'This is an image',
-    fallbackSrc: 'https://picsum.ph/200/300',
+    src: 'https://invalid-url.example.com/image.jpg',
+    alt: 'Broken image without fallback',
   },
 };
 
-export const Loading: Story = {
+export const WithPlaceholder: Story = {
   args: {
-    src: 'https://picsum.photos/200/300',
-    alt: 'This is an image',
-    placeholder: 'Loading',
+    src: 'https://picsum.photos/200/300?random=1',
+    alt: 'Image with loading placeholder',
+    placeholder: 'Loading image...',
+  },
+};
+
+export const Small: Story = {
+  args: {
+    src: 'https://picsum.photos/100/100',
+    alt: 'Small square image',
+    width: '100px',
+    height: '100px',
+  },
+};
+
+export const Medium: Story = {
+  args: {
+    src: 'https://picsum.photos/300/200',
+    alt: 'Medium rectangular image',
+    width: '300px',
+    height: '200px',
+  },
+};
+
+export const Large: Story = {
+  args: {
+    src: 'https://picsum.photos/600/400',
+    alt: 'Large image',
+    width: '600px',
+    height: '400px',
+  },
+};
+
+export const Portrait: Story = {
+  args: {
+    src: 'https://picsum.photos/200/400',
+    alt: 'Portrait orientation image',
+    width: '200px',
+    height: '400px',
+  },
+};
+
+export const Landscape: Story = {
+  args: {
+    src: 'https://picsum.photos/400/200',
+    alt: 'Landscape orientation image',
+    width: '400px',
+    height: '200px',
+  },
+};
+
+export const Square: Story = {
+  args: {
+    src: 'https://picsum.photos/300/300',
+    alt: 'Square image',
+    width: '300px',
+    height: '300px',
   },
 };
