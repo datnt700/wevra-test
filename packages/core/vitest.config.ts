@@ -6,6 +6,7 @@ export default defineConfig({
     environment: 'jsdom',
     // hey! 👋 over here
     globals: true,
+    globalSetup: './tests/global-setup.ts', // Runs BEFORE environment setup
     setupFiles: ['./tests/setup.ts'], // assuming the test folder is in the root of our project
     include: ['./src/**/*.test.tsx', './src/**/*.test.ts'],
     exclude: ['./lib/common/*', '**/node_modules/**'],
