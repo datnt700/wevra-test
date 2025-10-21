@@ -216,19 +216,6 @@ describe('ErrorState', () => {
       const { container } = render(<ErrorState wrapperClassName="wrapper-class" />);
       expect(container.firstChild).toBeTruthy();
     });
-
-    it('should accept unused props from type definition', () => {
-      const { container } = render(
-        <ErrorState
-          image={<img src="error.png" alt="error" />}
-          largeImage="large-error.png"
-          fullWidth="100%"
-          footerContent={<div>Footer</div>}
-          size="md"
-        />
-      );
-      expect(container.firstChild).toBeTruthy();
-    });
   });
 
   // Semantic HTML

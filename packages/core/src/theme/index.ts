@@ -5,5 +5,5 @@ export * from './global';
 
 // Design tokens
 export * from './tokens';
-export { layout, styleVars } from './tokens/variables';
+export { layout } from './tokens/variables';
 export { semanticColors } from './tokens/colors';

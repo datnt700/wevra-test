@@ -9,15 +9,12 @@
 export { theme, lightTheme, darkTheme, type TaviaTheme, type ColorMode } from './theme/theme';
 export { breakpoints, mq, mqMax } from './theme/breakpoints';
 export { GlobalStyles, globalStyles } from './theme/global';
-export { cssVars, darkThemeCssVars, semanticColors } from './theme/tokens/colors';
+export { cssVars, semanticColors } from './theme/tokens/colors';
 export { typography } from './theme/tokens/typography';
-export { layout, styleVars } from './theme/tokens/variables';
+export { layout } from './theme/tokens/variables';
 export { fontFaces } from './theme/tokens/fonts';
 export { SlickGlobalStyles } from './theme/react-slick';
 export { swiperContainer, swiperSlide, swiperSlideImg, swiper } from './theme/swiper';
-
-// Export all tokens (modern approach)
-export * from './tokens';
 
 // ========================================
 // Providers & Context

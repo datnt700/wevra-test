@@ -133,42 +133,6 @@ export const cssVars = {
 } as const;
 
 /**
- * Dark theme color variants
- * @deprecated Use the darkTheme object from theme.ts instead
- */
-export const darkThemeCssVars = {
-  ...cssVars,
-  backgroundColor: cssVars.backgroundColorDark,
-
-  // Inverted dark/light variants
-  dark: cssVars.gray0,
-  dark2: cssVars.gray50,
-  dark3: cssVars.gray150,
-  dark4: cssVars.gray200,
-  dark5: cssVars.gray250,
-  dark6: cssVars.gray350,
-  dark7: cssVars.gray400,
-
-  light: cssVars.gray950,
-  light2: cssVars.gray900,
-  light3: cssVars.gray850,
-  light4: cssVars.gray800,
-  light5: cssVars.gray750,
-  light6: cssVars.gray700,
-  light7: cssVars.gray650,
-  light8: cssVars.gray600,
-  light9: cssVars.gray550,
-
-  // Dark theme shadows and overlay
-  shadowSmall: '0 0 12px rgba(80, 80, 80, 0.075)',
-  shadowMedium: '0 0 24px rgba(80, 80, 80, 0.1)',
-  shadowLarge: '0 0 64px rgba(80, 80, 80, 0.15)',
-  overlay: 'rgba(5, 5, 5, 0.9)',
-  inputColor: 'rgba(29, 29, 29, 1)',
-  inputBorderColor: 'rgba(69, 69, 69, 1)',
-} as const;
-
-/**
  * Semantic color mappings for better developer experience
  */
 export const semanticColors = {

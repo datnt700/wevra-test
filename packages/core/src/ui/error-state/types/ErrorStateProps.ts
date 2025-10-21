@@ -39,29 +39,4 @@ export interface ErrorStateProps {
    * Action button or component to display at the bottom.
    */
   action?: React.ReactNode;
-
-  /**
-   * @deprecated Image to display (not currently implemented)
-   */
-  image?: React.ReactNode;
-
-  /**
-   * @deprecated Large image URL (not currently implemented)
-   */
-  largeImage?: string;
-
-  /**
-   * @deprecated Full width setting (not currently implemented)
-   */
-  fullWidth?: string;
-
-  /**
-   * @deprecated Footer content (not currently implemented)
-   */
-  footerContent?: React.ReactNode;
-
-  /**
-   * @deprecated Size variant (not currently implemented)
-   */
-  size?: 'sm' | 'md';
 }

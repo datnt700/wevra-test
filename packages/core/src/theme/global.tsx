@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { Global, css } from '@emotion/react';
-import { cssVars, darkThemeCssVars } from './tokens/colors';
+import { cssVars } from './tokens/colors';
 import { breakpoints } from './breakpoints';
 
 /**
@@ -26,25 +26,8 @@ export const globalStyles = css`
   @import url('https://diverse-public.s3.eu-west-3.amazonaws.com/fonts/fonts.css');
   @import url('https://cdn.rawgit.com/mfd/f3d96ec7f0e8f034cc22ea73b3797b59/raw/856f1dbb8d807aabceb80b6d4f94b464df461b3e/gotham.css');
 
-  /*
-   * CSS Custom Properties (Legacy Support Only)
-   *
-   * NOTE: These are for backward compatibility with old components that use var(--x).
-   * NEW COMPONENTS: Import tokens directly instead of using CSS variables.
-   *
-   * Example:
-   * ❌ OLD: color: var(--main-color);
-   * ✅ NEW: import { cssVars } from 'tokens/colors'; color: ${cssVars.mainColor};
-   */
   :root {
-    ${generateCSSVars(
-      cssVars
-    )}/* styleVars deprecated - use radii, spacing, sizing from theme instead */
-  }
-
-  /* Dark theme CSS variables (Legacy) */
-  [data-theme='dark'] {
-    ${generateCSSVars(darkThemeCssVars)}
+    ${generateCSSVars(cssVars)}
   }
 
   *,

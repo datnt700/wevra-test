@@ -49,8 +49,3 @@ export interface InputSearchProps extends React.InputHTMLAttributes<HTMLInputEle
    */
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
-
-/**
- * @deprecated Use InputSearchProps instead
- */
-export type SearchInputProps = InputSearchProps;

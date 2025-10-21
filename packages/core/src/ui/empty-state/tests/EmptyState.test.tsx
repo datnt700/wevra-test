@@ -216,19 +216,6 @@ describe('EmptyState', () => {
       const { container } = render(<EmptyState wrapperClassName="wrapper-class" />);
       expect(container.firstChild).toBeTruthy();
     });
-
-    it('should accept unused props from type definition', () => {
-      const { container } = render(
-        <EmptyState
-          image={<img src="test.png" alt="test" />}
-          largeImage="large.png"
-          fullWidth="100%"
-          footerContent={<div>Footer</div>}
-          size="md"
-        />
-      );
-      expect(container.firstChild).toBeTruthy();
-    });
   });
 
   // Semantic HTML

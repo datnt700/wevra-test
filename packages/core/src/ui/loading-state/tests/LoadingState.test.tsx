@@ -214,19 +214,6 @@ describe('LoadingState', () => {
       const { container } = render(<LoadingState wrapperClassName="wrapper-class" />);
       expect(container.firstChild).toBeTruthy();
     });
-
-    it('should accept unused props from type definition', () => {
-      const { container } = render(
-        <LoadingState
-          image={<img src="loading.gif" alt="loading" />}
-          largeImage="large-loading.gif"
-          fullWidth="100%"
-          footerContent={<div>Footer</div>}
-          size="md"
-        />
-      );
-      expect(container.firstChild).toBeTruthy();
-    });
   });
 
   // Semantic HTML
