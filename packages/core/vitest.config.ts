@@ -4,6 +4,8 @@ export default defineConfig({
   test: {
     // 👋 add the line below to add jsdom to vite
     environment: 'jsdom',
+    // Use forks pool for better CI stability (prevents memory leaks)
+    pool: 'forks',
     // hey! 👋 over here
     globals: true,
     globalSetup: './tests/global-setup.ts', // Runs BEFORE environment setup

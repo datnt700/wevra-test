@@ -30,6 +30,20 @@ export default function setup() {
     global.structuredClone = (obj: any) => JSON.parse(JSON.stringify(obj));
   }
 
+  // Polyfill URLPattern for jsdom (whatwg-url dependency)
+  if (typeof global.URLPattern === 'undefined') {
+    // @ts-expect-error - Minimal polyfill for CI environment
+    global.URLPattern = class URLPattern {
+      constructor() {}
+      test() {
+        return false;
+      }
+      exec() {
+        return null;
+      }
+    };
+  }
+
   // Polyfill URLSearchParams if missing (fixes webidl-conversions error)
   if (typeof global.URLSearchParams === 'undefined') {
     // @ts-expect-error - Polyfill for CI environment
