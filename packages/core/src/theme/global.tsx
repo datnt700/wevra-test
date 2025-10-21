@@ -3,32 +3,10 @@ import { Global, css } from '@emotion/react';
 import { cssVars } from './tokens/colors';
 import { breakpoints } from './breakpoints';
 
-/**
- * LEGACY: CSS variable generation utilities
- *
- * @deprecated These functions generate CSS custom properties for backward compatibility.
- * Modern components should import tokens directly via:
- * - import { cssVars } from './tokens/colors'
- * - import { radii } from './tokens/radii'
- *
- * TODO: Remove once all components migrated from var(--xxx) to direct token access
- */
-const toKebabCase = (str: string) =>
-  str.replace(/[A-Z0-9]/g, (letter) => `-${letter.toLowerCase()}`);
-
-const generateCSSVars = (obj: Record<string, string | number>) =>
-  Object.entries(obj)
-    .map(([key, value]) => `--${toKebabCase(key)}: ${value};`)
-    .join('\n');
-
 export const globalStyles = css`
   /* Font imports */
   @import url('https://diverse-public.s3.eu-west-3.amazonaws.com/fonts/fonts.css');
   @import url('https://cdn.rawgit.com/mfd/f3d96ec7f0e8f034cc22ea73b3797b59/raw/856f1dbb8d807aabceb80b6d4f94b464df461b3e/gotham.css');
-
-  :root {
-    ${generateCSSVars(cssVars)}
-  }
 
   *,
   *::before,
@@ -56,8 +34,8 @@ export const globalStyles = css`
     padding: 0;
     font-size: 10px;
     line-height: 1.6;
-    color: var(--dark);
-    background: var(--background-color);
+    color: ${cssVars.dark};
+    background: ${cssVars.backgroundColor};
     overflow-x: hidden;
     min-height: 100vh;
     -webkit-font-smoothing: antialiased;
@@ -118,7 +96,7 @@ export const globalStyles = css`
   button,
   input {
     font-family: inherit;
-    color: var(--dark);
+    color: ${cssVars.dark};
   }
 
   .videoWrapper {

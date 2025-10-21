@@ -1,4 +1,5 @@
 import { Global } from '@emotion/react';
+import { cssVars } from '../../../theme/tokens/colors';
 
 const GlobalStyles = () => (
   <Global
@@ -22,12 +23,12 @@ const GlobalStyles = () => (
         border-radius: 0.5rem;
 
         &:hover {
-          border-color: var(--main-color-light-6);
+          border-color: ${cssVars.mainColorLight6};
         }
       }
 
       .iframe-wrapper.ProseMirror-selectednode {
-        outline: 3px solid var(--main-color);
+        outline: 3px solid ${cssVars.mainColor};
         border: none;
         border-radius: 0.5rem;
       }
@@ -46,9 +47,9 @@ const GlobalStyles = () => (
         height: 100%;
         flex: 1;
         padding: 1.5rem;
-        border: 1px solid var(--input-border-color);
-        background-color: var(--input-color);
-        color: var(--dark);
+        border: 1px solid ${cssVars.inputBorderColor || cssVars.gray300};
+        background-color: ${cssVars.inputColor || cssVars.light};
+        color: ${cssVars.dark};
         font-family: inherit;
         font-size: 1rem;
         line-height: 1.6;
@@ -58,26 +59,26 @@ const GlobalStyles = () => (
         border-radius: 0.5rem;
 
         &:focus-within {
-          border-color: var(--main-color);
-          box-shadow: 0 0 0 2px rgba(var(--main-color-rgb), 0.3);
+          border-color: ${cssVars.mainColor};
+          box-shadow: 0 0 0 2px ${cssVars.mainColor}33;
         }
 
         &::-webkit-scrollbar {
           width: 8px;
         }
         &::-webkit-scrollbar-track {
-          background: var(--light);
+          background: ${cssVars.light};
         }
         &::-webkit-scrollbar-thumb {
-          background: var(--dark);
+          background: ${cssVars.dark};
           border-radius: 4px;
         }
         &::-webkit-scrollbar-thumb:hover {
-          background: var(--dark-2);
+          background: ${cssVars.dark2};
         }
 
         scrollbar-width: thin;
-        scrollbar-color: var(--dark) var(--light);
+        scrollbar-color: ${cssVars.dark} ${cssVars.light};
       }
 
       .ProseMirror p {
@@ -96,8 +97,8 @@ const GlobalStyles = () => (
 
       .ProseMirror blockquote {
         padding-left: 1rem;
-        border-left: 4px solid var(--neutral);
-        color: var(--dark-2);
+        border-left: 4px solid ${cssVars.gray400};
+        color: ${cssVars.dark2};
         font-style: italic;
         margin: 1rem 0;
       }
@@ -121,8 +122,8 @@ const GlobalStyles = () => (
       }
 
       .ProseMirror pre {
-        background-color: var(--code-bg);
-        color: var(--code-text);
+        background-color: ${cssVars.gray900};
+        color: ${cssVars.light};
         font-family: 'JetBrains Mono', monospace;
         padding: 1rem;
         border-radius: 0.5rem;
@@ -139,7 +140,7 @@ const GlobalStyles = () => (
 
       .ProseMirror code {
         background-color: rgba(97, 97, 97, 0.1);
-        color: var(--dark-2);
+        color: ${cssVars.dark2};
         font-family: 'JetBrains Mono', monospace;
         padding: 0.2rem 0.4rem;
         border-radius: 0.25rem;
@@ -148,12 +149,12 @@ const GlobalStyles = () => (
 
       .ProseMirror hr {
         border: none;
-        border-top: 1px solid var(--neutral);
+        border-top: 1px solid ${cssVars.gray400};
         margin: 1.5rem 0;
       }
 
       .ProseMirror a {
-        color: var(--main-color);
+        color: ${cssVars.mainColor};
         text-decoration: none;
         word-break: break-word;
 
@@ -164,7 +165,7 @@ const GlobalStyles = () => (
 
       .ProseMirror.is-empty::before {
         content: attr(data-placeholder);
-        color: var(--placeholder-color);
+        color: ${cssVars.gray500};
         pointer-events: none;
         display: block;
         font-style: italic;
@@ -177,7 +178,7 @@ const GlobalStyles = () => (
         right: 0;
         bottom: 0;
         z-index: 1000;
-        background-color: var(--light);
+        background-color: ${cssVars.light};
         padding: 1.5rem;
         overflow-y: auto;
       }
