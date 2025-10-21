@@ -1,11 +1,19 @@
 import { defineConfig } from 'vitest/config';
+import react from '@vitejs/plugin-react';
 
 export default defineConfig({
+  plugins: [react()],
   test: {
     // 👋 add the line below to add jsdom to vite
     environment: 'jsdom',
     // Use forks pool for better CI stability (prevents memory leaks)
     pool: 'forks',
+    // Explicitly set pool options for better isolation
+    poolOptions: {
+      forks: {
+        singleFork: false,
+      },
+    },
     // hey! 👋 over here
     globals: true,
     globalSetup: './tests/global-setup.ts', // Runs BEFORE environment setup
