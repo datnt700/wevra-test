@@ -3,6 +3,7 @@ import { Modal } from '../../modal';
 import { ButtonGroup } from '../../button-group';
 import { Button } from '../../button';
 import { TextArea } from '../../textarea';
+import { cssVars } from '../../../theme/tokens/colors';
 
 /**
  * A modal component for adding an embedded iframe (e.g., YouTube video) using Tiptap's rich text editor.
@@ -86,7 +87,7 @@ export const AddIframeEmbedModal = ({
         {errorMessage && (
           <p
             id="video-url-error"
-            style={{ color: 'var(--color-red)', marginTop: '0.5rem', fontSize: '0.875rem' }}
+            style={{ color: cssVars.colorRed, marginTop: '0.5rem', fontSize: '0.875rem' }}
           >
             {errorMessage}
           </p>

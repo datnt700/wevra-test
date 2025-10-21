@@ -1,5 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { Global, css } from '@emotion/react';
+import { cssVars } from './tokens/colors';
 
 /**
  * Global styles for react-slick carousel
@@ -31,7 +32,7 @@ const slickStyles = css`
       }
 
       &.slick-active button:before {
-        color: var(--light) !important;
+        color: ${cssVars.light} !important;
         opacity: 1 !important;
       }
     }

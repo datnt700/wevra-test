@@ -3,6 +3,7 @@ import { Modal } from '../../modal';
 import { InputText } from '../../input';
 import { ButtonGroup } from '../../button-group';
 import { Button } from '../../button';
+import { cssVars } from '../../../theme/tokens/colors';
 
 /**
  * A modal component for adding an embedded video using Tiptap's rich text editor.
@@ -88,7 +89,7 @@ export const AddVideoEmbedModal = ({
           <p
             id="video-url-error"
             style={{
-              color: 'var(--color-red)',
+              color: cssVars.colorRed,
               marginTop: '0.5rem',
               fontSize: '0.875rem',
               fontWeight: '500',
