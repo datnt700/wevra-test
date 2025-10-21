@@ -27,6 +27,8 @@ export const RadioCard = ({ ...other }: RadioCardProps) => {
   return <RadixRadioCard {...other} />;
 };
 
+RadioCard.displayName = 'RadioCard';
+
 export const RadixRadioCard = ({
   id,
   value,

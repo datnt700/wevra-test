@@ -13,7 +13,7 @@ describe('Image', () => {
     });
 
     it('should render with placeholder initially', () => {
-      const { container } = render(
+      render(
         <Image
           src="https://example.com/image.jpg"
           alt="Test image"
@@ -124,7 +124,7 @@ describe('Image', () => {
     });
 
     it('should hide original image on error', async () => {
-      const { container } = render(
+      render(
         <Image
           src="https://example.com/broken.jpg"
           alt="Test image"

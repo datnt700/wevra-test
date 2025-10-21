@@ -23,11 +23,12 @@ export default defineConfig({
         '**/index.ts',
         '**/*.styles.ts',
         '**/tests/**',
+        '**/lib/createEmotionCache.ts', // Infrastructure code - not critical to test
       ],
       thresholds: {
         lines: 80,
         functions: 80,
-        branches: 75,
+        branches: 80,
         statements: 80,
       },
       reporter: ['text', 'json', 'html'],

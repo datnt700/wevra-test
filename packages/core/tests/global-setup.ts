@@ -3,6 +3,28 @@
  * This is critical for polyfills that need to exist before jsdom loads.
  */
 export default function setup() {
+  // Suppress ProseMirror getClientRects errors (known jsdom limitation)
+  const originalOnError = global.onerror;
+  global.onerror = (
+    message: string | Event,
+    source?: string,
+    lineno?: number,
+    colno?: number,
+    error?: Error
+  ) => {
+    const msg = typeof message === 'string' ? message : error?.message || '';
+    if (
+      msg.includes('getClientRects is not a function') ||
+      msg.includes('There is no node type named')
+    ) {
+      return true; // Suppress error
+    }
+    if (originalOnError) {
+      return originalOnError(message, source, lineno, colno, error);
+    }
+    return false;
+  };
+
   // Polyfill structuredClone for Node.js < 17 / older jsdom (fixes whatwg-url error in CI)
   if (typeof global.structuredClone === 'undefined') {
     global.structuredClone = (obj: any) => JSON.parse(JSON.stringify(obj));

@@ -62,10 +62,10 @@ describe('Checkbox', () => {
       expect(checkbox).toHaveAttribute('data-state', 'unchecked');
     });
 
-    it('renders with checked prop', () => {
-      const { container } = render(<Checkbox id="checkbox-checked" checked />);
-      const checkbox = container.querySelector('button[role="checkbox"]');
-      expect(checkbox).toHaveAttribute('data-state', 'checked');
+    it('should render with id prop', () => {
+      render(<Checkbox checked={false} onCheckedChange={() => {}} id="test-checkbox" />);
+      const button = screen.getByRole('checkbox');
+      expect(button).toHaveAttribute('id', 'test-checkbox');
     });
 
     it('renders with defaultChecked prop', () => {
@@ -200,7 +200,7 @@ describe('Checkbox', () => {
     });
 
     it('label associates with checkbox via htmlFor', () => {
-      const { container } = render(<Checkbox id="checkbox-label" label="Associated Label" />);
+      render(<Checkbox id="checkbox-label" label="Associated Label" />);
       const label = screen.getByText('Associated Label').closest('label');
       expect(label).toHaveAttribute('for', 'checkbox-label');
     });

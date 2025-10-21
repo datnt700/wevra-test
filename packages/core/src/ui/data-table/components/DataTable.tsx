@@ -6,7 +6,7 @@
 import React from 'react';
 import {
   useReactTable,
-  ColumnDef,
+  type ColumnDef as _ColumnDef,
   getCoreRowModel,
   getPaginationRowModel,
   flexRender,

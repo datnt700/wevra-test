@@ -21,5 +21,5 @@ export interface CheckboxCardProps {
   /**
    * Optional description providing additional context for the checkbox item.
    */
-  description: string;
+  description?: string;
 }

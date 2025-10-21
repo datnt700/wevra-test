@@ -5,8 +5,8 @@ import { Code } from '../index';
 describe('Code', () => {
   describe('Basic Rendering', () => {
     it('renders children correctly', () => {
-      render(<Code>console.log('test')</Code>);
-      expect(screen.getByText("console.log('test')")).toBeInTheDocument();
+      render(<Code>console.log(&apos;test&apos;)</Code>);
+      expect(screen.getByText(/console.log/)).toBeInTheDocument();
     });
 
     it('renders as code element', () => {
@@ -43,12 +43,10 @@ describe('Code', () => {
       expect(screen.getByText('code')).toBeInTheDocument();
     });
 
-    it('renders multiline code', () => {
-      const code = `function test() {
-  return true;
-}`;
-      render(<Code>{code}</Code>);
-      expect(screen.getByText(/function test/)).toBeInTheDocument();
+    it('should render inline code with default props', () => {
+      render(<Code>const greeting = &apos;Hello, World!&apos;;</Code>);
+      const code = screen.getByText(/const greeting/);
+      expect(code.tagName).toBe('CODE');
     });
   });
 

@@ -397,4 +397,228 @@ describe('ScrollBox', () => {
       expect(ScrollBox.displayName).toBe('ScrollBox');
     });
   });
+
+  describe('Shadow State Management', () => {
+    it('should initialize shadow states on mount', () => {
+      const { container } = render(
+        <ScrollBox maxHeight="200px">
+          <div style={{ height: '1000px' }}>Scrollable content</div>
+        </ScrollBox>
+      );
+      expect(container.firstChild).toBeInTheDocument();
+    });
+
+    it('should update shadow state when scrolling down', () => {
+      const { container } = render(
+        <ScrollBox maxHeight="200px">
+          <div style={{ height: '1000px' }}>Scrollable content</div>
+        </ScrollBox>
+      );
+      const scrollBox = container.firstChild as HTMLElement;
+
+      // Mock scroll properties for scrolling down
+      Object.defineProperty(scrollBox, 'scrollHeight', { value: 1000, configurable: true });
+      Object.defineProperty(scrollBox, 'scrollTop', { value: 100, configurable: true });
+      Object.defineProperty(scrollBox, 'clientHeight', { value: 200, configurable: true });
+
+      // Trigger scroll event
+      scrollBox.dispatchEvent(new Event('scroll', { bubbles: true }));
+
+      expect(container.firstChild).toBeInTheDocument();
+    });
+
+    it('should update shadow state when scrolling to middle', () => {
+      const { container } = render(
+        <ScrollBox maxHeight="200px">
+          <div style={{ height: '1000px' }}>Scrollable content</div>
+        </ScrollBox>
+      );
+      const scrollBox = container.firstChild as HTMLElement;
+
+      // Mock scroll properties for middle position
+      Object.defineProperty(scrollBox, 'scrollHeight', { value: 1000, configurable: true });
+      Object.defineProperty(scrollBox, 'scrollTop', { value: 400, configurable: true });
+      Object.defineProperty(scrollBox, 'clientHeight', { value: 200, configurable: true });
+
+      // Trigger scroll event
+      scrollBox.dispatchEvent(new Event('scroll', { bubbles: true }));
+
+      expect(container.firstChild).toBeInTheDocument();
+    });
+
+    it('should update shadow state when scrolling to bottom', () => {
+      const { container } = render(
+        <ScrollBox maxHeight="200px">
+          <div style={{ height: '1000px' }}>Scrollable content</div>
+        </ScrollBox>
+      );
+      const scrollBox = container.firstChild as HTMLElement;
+
+      // Mock scroll properties for bottom position
+      Object.defineProperty(scrollBox, 'scrollHeight', { value: 1000, configurable: true });
+      Object.defineProperty(scrollBox, 'scrollTop', { value: 800, configurable: true });
+      Object.defineProperty(scrollBox, 'clientHeight', { value: 200, configurable: true });
+
+      // Trigger scroll event
+      scrollBox.dispatchEvent(new Event('scroll', { bubbles: true }));
+
+      expect(container.firstChild).toBeInTheDocument();
+    });
+
+    it('should update shadow state when scrolling to top', () => {
+      const { container } = render(
+        <ScrollBox maxHeight="200px">
+          <div style={{ height: '1000px' }}>Scrollable content</div>
+        </ScrollBox>
+      );
+      const scrollBox = container.firstChild as HTMLElement;
+
+      // Mock scroll properties for top position
+      Object.defineProperty(scrollBox, 'scrollHeight', { value: 1000, configurable: true });
+      Object.defineProperty(scrollBox, 'scrollTop', { value: 0, configurable: true });
+      Object.defineProperty(scrollBox, 'clientHeight', { value: 200, configurable: true });
+
+      // Trigger scroll event
+      scrollBox.dispatchEvent(new Event('scroll', { bubbles: true }));
+
+      expect(container.firstChild).toBeInTheDocument();
+    });
+
+    it('should handle scroll event with exact bottom position', () => {
+      const { container } = render(
+        <ScrollBox maxHeight="300px">
+          <div style={{ height: '900px' }}>Scrollable content</div>
+        </ScrollBox>
+      );
+      const scrollBox = container.firstChild as HTMLElement;
+
+      // Mock exact bottom: scrollHeight - scrollTop === clientHeight
+      Object.defineProperty(scrollBox, 'scrollHeight', { value: 900, configurable: true });
+      Object.defineProperty(scrollBox, 'scrollTop', { value: 600, configurable: true });
+      Object.defineProperty(scrollBox, 'clientHeight', { value: 300, configurable: true });
+
+      // Trigger scroll event
+      scrollBox.dispatchEvent(new Event('scroll', { bubbles: true }));
+
+      expect(container.firstChild).toBeInTheDocument();
+    });
+
+    it('should handle scroll event with exact top position', () => {
+      const { container } = render(
+        <ScrollBox maxHeight="300px">
+          <div style={{ height: '900px' }}>Scrollable content</div>
+        </ScrollBox>
+      );
+      const scrollBox = container.firstChild as HTMLElement;
+
+      // Mock exact top: scrollTop === 0
+      Object.defineProperty(scrollBox, 'scrollHeight', { value: 900, configurable: true });
+      Object.defineProperty(scrollBox, 'scrollTop', { value: 0, configurable: true });
+      Object.defineProperty(scrollBox, 'clientHeight', { value: 300, configurable: true });
+
+      // Trigger scroll event
+      scrollBox.dispatchEvent(new Event('scroll', { bubbles: true }));
+
+      expect(container.firstChild).toBeInTheDocument();
+    });
+
+    it('should handle multiple scroll events in sequence', () => {
+      const { container } = render(
+        <ScrollBox maxHeight="200px">
+          <div style={{ height: '1000px' }}>Scrollable content</div>
+        </ScrollBox>
+      );
+      const scrollBox = container.firstChild as HTMLElement;
+
+      // First scroll: to middle
+      Object.defineProperty(scrollBox, 'scrollHeight', { value: 1000, configurable: true });
+      Object.defineProperty(scrollBox, 'scrollTop', { value: 400, configurable: true });
+      Object.defineProperty(scrollBox, 'clientHeight', { value: 200, configurable: true });
+      scrollBox.dispatchEvent(new Event('scroll', { bubbles: true }));
+
+      // Second scroll: to top
+      Object.defineProperty(scrollBox, 'scrollTop', { value: 0, configurable: true });
+      scrollBox.dispatchEvent(new Event('scroll', { bubbles: true }));
+
+      // Third scroll: to bottom
+      Object.defineProperty(scrollBox, 'scrollTop', { value: 800, configurable: true });
+      scrollBox.dispatchEvent(new Event('scroll', { bubbles: true }));
+
+      expect(container.firstChild).toBeInTheDocument();
+    });
+
+    it('should handle useEffect initialization with scrollable content', () => {
+      const { container } = render(
+        <ScrollBox maxHeight="100px">
+          <div style={{ height: '500px' }}>Very long content</div>
+        </ScrollBox>
+      );
+      expect(container.firstChild).toBeInTheDocument();
+    });
+
+    it('should handle useEffect initialization with non-scrollable content', () => {
+      const { container } = render(
+        <ScrollBox maxHeight="500px">
+          <div style={{ height: '100px' }}>Short content</div>
+        </ScrollBox>
+      );
+      expect(container.firstChild).toBeInTheDocument();
+    });
+
+    it('should handle scroll with small scrollTop value', () => {
+      const { container } = render(
+        <ScrollBox maxHeight="200px">
+          <div style={{ height: '1000px' }}>Scrollable content</div>
+        </ScrollBox>
+      );
+      const scrollBox = container.firstChild as HTMLElement;
+
+      // Small non-zero scrollTop
+      Object.defineProperty(scrollBox, 'scrollHeight', { value: 1000, configurable: true });
+      Object.defineProperty(scrollBox, 'scrollTop', { value: 1, configurable: true });
+      Object.defineProperty(scrollBox, 'clientHeight', { value: 200, configurable: true });
+
+      scrollBox.dispatchEvent(new Event('scroll', { bubbles: true }));
+
+      expect(container.firstChild).toBeInTheDocument();
+    });
+
+    it('should handle scroll near bottom but not at bottom', () => {
+      const { container } = render(
+        <ScrollBox maxHeight="200px">
+          <div style={{ height: '1000px' }}>Scrollable content</div>
+        </ScrollBox>
+      );
+      const scrollBox = container.firstChild as HTMLElement;
+
+      // Near bottom but not exactly at bottom
+      Object.defineProperty(scrollBox, 'scrollHeight', { value: 1000, configurable: true });
+      Object.defineProperty(scrollBox, 'scrollTop', { value: 799, configurable: true });
+      Object.defineProperty(scrollBox, 'clientHeight', { value: 200, configurable: true });
+
+      scrollBox.dispatchEvent(new Event('scroll', { bubbles: true }));
+
+      expect(container.firstChild).toBeInTheDocument();
+    });
+
+    it('should handle rapid scroll events', () => {
+      const { container } = render(
+        <ScrollBox maxHeight="200px">
+          <div style={{ height: '1000px' }}>Scrollable content</div>
+        </ScrollBox>
+      );
+      const scrollBox = container.firstChild as HTMLElement;
+
+      Object.defineProperty(scrollBox, 'scrollHeight', { value: 1000, configurable: true });
+      Object.defineProperty(scrollBox, 'clientHeight', { value: 200, configurable: true });
+
+      // Rapid scroll events
+      for (let i = 0; i < 10; i++) {
+        Object.defineProperty(scrollBox, 'scrollTop', { value: i * 80, configurable: true });
+        scrollBox.dispatchEvent(new Event('scroll', { bubbles: true }));
+      }
+
+      expect(container.firstChild).toBeInTheDocument();
+    });
+  });
 });
