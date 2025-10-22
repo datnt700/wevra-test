@@ -120,6 +120,11 @@ pnpm dev
 pnpm dev:web          # Start web app on localhost:3000
 pnpm dev:storybook    # Start Storybook on localhost:6006
 
+# Create a new web app systematically
+pnpm create:app <app-name>
+pnpm create:app admin           # Creates apps/admin on port 3089
+pnpm create:app customer-portal # Creates apps/customer-portal on port 3042
+
 # Build all apps
 pnpm build
 

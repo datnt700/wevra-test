@@ -7,22 +7,25 @@ component library with 54+ components.
 ## 🎯 What Exists Today
 
 - ✅ **@tavia/core**: 54+ production-ready UI components (Emotion + Radix UI)
-- ✅ **Turborepo monorepo** with pnpm workspaces & catalog dependencies
+- ✅ **Turborepo monorepo** with pnpm v10.17.1 workspaces & catalog dependencies
 - ✅ **Storybook** documentation (`apps/docs`)
 - ✅ **Next.js 15 app shell** (`apps/web`, basic only)
-- ✅ **Dev tooling**: ESLint 9 flat config, Prettier, Husky, Commitizen
-- ✅ **CI/CD**: GitHub Actions with automated tests & deployments
+- ✅ **Dev tooling**: ESLint 9 flat config, Prettier, Husky, Commitizen,
+  lint-staged
+- ✅ **CI/CD**: GitHub Actions (lint, typecheck, build, test, commitlint)
+- ✅ **Testing**: Vitest + Testing Library with 15-50 tests per component
 - ❌ **NOT implemented**: Database, Auth, API routes, booking logic
 
 ## Tech Stack
 
-- **Next.js 15** (App Router) + React 19
+- **Runtime**: Node.js 18.18.0+ (see `.nvmrc`)
+- **Framework**: Next.js 15 (App Router) + React 19
 - **Styling**: 100% Emotion (NO SCSS) + Radix UI primitives
 - **Package Manager**: pnpm v10.17.1 with catalog dependencies
 - **Build**: Turborepo for caching & orchestration
 - **Linting**: ESLint 9 flat config (NOT .eslintrc)
-- **Testing**: Vitest with 15-50 tests per component
-- **Docs**: Storybook
+- **Testing**: Vitest + Testing Library with 15-50 tests per component
+- **Docs**: Storybook 8.4.2
 
 ## Structure
 
@@ -263,24 +266,28 @@ ComponentName.displayName = 'ComponentName';
 ```bash
 # Development
 pnpm dev                    # Start all apps (web + docs)
-pnpm dev:web                # Start web app only
-pnpm dev:storybook          # Start Storybook
+pnpm dev:web                # Start web app only (localhost:3000)
+pnpm dev:storybook          # Start Storybook (localhost:6006)
 
 # Building
-pnpm build                  # Build all apps
+pnpm build                  # Build all apps with Turborepo
 pnpm build --filter=web     # Build specific app
+pnpm build --filter=@tavia/core  # Build core package
 
 # Code Quality
 pnpm lint                   # Lint all packages (ESLint 9)
 pnpm lint:fix               # Auto-fix linting issues
 pnpm format                 # Format with Prettier
+pnpm format:check           # Check formatting (used in CI)
 pnpm type-check             # TypeScript type checking
 
 # Testing (in packages/core)
 cd packages/core
 pnpm test                   # Run all tests
 pnpm test component-name    # Test specific component
-pnpm test:coverage          # Coverage report
+pnpm test:coverage          # Coverage report (80% threshold)
+pnpm test:watch             # Watch mode
+pnpm test:ui                # Vitest UI
 
 # Git Workflow (ALWAYS USE)
 pnpm commit                 # Interactive commit (Commitizen)
@@ -430,6 +437,12 @@ Each component should have **15-50 tests** covering:
 
 ## Git Workflow (Conventional Commits)
 
+**Pre-commit hooks** (configured in `.lintstagedrc.js`):
+
+- Runs Prettier formatting on all staged files
+- Runs TypeScript type-check across workspace
+- Commit-msg hook validates commit message format
+
 ```bash
 # 1. Create feature branch
 git checkout -b feat/your-feature
@@ -437,15 +450,16 @@ git checkout -b feat/your-feature
 # 2. Make changes and stage
 git add .
 
-# 3. Pre-commit hook runs automatically (Prettier + type-check)
-
-# 4. Commit with Commitizen (ALWAYS USE)
+# 3. Commit with Commitizen (ALWAYS USE THIS)
 pnpm commit
-# Select: type, scope, subject, body, footer
+# Interactive prompt guides you through:
+# - Type: feat, fix, docs, style, refactor, perf, test, build, ci, chore, revert
+# - Scope: core, web, docs, etc.
+# - Subject: short description
+# - Body: detailed changes
+# - Footer: breaking changes, closes issues
 
-# 5. Commit-msg hook validates format
-
-# 6. Push
+# 4. Push (pre-commit hooks run automatically on commit)
 git push origin feat/your-feature
 ```
 
@@ -466,8 +480,14 @@ refactor(core): migrate to Lucide icons
 **GitHub Actions** (`.github/workflows/ci.yml`):
 
 - Triggers: Push to `main`/`develop`, all PRs
-- Jobs: `lint`, `typecheck`, `build`, `test`, `commitlint` (PRs only)
-- Caching: pnpm store + Turborepo cache
+- Jobs run in parallel:
+  - `lint`: ESLint + Prettier format check
+  - `typecheck`: TypeScript type checking across all packages
+  - `build`: Build all apps and packages with Turborepo caching
+  - `test`: Run Vitest test suite (packages/core)
+  - `commitlint`: Validate commit messages (PR only)
+- Caching: pnpm store + Turborepo cache for faster builds
+- Uses Node.js version from `.nvmrc` (18.18.0)
 
 **Dependabot** (`.github/dependabot.yml`):
 

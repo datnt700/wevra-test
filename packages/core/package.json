@@ -61,6 +61,7 @@
     "clsx": "catalog:",
     "date-fns": "catalog:",
     "lucide-react": "catalog:",
+    "framer-motion": "catalog:",
     "radix-ui": "catalog:",
     "react-image-crop": "catalog:"
   },

@@ -11,3 +11,6 @@ export * from './emotion-cache';
 
 // Design constants
 export * from './constants';
+
+// Animation utilities
+export * from './animations';

@@ -1,0 +1,12 @@
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "Tavia",
+  "description": "Discover and book amazing cafés and restaurants",
+  "url": "https://tavia.io",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "https://tavia.io/search?q={search_term_string}",
+    "query-input": "required name=search_term_string"
+  }
+}

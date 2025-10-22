@@ -1,0 +1,52 @@
+{
+  "common": {
+    "appName": "Tavia",
+    "welcome": "Chào mừng đến với Tavia",
+    "description": "Nền tảng đặt chỗ quán cà phê và nhà hàng của bạn"
+  },
+  "navigation": {
+    "home": "Trang chủ",
+    "about": "Giới thiệu",
+    "contact": "Liên hệ",
+    "bookings": "Đặt chỗ của tôi"
+  },
+  "home": {
+    "hero": {
+      "title": "Khám phá & Đặt chỗ Quán cà phê và Nhà hàng Tuyệt vời",
+      "subtitle": "Tìm địa điểm hoàn hảo, đặt bàn và tận hưởng trải nghiệm tuyệt vời",
+      "cta": "Bắt đầu"
+    },
+    "features": {
+      "title": "Tại sao chọn Tavia?",
+      "search": {
+        "title": "Tìm kiếm dễ dàng",
+        "description": "Duyệt quán cà phê và nhà hàng theo vị trí, ẩm thực và tình trạng"
+      },
+      "booking": {
+        "title": "Đặt chỗ tức thì",
+        "description": "Đặt bàn trong vài giây với xác nhận theo thời gian thực"
+      },
+      "notifications": {
+        "title": "Luôn cập nhật",
+        "description": "Nhận thông báo qua email và ứng dụng cho các đặt chỗ của bạn"
+      }
+    }
+  },
+  "actions": {
+    "submit": "Gửi",
+    "cancel": "Hủy",
+    "save": "Lưu",
+    "delete": "Xóa",
+    "edit": "Sửa",
+    "search": "Tìm kiếm",
+    "book": "Đặt ngay",
+    "login": "Đăng nhập",
+    "signup": "Đăng ký",
+    "logout": "Đăng xuất"
+  },
+  "errors": {
+    "generic": "Đã xảy ra lỗi. Vui lòng thử lại.",
+    "notFound": "Không tìm thấy trang",
+    "unauthorized": "Bạn cần đăng nhập để truy cập trang này"
+  }
+}

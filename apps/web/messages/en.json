@@ -1,0 +1,52 @@
+{
+  "common": {
+    "appName": "Tavia",
+    "welcome": "Welcome to Tavia",
+    "description": "Your café and restaurant booking platform"
+  },
+  "navigation": {
+    "home": "Home",
+    "about": "About",
+    "contact": "Contact",
+    "bookings": "My Bookings"
+  },
+  "home": {
+    "hero": {
+      "title": "Discover & Book Amazing Cafés and Restaurants",
+      "subtitle": "Find your perfect spot, reserve a table, and enjoy great experiences",
+      "cta": "Get Started"
+    },
+    "features": {
+      "title": "Why Choose Tavia?",
+      "search": {
+        "title": "Easy Search",
+        "description": "Browse cafés and restaurants by location, cuisine, and availability"
+      },
+      "booking": {
+        "title": "Instant Booking",
+        "description": "Reserve your table in seconds with real-time confirmation"
+      },
+      "notifications": {
+        "title": "Stay Updated",
+        "description": "Get email and push notifications for your bookings"
+      }
+    }
+  },
+  "actions": {
+    "submit": "Submit",
+    "cancel": "Cancel",
+    "save": "Save",
+    "delete": "Delete",
+    "edit": "Edit",
+    "search": "Search",
+    "book": "Book Now",
+    "login": "Log In",
+    "signup": "Sign Up",
+    "logout": "Log Out"
+  },
+  "errors": {
+    "generic": "Something went wrong. Please try again.",
+    "notFound": "Page not found",
+    "unauthorized": "You need to be logged in to access this page"
+  }
+}
