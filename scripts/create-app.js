@@ -56,6 +56,10 @@ const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf-8'));
 packageJson.name = appName;
 packageJson.version = '0.1.0';
 
+// Update dev script with new port
+const newPort = 3000 + getAppPort(appName);
+packageJson.scripts.dev = `next dev --turbopack --port ${newPort}`;
+
 fs.writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2) + '\n');
 
 // Create .env.local from .env.example
@@ -67,7 +71,7 @@ if (fs.existsSync(envExamplePath)) {
   const envExample = fs.readFileSync(envExamplePath, 'utf-8');
   const updatedEnv = envExample.replace(
     /NEXT_PUBLIC_APP_URL=.*/,
-    `NEXT_PUBLIC_APP_URL=http://localhost:${3000 + getAppPort(appName)}`
+    `NEXT_PUBLIC_APP_URL=http://localhost:${newPort}`
   );
   fs.writeFileSync(envLocalPath, updatedEnv);
 }
@@ -79,7 +83,7 @@ if (fs.existsSync(readmePath)) {
   let readme = fs.readFileSync(readmePath, 'utf-8');
   readme = readme.replace(/# Tavia Web App/g, `# ${capitalize(appName)} App`);
   readme = readme.replace(/web@/g, `${appName}@`);
-  readme = readme.replace(/localhost:3000/g, `localhost:${3000 + getAppPort(appName)}`);
+  readme = readme.replace(/localhost:3000/g, `localhost:${newPort}`);
   fs.writeFileSync(readmePath, readme);
 }
 
@@ -87,14 +91,9 @@ if (fs.existsSync(readmePath)) {
 const nextConfigPath = path.join(appDir, 'next.config.js');
 if (fs.existsSync(nextConfigPath)) {
   let nextConfig = fs.readFileSync(nextConfigPath, 'utf-8');
-  nextConfig = nextConfig.replace(/port: 3000/g, `port: ${3000 + getAppPort(appName)}`);
+  nextConfig = nextConfig.replace(/port: 3000/g, `port: ${newPort}`);
   fs.writeFileSync(nextConfigPath, nextConfig);
 }
-
-// Update package.json dev script with new port
-const newPort = 3000 + getAppPort(appName);
-packageJson.scripts.dev = `next dev --turbopack --port ${newPort}`;
-fs.writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2) + '\n');
 
 // Clean up specific files
 console.log('🧹 Cleaning up...');
