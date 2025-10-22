@@ -1,4 +1,4 @@
-import NextAuth from 'next-auth';
+import NextAuth, { type NextAuthResult } from 'next-auth';
 import { PrismaAdapter } from '@auth/prisma-adapter';
 import Credentials from 'next-auth/providers/credentials';
 import Google from 'next-auth/providers/google';
@@ -12,8 +12,9 @@ const loginSchema = z.object({
   password: z.string().min(6),
 });
 
-export const { handlers, signIn, signOut, auth } = NextAuth({
-  adapter: PrismaAdapter(prisma),
+const result = NextAuth({
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  adapter: PrismaAdapter(prisma) as any,
   session: {
     strategy: 'jwt',
   },
@@ -89,3 +90,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     },
   },
 });
+
+export const handlers: NextAuthResult['handlers'] = result.handlers;
+export const auth: NextAuthResult['auth'] = result.auth;
+export const signIn: NextAuthResult['signIn'] = result.signIn;
+export const signOut: NextAuthResult['signOut'] = result.signOut;
