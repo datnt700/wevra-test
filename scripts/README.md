@@ -207,43 +207,182 @@ pnpm --filter=<app-name> lint
 
 ## create-api.js
 
-Create a new Fastify API microservice in the monorepo systematically.
+Create a new API microservice in the monorepo with interactive prompts -
+supports both simple Fastify APIs and complex NestJS microservices.
 
 ### Usage
 
 ```bash
+# Interactive mode (recommended)
+pnpm create:api
+
+# With API name
 pnpm create:api <api-name>
 ```
 
-### Example
+### Interactive Prompts
+
+The script will ask you:
+
+1. **API Name** - What to call your API (e.g., `notifications`, `payments`)
+2. **API Type** - Choose between:
+   - **Simple API** (Fastify) - Lightweight, fast, simple REST API
+   - **Complex API** (NestJS) - Full-featured microservice with advanced
+     features
+
+#### For NestJS APIs (Complex)
+
+3. **Transport Layer** - Choose your communication protocol:
+   - **REST API** - HTTP endpoints with Swagger documentation
+   - **GraphQL (code first)** - Schema generated from TypeScript
+   - **GraphQL (schema first)** - Schema defined in .graphql files
+   - **Microservice (non-HTTP)** - TCP, Redis, NATS, gRPC, etc.
+   - **WebSockets** - Real-time bidirectional communication
+
+### Example Sessions
+
+#### Creating a Simple Fastify API
 
 ```bash
-# Create a notifications API
-pnpm create:api notifications
+$ pnpm create:api
 
-# Create a payments API
-pnpm create:api payments
+🚀 Tavia API Generator
 
-# Create a messaging API
-pnpm create:api messaging
+? What name would you like to use for the API? notifications
+? Which type of API would you like to create?
+  1) Simple API (Fastify - Lightweight, fast, simple REST API)
+  2) Complex API (NestJS - Full-featured microservice with advanced features)
+
+Enter your choice (1 or 2): 1
+
+🚀 Creating new Fastify API service: notifications
+...
+✅ API service created successfully!
 ```
 
-### What it does
+#### Creating a NestJS REST API
 
-1. **Copies template** - Uses `apps/analytics` as the template
-2. **Updates package.json** - Sets the API name and description
-3. **Assigns unique port** - Automatically assigns a port based on API name
-   (3002-3100)
-4. **Updates environment files** - Configures .env and .env.example with
-   API-specific values
-5. **Updates Prisma schema** - Sets schema description for the new API
-6. **Creates example routes** - Replaces analytics routes with generic example
-   routes
-7. **Updates README.md** - Customizes documentation for the new API
-8. **Cleans up** - Removes build artifacts and template-specific code
-9. **Installs dependencies** - Runs `pnpm install` at root
+```bash
+$ pnpm create:api
+
+🚀 Tavia API Generator
+
+? What name would you like to use for the API? restaurant-service
+? Which type of API would you like to create?
+  1) Simple API (Fastify - Lightweight, fast, simple REST API)
+  2) Complex API (NestJS - Full-featured microservice with advanced features)
+
+Enter your choice (1 or 2): 2
+
+? What transport layer do you use?
+  1) REST API (HTTP endpoints with Swagger docs)
+  2) GraphQL - code first
+  3) GraphQL - schema first
+  4) Microservice - non-HTTP (TCP, Redis, NATS, gRPC, etc.)
+  5) WebSockets
+
+Enter your choice (1-5): 1
+
+📦 Generating NestJS project with CLI...
+...
+✅ NestJS microservice created successfully!
+```
+
+### API Type Comparison
+
+| Feature            | Simple API (Fastify)            | Complex API (NestJS)             |
+| ------------------ | ------------------------------- | -------------------------------- |
+| **Best for**       | Microservices, lightweight APIs | Enterprise apps, complex domains |
+| **Setup time**     | ~30 seconds                     | ~2 minutes                       |
+| **Performance**    | Very fast (30k+ req/s)          | Fast (20k+ req/s)                |
+| **Learning curve** | Low                             | Medium-High                      |
+| **Architecture**   | Minimal, flexible               | Module-based, opinionated        |
+| **Validation**     | Zod                             | class-validator                  |
+| **Documentation**  | Manual                          | Auto-generated Swagger           |
+| **DI Container**   | Manual                          | Built-in                         |
+| **Testing**        | Manual setup                    | Built-in Jest                    |
+| **Microservices**  | Manual                          | Built-in transports              |
+
+### When to Choose What
+
+#### Choose **Simple API (Fastify)** when:
+
+✅ Building a single-purpose microservice ✅ Need maximum performance ✅ Small
+team, simple requirements ✅ Quick prototype or POC ✅ Internal APIs with simple
+logic
+
+**Examples**: Rate limiting service, webhook handler, simple CRUD API
+
+#### Choose **Complex API (NestJS)** when:
+
+✅ Building a full-featured backend ✅ Need structured architecture (modules,
+DI, etc.) ✅ Multiple developers working together ✅ Complex business logic ✅
+Need Swagger documentation ✅ Want built-in microservice support
+
+**Examples**: Restaurant management, user service, payment processing
+
+### What Each Type Creates
+
+#### Simple API (Fastify)
+
+#### Simple API (Fastify)
+
+Uses `apps/analytics` as template.
+
+**What it does:**
+
+1. Copies template from analytics API
+2. Updates package.json, .env files
+3. Assigns unique port (3002-3100)
+4. Creates example routes
+5. Configures Prisma for PostgreSQL
+6. Sets up health check endpoints
+7. Installs dependencies
+
+**Generated features:**
+
+- ✅ Fastify 5 + TypeScript 5.9
+- ✅ Prisma ORM + PostgreSQL
+- ✅ Zod validation
+- ✅ Security (CORS, Helmet, Rate Limiting)
+- ✅ Health check endpoints
+- ✅ Pino logger
+- ✅ Hot reload with tsx
+- ✅ ESLint + Prettier
+
+#### Complex API (NestJS)
+
+Uses NestJS CLI to generate fresh project.
+
+**What it does:**
+
+1. Generates new NestJS project with CLI
+2. Installs additional dependencies based on transport type:
+   - **REST**: Swagger, Prisma, validation, security
+   - **GraphQL**: Apollo Server, GraphQL tools
+   - **Microservice**: @nestjs/microservices
+   - **WebSockets**: Socket.io
+3. Creates .env and docker-compose.yml
+4. Initializes Prisma (for REST/microservice)
+5. Adds custom scripts (prisma:_, db:_)
+6. Updates README with setup instructions
+
+**Generated features:**
+
+- ✅ NestJS 11 + TypeScript
+- ✅ Prisma ORM + PostgreSQL (REST/microservice)
+- ✅ Docker Compose for database
+- ✅ Environment configuration (@nestjs/config)
+- ✅ Validation & transformation (class-validator)
+- ✅ Swagger/OpenAPI (REST only)
+- ✅ Security (Helmet, CORS)
+- ✅ Testing setup (Jest)
+- ✅ ESLint + Prettier
+- ✅ Module-based architecture
 
 ### Generated Structure
+
+#### Fastify API Structure
 
 ```
 apps/<api-name>/
@@ -256,38 +395,33 @@ apps/<api-name>/
 │       ├── health.ts       # Health check endpoints
 │       └── example.ts      # Example routes (customize this)
 ├── prisma/
-│   └── schema.prisma       # Database schema (customize this)
+│   └── schema.prisma       # Database schema
 ├── .env                    # Environment variables
-├── .env.example            # Environment template
-├── package.json            # Updated with API name
-├── tsconfig.json           # TypeScript config
-├── tsup.config.ts          # Build config
-├── eslint.config.js        # ESLint config
+├── package.json            # API package
 └── README.md               # API documentation
 ```
 
-### Features Included
+#### NestJS API Structure
 
-All APIs created from this script include:
-
-- ✅ **Fastify 5** high-performance framework
-- ✅ **TypeScript 5.9** full type safety
-- ✅ **Prisma ORM** for database access
-- ✅ **Zod** runtime validation
-- ✅ **Security plugins** (CORS, Helmet, Rate Limiting)
-- ✅ **Health check endpoints** with DB connectivity
-- ✅ **Pino logger** with pretty printing
-- ✅ **Hot reload** with tsx watch mode
-- ✅ **ESLint + Prettier** code quality
-- ✅ **tsup** for fast ESM builds
-- ✅ **Workspace integration** (shared configs)
+```
+apps/<api-name>/
+├── src/
+│   ├── main.ts             # Application bootstrap
+│   ├── app.module.ts       # Root module
+│   ├── app.controller.ts   # Health check endpoint
+│   └── app.service.ts      # Root service
+├── prisma/                 # Prisma setup (REST/microservice)
+│   └── schema.prisma
+├── test/                   # E2E tests
+├── .env                    # Environment variables
+├── docker-compose.yml      # PostgreSQL container
+├── prisma.config.ts        # Prisma configuration
+└── README.md               # API documentation
+```
 
 ### Port Assignment
 
 Ports are automatically assigned based on API name hash:
-
-- `analytics` → Port 3001 (reserved)
-- Other APIs → Port 3002-3100 (deterministic based on name)
 
 Examples:
 
@@ -343,6 +477,54 @@ API names must:
 7. **Visit your API:**
    ```
    http://localhost:<assigned-port>/health
+   ```
+
+#### For NestJS APIs
+
+1. **Navigate to API:**
+
+   ```bash
+   cd apps/<api-name>
+   ```
+
+2. **Start PostgreSQL:**
+
+   ```bash
+   docker-compose up -d
+   ```
+
+3. **Customize Prisma schema:** Edit `prisma/schema.prisma` with your data
+   models
+
+4. **Generate Prisma client:**
+
+   ```bash
+   pnpm prisma:generate
+   ```
+
+5. **Run migrations:**
+
+   ```bash
+   pnpm prisma:migrate
+   ```
+
+6. **Generate resources (CRUD modules):**
+
+   ```bash
+   npx @nestjs/cli generate resource <name>
+   # Example: npx @nestjs/cli generate resource restaurants
+   ```
+
+7. **Start development:**
+
+   ```bash
+   pnpm start:dev
+   ```
+
+8. **Visit your API:**
+   ```
+   http://localhost:<assigned-port>/api/v1
+   http://localhost:<assigned-port>/api/docs  (Swagger - REST only)
    ```
 
 ### Files to Customize
