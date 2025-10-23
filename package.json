@@ -18,6 +18,7 @@
     "type-check": "turbo run type-check",
     "clean": "turbo run clean && rm -rf node_modules",
     "create:app": "node scripts/create-app.js",
+    "create:api": "node scripts/create-api.js",
     "prepare": "husky",
     "commit": "cz"
   },

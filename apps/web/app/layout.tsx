@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages, getLocale } from 'next-intl/server';
 import { LocaleSwitcher } from '@/components/LocaleSwitcher';
+import { AnalyticsProvider } from '@/components/AnalyticsProvider';
 import localFont from 'next/font/local';
 import './globals.css';
 
@@ -78,8 +79,10 @@ export default async function RootLayout({
     <html lang={locale}>
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <NextIntlClientProvider messages={messages}>
-          <LocaleSwitcher />
-          {children}
+          <AnalyticsProvider>
+            <LocaleSwitcher />
+            {children}
+          </AnalyticsProvider>
         </NextIntlClientProvider>
       </body>
     </html>

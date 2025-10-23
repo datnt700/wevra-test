@@ -8,13 +8,18 @@ venues and reservations).
 
 - **Framework**: Next.js 15 (App Router) with React Server Components
 - **Auth**: Auth.js (NextAuth) with role-based access control
-- **Database**: PostgreSQL via Prisma ORM (Supabase/Neon)
-- **Styling**: Tailwind CSS + shadcn/ui components
+- **Database**: PostgreSQL via Prisma ORM (Docker/Supabase/Neon)
+- **Analytics**: @tavia/analytics (in-house click tracking SDK)
+- **UI Components**: @tavia/core (54+ components with Emotion + Radix UI)
+- **Styling**: Emotion CSS + Framer Motion animations
+- **i18n**: next-intl (cookie-based, no routing)
 - **Realtime**: Supabase Realtime for live booking updates
 - **Notifications**: Resend (email) + FCM (push notifications)
 - **Payments**: Stripe (optional, for deposits)
-- **Package Manager**: pnpm with catalog dependencies
+- **Testing**: Vitest + Testing Library + Playwright
+- **Package Manager**: pnpm v10.17.1 with catalog dependencies
 - **Monorepo**: Turborepo for build orchestration and caching
+- **Docker**: PostgreSQL 16 Alpine for local development
 - **Deployment**: Vercel (fully serverless)
 
 ## 📦 Monorepo Structure
@@ -23,14 +28,17 @@ venues and reservations).
 tavia/
 ├── apps/
 │   ├── web/              # Next.js 15 app (client + owner interfaces)
+│   ├── analytics/        # Fastify API for analytics event tracking
 │   └── docs/             # Storybook documentation
 ├── packages/
-│   ├── core/             # Shared UI component library
-│   ├── types/            # Shared TypeScript types
-│   ├── utils/            # Shared utilities
-│   ├── config/           # Shared configurations
+│   ├── analytics/        # @tavia/analytics - Click tracking SDK
+│   ├── core/             # @tavia/core - 54+ UI components
+│   ├── ui/               # @repo/ui - Legacy minimal UI
 │   ├── eslint-config/    # ESLint configurations
 │   └── typescript-config/ # TypeScript configurations
+├── scripts/
+│   ├── create-app.js     # Next.js webapp generator
+│   └── create-api.js     # Fastify API generator
 ├── pnpm-workspace.yaml   # Workspace config with catalogs
 └── turbo.json            # Turborepo pipeline config
 ```
@@ -120,10 +128,19 @@ pnpm dev
 pnpm dev:web          # Start web app on localhost:3000
 pnpm dev:storybook    # Start Storybook on localhost:6006
 
-# Create a new web app systematically
-pnpm create:app <app-name>
-pnpm create:app admin           # Creates apps/admin on port 3089
-pnpm create:app customer-portal # Creates apps/customer-portal on port 3042
+# Generate new applications systematically
+pnpm create:app <app-name>        # Create Next.js web app
+pnpm create:api <api-name>        # Create Fastify API microservice
+
+# Examples:
+pnpm create:app admin             # Next.js app on port 3089
+pnpm create:app customer-portal   # Next.js app on port 3042
+pnpm create:api notifications     # Fastify API on port 3047
+pnpm create:api payments          # Fastify API on port 3023
+
+# Each generated app includes:
+# Web Apps: Docker PostgreSQL, Analytics SDK, Auth.js, Prisma ORM, i18n
+# API Services: Fastify 5, Prisma, Zod validation, Security plugins, Health checks
 
 # Build all apps
 pnpm build
@@ -145,6 +162,15 @@ pnpm type-check
 ## 🗄️ Database Commands
 
 ```bash
+# Docker PostgreSQL (recommended for local development)
+pnpm docker:up        # Start PostgreSQL container
+pnpm docker:down      # Stop PostgreSQL container
+pnpm docker:logs      # View PostgreSQL logs
+pnpm docker:clean     # Remove container and volumes
+
+# Complete database setup (Docker + migrate + seed)
+pnpm db:setup
+
 # Create and apply migration
 npx prisma migrate dev --name add_feature
 

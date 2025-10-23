@@ -5,12 +5,13 @@ Tavia.
 
 ## Prerequisites
 
-- PostgreSQL installed locally or access to a cloud database (Railway, Supabase,
-  Neon, etc.)
+- **Docker** (recommended) - for local PostgreSQL container
+- OR PostgreSQL installed locally / cloud database (Railway, Supabase, Neon,
+  etc.)
 - Node.js 18.18.0+ (see `.nvmrc`)
 - pnpm v10.17.1
 
-## Quick Start
+## Quick Start (Docker - Recommended)
 
 1. **Install dependencies:**
 
@@ -18,27 +19,64 @@ Tavia.
    pnpm install
    ```
 
-2. **Set up environment variables:** Copy `.env.example` to `.env.local` and
-   fill in your values:
+2. **Set up environment variables:** Copy `.env.example` to `.env.local`:
 
    ```bash
    cp .env.example .env.local
    ```
 
-3. **Generate Prisma Client:**
+   The default values work with Docker (no changes needed):
 
    ```bash
-   pnpm db:generate
+   DATABASE_URL="postgresql://postgres:postgres@localhost:5432/tavia?schema=public"
    ```
 
-4. **Push database schema:**
+3. **Start PostgreSQL container:**
 
    ```bash
-   pnpm db:push
+   pnpm docker:up
+   ```
+
+4. **Run database migrations:**
+
+   ```bash
+   pnpm db:migrate
    ```
 
 5. **Seed the database:**
    ```bash
+   pnpm db:seed
+   ```
+
+**Or run everything at once:**
+
+```bash
+pnpm db:setup
+```
+
+See [DOCKER.md](./DOCKER.md) for detailed Docker setup and troubleshooting.
+
+## Alternative: Manual PostgreSQL Setup
+
+If you prefer not to use Docker:
+
+1. **Install PostgreSQL locally** or use a cloud provider
+
+2. **Create a database:**
+
+   ```sql
+   CREATE DATABASE tavia;
+   ```
+
+3. **Update `.env.local`** with your connection string:
+
+   ```bash
+   DATABASE_URL="postgresql://user:password@localhost:5432/tavia?schema=public"
+   ```
+
+4. **Run migrations and seed:**
+   ```bash
+   pnpm db:migrate
    pnpm db:seed
    ```
 

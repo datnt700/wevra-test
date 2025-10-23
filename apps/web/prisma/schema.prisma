@@ -145,3 +145,54 @@ enum BookingStatus {
     CANCELLED
     COMPLETED
 }
+
+enum AnalyticsEventType {
+    CLICK
+    PAGEVIEW
+    CUSTOM
+}
+
+// Analytics Models
+model AnalyticsEvent {
+    id        String             @id @default(cuid())
+    type      AnalyticsEventType
+    timestamp DateTime
+    sessionId String?            @map("session_id")
+
+    // Browser context
+    url            String
+    referrer       String?
+    userAgent      String  @map("user_agent") @db.Text
+    screenWidth    Int?    @map("screen_width")
+    screenHeight   Int?    @map("screen_height")
+    viewportWidth  Int?    @map("viewport_width")
+    viewportHeight Int?    @map("viewport_height")
+
+    // Click event data
+    elementType    String?  @map("element_type")
+    elementText    String?  @map("element_text") @db.Text
+    elementId      String?  @map("element_id")
+    elementClasses String[] @map("element_classes")
+    clickX         Int?     @map("click_x")
+    clickY         Int?     @map("click_y")
+    eventName      String?  @map("event_name")
+
+    // Page view data
+    pageTitle String? @map("page_title")
+    pagePath  String? @map("page_path")
+
+    // Custom event data
+    customName       String? @map("custom_name")
+    customProperties Json?   @map("custom_properties")
+
+    // Common metadata
+    metadata  Json?
+    createdAt DateTime @default(now()) @map("created_at")
+
+    @@index([type])
+    @@index([timestamp])
+    @@index([sessionId])
+    @@index([eventName])
+    @@index([pagePath])
+    @@map("analytics_events")
+}

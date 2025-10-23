@@ -43,6 +43,7 @@ export default function HomePage() {
           <Link href="/about">{tNav('about')}</Link>
           <Link href="/contact">{tNav('contact')}</Link>
           <Link href="/animations">🎨 Animations Demo</Link>
+          <Link href="/analytics-demo">📊 Analytics Demo</Link>
         </nav>
       </main>
 
