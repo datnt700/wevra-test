@@ -31,8 +31,17 @@ if (!/^[a-z][a-z0-9-]*$/.test(appName)) {
   process.exit(1);
 }
 
-const appsDir = path.join(__dirname, 'apps');
+const appsDir = path.join(__dirname, '..', 'apps');
+const templatesDir = path.join(__dirname, '..', 'templates');
 const appDir = path.join(appsDir, appName);
+const templateDir = path.join(templatesDir, 'webapp');
+
+// Check if template exists
+if (!fs.existsSync(templateDir)) {
+  console.error(`❌ Error: Template not found at templates/webapp`);
+  console.log('Please ensure the webapp template exists in the templates directory.');
+  process.exit(1);
+}
 
 // Check if app already exists
 if (fs.existsSync(appDir)) {
@@ -42,10 +51,7 @@ if (fs.existsSync(appDir)) {
 
 console.log(`\n🚀 Creating new Next.js app: ${appName}\n`);
 
-// Copy from web template
-const templateDir = path.join(appsDir, 'web');
-
-console.log('📋 Copying template from apps/web...');
+console.log('📋 Copying template from templates/webapp...');
 execSync(`cp -r "${templateDir}" "${appDir}"`, { stdio: 'inherit' });
 
 // Update package.json
@@ -53,8 +59,9 @@ console.log('📝 Updating package.json...');
 const packageJsonPath = path.join(appDir, 'package.json');
 const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf-8'));
 
-packageJson.name = appName;
+packageJson.name = `@tavia/${appName}`;
 packageJson.version = '0.1.0';
+packageJson.description = `${capitalize(appName)} web application for Tavia monorepo`;
 
 // Update dev script with new port
 const newPort = 3000 + getAppPort(appName);
@@ -98,48 +105,24 @@ if (fs.existsSync(envExamplePath)) {
   updatedEnv = updatedEnv.replace(/POSTGRES_DB=tavia/g, `POSTGRES_DB=${appName}`);
   fs.writeFileSync(envLocalPath, updatedEnv);
 }
-
 // Update README.md
 console.log('📚 Updating README.md...');
 const readmePath = path.join(appDir, 'README.md');
 if (fs.existsSync(readmePath)) {
   let readme = fs.readFileSync(readmePath, 'utf-8');
-  readme = readme.replace(/# Tavia Web App/g, `# ${capitalize(appName)} App`);
-  readme = readme.replace(/# Web App/g, `# ${capitalize(appName)} App`);
-  readme = readme.replace(/web@/g, `${appName}@`);
+  readme = readme.replace(
+    /Generic Next.js 15 Webapp Template/g,
+    `${capitalize(appName)} Web Application`
+  );
+  readme = readme.replace(/Webapp Template/g, `${capitalize(appName)} App`);
+  readme = readme.replace(/webapp-template/g, appName);
+  readme = readme.replace(/@tavia\/webapp-template/g, `@tavia/${appName}`);
   readme = readme.replace(/localhost:3000/g, `localhost:${newPort}`);
   fs.writeFileSync(readmePath, readme);
 }
 
-// Update DOCKER.md
-console.log('🐳 Updating DOCKER.md...');
-const dockerMdPath = path.join(appDir, 'DOCKER.md');
-if (fs.existsSync(dockerMdPath)) {
-  let dockerMd = fs.readFileSync(dockerMdPath, 'utf-8');
-  dockerMd = dockerMd.replace(/tavia-postgres/g, `${appName}-postgres`);
-  dockerMd = dockerMd.replace(
-    /postgresql:\/\/postgres:postgres@localhost:5432\/tavia/g,
-    `postgresql://postgres:postgres@localhost:5432/${appName}`
-  );
-  dockerMd = dockerMd.replace(/POSTGRES_DB=tavia/g, `POSTGRES_DB=${appName}`);
-  dockerMd = dockerMd.replace(/-d tavia/g, `-d ${appName}`);
-  dockerMd = dockerMd.replace(/-U postgres tavia/g, `-U postgres ${appName}`);
-  fs.writeFileSync(dockerMdPath, dockerMd);
-}
-
-// Update DATABASE.md
-console.log('📊 Updating DATABASE.md...');
-const databaseMdPath = path.join(appDir, 'DATABASE.md');
-if (fs.existsSync(databaseMdPath)) {
-  let databaseMd = fs.readFileSync(databaseMdPath, 'utf-8');
-  databaseMd = databaseMd.replace(
-    /postgresql:\/\/postgres:postgres@localhost:5432\/tavia/g,
-    `postgresql://postgres:postgres@localhost:5432/${appName}`
-  );
-  databaseMd = databaseMd.replace(/CREATE DATABASE tavia/g, `CREATE DATABASE ${appName}`);
-  databaseMd = databaseMd.replace(/POSTGRES_DB=tavia/g, `POSTGRES_DB=${appName}`);
-  fs.writeFileSync(databaseMdPath, databaseMd);
-}
+// Note: DOCKER.md and DATABASE.md are not included in the generic template
+// Users should add Docker setup if needed
 
 // Update next.config.js port reference if any
 const nextConfigPath = path.join(appDir, 'next.config.js');
@@ -163,7 +146,7 @@ filesToRemove.forEach((file) => {
 // Install dependencies
 console.log('\n📦 Installing dependencies...');
 try {
-  execSync('pnpm install', { cwd: path.join(__dirname), stdio: 'inherit' });
+  execSync('pnpm install', { cwd: path.join(__dirname, '..'), stdio: 'inherit' });
 } catch {
   console.log('⚠️  Dependencies installation had warnings (this is normal)');
 }
@@ -172,29 +155,21 @@ console.log('\n✅ App created successfully!\n');
 console.log(`📁 Location: apps/${appName}`);
 console.log(`🌐 Dev URL: http://localhost:${newPort}`);
 console.log(`🗄️  Database: ${appName} (PostgreSQL)`);
-console.log(`🐳 Docker Container: ${appName}-postgres`);
 console.log('\n🚀 Next steps:');
 console.log(`   1. cd apps/${appName}`);
-console.log(`   2. Update .env.local with your configuration`);
-console.log(`   3. Start PostgreSQL: pnpm docker:up`);
-console.log(`   4. Run migrations: pnpm db:migrate`);
-console.log(`   5. Seed database: pnpm db:seed`);
+console.log(`   2. Update .env.local with your database configuration`);
+console.log(`   3. Add your Prisma models in prisma/schema.prisma`);
+console.log(`   4. Generate Prisma client: pnpm db:generate`);
+console.log(`   5. Push database schema: pnpm db:push`);
 console.log(`   6. Start dev server: pnpm dev`);
-console.log('\n   Or run setup all at once: pnpm db:setup && pnpm dev');
-console.log('\n📚 Documentation:');
-console.log(`   • DOCKER.md - PostgreSQL Docker setup`);
-console.log(`   • DATABASE.md - Database & Auth.js guide`);
+console.log('\n📚 See README.md for more information');
 console.log('\n✨ Features included:');
 console.log('   ✅ Next.js 15 + React 19 + TypeScript');
-console.log('   ✅ next-intl for internationalization');
-console.log('   ✅ Prisma ORM + PostgreSQL');
-console.log('   ✅ Auth.js v5 (Credentials + OAuth)');
-console.log('   ✅ @tavia/analytics SDK');
+console.log('   ✅ next-intl for internationalization (en, fr)');
+console.log('   ✅ Prisma ORM (PostgreSQL ready)');
 console.log('   ✅ @tavia/core UI components');
-console.log('   ✅ Emotion + Framer Motion');
-console.log('   ✅ Docker PostgreSQL container');
+console.log('   ✅ Example pages and components');
 console.log('   ✅ Vitest + Testing Library');
-console.log('   ✅ Playwright E2E tests');
 console.log('\n✨ Happy coding!\n');
 
 /**

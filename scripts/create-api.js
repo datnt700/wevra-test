@@ -53,6 +53,7 @@ async function main() {
   }
 
   const appsDir = path.join(__dirname, '..', 'apps');
+  const templatesDir = path.join(__dirname, '..', 'templates');
   const apiDir = path.join(appsDir, apiName);
 
   // Check if API already exists
@@ -71,10 +72,10 @@ async function main() {
 
   if (typeChoice === '1') {
     apiType = 'fastify';
-    await createFastifyAPI(apiName, apiDir, appsDir);
+    await createFastifyAPI(apiName, apiDir, templatesDir);
   } else if (typeChoice === '2') {
     apiType = 'nestjs';
-    await createNestJSAPI(apiName, apiDir, appsDir);
+    await createNestJSAPI(apiName, apiDir, templatesDir);
   } else {
     console.error('\n❌ Invalid choice. Please select 1 or 2.');
     rl.close();
@@ -87,19 +88,19 @@ async function main() {
 /**
  * Create a simple Fastify API
  */
-async function createFastifyAPI(apiName, apiDir, appsDir) {
+async function createFastifyAPI(apiName, apiDir, templatesDir) {
   console.log(`\n🚀 Creating new Fastify API service: ${apiName}\n`);
 
-  // Copy from analytics template
-  const templateDir = path.join(appsDir, 'analytics');
+  // Copy from simple-api template
+  const templateDir = path.join(templatesDir, 'simple-api');
 
   if (!fs.existsSync(templateDir)) {
-    console.error('❌ Error: Analytics template not found at apps/analytics');
-    console.log('Please ensure the analytics API exists first.');
+    console.error('❌ Error: Simple API template not found at templates/simple-api');
+    console.log('Please ensure the simple-api template exists.');
     process.exit(1);
   }
 
-  console.log('📋 Copying template from apps/analytics...');
+  console.log('📋 Copying template from templates/simple-api...');
   fs.cpSync(templateDir, apiDir, { recursive: true });
 
   // Calculate new port (3001 for analytics, 3002+)
@@ -170,15 +171,15 @@ async function createFastifyAPI(apiName, apiDir, appsDir) {
     let readme = fs.readFileSync(readmePath, 'utf-8');
 
     // Replace titles and descriptions
-    readme = readme.replace(/# Analytics API/g, `# ${capitalize(apiName)} API`);
+    readme = readme.replace(/Generic Fastify 5 API Template/g, `${capitalize(apiName)} API`);
+    readme = readme.replace(/Simple API Template/g, `${capitalize(apiName)} API`);
     readme = readme.replace(
-      /Tavia's standalone analytics event tracking and statistics API service/g,
-      `Tavia's ${capitalize(apiName)} API service`
+      /Generic Fastify 5 API template for Tavia monorepo/g,
+      `${capitalize(apiName)} API service for Tavia monorepo`
     );
-    readme = readme.replace(
-      /A high-performance Fastify-based microservice for collecting, processing, and analyzing user analytics events from the Tavia platform\./g,
-      `A high-performance Fastify-based microservice for ${apiName} functionality.`
-    );
+    readme = readme.replace(/@tavia\/simple-api-template/g, `@tavia/${apiName}`);
+    readme = readme.replace(/simple-api-template/g, apiName);
+    readme = readme.replace(/localhost:4000/g, `localhost:${newPort}`);
 
     // Replace paths
     readme = readme.replace(/apps\/analytics/g, `apps/${apiName}`);
@@ -326,7 +327,7 @@ export async function exampleRoutes(app: FastifyInstance) {
 /**
  * Create a complex NestJS microservice
  */
-async function createNestJSAPI(apiName, apiDir, appsDir) {
+async function createNestJSAPI(apiName, apiDir, templatesDir) {
   console.log(`\n🚀 Creating new NestJS microservice: ${apiName}\n`);
 
   // Ask for transport layer

@@ -4,10 +4,13 @@ Utility scripts for the Tavia monorepo.
 
 ## Quick Reference
 
-| Script          | Purpose                   | Template         | Port Range | Command                  |
-| --------------- | ------------------------- | ---------------- | ---------- | ------------------------ |
-| `create-app.js` | Next.js web applications  | `apps/web`       | 3000-3099  | `pnpm create:app <name>` |
-| `create-api.js` | Fastify API microservices | `apps/analytics` | 3001-3100  | `pnpm create:api <name>` |
+| Script          | Purpose                  | Template                                          | Port Range | Command                  |
+| --------------- | ------------------------ | ------------------------------------------------- | ---------- | ------------------------ |
+| `create-app.js` | Next.js web applications | `templates/webapp`                                | 3000-3099  | `pnpm create:app <name>` |
+| `create-api.js` | API microservices        | `templates/simple-api` or `templates/complex-api` | 4000-4099  | `pnpm create:api <name>` |
+
+> **Note:** These scripts use **generic templates** from the `templates/`
+> directory, not production apps from `apps/`.
 
 ---
 
@@ -36,62 +39,64 @@ pnpm create:app mobile-api
 
 ### What it does
 
-1. **Copies template** - Uses `apps/web` as the template
-2. **Updates package.json** - Sets the app name and version
+1. **Copies template** - Uses `templates/webapp` as the generic starting point
+2. **Updates package.json** - Sets the app name (`@tavia/<app-name>`) and
+   description
 3. **Assigns unique port** - Automatically assigns a port based on app name
-   (3001-3099)
-4. **Creates .env.local** - Sets up environment variables with correct port
-5. **Updates Docker setup** - Configures PostgreSQL container with app-specific
-   database
-6. **Updates documentation** - Updates README.md, DOCKER.md, DATABASE.md with
-   app-specific info
-7. **Cleans up** - Removes node_modules, build artifacts
-8. **Installs dependencies** - Runs `pnpm install` at root
+   (3000-3099)
+4. **Creates .env.local** - Sets up environment variables with correct port and
+   database URL
+5. **Updates documentation** - Updates README.md with app-specific info
+6. **Cleans up** - Removes node_modules, build artifacts
+7. **Installs dependencies** - Runs `pnpm install` at root
+
+> **Note:** The template does NOT include Docker, Auth.js, or analytics features
+> by default. Add these as needed for your specific app.
 
 ### Generated Structure
 
 ```
 apps/<app-name>/
-├── app/                    # Next.js app directory
-├── components/             # React components
-├── lib/                    # Utilities (auth, prisma, utils)
-├── prisma/                 # Database schema and seed
-├── messages/               # i18n translations
-├── i18n/                   # i18n configuration
-├── e2e/                    # Playwright tests
-├── tests/                  # Vitest setup
-├── public/                 # Static assets
-├── package.json            # Updated with app name
-├── .env.local              # Environment variables
-├── .env.example            # Environment template
-├── docker-compose.yml      # PostgreSQL container
-├── init-db.sql             # Database initialization
-├── tsconfig.json           # TypeScript config
-├── next.config.js          # Next.js config
-├── vitest.config.ts        # Vitest config
-├── playwright.config.ts    # Playwright config
-├── DOCKER.md               # Docker setup guide
-├── DATABASE.md             # Database setup guide
-└── README.md               # App documentation
+├── app/                    # Next.js App Router
+│   ├── [locale]/          # Internationalized routes
+│   │   ├── page.tsx       # Home page (example)
+│   │   └── about/         # About page (example)
+│   └── layout.tsx         # Root layout
+├── components/            # Reusable components (examples)
+├── lib/                   # Utility functions (prisma, utils)
+├── prisma/               # Database schema (minimal Example model)
+├── messages/             # i18n translations (en, fr)
+├── i18n/                 # i18n configuration
+├── tests/                # Vitest setup
+├── public/               # Static assets
+├── package.json          # Updated with app name
+├── .env.local            # Environment variables (generated from .env.example)
+├── .env.example          # Environment template
+├── tsconfig.json         # TypeScript config
+├── next.config.js        # Next.js config with next-intl
+├── vitest.config.ts      # Vitest config
+└── README.md             # App documentation (updated)
 ```
+
+> **Note:** Docker, DATABASE.md, DOCKER.md, Auth.js, and E2E tests are NOT
+> included in the generic template. Add these as needed.
 
 ### Features Included
 
 All apps created from this script include:
 
-- ✅ **Next.js 15** with App Router + Turbopack
+- ✅ **Next.js 15** with App Router
 - ✅ **TypeScript** configuration
-- ✅ **i18n** with next-intl (cookie-based)
-- ✅ **Prisma ORM** + PostgreSQL setup
-- ✅ **Docker** PostgreSQL container
-- ✅ **Auth.js v5** authentication
-- ✅ **@tavia/analytics** SDK integration
-- ✅ **Vitest** unit testing
-- ✅ **Playwright** E2E testing
+- ✅ **i18n** with next-intl (en, fr by default)
+- ✅ **Prisma ORM** setup (PostgreSQL ready, minimal schema)
+- ✅ **@tavia/core** UI component library
+- ✅ **Vitest** testing setup
 - ✅ **ESLint 9** flat config
-- ✅ **Prettier** formatting
-- ✅ **Emotion** + **Framer Motion** animations
-- ✅ **@tavia/core** component library
+- ✅ **Example pages** (home, about with i18n)
+
+> **Note:** Auth.js, Docker, E2E tests, Analytics SDK, Emotion, and Framer
+> Motion are NOT included by default. Add these features as needed for your
+> specific application.
 
 ### Port Assignment
 
@@ -126,28 +131,30 @@ App names must:
    cd apps/<app-name>
    ```
 
-2. **Update environment variables:** Edit `.env.local` with your database URL,
-   auth secrets, etc.
+2. **Update environment variables:** Edit `.env.local` with your database
+   configuration
 
-3. **Set up database:**
+3. **Add your Prisma models:** Edit `prisma/schema.prisma` with your data models
+
+4. **Generate Prisma client:**
 
    ```bash
    pnpm db:generate
-   pnpm db:push
-   pnpm db:seed
    ```
 
-4. **Start development:**
+5. **Push database schema:**
 
    ```bash
-   # From root
-   pnpm dev
-
-   # Or specific app
-   pnpm --filter=<app-name> dev
+   pnpm db:push
    ```
 
-5. **Visit your app:**
+6. **Start development:**
+
+   ```bash
+   pnpm dev
+   ```
+
+7. **Visit your app:**
    ```
    http://localhost:<assigned-port>
    ```
@@ -158,50 +165,18 @@ After creation, you can customize:
 
 - **Port:** Edit `dev` script in `package.json`
 - **Database:** Update Prisma schema in `prisma/schema.prisma`
-- **i18n:** Add/remove languages in `i18n/config.ts` and `messages/`
-- **Auth providers:** Configure in `lib/auth.ts`
-- **Tests:** Add tests in `app/__tests__/` and `e2e/`
-
-### Troubleshooting
-
-**"App already exists"**
-
-- Choose a different name or delete the existing app
-
-**"App name must be lowercase"**
-
-- Use only lowercase letters, numbers, and hyphens
-
-**Port conflict**
-
-- Edit the `dev` script in package.json to use a different port
-
-**Dependencies not installing**
-
-- Run `pnpm install` manually from the root directory
-
-### Related Commands
-
-```bash
-# Run specific app
-pnpm --filter=<app-name> dev
-
-# Build specific app
-pnpm --filter=<app-name> build
-
-# Test specific app
-pnpm --filter=<app-name> test
-
-# Lint specific app
-pnpm --filter=<app-name> lint
-```
+- **i18n:** Add/remove languages in `i18n/request.ts` and `messages/`
+- **Pages:** Replace example pages in `app/[locale]/` with your actual pages
+- **Components:** Add your components in `components/`
+- **Add features:** Docker setup, Auth.js, analytics, E2E tests as needed
 
 ### Notes
 
-- The script uses `apps/web` as the template
-- All apps share the same monorepo dependencies
-- Database setup is optional but configured by default
-- Remove unnecessary features after creation if not needed
+- The script uses `templates/webapp` as the generic starting point
+- All apps share the same monorepo dependencies via catalog
+- Template is **minimal** - add features (Docker, Auth, etc.) as needed for your
+  use case
+- Remove example pages after adding your actual application pages
 
 ---
 
@@ -327,58 +302,56 @@ Need Swagger documentation ✅ Want built-in microservice support
 
 #### Simple API (Fastify)
 
-Uses `apps/analytics` as template.
+Uses `templates/simple-api` as the generic template.
 
 **What it does:**
 
-1. Copies template from analytics API
+1. Copies template from `templates/simple-api`
 2. Updates package.json, .env files
-3. Assigns unique port (3002-3100)
-4. Creates example routes
-5. Configures Prisma for PostgreSQL
-6. Sets up health check endpoints
-7. Installs dependencies
+3. Assigns unique port (4000-4099)
+4. Updates README with API-specific info
+5. Installs dependencies
 
 **Generated features:**
 
-- ✅ Fastify 5 + TypeScript 5.9
-- ✅ Prisma ORM + PostgreSQL
+- ✅ Fastify 5 + TypeScript + ES Modules
+- ✅ Prisma ORM setup (minimal Example model)
 - ✅ Zod validation
 - ✅ Security (CORS, Helmet, Rate Limiting)
 - ✅ Health check endpoints
-- ✅ Pino logger
+- ✅ Example CRUD routes (customize/replace)
 - ✅ Hot reload with tsx
-- ✅ ESLint + Prettier
+- ✅ ESLint + TypeScript checking
 
 #### Complex API (NestJS)
 
-Uses NestJS CLI to generate fresh project.
+Uses NestJS CLI to generate fresh project or `templates/complex-api` template.
 
 **What it does:**
 
-1. Generates new NestJS project with CLI
+1. Generates new NestJS project with CLI (or copies from template)
 2. Installs additional dependencies based on transport type:
    - **REST**: Swagger, Prisma, validation, security
    - **GraphQL**: Apollo Server, GraphQL tools
    - **Microservice**: @nestjs/microservices
    - **WebSockets**: Socket.io
-3. Creates .env and docker-compose.yml
+3. Creates .env and configuration files
 4. Initializes Prisma (for REST/microservice)
-5. Adds custom scripts (prisma:_, db:_)
+5. Sets up example resource module
 6. Updates README with setup instructions
 
 **Generated features:**
 
-- ✅ NestJS 11 + TypeScript
-- ✅ Prisma ORM + PostgreSQL (REST/microservice)
-- ✅ Docker Compose for database
+- ✅ NestJS 11 + TypeScript with decorators
+- ✅ Prisma ORM setup (REST/microservice)
 - ✅ Environment configuration (@nestjs/config)
 - ✅ Validation & transformation (class-validator)
 - ✅ Swagger/OpenAPI (REST only)
 - ✅ Security (Helmet, CORS)
 - ✅ Testing setup (Jest)
-- ✅ ESLint + Prettier
+- ✅ ESLint + TypeScript
 - ✅ Module-based architecture
+- ✅ Example resource with CRUD
 
 ### Generated Structure
 
@@ -393,41 +366,67 @@ apps/<api-name>/
 │   │   └── prisma.ts       # Prisma client singleton
 │   └── routes/
 │       ├── health.ts       # Health check endpoints
-│       └── example.ts      # Example routes (customize this)
+│       └── example.ts      # Example CRUD routes (customize/rename)
 ├── prisma/
-│   └── schema.prisma       # Database schema
-├── .env                    # Environment variables
-├── package.json            # API package
-└── README.md               # API documentation
+│   └── schema.prisma       # Database schema (minimal Example model)
+├── .env                    # Environment variables (generated)
+├── .env.example            # Environment template
+├── package.json            # API package (updated)
+└── README.md               # API documentation (updated)
 ```
+
+> **Note:** Example routes demonstrate CRUD patterns. Rename `example.ts` to
+> match your domain (e.g., `notifications.ts`) and implement your business
+> logic.
 
 #### NestJS API Structure
 
 ```
 apps/<api-name>/
 ├── src/
-│   ├── main.ts             # Application bootstrap
+│   ├── main.ts             # Application bootstrap with Swagger
 │   ├── app.module.ts       # Root module
-│   ├── app.controller.ts   # Health check endpoint
-│   └── app.service.ts      # Root service
+│   ├── app.controller.ts   # Root controller (health, info)
+│   ├── app.service.ts      # Root service
+│   ├── prisma/             # Prisma module (global)
+│   │   ├── prisma.module.ts
+│   │   └── prisma.service.ts
+│   └── examples/           # Example resource module
+│       ├── examples.module.ts
+│       ├── examples.controller.ts
+│       ├── examples.service.ts
+│       └── dto/
+│           ├── create-example.dto.ts
+│           └── update-example.dto.ts
 ├── prisma/                 # Prisma setup (REST/microservice)
-│   └── schema.prisma
+│   └── schema.prisma       # Database schema (minimal Example model)
 ├── test/                   # E2E tests
-├── .env                    # Environment variables
-├── docker-compose.yml      # PostgreSQL container
-├── prisma.config.ts        # Prisma configuration
-└── README.md               # API documentation
+│   ├── app.e2e-spec.ts
+│   └── jest-e2e.json
+├── .env                    # Environment variables (generated)
+├── .env.example            # Environment template
+├── nest-cli.json           # NestJS CLI config
+├── tsconfig.json           # TypeScript config
+├── tsconfig.build.json     # Build config
+└── README.md               # API documentation (updated)
 ```
+
+> **Note:** Example resource demonstrates CRUD patterns with DTOs and
+> validation. Replace with your actual domain resources (e.g., `restaurants`,
+> `users`).
 
 ### Port Assignment
 
-Ports are automatically assigned based on API name hash:
+Ports are automatically assigned based on API name hash (4000-4099 range):
 
 Examples:
 
-- `notifications` → Port 3047
-- `payments` → Port 3023
-- `messaging` → Port 3065
+- `notifications` → Port 4047
+- `payments` → Port 4023
+- `messaging` → Port 4065
+
+> **Note:** Port range changed from 3001-3100 to 4000-4099 to separate APIs from
+> web apps.
 
 ### Naming Rules
 
@@ -667,9 +666,10 @@ You can choose to:
 
 ### Troubleshooting
 
-**"Analytics template not found"**
+**"Template not found"**
 
-- Make sure `apps/analytics` exists first
+- Ensure `templates/simple-api` or `templates/complex-api` exists
+- Run from monorepo root directory
 
 **"API already exists"**
 
@@ -677,7 +677,7 @@ You can choose to:
 
 **Port conflict**
 
-- The port is assigned deterministically, conflicts are rare
+- The port is assigned deterministically based on name hash
 - Manually change `PORT` in `.env` if needed
 
 **Dependencies not installing**
@@ -688,26 +688,51 @@ You can choose to:
 
 - Run `pnpm db:generate` after modifying schema
 
-### Related Commands
-
-```bash
-# Run specific API
-pnpm --filter=<api-name> dev
-
-# Build specific API
-pnpm --filter=<api-name> build
-
-# Lint specific API
-pnpm --filter=<api-name> lint
-
-# Type check specific API
-pnpm --filter=<api-name> type-check
-```
-
 ### Notes
 
-- The script uses `apps/analytics` as the template
-- All APIs share monorepo dependencies via workspace
-- Database setup is configured but you define the schema
-- Remove example routes and implement your business logic
+- Simple APIs use `templates/simple-api` as the starting point
+- Complex APIs use NestJS CLI or `templates/complex-api`
+- All APIs share monorepo dependencies via workspace catalog
+- Templates are **minimal** - implement your business logic
 - Health checks and security are pre-configured
+- Example routes demonstrate patterns - replace with your domain logic
+
+---
+
+## Template System
+
+The generator scripts use **generic templates** from the `templates/` directory:
+
+- **templates/webapp** - Next.js 15 app template (used by `create-app.js`)
+- **templates/simple-api** - Fastify 5 API template (used by `create-api.js`
+  option 1)
+- **templates/complex-api** - NestJS 11 API template (used by `create-api.js`
+  option 2)
+
+### Why Templates?
+
+**Before (old approach):**
+
+- ❌ Copied from production apps (`apps/web`, `apps/analytics`)
+- ❌ Contained business-specific logic (booking, analytics)
+- ❌ Had to strip features after copying
+- ❌ Production code mixed with templates
+
+**Now (template approach):**
+
+- ✅ Clean, generic starting points
+- ✅ No business logic to remove
+- ✅ Minimal setup with examples
+- ✅ Clear separation: `templates/` vs `apps/`
+
+### Template Guidelines
+
+Templates should be:
+
+- **Generic** - No business-specific features
+- **Minimal** - Essential setup only
+- **Example-driven** - Demonstrate patterns with placeholder code
+- **Well-documented** - Clear README explaining customization
+
+See [templates/README.md](../templates/README.md) for detailed template
+documentation.
