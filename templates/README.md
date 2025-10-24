@@ -83,6 +83,40 @@ middleware, guards, interceptors, GraphQL, etc.).
 
 ---
 
+### 4. **mobile-app** - Expo Mobile Application
+
+Modern Expo template for creating cross-platform mobile applications.
+
+**Technology Stack:**
+
+- Expo SDK 52+ with TypeScript
+- Expo Router (file-based routing)
+- React Native
+- @tavia/analytics integration
+- Jest + React Native Testing Library
+- ESLint 9 flat config
+
+**Use when:** Creating customer-facing or internal mobile applications for iOS
+and Android.
+
+**Generate:** `pnpm create:mobile my-mobile-app`
+
+**Templates Available:**
+
+- Blank (TypeScript) - Minimal setup
+- Tabs (TypeScript) - Bottom tabs navigation _(recommended)_
+- Drawer (TypeScript) - Side drawer navigation
+
+**Best practices included:**
+
+- Catalog dependencies from pnpm-workspace.yaml
+- Environment variable management (.env.example)
+- API client utilities
+- Custom hooks (useColorScheme, etc.)
+- Testing infrastructure with 70% coverage threshold
+
+---
+
 ## 🚀 Using Templates
 
 ### Generate New Application (Next.js)
@@ -112,6 +146,28 @@ You'll be prompted to choose:
 - **Option 1:** Simple API (Fastify) - copies from `templates/simple-api`
 - **Option 2:** Complex API (NestJS) - uses NestJS CLI or copies from
   `templates/complex-api`
+
+### Generate New Mobile App (Expo)
+
+```bash
+# From monorepo root
+pnpm create:mobile my-mobile-app
+```
+
+You'll be prompted to choose:
+
+- **Option 1:** Blank (TypeScript) - Minimal setup
+- **Option 2:** Tabs (TypeScript) - Bottom tabs navigation _(recommended)_
+- **Option 3:** Drawer (TypeScript) - Side drawer navigation
+
+This will:
+
+1. Use Expo's official generator (`npx create-expo-app`)
+2. Customize for Tavia monorepo (catalog deps, ESLint, testing)
+3. Add @tavia/analytics integration
+4. Set up environment variables
+5. Add API client utilities and custom hooks
+6. Ready to develop
 
 ---
 

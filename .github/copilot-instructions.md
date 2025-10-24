@@ -1,20 +1,33 @@
 # Tavia - AI Agent Instructions
 
-Tavia is a Next.js 15 café/restaurant booking platform in early development
-(v0.0.1-rc1). Current focus: building `@tavia/core`, a comprehensive UI
-component library with 54+ components.
+Tavia is a Next.js 15 café/restaurant booking platform transitioning from early
+development (v0.0.1-rc1) to a full-stack microservices architecture.
 
 ## 🎯 What Exists Today
 
-- ✅ **@tavia/core**: 54+ production-ready UI components (Emotion + Radix UI)
-- ✅ **Turborepo monorepo** with pnpm v10.17.1 workspaces & catalog dependencies
-- ✅ **Storybook** documentation (`apps/docs`)
-- ✅ **Next.js 15 app shell** (`apps/web`, basic only)
-- ✅ **Dev tooling**: ESLint 9 flat config, Prettier, Husky, Commitizen,
-  lint-staged
+**Frontend:**
+
+- ✅ **@tavia/core**: 54+ production-ready UI components (Emotion + Radix UI) -
+  PRIMARY FOCUS
+- ✅ **apps/web**: Next.js 15 app with Auth.js, Prisma, i18n, Docker PostgreSQL
+- ✅ **apps/docs**: Storybook documentation for component library
+- ✅ **@tavia/analytics**: Click tracking SDK with React Context API
+
+**Backend Microservices:**
+
+- ✅ **apps/analytics**: Fastify 5 API for event tracking (port 3001)
+- ✅ **apps/restaurant-service**: NestJS 11 microservice with Swagger docs
+  (port 3002)
+
+**Infrastructure:**
+
+- ✅ **Turborepo monorepo** with pnpm v10.17.1 catalog dependencies
+- ✅ **Generator scripts**: `pnpm create:app`, `pnpm create:api`, and
+  `pnpm create:mobile` for systematic scaffolding
 - ✅ **CI/CD**: GitHub Actions (lint, typecheck, build, test, commitlint)
-- ✅ **Testing**: Vitest + Testing Library with 15-50 tests per component
-- ❌ **NOT implemented**: Database, Auth, API routes, booking logic
+- ✅ **Testing**: Vitest (15-50 tests per component), Playwright (E2E), Jest
+  (mobile)
+- ✅ **Dev tooling**: ESLint 9 flat config, Prettier, Husky, Commitizen
 
 ## Tech Stack
 
@@ -27,20 +40,32 @@ component library with 54+ components.
 - **Testing**: Vitest + Testing Library with 15-50 tests per component
 - **Docs**: Storybook 8.4.2
 
-## Structure
+## Monorepo Structure
 
 ```
 tavia/
 ├── apps/
-│   ├── web/              # Next.js 15 app shell
-│   └── docs/             # Storybook
+│   ├── web/                  # Next.js 15 booking platform (port 3000)
+│   ├── analytics/            # Fastify event tracking API (port 3001)
+│   ├── restaurant-service/   # NestJS CRUD microservice (port 3002)
+│   └── docs/                 # Storybook documentation (port 6006)
 ├── packages/
-│   ├── core/             # @tavia/core - 54+ components ⭐ PRIMARY FOCUS
-│   ├── ui/               # @repo/ui - Legacy minimal UI
-│   ├── eslint-config/    # Shared ESLint 9 configs
-│   └── typescript-config/
-├── pnpm-workspace.yaml   # 🔥 CRITICAL - Catalog dependencies
-├── turbo.json            # Build pipeline config
+│   ├── core/                 # @tavia/core - 54+ UI components ⭐ PRIMARY
+│   ├── analytics/            # @tavia/analytics - Click tracking SDK
+│   ├── ui/                   # @repo/ui - Legacy minimal UI (deprecated)
+│   ├── eslint-config/        # Shared ESLint 9 flat configs
+│   └── typescript-config/    # Shared TypeScript configs
+├── templates/                # Generic templates for generators
+│   ├── webapp/               # Next.js 15 template (used by create:app)
+│   ├── simple-api/           # Fastify 5 template (used by create:api option 1)
+│   ├── complex-api/          # NestJS 11 template (used by create:api option 2)
+│   └── mobile-app/           # Expo template (used by create:mobile)
+├── scripts/
+│   ├── create-app.js         # Generate Next.js apps systematically
+│   ├── create-api.js         # Generate Fastify/NestJS APIs interactively
+│   └── create-mobile.js      # Generate Expo mobile apps interactively
+├── pnpm-workspace.yaml       # 🔥 CRITICAL - Catalog dependencies
+├── turbo.json                # Build pipeline config
 └── package.json
 ```
 
@@ -296,7 +321,168 @@ pnpm commit                 # Interactive commit (Commitizen)
 # Dependencies
 pnpm add <package> --filter=web  # Add to specific workspace
 pnpm add -w <package>            # Add to root workspace
+
+# Database (from apps/web or any app with Prisma)
+pnpm db:setup               # Full setup: Docker up + migrate + seed
+pnpm docker:up              # Start PostgreSQL container
+pnpm docker:down            # Stop PostgreSQL container
+pnpm docker:logs            # View PostgreSQL logs
+pnpm docker:clean           # Remove container and volumes
+pnpm db:generate            # Generate Prisma Client
+pnpm db:migrate             # Create and apply migration (dev)
+pnpm db:migrate:deploy      # Apply migrations (production)
+pnpm db:push                # Push schema changes without migration
+pnpm db:seed                # Seed database with sample data
+pnpm db:studio              # Open Prisma Studio GUI
 ```
+
+## 🔥 Critical Pattern #0: Project Scaffolding with Generators
+
+**ALWAYS use generator scripts** to create new apps or APIs. They ensure
+systematic setup with correct ports, dependencies, and configurations.
+
+### Generate Next.js Web Apps
+
+```bash
+pnpm create:app <app-name>
+
+# Examples:
+pnpm create:app admin              # Creates apps/admin on port 3089
+pnpm create:app customer-portal    # Creates apps/customer-portal on port 3042
+```
+
+**What it creates:**
+
+- Copies from `templates/webapp` (generic template)
+- Next.js 15 + TypeScript + i18n (next-intl)
+- Prisma ORM with minimal schema
+- @tavia/core UI components
+- Vitest testing setup
+- Auto-assigns unique port (3000-3099 range, deterministic from name hash)
+- Creates `.env.local` with correct port and DATABASE_URL
+- Example pages (home, about) - **replace with your actual pages**
+
+**Port examples:**
+
+- `web` → 3000 (reserved)
+- `admin` → 3089
+- `customer-portal` → 3042
+
+**Port allocation algorithm:**
+
+```javascript
+// From scripts/create-app.js
+const getAppPort = (name) => {
+  // Hash-based deterministic port assignment (3000-3099 for web apps)
+  // Same name always gets same port
+  const hash = name
+    .split('')
+    .reduce((acc, char) => acc + char.charCodeAt(0), 0);
+  return hash % 100; // Adds to base 3000
+};
+```
+
+**Why deterministic ports?**
+
+- Same app name always gets same port (reproducible)
+- Avoids port conflicts in monorepo
+- Easy to remember (admin = 3089, always)
+- Web apps: 3000-3099, APIs: 4000-4099
+
+### Generate API Microservices
+
+```bash
+pnpm create:api <api-name>
+
+# Interactive prompts:
+# 1. Choose API type: Simple (Fastify) or Complex (NestJS)
+# 2. For NestJS: Choose transport (REST, GraphQL, Microservice, WebSockets)
+
+# Examples:
+pnpm create:api notifications      # Option 1: Fastify (port 4047)
+pnpm create:api payments           # Option 2: NestJS REST (port 4023)
+```
+
+**Simple API (Fastify)** - Copies from `templates/simple-api`:
+
+- Fastify 5 + TypeScript + ES Modules
+- Prisma ORM with minimal schema
+- Zod validation
+- Security (CORS, Helmet, Rate Limiting)
+- Health check endpoints
+- Example CRUD routes - **rename and implement your logic**
+
+**Complex API (NestJS)** - Generates with NestJS CLI or copies from
+`templates/complex-api`:
+
+- NestJS 11 + TypeScript with decorators
+- Prisma ORM (global module)
+- Swagger/OpenAPI (REST only)
+- class-validator + class-transformer
+- Example resource module - **replace with your domain**
+- Auto-assigns unique port (4000-4099 range)
+
+**Key differences:**
+
+- **Port ranges**: Web apps (3000-3099), APIs (4000-4099)
+- **Templates are minimal**: Remove example code, add your business logic
+- **Ports are deterministic**: Same name always gets same port (hash-based)
+
+**After generation:**
+
+1. Navigate: `cd apps/<name>`
+2. Update `.env` with your config
+3. Edit `prisma/schema.prisma` with your models
+4. Run `pnpm db:generate && pnpm db:migrate`
+5. Implement your routes/controllers (replace examples)
+6. Start: `pnpm dev`
+
+### Generate Mobile Apps (Expo)
+
+```bash
+pnpm create:mobile <app-name>
+
+# Interactive prompts:
+# 1. Choose template: Blank, Tabs (recommended), or Drawer
+
+# Examples:
+pnpm create:mobile customer-app    # Customer-facing mobile app
+pnpm create:mobile owner-app       # Restaurant owner mobile app
+```
+
+**What it creates:**
+
+- Uses Expo's official generator (`npx create-expo-app`)
+- Expo SDK 52+ with TypeScript
+- Expo Router for file-based routing (similar to Next.js App Router)
+- Customized for Tavia monorepo:
+  - @tavia/analytics integration
+  - Catalog dependencies from pnpm-workspace.yaml
+  - ESLint 9 flat config
+  - Jest + React Native Testing Library
+  - Environment configuration (.env.example)
+  - API client utilities
+  - Custom hooks (useColorScheme, etc.)
+
+**Best practices included:**
+
+- TypeScript strict mode
+- Testing infrastructure with 70% coverage threshold
+- Tavia ESLint and Prettier configs
+- Workspace package integration
+- Environment variable management
+- Example tests and utilities
+
+**After generation:**
+
+1. Navigate: `cd apps/<name>`
+2. Update `.env` with your API URLs
+3. Run `pnpm install` (if not already run)
+4. Start: `pnpm start` (Expo dev server)
+5. Run on device:
+   - `pnpm ios` (iOS simulator)
+   - `pnpm android` (Android emulator)
+6. Test: `pnpm test`
 
 ## ESLint 9 Flat Config
 
@@ -440,8 +626,16 @@ Each component should have **15-50 tests** covering:
 **Pre-commit hooks** (configured in `.lintstagedrc.js`):
 
 - Runs Prettier formatting on all staged files
-- Runs TypeScript type-check across workspace
-- Commit-msg hook validates commit message format
+- Runs TypeScript type-check across workspace (`pnpm type-check`)
+- Commit-msg hook validates commit message format (conventional commits)
+
+```javascript
+// .lintstagedrc.js
+module.exports = {
+  '*.{js,jsx,ts,tsx,json,md,mdx,css,scss,yaml,yml}': ['prettier --write'],
+  '*.{ts,tsx}': [() => 'pnpm type-check'],
+};
+```
 
 ```bash
 # 1. Create feature branch
@@ -455,7 +649,7 @@ pnpm commit
 # Interactive prompt guides you through:
 # - Type: feat, fix, docs, style, refactor, perf, test, build, ci, chore, revert
 # - Scope: core, web, docs, etc.
-# - Subject: short description
+# - Subject: short description (max 100 chars)
 # - Body: detailed changes
 # - Footer: breaking changes, closes issues
 
@@ -474,6 +668,108 @@ fix(booking): prevent double booking race condition
 docs(readme): update installation instructions
 refactor(core): migrate to Lucide icons
 ```
+
+## Database Workflows (Docker + Prisma)
+
+**Architecture:**
+
+- Docker Compose for local PostgreSQL (port 5432)
+- Prisma ORM for schema management and migrations
+- Each app has its own database and docker-compose.yml
+- Container naming: `{app-name}-postgres` (e.g., `web-postgres`,
+  `analytics-postgres`)
+
+### Quick Start (New Developer)
+
+```bash
+cd apps/web
+pnpm db:setup  # Starts Docker, runs migrations, seeds data
+```
+
+This single command:
+
+1. Starts PostgreSQL container (`docker-compose up -d`)
+2. Waits 3 seconds for database to be ready
+3. Runs migrations (`prisma migrate dev`)
+4. Seeds sample data (`tsx prisma/seed.ts`)
+
+### Database Commands (from app directory)
+
+```bash
+# Docker Management
+pnpm docker:up        # Start PostgreSQL (detached mode)
+pnpm docker:down      # Stop PostgreSQL (keeps data)
+pnpm docker:logs      # View container logs
+pnpm docker:restart   # Restart PostgreSQL container
+pnpm docker:clean     # Remove container AND volumes (⚠️ deletes data)
+
+# Prisma Workflow
+pnpm db:generate      # Generate Prisma Client (auto-runs on postinstall)
+pnpm db:push          # Push schema changes without migration (dev only)
+pnpm db:migrate       # Create and apply migration (dev)
+pnpm db:migrate:deploy  # Apply migrations (production)
+pnpm db:seed          # Run seed script
+pnpm db:studio        # Open Prisma Studio GUI (localhost:5555)
+```
+
+### Schema Changes Workflow
+
+```bash
+# 1. Edit prisma/schema.prisma
+# Add new model or fields
+
+# 2. Create migration
+pnpm db:migrate
+# Prisma prompts for migration name
+# This creates prisma/migrations/TIMESTAMP_migration_name/
+
+# 3. Verify in Prisma Studio
+pnpm db:studio
+
+# 4. Commit migration files
+git add prisma/migrations/
+git commit -m "feat(db): add User table with roles"
+```
+
+### Docker Compose Pattern
+
+Each app with Prisma has `docker-compose.yml`:
+
+```yaml
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: {app-name}-postgres  # ⚠️ Unique per app
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+      POSTGRES_DB: ${POSTGRES_DB:-{app-name}}  # ⚠️ Matches app name
+    ports:
+      - '5432:5432'
+    volumes:
+      - {app-name}_postgres_data:/var/lib/postgresql/data
+```
+
+**Key patterns:**
+
+- ✅ Container names are app-specific to avoid conflicts
+- ✅ Database name defaults to app name
+- ✅ Volume name prefixed with app name
+- ✅ Use environment variables from `.env.local`
+
+### Environment Variables
+
+```env
+# .env.local (in apps/web or any Prisma app)
+DATABASE_URL="postgresql://postgres:postgres@localhost:5432/web"
+# Format: postgresql://USER:PASSWORD@HOST:PORT/DATABASE
+```
+
+**Prisma Client generation:**
+
+- Auto-runs on `pnpm install` via `postinstall` hook
+- Manual: `pnpm db:generate`
+- Required after schema changes before TypeScript can see new models
 
 ## CI/CD Pipeline
 
@@ -550,18 +846,26 @@ const meta = {
 
 When adding features:
 
-1. **Add dependencies to catalog first** - Update `pnpm-workspace.yaml` before
+1. **Use generators for new projects** - `pnpm create:app` or `pnpm create:api`
+   (never copy from existing apps)
+2. **Add dependencies to catalog first** - Update `pnpm-workspace.yaml` before
    package.json
-2. **Use ESLint 9 flat config** - Extend shared configs from
+3. **Use ESLint 9 flat config** - Extend shared configs from
    `@repo/eslint-config`
-3. **Commit with Commitizen** - `pnpm commit` for conventional commits
-4. **Don't create summary docs** - No `COMPLETE.md`, `MIGRATION.md` files
-5. **Write comprehensive tests** - 15-50 tests per component minimum
-6. **Follow Emotion patterns** - Direct token imports, `$` prefix, `Styled`
+4. **Commit with Commitizen** - `pnpm commit` for conventional commits
+5. **Don't create summary docs** - No `COMPLETE.md`, `MIGRATION.md` files
+6. **Write comprehensive tests** - 15-50 tests per component minimum
+7. **Follow Emotion patterns** - Direct token imports, `$` prefix, `Styled`
    object export
 
 ---
 
-**Remember:** This is a **component library-first** project. Backend features
-(Prisma, Auth, API routes) are planned but not implemented. Focus on building
-reusable, accessible, well-tested UI components.
+**Remember:** This is a **microservices-first** project with a focus on UI
+components. When creating new services:
+
+- Use generators (`templates/`) not production apps (`apps/`)
+- Web apps go in `apps/` (ports 3000-3099)
+- APIs go in `apps/` (ports 4000-4099)
+- Replace example code with your domain logic
+- Share code via `packages/` (e.g., `@tavia/core` for UI, `@tavia/analytics` for
+  tracking)

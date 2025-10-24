@@ -19,6 +19,7 @@
     "clean": "turbo run clean && rm -rf node_modules",
     "create:app": "node scripts/create-app.js",
     "create:api": "node scripts/create-api.js",
+    "create:mobile": "node scripts/create-mobile.js",
     "prepare": "husky",
     "commit": "cz"
   },

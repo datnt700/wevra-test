@@ -1,0 +1,20 @@
+# Dependencies
+node_modules/
+dist/
+coverage/
+
+# Config files (linted separately or use CommonJS)
+babel.config.js
+jest.config.js
+jest.setup.js
+
+# Build outputs
+*.tsbuildinfo
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
