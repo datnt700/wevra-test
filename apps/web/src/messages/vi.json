@@ -74,9 +74,61 @@
       }
     }
   },
+  "dashboard": {
+    "title": "Bảng điều khiển",
+    "welcome": "Chào mừng trở lại, {name}!",
+    "stats": {
+      "totalRestaurants": "Tổng số nhà hàng",
+      "activeBookings": "Đặt chỗ đang hoạt động",
+      "monthlyRevenue": "Doanh thu tháng"
+    },
+    "quickActions": {
+      "title": "Hành động nhanh",
+      "newRestaurant": "Nhà hàng mới",
+      "viewBookings": "Xem đặt chỗ",
+      "analytics": "Phân tích",
+      "settings": "Cài đặt"
+    },
+    "restaurants": {
+      "title": "Nhà hàng của tôi",
+      "empty": {
+        "title": "Chưa có nhà hàng nào",
+        "description": "Bắt đầu bằng cách thêm nhà hàng đầu tiên của bạn vào nền tảng.",
+        "cta": "Thêm nhà hàng"
+      },
+      "status": {
+        "active": "Hoạt động",
+        "inactive": "Không hoạt động"
+      },
+      "manage": "Quản lý",
+      "bookings": "{count} đặt chỗ",
+      "rating": "Đánh giá"
+    }
+  },
   "errors": {
     "generic": "Đã xảy ra lỗi. Vui lòng thử lại.",
     "notFound": "Không tìm thấy trang",
-    "unauthorized": "Bạn cần đăng nhập để truy cập trang này"
+    "unauthorized": "Bạn cần đăng nhập để truy cập trang này",
+    "error": {
+      "title": "Đã xảy ra lỗi!",
+      "message": "Chúng tôi gặp phải lỗi không mong muốn. Đừng lo lắng, nhóm của chúng tôi đã được thông báo và đang khắc phục.",
+      "tryAgain": "Thử lại",
+      "goHome": "Về trang chủ",
+      "detailsTitle": "Chi tiết lỗi (Chỉ phát triển)"
+    },
+    "globalError": {
+      "title": "Lỗi nghiêm trọng",
+      "message": "Đã xảy ra lỗi nghiêm trọng trong ứng dụng. Vui lòng tải lại trang hoặc liên hệ hỗ trợ nếu vấn đề vẫn tiếp diễn."
+    },
+    "notFoundPage": {
+      "title": "Không tìm thấy trang",
+      "message": "Xin lỗi, chúng tôi không thể tìm thấy trang bạn đang tìm kiếm.\nTrang có thể đã được di chuyển hoặc không còn tồn tại.",
+      "goHomepage": "Về trang chủ",
+      "goDashboard": "Về bảng điều khiển"
+    },
+    "loading": {
+      "title": "Đang tải...",
+      "message": "Vui lòng đợi trong khi chúng tôi chuẩn bị nội dung của bạn"
+    }
   }
 }
