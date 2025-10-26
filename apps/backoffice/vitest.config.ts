@@ -27,7 +27,7 @@ export default defineConfig({
         '**/node_modules/**',
         '**/.next/**',
         '**/e2e/**',
-        '**/styles.ts', // Exclude Emotion styled components
+        '**/*.styles.ts', // Exclude all Emotion styled components
         'src/lib/auth.ts', // Complex auth with Prisma/NextAuth
         'src/lib/env.ts', // Environment validation
         'src/lib/prisma.ts', // Database client
