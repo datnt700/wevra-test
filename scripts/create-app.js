@@ -75,14 +75,14 @@ const dockerComposePath = path.join(appDir, 'docker-compose.yml');
 if (fs.existsSync(dockerComposePath)) {
   let dockerCompose = fs.readFileSync(dockerComposePath, 'utf-8');
   dockerCompose = dockerCompose.replace(
-    /container_name: tavia-postgres/g,
+    /container_name: webapp-postgres/g,
     `container_name: ${appName}-postgres`
   );
   dockerCompose = dockerCompose.replace(
-    /POSTGRES_DB: \$\{POSTGRES_DB:-tavia\}/g,
+    /POSTGRES_DB: \$\{POSTGRES_DB:-webapp\}/g,
     `POSTGRES_DB: \${POSTGRES_DB:-${appName}}`
   );
-  dockerCompose = dockerCompose.replace(/postgres_data:/g, `${appName}_postgres_data:`);
+  dockerCompose = dockerCompose.replace(/webapp_postgres_data:/g, `${appName}_postgres_data:`);
   fs.writeFileSync(dockerComposePath, dockerCompose);
 }
 
@@ -99,10 +99,10 @@ if (fs.existsSync(envExamplePath)) {
   );
   updatedEnv = updatedEnv.replace(/NEXTAUTH_URL=.*/, `NEXTAUTH_URL=http://localhost:${newPort}`);
   updatedEnv = updatedEnv.replace(
-    /DATABASE_URL="postgresql:\/\/postgres:postgres@localhost:5432\/tavia/g,
+    /DATABASE_URL="postgresql:\/\/postgres:postgres@localhost:5432\/webapp/g,
     `DATABASE_URL="postgresql://postgres:postgres@localhost:5432/${appName}`
   );
-  updatedEnv = updatedEnv.replace(/POSTGRES_DB=tavia/g, `POSTGRES_DB=${appName}`);
+  updatedEnv = updatedEnv.replace(/POSTGRES_DB=webapp/g, `POSTGRES_DB=${appName}`);
   fs.writeFileSync(envLocalPath, updatedEnv);
 }
 // Update README.md
@@ -125,7 +125,7 @@ if (fs.existsSync(readmePath)) {
 // Users should add Docker setup if needed
 
 // Update next.config.js port reference if any
-const nextConfigPath = path.join(appDir, 'next.config.js');
+const nextConfigPath = path.join(appDir, 'next.config.ts');
 if (fs.existsSync(nextConfigPath)) {
   let nextConfig = fs.readFileSync(nextConfigPath, 'utf-8');
   nextConfig = nextConfig.replace(/port: 3000/g, `port: ${newPort}`);
@@ -165,11 +165,12 @@ console.log(`   6. Start dev server: pnpm dev`);
 console.log('\n📚 See README.md for more information');
 console.log('\n✨ Features included:');
 console.log('   ✅ Next.js 15 + React 19 + TypeScript');
-console.log('   ✅ next-intl for internationalization (en, fr)');
-console.log('   ✅ Prisma ORM (PostgreSQL ready)');
-console.log('   ✅ @tavia/core UI components');
-console.log('   ✅ Example pages and components');
-console.log('   ✅ Vitest + Testing Library');
+console.log('   ✅ next-intl for internationalization (en, vi) with modular structure');
+console.log('   ✅ Prisma ORM (PostgreSQL ready with Docker)');
+console.log('   ✅ @tavia/core UI components with Emotion styling');
+console.log('   ✅ @tavia/analytics SDK integrated');
+console.log('   ✅ Vitest + Testing Library with React 19 support');
+console.log('   ✅ ClientProviders and AnalyticsProvider setup');
 console.log('\n✨ Happy coding!\n');
 
 /**

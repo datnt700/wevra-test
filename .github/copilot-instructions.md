@@ -208,8 +208,21 @@ pnpm create:app admin              # Creates apps/admin on port 3089
 pnpm create:app customer-portal    # Creates apps/customer-portal on port 3042
 ```
 
-Creates: Next.js 15 + TypeScript + i18n + Prisma + @tavia/core + Vitest +
-deterministic port (3000-3099)
+Creates: Next.js 15 + TypeScript + modular i18n + Prisma + @tavia/core +
+@tavia/analytics + Emotion + Vitest + Docker PostgreSQL + deterministic port
+(3000-3099)
+
+**Template structure (templates/webapp):**
+
+- **src/** based architecture (matches apps/web)
+- **Modular i18n**: 6 modules per language (common, navigation, home, actions,
+  auth, errors)
+- **Provider pattern**: ClientProviders (GlobalStyles) + AnalyticsProvider
+- **TypeScript configs**: next.config.ts with Emotion compiler + React 19
+  resolution
+- **Docker PostgreSQL**: Pre-configured with app-specific container names
+- **Full scripts**: dev, build, test, coverage, docker, db (migrate, seed,
+  studio)
 
 **Generate APIs:**
 
@@ -230,6 +243,31 @@ pnpm create:mobile customer-app    # Expo + TypeScript + @tavia/analytics
 - Web apps: 3000-3099 (deterministic hash-based)
 - APIs: 4000-4099 (deterministic hash-based)
 - Same name = same port (reproducible)
+
+**Template i18n structure:**
+
+```
+src/messages/
+  ├── en/
+  │   ├── common.json      # App name, welcome, description
+  │   ├── navigation.json  # Menu items
+  │   ├── home.json        # Home page content
+  │   ├── actions.json     # Save, cancel, delete, etc.
+  │   ├── auth.json        # Login, logout, register
+  │   └── errors.json      # Error messages
+  └── vi/                  # Same structure for Vietnamese
+```
+
+**Key template patterns:**
+
+- ✅ All files in `src/` directory (app, components, lib, i18n, messages)
+- ✅ Modular i18n with Promise.all loading in `src/i18n/request.ts`
+- ✅ Locale detection from cookies + Accept-Language header
+- ✅ Emotion GlobalStyles wrapped in ClientProviders
+- ✅ Analytics auto-configured with debug mode
+- ✅ React 19.2.0 with resolution aliases in vitest.config.ts
+- ✅ Docker compose with app-name placeholders
+- ✅ Comprehensive metadata in layout.tsx
 
 ## Development Commands
 

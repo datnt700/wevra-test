@@ -1,0 +1,9 @@
+{
+  "generic": "Something went wrong",
+  "notFound": "Page not found",
+  "unauthorized": "Unauthorized",
+  "forbidden": "Forbidden",
+  "serverError": "Server error",
+  "tryAgain": "Try again",
+  "goHome": "Go home"
+}
