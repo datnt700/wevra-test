@@ -33,8 +33,10 @@ apps/
   ├── restaurant-service/   # NestJS (port 3002)
   └── docs/                 # Storybook (port 6006)
 packages/
-  ├── core/                 # @tavia/core - 54+ components ⭐
+  ├── core/                 # @tavia/core - 54+ web components (Emotion + Radix) ⭐
+  ├── mobile-ui/            # @tavia/mobile-ui - React Native components
   ├── analytics/            # @tavia/analytics SDK
+  ├── ui/                   # @repo/ui - Legacy minimal UI
   ├── eslint-config/        # Shared ESLint 9 configs
   └── typescript-config/    # Shared tsconfig
 templates/                  # For generators (webapp, simple-api, complex-api, mobile-app)
@@ -77,6 +79,9 @@ from `pnpm-workspace.yaml`.
 
 **Flat structure** - All 54 components in
 `packages/core/src/ui/<component-name>/` (lowercase-with-dashes).
+
+**For web apps only.** Mobile apps use `@tavia/mobile-ui` with React Native
+components (StyleSheet, not Emotion).
 
 ```
 ui/button/                           # ⚠️ lowercase-with-dashes
@@ -215,8 +220,8 @@ Creates: Next.js 15 + TypeScript + modular i18n + Prisma + @tavia/core +
 **Template structure (templates/webapp):**
 
 - **src/** based architecture (matches apps/backoffice)
-- **Modular i18n**: 6 modules per language (common, navigation, home, actions,
-  auth, errors)
+- **Modular i18n**: 7 modules per language (common, navigation, home, actions,
+  auth, dashboard, errors)
 - **Provider pattern**: ClientProviders (GlobalStyles) + AnalyticsProvider
 - **TypeScript configs**: next.config.ts with Emotion compiler + React 19
   resolution
@@ -254,6 +259,7 @@ src/messages/
   │   ├── home.json        # Home page content
   │   ├── actions.json     # Save, cancel, delete, etc.
   │   ├── auth.json        # Login, logout, register
+  │   ├── dashboard.json   # Dashboard-specific content (apps only)
   │   └── errors.json      # Error messages
   └── vi/                  # Same structure for Vietnamese
 ```
@@ -262,12 +268,13 @@ src/messages/
 
 - ✅ All files in `src/` directory (app, components, lib, i18n, messages)
 - ✅ Modular i18n with Promise.all loading in `src/i18n/request.ts`
-- ✅ Locale detection from cookies + Accept-Language header
+- ✅ Locale detection: cookie (`NEXT_LOCALE`) > Accept-Language > default
 - ✅ Emotion GlobalStyles wrapped in ClientProviders
 - ✅ Analytics auto-configured with debug mode
 - ✅ React 19.2.0 with resolution aliases in vitest.config.ts
-- ✅ Docker compose with app-name placeholders
+- ✅ Docker compose with app-name placeholders (e.g., `{app-name}-postgres`)
 - ✅ Comprehensive metadata in layout.tsx
+- ✅ `forwardRef` pattern for component refs (see Button.tsx)
 
 ## Development Commands
 

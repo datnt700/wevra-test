@@ -273,14 +273,14 @@ catalogs:
       version: 11.14.1
   expo:
     '@types/react':
-      specifier: ^19.1.0
+      specifier: ^19.2.2
       version: 19.2.2
     react:
-      specifier: ^19.1.0
+      specifier: ^19.2.0
       version: 19.2.0
     react-native:
-      specifier: 0.81.0
-      version: 0.81.0
+      specifier: 0.82.1
+      version: 0.82.1
 
 importers:
   .:
@@ -376,6 +376,115 @@ importers:
       typescript:
         specifier: 5.9.3
         version: 5.9.3
+
+  apps/backoffice:
+    dependencies:
+      '@auth/prisma-adapter':
+        specifier: 'catalog:'
+        version: 2.11.0(@prisma/client@6.18.0(prisma@6.18.0(magicast@0.3.5)(typescript@5.9.3))(typescript@5.9.3))
+      '@emotion/react':
+        specifier: catalog:emotion
+        version: 11.14.0(@types/react@19.2.2)(react@19.2.0)
+      '@emotion/styled':
+        specifier: catalog:emotion
+        version: 11.14.1(@emotion/react@11.14.0(@types/react@19.2.2)(react@19.2.0))(@types/react@19.2.2)(react@19.2.0)
+      '@hookform/resolvers':
+        specifier: 'catalog:'
+        version: 3.10.0(react-hook-form@7.65.0(react@19.2.0))
+      '@prisma/client':
+        specifier: 'catalog:'
+        version: 6.18.0(prisma@6.18.0(magicast@0.3.5)(typescript@5.9.3))(typescript@5.9.3)
+      '@repo/ui':
+        specifier: workspace:*
+        version: link:../../packages/ui
+      '@tavia/analytics':
+        specifier: workspace:*
+        version: link:../../packages/analytics
+      '@tavia/core':
+        specifier: workspace:*
+        version: link:../../packages/core
+      bcryptjs:
+        specifier: 'catalog:'
+        version: 2.4.3
+      framer-motion:
+        specifier: 'catalog:'
+        version: 11.18.2(@emotion/is-prop-valid@1.4.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+      next:
+        specifier: 'catalog:'
+        version: 15.5.5(@babel/core@7.28.4)(@playwright/test@1.56.1)(babel-plugin-react-compiler@1.0.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+      next-auth:
+        specifier: 'catalog:'
+        version: 5.0.0-beta.29(next@15.5.5(@babel/core@7.28.4)(@playwright/test@1.56.1)(babel-plugin-react-compiler@1.0.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(react@19.2.0)
+      next-intl:
+        specifier: 'catalog:'
+        version: 3.26.5(next@15.5.5(@babel/core@7.28.4)(@playwright/test@1.56.1)(babel-plugin-react-compiler@1.0.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(react@19.2.0)
+      react:
+        specifier: 'catalog:'
+        version: 19.2.0
+      react-dom:
+        specifier: 'catalog:'
+        version: 19.2.0(react@19.2.0)
+      react-hook-form:
+        specifier: 'catalog:'
+        version: 7.65.0(react@19.2.0)
+      zod:
+        specifier: 'catalog:'
+        version: 3.25.76
+    devDependencies:
+      '@playwright/test':
+        specifier: 'catalog:'
+        version: 1.56.1
+      '@repo/eslint-config':
+        specifier: workspace:*
+        version: link:../../packages/eslint-config
+      '@repo/typescript-config':
+        specifier: workspace:*
+        version: link:../../packages/typescript-config
+      '@testing-library/jest-dom':
+        specifier: 'catalog:'
+        version: 6.9.1
+      '@testing-library/react':
+        specifier: 'catalog:'
+        version: 16.3.0(@testing-library/dom@10.4.0)(@types/react-dom@19.2.2(@types/react@19.2.2))(@types/react@19.2.2)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+      '@testing-library/user-event':
+        specifier: 'catalog:'
+        version: 14.6.1(@testing-library/dom@10.4.0)
+      '@types/bcryptjs':
+        specifier: 'catalog:'
+        version: 2.4.6
+      '@types/node':
+        specifier: 'catalog:'
+        version: 22.18.12
+      '@types/react':
+        specifier: 'catalog:'
+        version: 19.2.2
+      '@types/react-dom':
+        specifier: 'catalog:'
+        version: 19.2.2(@types/react@19.2.2)
+      '@vitejs/plugin-react':
+        specifier: 'catalog:'
+        version: 5.0.4(vite@7.1.10(@types/node@22.18.12)(jiti@2.6.1)(lightningcss@1.30.2)(terser@5.44.0)(tsx@4.20.6)(yaml@2.8.1))
+      '@vitest/coverage-istanbul':
+        specifier: 'catalog:'
+        version: 3.2.4(vitest@3.2.4(@types/node@22.18.12)(jiti@2.6.1)(jsdom@27.0.0(postcss@8.5.6))(lightningcss@1.30.2)(terser@5.44.0)(tsx@4.20.6)(yaml@2.8.1))
+      eslint:
+        specifier: 'catalog:'
+        version: 9.34.0(jiti@2.6.1)
+      jsdom:
+        specifier: 'catalog:'
+        version: 27.0.0(postcss@8.5.6)
+      prisma:
+        specifier: 'catalog:'
+        version: 6.18.0(magicast@0.3.5)(typescript@5.9.3)
+      tsx:
+        specifier: 'catalog:'
+        version: 4.20.6
+      typescript:
+        specifier: 5.9.3
+        version: 5.9.3
+      vitest:
+        specifier: 'catalog:'
+        version: 3.2.4(@types/node@22.18.12)(jiti@2.6.1)(jsdom@27.0.0(postcss@8.5.6))(lightningcss@1.30.2)(terser@5.44.0)(tsx@4.20.6)(yaml@2.8.1)
 
   apps/docs:
     dependencies:
@@ -579,115 +688,6 @@ importers:
       typescript-eslint:
         specifier: ^8.20.0
         version: 8.46.1(eslint@9.34.0(jiti@2.6.1))(typescript@5.9.3)
-
-  apps/web:
-    dependencies:
-      '@auth/prisma-adapter':
-        specifier: 'catalog:'
-        version: 2.11.0(@prisma/client@6.18.0(prisma@6.18.0(magicast@0.3.5)(typescript@5.9.3))(typescript@5.9.3))
-      '@emotion/react':
-        specifier: catalog:emotion
-        version: 11.14.0(@types/react@19.2.2)(react@19.2.0)
-      '@emotion/styled':
-        specifier: catalog:emotion
-        version: 11.14.1(@emotion/react@11.14.0(@types/react@19.2.2)(react@19.2.0))(@types/react@19.2.2)(react@19.2.0)
-      '@hookform/resolvers':
-        specifier: 'catalog:'
-        version: 3.10.0(react-hook-form@7.65.0(react@19.2.0))
-      '@prisma/client':
-        specifier: 'catalog:'
-        version: 6.18.0(prisma@6.18.0(magicast@0.3.5)(typescript@5.9.3))(typescript@5.9.3)
-      '@repo/ui':
-        specifier: workspace:*
-        version: link:../../packages/ui
-      '@tavia/analytics':
-        specifier: workspace:*
-        version: link:../../packages/analytics
-      '@tavia/core':
-        specifier: workspace:*
-        version: link:../../packages/core
-      bcryptjs:
-        specifier: 'catalog:'
-        version: 2.4.3
-      framer-motion:
-        specifier: 'catalog:'
-        version: 11.18.2(@emotion/is-prop-valid@1.4.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
-      next:
-        specifier: 'catalog:'
-        version: 15.5.5(@babel/core@7.28.4)(@playwright/test@1.56.1)(babel-plugin-react-compiler@1.0.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
-      next-auth:
-        specifier: 'catalog:'
-        version: 5.0.0-beta.29(next@15.5.5(@babel/core@7.28.4)(@playwright/test@1.56.1)(babel-plugin-react-compiler@1.0.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(react@19.2.0)
-      next-intl:
-        specifier: 'catalog:'
-        version: 3.26.5(next@15.5.5(@babel/core@7.28.4)(@playwright/test@1.56.1)(babel-plugin-react-compiler@1.0.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(react@19.2.0)
-      react:
-        specifier: 'catalog:'
-        version: 19.2.0
-      react-dom:
-        specifier: 'catalog:'
-        version: 19.2.0(react@19.2.0)
-      react-hook-form:
-        specifier: 'catalog:'
-        version: 7.65.0(react@19.2.0)
-      zod:
-        specifier: 'catalog:'
-        version: 3.25.76
-    devDependencies:
-      '@playwright/test':
-        specifier: 'catalog:'
-        version: 1.56.1
-      '@repo/eslint-config':
-        specifier: workspace:*
-        version: link:../../packages/eslint-config
-      '@repo/typescript-config':
-        specifier: workspace:*
-        version: link:../../packages/typescript-config
-      '@testing-library/jest-dom':
-        specifier: 'catalog:'
-        version: 6.9.1
-      '@testing-library/react':
-        specifier: 'catalog:'
-        version: 16.3.0(@testing-library/dom@10.4.0)(@types/react-dom@19.2.2(@types/react@19.2.2))(@types/react@19.2.2)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
-      '@testing-library/user-event':
-        specifier: 'catalog:'
-        version: 14.6.1(@testing-library/dom@10.4.0)
-      '@types/bcryptjs':
-        specifier: 'catalog:'
-        version: 2.4.6
-      '@types/node':
-        specifier: 'catalog:'
-        version: 22.18.12
-      '@types/react':
-        specifier: 'catalog:'
-        version: 19.2.2
-      '@types/react-dom':
-        specifier: 'catalog:'
-        version: 19.2.2(@types/react@19.2.2)
-      '@vitejs/plugin-react':
-        specifier: 'catalog:'
-        version: 5.0.4(vite@7.1.10(@types/node@22.18.12)(jiti@2.6.1)(lightningcss@1.30.2)(terser@5.44.0)(tsx@4.20.6)(yaml@2.8.1))
-      '@vitest/coverage-istanbul':
-        specifier: 'catalog:'
-        version: 3.2.4(vitest@3.2.4(@types/node@22.18.12)(jiti@2.6.1)(jsdom@27.0.0(postcss@8.5.6))(lightningcss@1.30.2)(terser@5.44.0)(tsx@4.20.6)(yaml@2.8.1))
-      eslint:
-        specifier: 'catalog:'
-        version: 9.34.0(jiti@2.6.1)
-      jsdom:
-        specifier: 'catalog:'
-        version: 27.0.0(postcss@8.5.6)
-      prisma:
-        specifier: 'catalog:'
-        version: 6.18.0(magicast@0.3.5)(typescript@5.9.3)
-      tsx:
-        specifier: 'catalog:'
-        version: 4.20.6
-      typescript:
-        specifier: 5.9.3
-        version: 5.9.3
-      vitest:
-        specifier: 'catalog:'
-        version: 3.2.4(@types/node@22.18.12)(jiti@2.6.1)(jsdom@27.0.0(postcss@8.5.6))(lightningcss@1.30.2)(terser@5.44.0)(tsx@4.20.6)(yaml@2.8.1)
 
   packages/analytics:
     dependencies:
@@ -939,7 +939,7 @@ importers:
         version: 19.2.0(react@19.2.0)
       react-native:
         specifier: catalog:expo
-        version: 0.81.0(@babel/core@7.28.4)(@react-native/metro-config@0.82.1(@babel/core@7.28.4))(@types/react@19.2.2)(react@19.2.0)
+        version: 0.82.1(@babel/core@7.28.4)(@react-native/metro-config@0.82.1(@babel/core@7.28.4))(@types/react@19.2.2)(react@19.2.0)
       react-native-web:
         specifier: 'catalog:'
         version: 0.19.13(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
@@ -5353,10 +5353,10 @@ packages:
         integrity: sha512-HPwpGIzkl28mWyZqG52jiqDJ12waP11Pa1lGoiyUkIEuMLBP0oeK/C89esbXrxsky5we7dfd8U58nm0SgAWpVw==,
       }
 
-  '@react-native/assets-registry@0.81.0':
+  '@react-native/assets-registry@0.82.1':
     resolution:
       {
-        integrity: sha512-rZs8ziQ1YRV3Z5Mw5AR7YcgI3q1Ya9NIx6nyuZAT9wDSSjspSi+bww+Hargh/a4JfV2Ajcxpn9X9UiFJr1ddPw==,
+        integrity: sha512-B1SRwpntaAcckiatxbjzylvNK562Ayza05gdJCjDQHTiDafa1OABmyB5LHt7qWDOpNkaluD+w11vHF7pBmTpzQ==,
       }
     engines: { node: '>= 20.19.4' }
 
@@ -5392,15 +5392,6 @@ packages:
     peerDependencies:
       '@babel/core': '*'
 
-  '@react-native/codegen@0.81.0':
-    resolution:
-      {
-        integrity: sha512-gPFutgtj8YqbwKKt3YpZKamUBGd9YZJV51Jq2aiDZ9oThkg1frUBa20E+Jdi7jKn982wjBMxAklAR85QGQ4xMA==,
-      }
-    engines: { node: '>= 20.19.4' }
-    peerDependencies:
-      '@babel/core': '*'
-
   '@react-native/codegen@0.81.5':
     resolution:
       {
@@ -5419,10 +5410,10 @@ packages:
     peerDependencies:
       '@babel/core': '*'
 
-  '@react-native/community-cli-plugin@0.81.0':
+  '@react-native/community-cli-plugin@0.82.1':
     resolution:
       {
-        integrity: sha512-n04ACkCaLR54NmA/eWiDpjC16pHr7+yrbjQ6OEdRoXbm5EfL8FEre2kDAci7pfFdiSMpxdRULDlKpfQ+EV/GAQ==,
+        integrity: sha512-H/eMdtOy9nEeX7YVeEG1N2vyCoifw3dr9OV8++xfUElNYV7LtSmJ6AqxZUUfxGJRDFPQvaU/8enmJlM/l11VxQ==,
       }
     engines: { node: '>= 20.19.4' }
     peerDependencies:
@@ -5431,32 +5422,34 @@ packages:
     peerDependenciesMeta:
       '@react-native-community/cli':
         optional: true
+      '@react-native/metro-config':
+        optional: true
 
-  '@react-native/debugger-frontend@0.81.0':
+  '@react-native/debugger-frontend@0.82.1':
     resolution:
       {
-        integrity: sha512-N/8uL2CGQfwiQRYFUNfmaYxRDSoSeOmFb56rb0PDnP3XbS5+X9ee7X4bdnukNHLGfkRdH7sVjlB8M5zE8XJOhw==,
+        integrity: sha512-a2O6M7/OZ2V9rdavOHyCQ+10z54JX8+B+apYKCQ6a9zoEChGTxUMG2YzzJ8zZJVvYf1ByWSNxv9Se0dca1hO9A==,
       }
     engines: { node: '>= 20.19.4' }
 
-  '@react-native/dev-middleware@0.81.0':
+  '@react-native/debugger-shell@0.82.1':
     resolution:
       {
-        integrity: sha512-J/HeC/+VgRyGECPPr9rAbe5S0OL6MCIrvrC/kgNKSME5+ZQLCiTpt3pdAoAMXwXiF9a02Nmido0DnyM1acXTIA==,
+        integrity: sha512-fdRHAeqqPT93bSrxfX+JHPpCXHApfDUdrXMXhoxlPgSzgXQXJDykIViKhtpu0M6slX6xU/+duq+AtP/qWJRpBw==,
       }
     engines: { node: '>= 20.19.4' }
 
-  '@react-native/gradle-plugin@0.81.0':
+  '@react-native/dev-middleware@0.82.1':
     resolution:
       {
-        integrity: sha512-LGNtPXO1RKLws5ORRb4Q4YULi2qxM4qZRuARtwqM/1f2wyZVggqapoV0OXlaXaz+GiEd2ll3ROE4CcLN6J93jg==,
+        integrity: sha512-wuOIzms/Qg5raBV6Ctf2LmgzEOCqdP3p1AYN4zdhMT110c39TVMbunpBaJxm0Kbt2HQ762MQViF9naxk7SBo4w==,
       }
     engines: { node: '>= 20.19.4' }
 
-  '@react-native/js-polyfills@0.81.0':
+  '@react-native/gradle-plugin@0.82.1':
     resolution:
       {
-        integrity: sha512-whXZWIogzoGpqdyTjqT89M6DXmlOkWqNpWoVOAwVi8XFCMO+L7WTk604okIgO6gdGZcP1YtFpQf9JusbKrv/XA==,
+        integrity: sha512-KkF/2T1NSn6EJ5ALNT/gx0MHlrntFHv8YdooH9OOGl9HQn5NM0ZmQSr86o5utJsGc7ME3R6p3SaQuzlsFDrn8Q==,
       }
     engines: { node: '>= 20.19.4' }
 
@@ -5489,20 +5482,20 @@ packages:
         integrity: sha512-qoMMXddVKVhZ8PA1AbUCk83trpd6N+1nF2A6k1i6LsQObyS92fELuk8kU/lQs6M7BsMHwqyLCpQJ1uFgNvIQXg==,
       }
 
-  '@react-native/normalize-colors@0.81.0':
+  '@react-native/normalize-colors@0.82.1':
     resolution:
       {
-        integrity: sha512-3gEu/29uFgz+81hpUgdlOojM4rjHTIPwxpfygFNY60V6ywZih3eLDTS8kAjNZfPFHQbcYrNorJzwnL5yFF/uLw==,
+        integrity: sha512-CCfTR1uX+Z7zJTdt3DNX9LUXr2zWXsNOyLbwupW2wmRzrxlHRYfmLgTABzRL/cKhh0Ubuwn15o72MQChvCRaHw==,
       }
 
-  '@react-native/virtualized-lists@0.81.0':
+  '@react-native/virtualized-lists@0.82.1':
     resolution:
       {
-        integrity: sha512-p14QC5INHkbMZ96158sUxkSwN6zp138W11G+CRGoLJY4Q9WRJBCe7wHR5Owyy3XczQXrIih/vxAXwgYeZ2XByg==,
+        integrity: sha512-f5zpJg9gzh7JtCbsIwV+4kP3eI0QBuA93JGmwFRd4onQ3DnCjV2J5pYqdWtM95sjSKK1dyik59Gj01lLeKqs1Q==,
       }
     engines: { node: '>= 20.19.4' }
     peerDependencies:
-      '@types/react': ^19.1.0
+      '@types/react': ^19.1.1
       react: '*'
       react-native: '*'
     peerDependenciesMeta:
@@ -10019,6 +10012,14 @@ packages:
         integrity: sha512-GwLTyxkCXjXbxqIhTsMI2Nui8huMPtnxg7krajPJAjnEG/iiOS7i+zCtWGZR9G0NBKbXKh6X9m9UIsYX/N6vvQ==,
       }
 
+  fb-dotslash@0.5.8:
+    resolution:
+      {
+        integrity: sha512-XHYLKk9J4BupDxi9bSEhkfss0m+Vr9ChTrjhf9l2iw3jB5C7BnY4GVPoMcqbrTutsKJso6yj2nAB6BI/F2oZaA==,
+      }
+    engines: { node: '>=20' }
+    hasBin: true
+
   fb-watchman@2.0.2:
     resolution:
       {
@@ -10674,6 +10675,12 @@ packages:
     resolution:
       {
         integrity: sha512-7xgomUX6ADmcYzFik0HzAxh/73YlKR9bmFzf51CZwR+b6YtzU2m0u49hQCqV6SvlqIqsaxovfwdvbnsw3b/zpg==,
+      }
+
+  hermes-compiler@0.0.0:
+    resolution:
+      {
+        integrity: sha512-boVFutx6ME/Km2mB6vvsQcdnazEYYI/jV1pomx1wcFUG/EVqTkr5CU0CW9bKipOA/8Hyu3NYwW3THg2Q1kNCfA==,
       }
 
   hermes-estree@0.25.1:
@@ -14148,16 +14155,16 @@ packages:
       react: ^18.0.0
       react-dom: ^18.0.0
 
-  react-native@0.81.0:
+  react-native@0.82.1:
     resolution:
       {
-        integrity: sha512-RDWhewHGsAa5uZpwIxnJNiv5tW2y6/DrQUjEBdAHPzGMwuMTshern2s4gZaWYeRU3SQguExVddCjiss9IBhxqA==,
+        integrity: sha512-tFAqcU7Z4g49xf/KnyCEzI4nRTu1Opcx05Ov2helr8ZTg1z7AJR/3sr2rZ+AAVlAs2IXk+B0WOxXGmdD3+4czA==,
       }
     engines: { node: '>= 20.19.4' }
     hasBin: true
     peerDependencies:
-      '@types/react': ^19.1.0
-      react: ^19.1.0
+      '@types/react': ^19.1.1
+      react: ^19.1.1
     peerDependenciesMeta:
       '@types/react':
         optional: true
@@ -19864,7 +19871,7 @@ snapshots:
 
   '@radix-ui/rect@1.1.1': {}
 
-  '@react-native/assets-registry@0.81.0': {}
+  '@react-native/assets-registry@0.82.1': {}
 
   '@react-native/babel-plugin-codegen@0.81.5(@babel/core@7.28.4)':
     dependencies:
@@ -19881,6 +19888,7 @@ snapshots:
     transitivePeerDependencies:
       - '@babel/core'
       - supports-color
+    optional: true
 
   '@react-native/babel-preset@0.81.5(@babel/core@7.28.4)':
     dependencies:
@@ -19981,15 +19989,7 @@ snapshots:
       react-refresh: 0.14.2
     transitivePeerDependencies:
       - supports-color
-
-  '@react-native/codegen@0.81.0(@babel/core@7.28.4)':
-    dependencies:
-      '@babel/core': 7.28.4
-      glob: 7.2.3
-      hermes-parser: 0.29.1
-      invariant: 2.2.4
-      nullthrows: 1.1.1
-      yargs: 17.7.2
+    optional: true
 
   '@react-native/codegen@0.81.5(@babel/core@7.28.4)':
     dependencies:
@@ -20011,27 +20011,34 @@ snapshots:
       nullthrows: 1.1.1
       yargs: 17.7.2
 
-  '@react-native/community-cli-plugin@0.81.0(@react-native/metro-config@0.82.1(@babel/core@7.28.4))':
+  '@react-native/community-cli-plugin@0.82.1(@react-native/metro-config@0.82.1(@babel/core@7.28.4))':
     dependencies:
-      '@react-native/dev-middleware': 0.81.0
-      '@react-native/metro-config': 0.82.1(@babel/core@7.28.4)
+      '@react-native/dev-middleware': 0.82.1
       debug: 4.4.3
       invariant: 2.2.4
       metro: 0.83.3
       metro-config: 0.83.3
       metro-core: 0.83.3
       semver: 7.7.3
+    optionalDependencies:
+      '@react-native/metro-config': 0.82.1(@babel/core@7.28.4)
     transitivePeerDependencies:
       - bufferutil
       - supports-color
       - utf-8-validate
 
-  '@react-native/debugger-frontend@0.81.0': {}
+  '@react-native/debugger-frontend@0.82.1': {}
 
-  '@react-native/dev-middleware@0.81.0':
+  '@react-native/debugger-shell@0.82.1':
+    dependencies:
+      cross-spawn: 7.0.6
+      fb-dotslash: 0.5.8
+
+  '@react-native/dev-middleware@0.82.1':
     dependencies:
       '@isaacs/ttlcache': 1.4.1
-      '@react-native/debugger-frontend': 0.81.0
+      '@react-native/debugger-frontend': 0.82.1
+      '@react-native/debugger-shell': 0.82.1
       chrome-launcher: 0.15.2
       chromium-edge-launcher: 0.2.0
       connect: 3.7.0
@@ -20046,9 +20053,7 @@ snapshots:
       - supports-color
       - utf-8-validate
 
-  '@react-native/gradle-plugin@0.81.0': {}
-
-  '@react-native/js-polyfills@0.81.0': {}
+  '@react-native/gradle-plugin@0.82.1': {}
 
   '@react-native/js-polyfills@0.82.1': {}
 
@@ -20060,6 +20065,7 @@ snapshots:
       nullthrows: 1.1.1
     transitivePeerDependencies:
       - supports-color
+    optional: true
 
   '@react-native/metro-config@0.82.1(@babel/core@7.28.4)':
     dependencies:
@@ -20070,17 +20076,18 @@ snapshots:
     transitivePeerDependencies:
       - '@babel/core'
       - supports-color
+    optional: true
 
   '@react-native/normalize-colors@0.74.89': {}
 
-  '@react-native/normalize-colors@0.81.0': {}
+  '@react-native/normalize-colors@0.82.1': {}
 
-  '@react-native/virtualized-lists@0.81.0(@types/react@19.2.2)(react-native@0.81.0(@babel/core@7.28.4)(@react-native/metro-config@0.82.1(@babel/core@7.28.4))(@types/react@19.2.2)(react@19.2.0))(react@19.2.0)':
+  '@react-native/virtualized-lists@0.82.1(@types/react@19.2.2)(react-native@0.82.1(@babel/core@7.28.4)(@react-native/metro-config@0.82.1(@babel/core@7.28.4))(@types/react@19.2.2)(react@19.2.0))(react@19.2.0)':
     dependencies:
       invariant: 2.2.4
       nullthrows: 1.1.1
       react: 19.2.0
-      react-native: 0.81.0(@babel/core@7.28.4)(@react-native/metro-config@0.82.1(@babel/core@7.28.4))(@types/react@19.2.2)(react@19.2.0)
+      react-native: 0.82.1(@babel/core@7.28.4)(@react-native/metro-config@0.82.1(@babel/core@7.28.4))(@types/react@19.2.2)(react@19.2.0)
     optionalDependencies:
       '@types/react': 19.2.2
 
@@ -23378,6 +23385,8 @@ snapshots:
     dependencies:
       reusify: 1.1.0
 
+  fb-dotslash@0.5.8: {}
+
   fb-watchman@2.0.2:
     dependencies:
       bser: 2.1.1
@@ -23827,6 +23836,8 @@ snapshots:
   helmet@8.1.0: {}
 
   help-me@5.0.0: {}
+
+  hermes-compiler@0.0.0: {}
 
   hermes-estree@0.25.1: {}
 
@@ -26258,25 +26269,26 @@ snapshots:
     transitivePeerDependencies:
       - encoding
 
-  react-native@0.81.0(@babel/core@7.28.4)(@react-native/metro-config@0.82.1(@babel/core@7.28.4))(@types/react@19.2.2)(react@19.2.0):
+  react-native@0.82.1(@babel/core@7.28.4)(@react-native/metro-config@0.82.1(@babel/core@7.28.4))(@types/react@19.2.2)(react@19.2.0):
     dependencies:
       '@jest/create-cache-key-function': 29.7.0
-      '@react-native/assets-registry': 0.81.0
-      '@react-native/codegen': 0.81.0(@babel/core@7.28.4)
-      '@react-native/community-cli-plugin': 0.81.0(@react-native/metro-config@0.82.1(@babel/core@7.28.4))
-      '@react-native/gradle-plugin': 0.81.0
-      '@react-native/js-polyfills': 0.81.0
-      '@react-native/normalize-colors': 0.81.0
-      '@react-native/virtualized-lists': 0.81.0(@types/react@19.2.2)(react-native@0.81.0(@babel/core@7.28.4)(@react-native/metro-config@0.82.1(@babel/core@7.28.4))(@types/react@19.2.2)(react@19.2.0))(react@19.2.0)
+      '@react-native/assets-registry': 0.82.1
+      '@react-native/codegen': 0.82.1(@babel/core@7.28.4)
+      '@react-native/community-cli-plugin': 0.82.1(@react-native/metro-config@0.82.1(@babel/core@7.28.4))
+      '@react-native/gradle-plugin': 0.82.1
+      '@react-native/js-polyfills': 0.82.1
+      '@react-native/normalize-colors': 0.82.1
+      '@react-native/virtualized-lists': 0.82.1(@types/react@19.2.2)(react-native@0.82.1(@babel/core@7.28.4)(@react-native/metro-config@0.82.1(@babel/core@7.28.4))(@types/react@19.2.2)(react@19.2.0))(react@19.2.0)
       abort-controller: 3.0.0
       anser: 1.4.10
       ansi-regex: 5.0.1
       babel-jest: 29.7.0(@babel/core@7.28.4)
-      babel-plugin-syntax-hermes-parser: 0.29.1
+      babel-plugin-syntax-hermes-parser: 0.32.0
       base64-js: 1.5.1
       commander: 12.1.0
       flow-enums-runtime: 0.0.6
       glob: 7.2.3
+      hermes-compiler: 0.0.0
       invariant: 2.2.4
       jest-environment-node: 29.7.0
       memoize-one: 5.2.1
