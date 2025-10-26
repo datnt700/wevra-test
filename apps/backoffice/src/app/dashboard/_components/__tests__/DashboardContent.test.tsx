@@ -4,6 +4,7 @@
 import { describe, it, expect, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom/vitest';
+import userEvent from '@testing-library/user-event';
 import { NextIntlClientProvider } from 'next-intl';
 import { DashboardContent } from '../DashboardContent';
 
@@ -18,6 +19,31 @@ vi.mock('next/image', () => ({
 // Mock SignOutButton
 vi.mock('../SignOutButton', () => ({
   SignOutButton: () => <button>Sign Out</button>,
+}));
+
+// Mock @tavia/core Button
+vi.mock('@tavia/core', () => ({
+  Button: ({
+    children,
+    onClick,
+    variant,
+    ...props
+  }: {
+    children: React.ReactNode;
+    onClick?: () => void;
+    variant?: string;
+  }) => (
+    <button data-variant={variant} onClick={onClick} {...props}>
+      {children}
+    </button>
+  ),
+  cssVars: {
+    gray200: '#e5e7eb',
+    gray300: '#d1d5db',
+  },
+  radii: {
+    lg: '0.5rem',
+  },
 }));
 
 const messages = {
@@ -250,6 +276,35 @@ describe('DashboardContent', () => {
       );
 
       expect(screen.getByText('Restaurant Owner')).toBeInTheDocument();
+    });
+  });
+
+  describe('User Interactions', () => {
+    it('should navigate to new restaurant page when clicking Add Your First Restaurant button', async () => {
+      const user = {
+        name: 'John Doe',
+        email: 'john@example.com',
+        role: 'RESTAURANT_OWNER',
+      };
+
+      // Mock window.location
+      const mockLocation = { href: '' };
+      Object.defineProperty(window, 'location', {
+        value: mockLocation,
+        writable: true,
+        configurable: true,
+      });
+
+      render(
+        <NextIntlClientProvider locale="en" messages={messages}>
+          <DashboardContent user={user} restaurants={[]} />
+        </NextIntlClientProvider>
+      );
+
+      const addButton = screen.getByText('Add Your First Restaurant');
+      await userEvent.click(addButton);
+
+      expect(mockLocation.href).toBe('/restaurants/new');
     });
   });
 });

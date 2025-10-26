@@ -200,6 +200,7 @@ describe('LoginPage', () => {
 
       await waitFor(() => {
         expect(mockPush).toHaveBeenCalledWith('/custom-page');
+        expect(mockRefresh).toHaveBeenCalled();
       });
     });
 
