@@ -1,4 +1,4 @@
-# Tavia 
+# Tavia
 
 **Tavia** is a modern, serverless café and restaurant booking platform built
 with Next.js 15, designed for both clients (booking tables) and owners (managing
