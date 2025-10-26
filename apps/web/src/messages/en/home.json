@@ -1,0 +1,22 @@
+{
+  "hero": {
+    "title": "Discover & Book Amazing Cafés and Restaurants",
+    "subtitle": "Find your perfect spot, reserve a table, and enjoy great experiences",
+    "cta": "Get Started"
+  },
+  "features": {
+    "title": "Why Choose Tavia?",
+    "search": {
+      "title": "Easy Search",
+      "description": "Browse cafés and restaurants by location, cuisine, and availability"
+    },
+    "booking": {
+      "title": "Instant Booking",
+      "description": "Reserve your table in seconds with real-time confirmation"
+    },
+    "notifications": {
+      "title": "Stay Updated",
+      "description": "Get email and push notifications for your bookings"
+    }
+  }
+}

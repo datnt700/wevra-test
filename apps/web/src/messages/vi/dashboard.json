@@ -1,0 +1,31 @@
+{
+  "title": "Bảng điều khiển",
+  "welcome": "Chào mừng trở lại, {name}!",
+  "stats": {
+    "totalRestaurants": "Tổng số nhà hàng",
+    "activeBookings": "Đặt chỗ đang hoạt động",
+    "monthlyRevenue": "Doanh thu tháng"
+  },
+  "quickActions": {
+    "title": "Hành động nhanh",
+    "newRestaurant": "Nhà hàng mới",
+    "viewBookings": "Xem đặt chỗ",
+    "analytics": "Phân tích",
+    "settings": "Cài đặt"
+  },
+  "restaurants": {
+    "title": "Nhà hàng của tôi",
+    "empty": {
+      "title": "Chưa có nhà hàng nào",
+      "description": "Bắt đầu bằng cách thêm nhà hàng đầu tiên của bạn vào nền tảng.",
+      "cta": "Thêm nhà hàng"
+    },
+    "status": {
+      "active": "Hoạt động",
+      "inactive": "Không hoạt động"
+    },
+    "manage": "Quản lý",
+    "bookings": "{count} đặt chỗ",
+    "rating": "Đánh giá"
+  }
+}

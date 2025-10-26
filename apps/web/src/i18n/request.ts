@@ -22,8 +22,27 @@ export default getRequestConfig(async () => {
     }
   }
 
+  // Load modular i18n files
+  const [common, navigation, home, actions, auth, dashboard, errors] = await Promise.all([
+    import(`../messages/${locale}/common.json`),
+    import(`../messages/${locale}/navigation.json`),
+    import(`../messages/${locale}/home.json`),
+    import(`../messages/${locale}/actions.json`),
+    import(`../messages/${locale}/auth.json`),
+    import(`../messages/${locale}/dashboard.json`),
+    import(`../messages/${locale}/errors.json`),
+  ]);
+
   return {
     locale,
-    messages: (await import(`../messages/${locale}.json`)).default,
+    messages: {
+      common: common.default,
+      navigation: navigation.default,
+      home: home.default,
+      actions: actions.default,
+      auth: auth.default,
+      dashboard: dashboard.default,
+      errors: errors.default,
+    },
   };
 });

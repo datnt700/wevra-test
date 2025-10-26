@@ -1,0 +1,31 @@
+{
+  "title": "Dashboard",
+  "welcome": "Welcome back, {name}!",
+  "stats": {
+    "totalRestaurants": "Total Restaurants",
+    "activeBookings": "Active Bookings",
+    "monthlyRevenue": "Monthly Revenue"
+  },
+  "quickActions": {
+    "title": "Quick Actions",
+    "newRestaurant": "New Restaurant",
+    "viewBookings": "View Bookings",
+    "analytics": "Analytics",
+    "settings": "Settings"
+  },
+  "restaurants": {
+    "title": "My Restaurants",
+    "empty": {
+      "title": "No Restaurants Yet",
+      "description": "Get started by adding your first restaurant to the platform.",
+      "cta": "Add Restaurant"
+    },
+    "status": {
+      "active": "Active",
+      "inactive": "Inactive"
+    },
+    "manage": "Manage",
+    "bookings": "{count} bookings",
+    "rating": "Rating"
+  }
+}

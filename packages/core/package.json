@@ -37,8 +37,8 @@
   "peerDependencies": {
     "@emotion/react": "catalog:emotion",
     "@emotion/styled": "catalog:emotion",
-    "react": "catalog:react18",
-    "react-dom": "catalog:react18"
+    "react": "catalog:",
+    "react-dom": "catalog:"
   },
   "dependencies": {
     "@emotion/cache": "catalog:",

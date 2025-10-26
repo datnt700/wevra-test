@@ -67,7 +67,7 @@ apps/<your-app-name>/
   "dependencies": {
     "@tavia/analytics": "workspace:*",
     "expo": "catalog:expo",
-    "react": "catalog:react18",
+    "react": "catalog:",
     "zod": "catalog:"
   },
   "devDependencies": {

@@ -19,7 +19,7 @@
     "clean": "rm -rf .expo node_modules"
   },
   "dependencies": {
-    "@react-native-async-storage/async-storage": "catalog:expo",
+    "@expo/vector-icons": "catalog:expo",
     "@react-navigation/native": "catalog:expo",
     "@tavia/analytics": "workspace:*",
     "expo": "catalog:expo",
@@ -30,13 +30,12 @@
     "expo-splash-screen": "catalog:expo",
     "expo-status-bar": "catalog:expo",
     "expo-system-ui": "catalog:expo",
-    "react": "catalog:react18",
-    "react-dom": "catalog:react18",
+    "react": "catalog:",
+    "react-dom": "catalog:",
     "react-native": "catalog:expo",
     "react-native-reanimated": "catalog:expo",
     "react-native-safe-area-context": "catalog:expo",
-    "react-native-screens": "catalog:expo",
-    "zod": "catalog:"
+    "react-native-screens": "catalog:expo"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",
@@ -44,7 +43,7 @@
     "@repo/typescript-config": "workspace:*",
     "@testing-library/react-native": "catalog:expo",
     "@types/jest": "^29.5.14",
-    "@types/react": "catalog:react18",
+    "@types/react": "catalog:",
     "eslint": "catalog:",
     "jest": "catalog:expo",
     "jest-expo": "catalog:expo",

@@ -70,8 +70,8 @@ from `pnpm-workspace.yaml`.
 2. Reference in package.json: `"new-package": "catalog:"`
 3. Run `pnpm install` from root
 
-**Available catalogs:** `catalog:`, `catalog:react18`, `catalog:emotion`,
-`catalog:next14`, `catalog:next15`, `catalog:expo`
+**Available catalogs:** `catalog:`, `catalog:emotion`, `catalog:next14`,
+`catalog:next15`, `catalog:expo`
 
 ### Pattern 2: @tavia/core Component Structure
 

@@ -2,21 +2,31 @@
  * Unit tests for authentication
  */
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import bcrypt from 'bcryptjs';
-import { prisma } from '../prisma';
 import { USER_ROLES } from '../constants';
 
 // Mock prisma
-vi.mock('@/lib/prisma', () => ({
+const mockFindUnique = vi.fn();
+vi.mock('../prisma', () => ({
   prisma: {
     user: {
-      findUnique: vi.fn(),
+      findUnique: mockFindUnique,
     },
   },
 }));
 
 // Mock bcrypt
-vi.mock('bcryptjs');
+const mockCompare = vi.fn();
+const mockHash = vi.fn();
+vi.mock('bcryptjs', () => ({
+  default: {
+    compare: mockCompare,
+    hash: mockHash,
+  },
+}));
+
+// Import after mocks
+const { prisma } = await import('../prisma');
+const bcrypt = await import('bcryptjs');
 
 describe('Authentication', () => {
   beforeEach(() => {
@@ -28,7 +38,7 @@ describe('Authentication', () => {
       const mockUser = {
         id: '1',
         email: 'admin@example.com',
-        password: await bcrypt.hash('password123', 10),
+        password: '$2a$10$hashedpassword',
         name: 'Admin User',
         image: null,
         role: USER_ROLES.ADMIN,
@@ -37,8 +47,8 @@ describe('Authentication', () => {
         updatedAt: new Date(),
       };
 
-      vi.mocked(prisma.user.findUnique).mockResolvedValue(mockUser);
-      vi.mocked(bcrypt.compare).mockResolvedValue(true as never);
+      mockFindUnique.mockResolvedValue(mockUser);
+      mockCompare.mockResolvedValue(true);
 
       const user = await prisma.user.findUnique({
         where: { email: 'admin@example.com' },
@@ -50,7 +60,7 @@ describe('Authentication', () => {
     });
 
     it('should fail authentication with invalid email', async () => {
-      vi.mocked(prisma.user.findUnique).mockResolvedValue(null);
+      mockFindUnique.mockResolvedValue(null);
 
       const user = await prisma.user.findUnique({
         where: { email: 'invalid@example.com' },
@@ -63,7 +73,7 @@ describe('Authentication', () => {
       const mockUser = {
         id: '1',
         email: 'admin@example.com',
-        password: await bcrypt.hash('password123', 10),
+        password: '$2a$10$hashedpassword',
         name: 'Admin User',
         image: null,
         role: USER_ROLES.ADMIN,
@@ -72,10 +82,10 @@ describe('Authentication', () => {
         updatedAt: new Date(),
       };
 
-      vi.mocked(prisma.user.findUnique).mockResolvedValue(mockUser);
-      vi.mocked(bcrypt.compare).mockResolvedValue(false as never);
+      mockFindUnique.mockResolvedValue(mockUser);
+      mockCompare.mockResolvedValue(false);
 
-      const passwordsMatch = await bcrypt.compare('wrongpassword', mockUser.password);
+      const passwordsMatch = await bcrypt.default.compare('wrongpassword', mockUser.password);
 
       expect(passwordsMatch).toBe(false);
     });
@@ -93,7 +103,7 @@ describe('Authentication', () => {
         updatedAt: new Date(),
       };
 
-      vi.mocked(prisma.user.findUnique).mockResolvedValue(mockUser);
+      mockFindUnique.mockResolvedValue(mockUser);
 
       const user = await prisma.user.findUnique({
         where: { email: 'oauth@example.com' },
