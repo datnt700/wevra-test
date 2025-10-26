@@ -8,7 +8,7 @@ import { radii } from '../../../theme/tokens/radii';
  * Styled components for the LoadingScreen.
  */
 export const Styled = {
-  self: styled.div`
+  Container: styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
@@ -16,20 +16,20 @@ export const Styled = {
     width: 100vw;
     background-color: ${cssVars.gray0};
   `,
-  main: styled.div`
+  Main: styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     gap: 3rem;
   `,
-  progressBar: styled.div`
+  ProgressBar: styled.div`
     width: 20rem;
     height: 0.5rem;
     border-radius: ${radii.md};
     background: ${cssVars.gray300};
   `,
-  progress: styled.div`
+  Progress: styled.div`
     height: 0.5rem;
     border-radius: ${radii.md};
     background: ${cssVars.mainColor};

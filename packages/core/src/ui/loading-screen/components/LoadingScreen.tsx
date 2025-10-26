@@ -14,11 +14,11 @@ import { LoadingLogo } from '../../loading-logo';
  */
 export const LoadingScreen = () => {
   return (
-    <Styled.self>
-      <Styled.main>
+    <Styled.Container>
+      <Styled.Main>
         <LoadingLogo width={168} height={168} />
-      </Styled.main>
-    </Styled.self>
+      </Styled.Main>
+    </Styled.Container>
   );
 };
 

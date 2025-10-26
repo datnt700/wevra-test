@@ -43,7 +43,7 @@ export const ScrollBox = ({ className, children, height, maxHeight, ...other }: 
   };
 
   return (
-    <Styled.self
+    <Styled.Container
       className={className}
       style={{
         height,
@@ -54,7 +54,7 @@ export const ScrollBox = ({ className, children, height, maxHeight, ...other }: 
       {...other}
     >
       {children}
-    </Styled.self>
+    </Styled.Container>
   );
 };
 

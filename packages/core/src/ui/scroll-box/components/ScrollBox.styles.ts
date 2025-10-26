@@ -2,8 +2,11 @@
 
 import styled from '@emotion/styled';
 
+/**
+ * Styled components for ScrollBox.
+ */
 export const Styled = {
-  self: styled.div<{
+  Container: styled.div<{
     height?: string;
     maxHeight?: string;
     scrollbarWidth?: 'auto' | 'none' | 'thin';
