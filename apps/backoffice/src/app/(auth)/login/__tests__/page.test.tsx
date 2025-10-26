@@ -449,5 +449,27 @@ describe('LoginPage', () => {
         expect(mockPush).toHaveBeenCalledWith(ROUTES.DASHBOARD.HOME);
       });
     });
+
+    it('should handle malformed response (neither error nor ok)', async () => {
+      const user = userEvent.setup();
+      // Response with neither error nor ok set to truthy values
+      mockSignIn.mockResolvedValue({ ok: false, error: null });
+
+      render(<LoginPage />);
+
+      const emailInput = screen.getByPlaceholderText('you@example.com');
+      const passwordInput = screen.getByPlaceholderText('Enter your password');
+      const submitButton = screen.getByRole('button', { name: /sign in/i });
+
+      await user.type(emailInput, 'test@example.com');
+      await user.type(passwordInput, 'password123');
+      await user.click(submitButton);
+
+      await waitFor(() => {
+        // Should not navigate or show error in this edge case
+        expect(mockPush).not.toHaveBeenCalled();
+        expect(mockRefresh).not.toHaveBeenCalled();
+      });
+    });
   });
 });

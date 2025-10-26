@@ -226,6 +226,64 @@ describe('DashboardContent', () => {
       expect(screen.getByText('Active')).toBeInTheDocument();
     });
 
+    it('should show inactive status for inactive restaurant', () => {
+      const user = {
+        name: 'John Doe',
+        email: 'john@example.com',
+        role: 'RESTAURANT_OWNER',
+      };
+
+      const restaurants = [
+        {
+          id: '1',
+          name: 'Inactive Restaurant',
+          address: '123 Main St',
+          cuisine: ['Italian'],
+          priceRange: '$$',
+          isActive: false,
+          image: null,
+        },
+      ];
+
+      render(
+        <NextIntlClientProvider locale="en" messages={messages}>
+          <DashboardContent user={user} restaurants={restaurants} />
+        </NextIntlClientProvider>
+      );
+
+      expect(screen.getByText('Inactive')).toBeInTheDocument();
+    });
+
+    it('should render restaurant image when provided', () => {
+      const user = {
+        name: 'John Doe',
+        email: 'john@example.com',
+        role: 'RESTAURANT_OWNER',
+      };
+
+      const restaurants = [
+        {
+          id: '1',
+          name: 'Restaurant with Image',
+          address: '123 Main St',
+          cuisine: ['Italian'],
+          priceRange: '$$',
+          isActive: true,
+          image: '/images/restaurant.jpg',
+        },
+      ];
+
+      render(
+        <NextIntlClientProvider locale="en" messages={messages}>
+          <DashboardContent user={user} restaurants={restaurants} />
+        </NextIntlClientProvider>
+      );
+
+      const image = screen.getByAltText('Restaurant with Image');
+      expect(image).toBeInTheDocument();
+      expect(image).toHaveAttribute('src', '/images/restaurant.jpg');
+    });
+
     it('should render quick actions section', () => {
       const user = {
         name: 'John Doe',
