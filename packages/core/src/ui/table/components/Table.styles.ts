@@ -1,3 +1,5 @@
+'use client';
+
 /**
  * @fileoverview Table component styles using Emotion
  * Provides styled components for data table with sorting, filtering, and pagination

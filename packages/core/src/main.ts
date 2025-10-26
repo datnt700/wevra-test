@@ -10,6 +10,7 @@ export { theme, lightTheme, darkTheme, type TaviaTheme, type ColorMode } from '.
 export { breakpoints, mq, mqMax } from './theme/breakpoints';
 export { GlobalStyles, globalStyles } from './theme/global';
 export { cssVars, semanticColors } from './theme/tokens/colors';
+export { radii, type RadiiToken } from './theme/tokens/radii';
 export { typography } from './theme/tokens/typography';
 export { layout } from './theme/tokens/variables';
 export { fontFaces } from './theme/tokens/fonts';

@@ -1,3 +1,5 @@
+'use client';
+
 /**
  * Emotion styles for Radio component with direct theme token access.
  * Follows best practices: helper functions, transient props, TypeScript types.

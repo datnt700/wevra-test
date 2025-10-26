@@ -1,3 +1,5 @@
+'use client';
+
 /**
  * @fileoverview Table component with sorting, filtering, pagination, and row selection
  * Features: searchable columns, sortable headers, pagination, multi-row selection

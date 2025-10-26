@@ -1,3 +1,5 @@
+'use client';
+
 import { keyframes, css } from '@emotion/react';
 
 // Re-export css for convenience

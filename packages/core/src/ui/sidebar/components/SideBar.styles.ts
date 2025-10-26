@@ -1,3 +1,5 @@
+'use client';
+
 /**
  * @file Sidebar component styles
  * @description Emotion-based styles for the Sidebar component with collapsible behavior

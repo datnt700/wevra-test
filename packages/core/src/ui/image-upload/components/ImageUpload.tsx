@@ -1,3 +1,5 @@
+'use client';
+
 /**
  * @file ImageUpload component
  * @description A reusable image upload component with drag-and-drop and cropping support

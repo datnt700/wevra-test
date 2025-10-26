@@ -1,3 +1,5 @@
+'use client';
+
 import styled from '@emotion/styled';
 import { radii } from '../../../theme/tokens/radii';
 import type { ButtonGroupVariant, ButtonGroupOrientation } from '../types';

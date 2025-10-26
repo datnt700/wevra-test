@@ -1,3 +1,5 @@
+'use client';
+
 /**
  * @file Sidebar Item component styles
  * @description Emotion-based styles for sidebar navigation items with popover support

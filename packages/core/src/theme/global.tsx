@@ -1,12 +1,11 @@
-/** @jsxImportSource @emotion/react */
+'use client';
+
 import { Global, css } from '@emotion/react';
 import { cssVars } from './tokens/colors';
 import { breakpoints } from './breakpoints';
 
 export const globalStyles = css`
-  /* Font imports */
-  @import url('https://diverse-public.s3.eu-west-3.amazonaws.com/fonts/fonts.css');
-  @import url('https://cdn.rawgit.com/mfd/f3d96ec7f0e8f034cc22ea73b3797b59/raw/856f1dbb8d807aabceb80b6d4f94b464df461b3e/gotham.css');
+  /* Font imports moved to Next.js <head> to avoid hydration issues */
 
   *,
   *::before,

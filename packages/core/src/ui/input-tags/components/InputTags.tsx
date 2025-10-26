@@ -1,4 +1,5 @@
-/** @jsxImportSource @emotion/react */
+'use client';
+
 import { useState } from 'react';
 import { Styled } from './InputTags.styles';
 import { Tag } from '../../tag';

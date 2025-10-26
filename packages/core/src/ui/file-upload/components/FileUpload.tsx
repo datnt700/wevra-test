@@ -1,3 +1,5 @@
+'use client';
+
 /**
  * @file FileUpload component
  * @description A reusable file upload component with drag-and-drop support

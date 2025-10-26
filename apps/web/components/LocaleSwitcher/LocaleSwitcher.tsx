@@ -4,7 +4,7 @@ import { useTransition } from 'react';
 import { useLocale } from 'next-intl';
 import { setLocale } from '@/app/actions/locale';
 import { locales, type Locale } from '@/i18n/config';
-import styles from './LocaleSwitcher.module.css';
+import { Styled } from './LocaleSwitcher.styles';
 
 const localeNames: Record<Locale, string> = {
   en: 'English',
@@ -24,12 +24,11 @@ export function LocaleSwitcher() {
   };
 
   return (
-    <div className={styles.container}>
-      <select
+    <Styled.Container>
+      <Styled.Select
         value={locale}
         onChange={(e) => handleChange(e.target.value as Locale)}
         disabled={isPending}
-        className={styles.select}
         aria-label="Select language"
       >
         {locales.map((loc) => (
@@ -37,8 +36,8 @@ export function LocaleSwitcher() {
             {localeNames[loc]}
           </option>
         ))}
-      </select>
-      {isPending && <span className={styles.spinner}>⟳</span>}
-    </div>
+      </Styled.Select>
+      {isPending && <Styled.Spinner>⟳</Styled.Spinner>}
+    </Styled.Container>
   );
 }

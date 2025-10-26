@@ -1,3 +1,5 @@
+'use client';
+
 import styled from '@emotion/styled';
 import { RadioGroupItem } from '@radix-ui/react-radio-group';
 import { cssVars } from '../../../theme/tokens/colors';

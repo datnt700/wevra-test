@@ -6,23 +6,56 @@ const prisma = new PrismaClient();
 async function main() {
   console.log('🌱 Starting database seed...');
 
-  // Create admin user
-  const hashedPassword = await bcrypt.hash('admin123', 10);
+  // Create test users with hashed passwords
+  console.log('👥 Creating test users...');
 
+  // Admin user
+  const adminPassword = await bcrypt.hash('admin123', 10);
   const admin = await prisma.user.upsert({
-    where: { email: 'admin@tavia.com' },
+    where: { email: 'admin@tavia.io' },
     update: {},
     create: {
-      email: 'admin@tavia.com',
+      email: 'admin@tavia.io',
       name: 'Admin User',
-      password: hashedPassword,
+      password: adminPassword,
       role: 'ADMIN',
+      emailVerified: new Date(),
     },
   });
-
   console.log('✅ Created admin user:', admin.email);
 
+  // Restaurant owner user
+  const ownerPassword = await bcrypt.hash('owner123', 10);
+  const owner = await prisma.user.upsert({
+    where: { email: 'owner@example.com' },
+    update: {},
+    create: {
+      email: 'owner@example.com',
+      name: 'Restaurant Owner',
+      password: ownerPassword,
+      role: 'RESTAURANT_OWNER',
+      emailVerified: new Date(),
+    },
+  });
+  console.log('✅ Created restaurant owner:', owner.email);
+
+  // Regular user (cannot access backoffice)
+  const userPassword = await bcrypt.hash('user123', 10);
+  const user = await prisma.user.upsert({
+    where: { email: 'user@example.com' },
+    update: {},
+    create: {
+      email: 'user@example.com',
+      name: 'Regular User',
+      password: userPassword,
+      role: 'USER',
+      emailVerified: new Date(),
+    },
+  });
+  console.log('✅ Created regular user:', user.email, '(cannot access backoffice)');
+
   // Create sample restaurants
+  console.log('🍽️  Creating sample restaurants...');
   const restaurant1 = await prisma.restaurant.upsert({
     where: { slug: 'the-cozy-cafe' },
     update: {},
@@ -136,6 +169,21 @@ async function main() {
   });
 
   console.log('✅ Created sample booking:', booking.id);
+
+  console.log('\n📋 Test Users Summary:');
+  console.log('┌─────────────────────────────────────────────────────────┐');
+  console.log('│  ADMIN USER (Full Access)                               │');
+  console.log('│  Email: admin@tavia.io                                  │');
+  console.log('│  Password: admin123                                     │');
+  console.log('├─────────────────────────────────────────────────────────┤');
+  console.log('│  RESTAURANT OWNER (Own Restaurants)                     │');
+  console.log('│  Email: owner@example.com                               │');
+  console.log('│  Password: owner123                                     │');
+  console.log('├─────────────────────────────────────────────────────────┤');
+  console.log('│  REGULAR USER (Cannot Access Backoffice)                │');
+  console.log('│  Email: user@example.com                                │');
+  console.log('│  Password: user123                                      │');
+  console.log('└─────────────────────────────────────────────────────────┘\n');
 
   console.log('🎉 Database seed completed successfully!');
 }

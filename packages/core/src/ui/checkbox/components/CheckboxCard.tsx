@@ -1,3 +1,5 @@
+'use client';
+
 import { CheckboxCardProps } from '../types';
 import { Styled } from './CheckboxCard.styles';
 import * as Checkbox from '@radix-ui/react-checkbox';

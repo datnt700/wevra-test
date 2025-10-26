@@ -1,3 +1,5 @@
+'use client';
+
 /**
  * Icon Styles
  * Emotion-based styles for Icon component

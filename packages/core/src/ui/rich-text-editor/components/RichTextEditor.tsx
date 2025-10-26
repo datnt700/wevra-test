@@ -1,3 +1,5 @@
+'use client';
+
 /**
  * @fileoverview RichTextEditor component built with TipTap
  * Provides WYSIWYG editing with formatting, images, videos, and iframe embeds

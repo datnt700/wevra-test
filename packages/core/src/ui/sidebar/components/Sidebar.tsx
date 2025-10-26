@@ -1,3 +1,5 @@
+'use client';
+
 /**
  * @file Sidebar component
  * @description A collapsible navigation sidebar with hover-to-expand behavior

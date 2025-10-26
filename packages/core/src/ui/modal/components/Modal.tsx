@@ -1,3 +1,5 @@
+'use client';
+
 /**
  * Modal component
  * A reusable dialog/modal component with accessibility support

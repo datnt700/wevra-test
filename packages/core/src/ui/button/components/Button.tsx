@@ -1,3 +1,5 @@
+'use client';
+
 import { forwardRef, useEffect, useRef } from 'react';
 import { Spinner } from '../../spinner';
 import { ButtonProps } from '../types';

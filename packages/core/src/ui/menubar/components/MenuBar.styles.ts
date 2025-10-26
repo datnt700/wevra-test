@@ -1,3 +1,5 @@
+'use client';
+
 /**
  * @fileoverview MenuBar component styles using Emotion
  * Provides styled components for Radix UI Menubar with custom theming

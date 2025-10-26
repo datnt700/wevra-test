@@ -1,5 +1,5 @@
 {
-  "name": "web",
+  "name": "backoffice",
   "version": "0.1.0",
   "type": "module",
   "private": true,
@@ -40,6 +40,8 @@
     "next-intl": "catalog:",
     "react": "catalog:",
     "react-dom": "catalog:",
+    "react-hook-form": "catalog:",
+    "@hookform/resolvers": "catalog:",
     "next-auth": "catalog:",
     "@auth/prisma-adapter": "catalog:",
     "@prisma/client": "catalog:",

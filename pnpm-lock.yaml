@@ -33,6 +33,9 @@ catalogs:
     '@fastify/rate-limit':
       specifier: ^10.1.1
       version: 10.3.0
+    '@hookform/resolvers':
+      specifier: ^3.10.0
+      version: 3.10.0
     '@next/eslint-plugin-next':
       specifier: ^15.5.5
       version: 15.5.5
@@ -228,6 +231,9 @@ catalogs:
     react-dom:
       specifier: ^19.2.0
       version: 19.2.0
+    react-hook-form:
+      specifier: ^7.54.2
+      version: 7.65.0
     react-image-crop:
       specifier: ^11.0.10
       version: 11.0.10
@@ -592,6 +598,9 @@ importers:
       '@emotion/styled':
         specifier: catalog:emotion
         version: 11.14.1(@emotion/react@11.14.0(@types/react@19.2.2)(react@19.2.0))(@types/react@19.2.2)(react@19.2.0)
+      '@hookform/resolvers':
+        specifier: 'catalog:'
+        version: 3.10.0(react-hook-form@7.65.0(react@19.2.0))
       '@prisma/client':
         specifier: 'catalog:'
         version: 6.18.0(prisma@6.18.0(magicast@0.3.5)(typescript@5.9.3))(typescript@5.9.3)
@@ -625,6 +634,9 @@ importers:
       react-dom:
         specifier: 'catalog:'
         version: 19.2.0(react@19.2.0)
+      react-hook-form:
+        specifier: 'catalog:'
+        version: 7.65.0(react@19.2.0)
       zod:
         specifier: 'catalog:'
         version: 3.25.76
@@ -3200,6 +3212,14 @@ packages:
       {
         integrity: sha512-XOMO2Hupl0wdd172Y06h6kLpBz6Dv+J4okPLl4LPtzbr8f66WbIoy4ev98EBuZ6ZK4h5ydTN6XneT4QVpD7cdA==,
       }
+
+  '@hookform/resolvers@3.10.0':
+    resolution:
+      {
+        integrity: sha512-79Dv+3mDF7i+2ajj7SkypSKHhl1cbln1OGavqrsF7p6mbUv11xpqpacPsGDCTRvCSjEEIez2ef1NveSVL3b0Ag==,
+      }
+    peerDependencies:
+      react-hook-form: ^7.0.0
 
   '@humanfs/core@0.19.1':
     resolution:
@@ -14091,6 +14111,15 @@ packages:
     peerDependencies:
       react: ^19.2.0
 
+  react-hook-form@7.65.0:
+    resolution:
+      {
+        integrity: sha512-xtOzDz063WcXvGWaHgLNrNzlsdFgtUWcb32E6WFaGTd7kPZG3EeDusjdZfUsPwKCKVXy1ZlntifaHZ4l8pAsmw==,
+      }
+    engines: { node: '>=18.0.0' }
+    peerDependencies:
+      react: ^16.8.0 || ^17 || ^18 || ^19
+
   react-image-crop@11.0.10:
     resolution:
       {
@@ -18248,6 +18277,10 @@ snapshots:
   '@formatjs/intl-localematcher@0.6.2':
     dependencies:
       tslib: 2.8.1
+
+  '@hookform/resolvers@3.10.0(react-hook-form@7.65.0(react@19.2.0))':
+    dependencies:
+      react-hook-form: 7.65.0(react@19.2.0)
 
   '@humanfs/core@0.19.1': {}
 
@@ -26233,6 +26266,10 @@ snapshots:
     dependencies:
       react: 19.2.0
       scheduler: 0.27.0
+
+  react-hook-form@7.65.0(react@19.2.0):
+    dependencies:
+      react: 19.2.0
 
   react-image-crop@11.0.10(react@18.3.1):
     dependencies:

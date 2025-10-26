@@ -1,4 +1,5 @@
-/** @jsxImportSource @emotion/react */
+'use client';
+
 import styled from '@emotion/styled';
 import { cssVars } from '../../../theme/tokens/colors';
 

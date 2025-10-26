@@ -1,4 +1,5 @@
-/** @jsxImportSource @emotion/react */
+'use client';
+
 import { ThemeProvider } from '@emotion/react';
 import { ReactNode } from 'react';
 import { theme } from '@tavia/core';

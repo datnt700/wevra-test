@@ -1,11 +1,10 @@
 import NextAuth, { type NextAuthResult } from 'next-auth';
 import { PrismaAdapter } from '@auth/prisma-adapter';
 import Credentials from 'next-auth/providers/credentials';
-import Google from 'next-auth/providers/google';
-import GitHub from 'next-auth/providers/github';
 import bcrypt from 'bcryptjs';
 import { z } from 'zod';
 import { prisma } from '@/lib/prisma';
+import { USER_ROLES, ROUTES } from '@/lib/constants';
 
 const loginSchema = z.object({
   email: z.string().email(),
@@ -19,21 +18,10 @@ const result = NextAuth({
     strategy: 'jwt',
   },
   pages: {
-    signIn: '/auth/signin',
-    signOut: '/auth/signout',
-    error: '/auth/error',
-    verifyRequest: '/auth/verify-request',
-    newUser: '/auth/new-user',
+    signIn: ROUTES.AUTH.LOGIN,
+    error: ROUTES.AUTH.LOGIN,
   },
   providers: [
-    Google({
-      clientId: process.env.GOOGLE_CLIENT_ID,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    }),
-    GitHub({
-      clientId: process.env.GITHUB_CLIENT_ID,
-      clientSecret: process.env.GITHUB_CLIENT_SECRET,
-    }),
     Credentials({
       name: 'credentials',
       credentials: {
@@ -87,6 +75,14 @@ const result = NextAuth({
         session.user.role = token.role as string;
       }
       return session;
+    },
+    async signIn({ user }) {
+      // Only allow ADMIN and RESTAURANT_OWNER to access the backoffice
+      const allowedRoles: string[] = [USER_ROLES.ADMIN, USER_ROLES.RESTAURANT_OWNER];
+      if (user.role && !allowedRoles.includes(user.role)) {
+        return false; // Deny access for regular users
+      }
+      return true;
     },
   },
 });

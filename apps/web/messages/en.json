@@ -44,6 +44,36 @@
     "signup": "Sign Up",
     "logout": "Log Out"
   },
+  "auth": {
+    "login": {
+      "title": "Welcome Back",
+      "subtitle": "Restaurant Backoffice",
+      "description": "Sign in to manage your restaurants and cafés",
+      "emailLabel": "Email Address",
+      "emailPlaceholder": "admin@example.com",
+      "passwordLabel": "Password",
+      "passwordPlaceholder": "••••••••",
+      "rememberMe": "Remember me",
+      "forgotPassword": "Forgot password?",
+      "signInButton": "Sign In",
+      "signingIn": "Signing in...",
+      "noAccount": "Don't have an account?",
+      "contactUs": "Contact us",
+      "copyright": "© {year} Tavia. All rights reserved.",
+      "errors": {
+        "invalidCredentials": "Invalid email or password",
+        "unexpectedError": "An unexpected error occurred. Please try again.",
+        "loginFailed": "Login Failed"
+      },
+      "validation": {
+        "emailRequired": "Email is required",
+        "emailInvalid": "Please enter a valid email address",
+        "passwordRequired": "Password is required",
+        "passwordMinLength": "Password must be at least 6 characters",
+        "passwordMaxLength": "Password is too long"
+      }
+    }
+  },
   "errors": {
     "generic": "Something went wrong. Please try again.",
     "notFound": "Page not found",

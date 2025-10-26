@@ -1,3 +1,5 @@
+'use client';
+
 import { Styled } from './Skeleton.styles';
 import { SkeletonBodyText } from './SkeletonBodyText';
 import { SkeletonDisplayText } from './SkeletonDisplayText';

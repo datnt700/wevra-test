@@ -1,3 +1,5 @@
+'use client';
+
 /**
  * Tabs styles using Emotion
  * Follows Emotion best practices with direct theme token access

@@ -1,3 +1,5 @@
+'use client';
+
 /**
  * @fileoverview DataTable component styles using Emotion
  * Provides styled components for TanStack Table with custom theming

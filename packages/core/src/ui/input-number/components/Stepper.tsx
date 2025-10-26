@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useEffect, useState } from 'react';
 import { Styled } from './Stepper.styles';
 import { Button } from '../../button';

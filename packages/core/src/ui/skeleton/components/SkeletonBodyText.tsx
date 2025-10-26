@@ -1,4 +1,5 @@
-/** @jsxImportSource @emotion/react */
+'use client';
+
 import { Styled } from './Skeleton.styles';
 import { SkeletonBodyTextProps } from '../types';
 

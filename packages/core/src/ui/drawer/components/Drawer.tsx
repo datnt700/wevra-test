@@ -1,3 +1,5 @@
+'use client';
+
 /**
  * Drawer component
  * A slide-in panel component for navigation, forms, or additional content

@@ -1,3 +1,5 @@
+'use client';
+
 import { Tooltip } from 'radix-ui';
 import styled from '@emotion/styled';
 import { cssVars } from '../../../theme/tokens/colors';

@@ -1,3 +1,5 @@
+'use client';
+
 import { CheckIcon, ChevronDownIcon, ChevronUpIcon } from '@radix-ui/react-icons';
 import { SelectProps } from '../types';
 import { Styled } from './Select.styles';

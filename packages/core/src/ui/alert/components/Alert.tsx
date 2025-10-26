@@ -1,3 +1,5 @@
+'use client';
+
 import { Styled } from './Alert.styles';
 import { AlertProps } from '../types';
 

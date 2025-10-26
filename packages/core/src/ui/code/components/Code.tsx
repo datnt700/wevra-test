@@ -1,3 +1,5 @@
+'use client';
+
 /**
  * @fileoverview Code component for displaying inline code snippets
  * Styled with Emotion for consistent formatting

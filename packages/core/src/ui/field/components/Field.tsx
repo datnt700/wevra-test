@@ -1,3 +1,5 @@
+'use client';
+
 /**
  * Field component
  * A form field wrapper that groups a label with an input element

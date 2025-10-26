@@ -1,3 +1,5 @@
+'use client';
+
 /**
  * Link component - Styled anchor element with variants
  *

@@ -1,3 +1,5 @@
+'use client';
+
 /**
  * LoadingLogo Styles
  * Emotion-based styles for LoadingLogo component

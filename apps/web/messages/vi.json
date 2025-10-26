@@ -44,6 +44,36 @@
     "signup": "Đăng ký",
     "logout": "Đăng xuất"
   },
+  "auth": {
+    "login": {
+      "title": "Chào mừng trở lại",
+      "subtitle": "Hệ thống quản lý nhà hàng",
+      "description": "Đăng nhập để quản lý nhà hàng và quán cà phê của bạn",
+      "emailLabel": "Địa chỉ Email",
+      "emailPlaceholder": "admin@example.com",
+      "passwordLabel": "Mật khẩu",
+      "passwordPlaceholder": "••••••••",
+      "rememberMe": "Ghi nhớ đăng nhập",
+      "forgotPassword": "Quên mật khẩu?",
+      "signInButton": "Đăng nhập",
+      "signingIn": "Đang đăng nhập...",
+      "noAccount": "Chưa có tài khoản?",
+      "contactUs": "Liên hệ chúng tôi",
+      "copyright": "© {year} Tavia. Bảo lưu mọi quyền.",
+      "errors": {
+        "invalidCredentials": "Email hoặc mật khẩu không đúng",
+        "unexpectedError": "Đã xảy ra lỗi không mong muốn. Vui lòng thử lại.",
+        "loginFailed": "Đăng nhập thất bại"
+      },
+      "validation": {
+        "emailRequired": "Vui lòng nhập email",
+        "emailInvalid": "Vui lòng nhập địa chỉ email hợp lệ",
+        "passwordRequired": "Vui lòng nhập mật khẩu",
+        "passwordMinLength": "Mật khẩu phải có ít nhất 6 ký tự",
+        "passwordMaxLength": "Mật khẩu quá dài"
+      }
+    }
+  },
   "errors": {
     "generic": "Đã xảy ra lỗi. Vui lòng thử lại.",
     "notFound": "Không tìm thấy trang",

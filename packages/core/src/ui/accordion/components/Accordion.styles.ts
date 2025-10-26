@@ -1,3 +1,5 @@
+'use client';
+
 import { Accordion as RadixAccordion } from 'radix-ui';
 import styled from '@emotion/styled';
 import { keyframes } from '@emotion/react';

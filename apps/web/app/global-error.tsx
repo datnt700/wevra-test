@@ -1,7 +1,8 @@
 'use client';
 
 import { useEffect } from 'react';
-import styles from './error.module.css';
+import { Button } from '@tavia/core';
+import { Styled } from './Error.styles';
 
 export default function GlobalError({
   error,
@@ -17,16 +18,16 @@ export default function GlobalError({
   return (
     <html>
       <body>
-        <div className={styles.container}>
-          <div className={styles.content}>
-            <h1 className={styles.title}>⚠️ Something went wrong!</h1>
-            <p className={styles.message}>{error.message || 'A critical error occurred'}</p>
-            {error.digest && <p className={styles.digest}>Error ID: {error.digest}</p>}
-            <button onClick={reset} className={styles.button}>
+        <Styled.Container>
+          <Styled.Content>
+            <Styled.Title>⚠️ Something went wrong!</Styled.Title>
+            <Styled.Message>{error.message || 'A critical error occurred'}</Styled.Message>
+            {error.digest && <Styled.Digest>Error ID: {error.digest}</Styled.Digest>}
+            <Button onClick={reset} variant="primary">
               Try again
-            </button>
-          </div>
-        </div>
+            </Button>
+          </Styled.Content>
+        </Styled.Container>
       </body>
     </html>
   );

@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 import { SpinnerStyled } from './Spinner.styles';
 import { SpinnerProps } from '../types';

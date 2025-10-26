@@ -1,3 +1,5 @@
+'use client';
+
 /**
  * @file FileUpload component styles
  * @description Emotion-based styles for the FileUpload component with drag-and-drop support

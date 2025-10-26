@@ -1,3 +1,5 @@
+'use client';
+
 import { useState } from 'react';
 import { Modal } from '../../modal';
 import { ButtonGroup } from '../../button-group';

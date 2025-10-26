@@ -1,4 +1,5 @@
-/** @jsxImportSource @emotion/react */
+'use client';
+
 import React, { useState } from 'react';
 import { ImageWrapperStyled, ImageStyled, PlaceholderStyled } from './Image.styles';
 import { ImageProps } from '../types';

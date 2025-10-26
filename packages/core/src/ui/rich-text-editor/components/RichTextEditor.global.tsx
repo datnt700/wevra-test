@@ -1,3 +1,5 @@
+'use client';
+
 import { Global } from '@emotion/react';
 import { cssVars } from '../../../theme/tokens/colors';
 

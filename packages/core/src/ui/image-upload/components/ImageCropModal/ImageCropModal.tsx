@@ -1,4 +1,3 @@
-/** @jsxImportSource @emotion/react */
 import { Button, ButtonGroup, Modal } from '@tavia/core';
 import React, { useState, useRef, useEffect } from 'react';
 import ReactCrop, { centerCrop, Crop, makeAspectCrop, PixelCrop } from 'react-image-crop';

@@ -2,7 +2,8 @@
 
 import { useEffect } from 'react';
 import { useTranslations } from 'next-intl';
-import styles from './error.module.css';
+import { Button } from '@tavia/core';
+import { Styled } from './Error.styles';
 
 export default function Error({
   error,
@@ -19,15 +20,15 @@ export default function Error({
   }, [error]);
 
   return (
-    <div className={styles.container}>
-      <div className={styles.content}>
-        <h1 className={styles.title}>⚠️ {t('generic')}</h1>
-        <p className={styles.message}>{error.message || 'An unexpected error occurred'}</p>
-        {error.digest && <p className={styles.digest}>Error ID: {error.digest}</p>}
-        <button onClick={reset} className={styles.button}>
+    <Styled.Container>
+      <Styled.Content>
+        <Styled.Title>⚠️ {t('generic')}</Styled.Title>
+        <Styled.Message>{error.message || 'An unexpected error occurred'}</Styled.Message>
+        {error.digest && <Styled.Digest>Error ID: {error.digest}</Styled.Digest>}
+        <Button onClick={reset} variant="primary">
           Try again
-        </button>
-      </div>
-    </div>
+        </Button>
+      </Styled.Content>
+    </Styled.Container>
   );
 }

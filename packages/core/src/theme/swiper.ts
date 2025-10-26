@@ -1,5 +1,7 @@
+'use client';
+
 /**
- * Emotion styles for Swiper.js carousel
+ * Swiper styles
  * Provides reusable CSS-in-JS styles for Swiper components
  */
 import { css } from '@emotion/react';

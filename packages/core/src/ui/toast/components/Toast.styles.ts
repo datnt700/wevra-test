@@ -1,3 +1,5 @@
+'use client';
+
 /**
  * Toast Styles
  * Emotion-based styles for Toast notification component

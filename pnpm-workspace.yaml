@@ -12,6 +12,7 @@ catalog:
   '@fastify/cors': ^10.0.2
   '@fastify/helmet': ^12.0.1
   '@fastify/rate-limit': ^10.1.1
+  '@hookform/resolvers': ^3.10.0
   '@next/eslint-plugin-next': ^15.5.5
   '@playwright/test': ^1.48.2
   '@prisma/client': 6.18.0
@@ -83,6 +84,7 @@ catalog:
   radix-ui: ^1.4.3
   react: ^19.2.0
   react-dom: ^19.2.0
+  react-hook-form: ^7.54.2
   react-image-crop: ^11.0.10
   react-native-web: ^0.19.13
   storybook: 8.4.2

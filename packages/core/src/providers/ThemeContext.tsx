@@ -1,3 +1,5 @@
+'use client';
+
 import { ThemeProvider as EmotionThemeProvider } from '@emotion/react';
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import { darkTheme, lightTheme, type ColorMode, type TaviaTheme } from '../theme/theme';

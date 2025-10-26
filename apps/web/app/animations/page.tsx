@@ -4,7 +4,16 @@ import { motion } from 'framer-motion';
 import styled from '@emotion/styled';
 import { useState } from 'react';
 import { animations, createAnimation, transition, css } from '@tavia/core';
-import styles from './page.module.css';
+
+const Page = styled.div`
+  min-height: 100vh;
+  padding: 2rem;
+`;
+
+const Main = styled.main`
+  max-width: 1200px;
+  margin: 0 auto;
+`;
 
 // Emotion-based animated components
 const EmotionCard = styled.div`
@@ -81,8 +90,8 @@ export default function AnimationsPage() {
   const [isVisible, setIsVisible] = useState(true);
 
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
+    <Page>
+      <Main>
         <h1>Animation Examples</h1>
         <p>Demonstrating both Emotion and Framer Motion animations</p>
 
@@ -377,7 +386,7 @@ export default function AnimationsPage() {
             for more examples
           </p>
         </footer>
-      </main>
-    </div>
+      </Main>
+    </Page>
   );
 }

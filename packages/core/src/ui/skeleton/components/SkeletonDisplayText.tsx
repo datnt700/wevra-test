@@ -1,3 +1,5 @@
+'use client';
+
 import { Styled } from './Skeleton.styles';
 import { SkeletonDisplayTextProps } from '../types';
 

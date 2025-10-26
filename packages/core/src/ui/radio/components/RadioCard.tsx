@@ -1,3 +1,5 @@
+'use client';
+
 import { RadioGroup } from '@radix-ui/react-radio-group';
 import { Styled } from './RadioCard.styles';
 import { RadioCardProps } from '../types';

@@ -1,3 +1,5 @@
+'use client';
+
 import { useState } from 'react';
 import { Modal } from '../../modal';
 import { InputText } from '../../input';

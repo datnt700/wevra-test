@@ -1,3 +1,5 @@
+'use client';
+
 /**
  * @fileoverview RichTextEditor component styles using Emotion
  * Provides styled components for TipTap-based rich text editor with toolbar and content area
