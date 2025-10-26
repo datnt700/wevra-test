@@ -101,4 +101,47 @@ describe('Global Error Page', () => {
     // Check for container structure
     expect(container.firstChild).toBeInTheDocument();
   });
+
+  it('should navigate to home when go home button is clicked', async () => {
+    // Mock window.location
+    const mockLocation = { href: '' };
+    Object.defineProperty(window, 'location', {
+      value: mockLocation,
+      writable: true,
+      configurable: true,
+    });
+
+    render(<GlobalErrorPage error={mockError} reset={mockReset} />);
+
+    const goHomeButton = screen.getByText('Go Home');
+    await userEvent.click(goHomeButton);
+
+    expect(mockLocation.href).toBe('/');
+  });
+
+  it('should render error icon SVG', () => {
+    const { container } = render(<GlobalErrorPage error={mockError} reset={mockReset} />);
+
+    const svg = container.querySelector('svg');
+    expect(svg).toBeInTheDocument();
+    expect(svg).toHaveAttribute('viewBox', '0 0 24 24');
+  });
+
+  it('should have correct button variants', () => {
+    render(<GlobalErrorPage error={mockError} reset={mockReset} />);
+
+    const tryAgainButton = screen.getByText('Try Again');
+    const goHomeButton = screen.getByText('Go Home');
+
+    expect(tryAgainButton).toHaveAttribute('data-variant', 'primary');
+    expect(goHomeButton).toHaveAttribute('data-variant', 'secondary');
+  });
+
+  it('should render with digest property', () => {
+    const errorWithDigest = Object.assign(new Error('Test error'), { digest: 'abc123' });
+    render(<GlobalErrorPage error={errorWithDigest} reset={mockReset} />);
+
+    expect(screen.getByText('Critical Error')).toBeInTheDocument();
+    expect(console.error).toHaveBeenCalledWith('Global Application Error:', errorWithDigest);
+  });
 });
