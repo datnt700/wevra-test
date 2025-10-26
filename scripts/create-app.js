@@ -178,7 +178,7 @@ console.log('\n✨ Happy coding!\n');
  * Returns 0-99 based on app name hash
  */
 function getAppPort(name) {
-  if (name === 'web') return 0;
+  if (name === 'backoffice') return 0;
 
   let hash = 0;
   for (let i = 0; i < name.length; i++) {

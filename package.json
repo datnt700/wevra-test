@@ -4,7 +4,7 @@
   "scripts": {
     "build": "turbo run build",
     "dev": "turbo run dev",
-    "dev:web": "pnpm --filter=web dev",
+    "dev:backoffice": "pnpm --filter=backoffice dev",
     "dev:storybook": "pnpm --filter=@tavia/docs storybook:dev",
     "test": "turbo run test",
     "test:core": "pnpm --filter=@tavia/core test --run",

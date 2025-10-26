@@ -9,7 +9,7 @@ Tavia is a Next.js 15 café/restaurant booking platform built as a
 
 - **@tavia/core**: 54+ UI components (Emotion + Radix UI) - PRIMARY FOCUS FOR UI
   WORK
-- **apps/web**: Next.js 15 booking platform with Auth.js, Prisma, Docker
+- **apps/backoffice**: Next.js 15 booking platform with Auth.js, Prisma, Docker
   PostgreSQL (port 3000)
 - **apps/analytics**: Fastify 5 event tracking API (port 3001)
 - **apps/restaurant-service**: NestJS 11 microservice with Swagger (port 3002)
@@ -28,7 +28,7 @@ Tavia is a Next.js 15 café/restaurant booking platform built as a
 
 ```
 apps/
-  ├── web/                  # Next.js 15 (port 3000)
+  ├── backoffice/           # Next.js 15 (port 3000)
   ├── analytics/            # Fastify API (port 3001)
   ├── restaurant-service/   # NestJS (port 3002)
   └── docs/                 # Storybook (port 6006)
@@ -214,7 +214,7 @@ Creates: Next.js 15 + TypeScript + modular i18n + Prisma + @tavia/core +
 
 **Template structure (templates/webapp):**
 
-- **src/** based architecture (matches apps/web)
+- **src/** based architecture (matches apps/backoffice)
 - **Modular i18n**: 6 modules per language (common, navigation, home, actions,
   auth, errors)
 - **Provider pattern**: ClientProviders (GlobalStyles) + AnalyticsProvider
@@ -273,13 +273,13 @@ src/messages/
 
 ```bash
 # Development
-pnpm dev                    # All apps (web + docs)
-pnpm dev:web                # Web app only (localhost:3000)
+pnpm dev                    # All apps (backoffice + docs)
+pnpm dev:backoffice         # Backoffice app only (localhost:3000)
 pnpm dev:storybook          # Storybook (localhost:6006)
 
 # Building & Quality
 pnpm build                  # Build all with Turborepo
-pnpm build --filter=web     # Build specific app
+pnpm build --filter=backoffice  # Build specific app
 pnpm lint                   # Lint (ESLint 9)
 pnpm lint:fix               # Auto-fix
 pnpm format                 # Prettier format
@@ -296,10 +296,10 @@ pnpm commit                 # Commitizen (conventional commits)
 # Pre-commit hooks auto-run: Prettier + type-check
 
 # Dependencies
-pnpm add <pkg> --filter=web  # Add to specific workspace
+pnpm add <pkg> --filter=backoffice  # Add to specific workspace
 pnpm add -w <pkg>            # Add to root
 
-# Database (from apps/web)
+# Database (from apps/backoffice)
 pnpm db:setup               # Full setup: Docker + migrate + seed
 pnpm docker:up              # Start PostgreSQL
 pnpm docker:down            # Stop PostgreSQL
@@ -398,7 +398,7 @@ git push origin feat/your-feature
 **Quick start (new developer):**
 
 ```bash
-cd apps/web
+cd apps/backoffice
 pnpm db:setup  # Docker up + migrate + seed
 ```
 
