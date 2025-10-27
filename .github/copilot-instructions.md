@@ -7,8 +7,7 @@ Tavia is a Next.js 15 café/restaurant booking platform built as a
 
 **Core Architecture:**
 
-- **@tavia/core**: 54+ UI components (Emotion + Radix UI) - PRIMARY FOCUS FOR UI
-  WORK
+- **@tavia/core**: 54+ UI components (Emotion + Radix UI) - PRIMARY for web UI
 - **apps/backoffice**: Next.js 15 booking platform with Auth.js, Prisma, Docker
   PostgreSQL (port 3000)
 - **apps/analytics**: Fastify 5 event tracking API (port 3001)
@@ -201,7 +200,7 @@ ComponentName.displayName = 'ComponentName';
 - **Spacing**: Use rem (`0.25rem`, `0.5rem`, `0.75rem`, `1rem`, `1.5rem`,
   `2rem`)
 
-### Pattern 0: Generator Scripts
+### Pattern 4: Generator Scripts
 
 **ALWAYS use generators** - never copy existing apps. Ensures correct ports,
 dependencies, configs.

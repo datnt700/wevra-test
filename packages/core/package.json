@@ -13,7 +13,11 @@
       "./src/hooks/*.tsx"
     ],
     "./types/*": "./src/types/*.ts",
-    "./components/*": "./src/components/*.tsx"
+    "./components/*": "./src/components/*.tsx",
+    "./ui/*": [
+      "./src/ui/*/index.ts",
+      "./src/ui/*/components/*.tsx"
+    ]
   },
   "files": [
     "dist/main.js",
@@ -58,12 +62,17 @@
     "@tiptap/pm": "catalog:",
     "@tiptap/react": "catalog:",
     "@tiptap/starter-kit": "catalog:",
+    "@vis.gl/react-google-maps": "catalog:",
     "clsx": "catalog:",
     "date-fns": "catalog:",
+    "leaflet": "catalog:",
     "lucide-react": "catalog:",
     "framer-motion": "catalog:",
+    "mapbox-gl": "catalog:",
     "radix-ui": "catalog:",
-    "react-image-crop": "catalog:"
+    "react-image-crop": "catalog:",
+    "react-leaflet": "catalog:",
+    "react-map-gl": "catalog:"
   },
   "devDependencies": {
     "@repo/eslint-config": "workspace:*",
@@ -71,6 +80,8 @@
     "@testing-library/jest-dom": "catalog:",
     "@testing-library/react": "catalog:",
     "@testing-library/user-event": "catalog:",
+    "@types/leaflet": "catalog:",
+    "@types/mapbox-gl": "catalog:",
     "@types/node": "catalog:",
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",

@@ -28,6 +28,7 @@ export * from './providers';
 export * from './lib';
 export * from './types';
 export * from './hooks';
+export type { MapVenue } from './types/MapVenue';
 
 // ========================================
 // Emotion Cache
@@ -92,7 +93,10 @@ export { Toast, ToastsContainer, type ToastProps } from './ui/toast';
 // Layout Components
 export { Card, type CardProps } from './ui/card';
 export { Divider, type DividerProps } from './ui/divider';
+export { GoogleMap, type GoogleMapProps } from './ui/google-map';
+export { LeafletMap, type LeafletMapProps } from './ui/leaflet-map';
 export { LoadingScreen } from './ui/loading-screen';
+export { MapboxMap, type MapboxMapProps } from './ui/mapbox-map';
 export { ScrollBox } from './ui/scroll-box';
 export {
   SkeletonDisplayText,

@@ -4,6 +4,7 @@
  */
 
 export * from './IconType';
+export * from './MapVenue';
 export * from './Menu';
 
 // Type-only imports (no runtime import needed for .d.ts files)
