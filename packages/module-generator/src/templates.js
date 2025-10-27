@@ -335,7 +335,7 @@ import { Button, Card, Input } from '@tavia/taviad';
 ## 📚 Related Documentation
 
 - [Next.js App Router](https://nextjs.org/docs/app)
-- [@tavia/taviad Components](../../packages/core/README.md)
+- [@tavia/taviad Components](../../packages/taviad/README.md)
 - [Project Architecture](../../CONTRIBUTING.md)
 `,
 

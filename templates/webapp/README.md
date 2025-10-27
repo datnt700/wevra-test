@@ -38,12 +38,11 @@ This template provides a clean starting point with:
 - ✅ Testing setup with Vitest- ✅ **Prisma ORM** with PostgreSQL Docker setup
 
 - ✅ ESLint configuration
-
-- ✅ Example pages and components- ✅ **@tavia/taviad** UI component library
-  with Emotion styling- ✅ Next.js 15
+- ✅ Example pages and components
+- ✅ **@tavia/taviad** UI component library with Emotion styling
+- ✅ Next.js 15 App Router setup
 
 - ❌ **NO business logic** (no booking, restaurant, or domain-specific features)
-  App Router setup
 
 ## 📁 Structure- ✅ **@tavia/analytics** SDK for event tracking- ✅ TypeScript configuration
 
@@ -257,16 +256,7 @@ pnpm build
 
 ## 📝 Notes
 
-# Run tests
-
-pnpm test# Run database migrations
-
-```
-
-pnpm db:migrate- This template uses `@tavia/taviad` for UI components
-
-## 🗄️ Database
-
+- This template uses `@tavia/taviad` for UI components
 - Prisma schema is minimal - add models as needed
 
 This template uses PostgreSQL via Docker Compose.
@@ -530,15 +520,10 @@ pnpm start            # Start production server
 ## 🎨 UI Componentspnpm lint             # Lint (max 0 warnings)
 
 pnpm lint:fix         # Auto-fix lint issues
-
-This template uses **@tavia/taviad** component library with Emotion styling.pnpm type-check       # TypeScript check
-
+pnpm type-check       # TypeScript check
 pnpm format           # Format with Prettier
-
-```tsxpnpm format:check     # Check formatting
-
-import { Button, Card, Input } from '@tavia/taviad';pnpm clean            # Clean build artifacts
-
+pnpm format:check     # Check formatting
+pnpm clean            # Clean build artifacts
 pnpm test             # Run tests
 
 export default function Example() {pnpm test:watch       # Test watch mode
@@ -555,13 +540,21 @@ export default function Example() {pnpm test:watch       # Test watch mode
 
   );
 
+<<<<<<< HEAD
 }This template uses **@tavia/taviad** component library with Emotion styling.
+=======
+}This template uses **@tavia/core** component library with Emotion styling.
+>>>>>>> 847c9c936c0993d2b0547f5f64e0318fe90e9833
 
 ```
 
 ```tsx
 
+<<<<<<< HEAD
 See [@tavia/taviad documentation](../../packages/core/README.md) for all availableimport { Button, Card, Input } from '@tavia/taviad';
+=======
+See [@tavia/core documentation](../../packages/core/README.md) for all availableimport { Button, Card, Input } from '@tavia/core';
+>>>>>>> 847c9c936c0993d2b0547f5f64e0318fe90e9833
 
 components.
 
@@ -584,10 +577,7 @@ Integrated with **@tavia/analytics** SDK:      <Input label="Email" type="email"
 ```
 
 // Manual event tracking:
-
-import { trackEvent } from '@tavia/analytics';See [@tavia/taviad documentation](../../packages/core/README.md) for all available
-
-components.
+import { trackEvent } from '@tavia/analytics';
 
 trackEvent('button_click', { label: 'Sign Up' });
 
@@ -743,7 +733,11 @@ import { zodResolver } from '@hookform/resolvers/zod';
 
 
 
+<<<<<<< HEAD
 - This template uses `@tavia/taviad` for UI componentsconst schema = z.object({
+=======
+- This template uses `@tavia/core` for UI componentsconst schema = z.object({
+>>>>>>> 847c9c936c0993d2b0547f5f64e0318fe90e9833
 
 - Prisma schema is minimal - add models as needed  email: z.string().email(),
 
@@ -811,20 +805,14 @@ docker ps  # Check if postgres container is running
 
 - [next-intl Documentation](https://next-intl.dev/)## 📚 Resources
 
+- [Next.js Documentation](https://nextjs.org/docs)
+- [next-intl Documentation](https://next-intl.dev/)
 - [Prisma Documentation](https://www.prisma.io/docs)
+- [@tavia/taviad Components](../../packages/taviad/README.md)
+- [@tavia/analytics SDK](../../packages/analytics/README.md)
+- [@tavia/module-generator](../../packages/module-generator/README.md)
 
-- [@tavia/taviad Components](../../packages/core/README.md)-
-  [Next.js Documentation](https://nextjs.org/docs)
-
-- [@tavia/analytics SDK](../../packages/analytics/README.md)-
-  [next-intl Documentation](https://next-intl.dev/)
-
-- [@tavia/module-generator](../../packages/module-generator/README.md)-
-  [Prisma Documentation](https://www.prisma.io/docs)
-
-- [@tavia/taviad Components](../../packages/core/README.md)
-
-## 📝 License- [@tavia/analytics SDK](../../packages/analytics/README.md)
+## 📝 License
 
 Private - Tavia Monorepo## 📝 License
 
