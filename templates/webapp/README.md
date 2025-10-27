@@ -1,419 +1,831 @@
-# Webapp Template# Generic Next.js 15 Webapp Template
+# Generic Next.js 15 Webapp Template# Webapp Template# Generic Next.js 15 Webapp Template
 
-A production-ready Next.js 15 webapp template for the Tavia monorepo, featuring
-modern best practices, internationalization, and complete testing setup.This is
+A production-ready Next.js 15 webapp template for the Tavia monorepo, featuringA
+production-ready Next.js 15 webapp template for the Tavia monorepo, featuring
+
+modern best practices, internationalization, and complete testing setup.modern
+best practices, internationalization, and complete testing setup.This is
+
 a **generic template** for creating new Next.js 15 web applications in
 
-the Tavia monorepo. It contains minimal structure without business-specific
+This is a **generic template** for creating new Next.js 15 web applications in
+
+the Tavia monorepo. It contains minimal structure without business-specificthe
+Tavia monorepo. It contains minimal structure without business-specific
+
+logic.
 
 ## 🎯 Featureslogic.
 
+## 🎯 Purpose
+
 - ✅ **Next.js 15** with App Router and React 19## 🎯 Purpose
+
+This template provides a clean starting point with:
 
 - ✅ **TypeScript** for type safety
 
-- ✅ **Modular i18n** with next-intl (English & Vietnamese)This template
-  provides a clean starting point with:
+- ✅ Next.js 15 App Router setup
 
-- ✅ **Prisma ORM** with PostgreSQL Docker setup
+- ✅ TypeScript configuration- ✅ **Modular i18n** with next-intl (English &
+  Vietnamese)This template
 
-- ✅ **@tavia/core** UI component library with Emotion styling- ✅ Next.js 15
+- ✅ Basic internationalization (i18n) with next-intl provides a clean starting
+  point with:
+
+- ✅ Prisma ORM setup (no models, just structure)
+
+- ✅ Testing setup with Vitest- ✅ **Prisma ORM** with PostgreSQL Docker setup
+
+- ✅ ESLint configuration
+
+- ✅ Example pages and components- ✅ **@tavia/core** UI component library with
+  Emotion styling- ✅ Next.js 15
+
+- ❌ **NO business logic** (no booking, restaurant, or domain-specific features)
   App Router setup
 
-- ✅ **@tavia/analytics** SDK for event tracking- ✅ TypeScript configuration
+## 📁 Structure- ✅ **@tavia/analytics** SDK for event tracking- ✅ TypeScript configuration
 
-- ✅ **Vitest** with Testing Library and Istanbul coverage- ✅ Basic
-  internationalization (i18n) with next-intl
+```- ✅ **Vitest** with Testing Library and Istanbul coverage- ✅ Basic
 
-- ✅ **ESLint 9** flat config with strict rules- ✅ Prisma ORM setup (no models,
-  just structure)
+webapp-template/  internationalization (i18n) with next-intl
 
-- ✅ **React Hook Form** with Zod validation- ✅ Testing setup with Vitest
+├── app/                    # Next.js App Router
 
-- ✅ **Framer Motion** for animations- ✅ ESLint configuration
+│   ├── [locale]/          # Internationalized routes- ✅ **ESLint 9** flat config with strict rules- ✅ Prisma ORM setup (no models,
 
-- ✅ Example pages and components
+│   │   ├── page.tsx       # Home page (example)  just structure)
 
-## 📁 Project Structure- ❌ **NO business logic** (no booking, restaurant, or domain-specific features)
+│   │   └── about/         # About page (example)
 
-````## 📁 Structure
+│   └── layout.tsx         # Root layout- ✅ **React Hook Form** with Zod validation- ✅ Testing setup with Vitest
+
+├── components/            # Reusable components (examples)
+
+├── lib/                   # Utility functions- ✅ **Framer Motion** for animations- ✅ ESLint configuration
+
+├── prisma/               # Prisma schema (minimal)
+
+├── public/               # Static assets- ✅ Example pages and components
+
+├── messages/             # i18n translations
+
+└── tests/                # Test setup## 📁 Project Structure- ❌ **NO business logic** (no booking, restaurant, or domain-specific features)
+
+```
+
+`````## 📁 Structure
+
+## 🏗️ Module Architecture
 
 src/
 
-├── app/                     # Next.js App Router pages```
+This template is designed to work with **@tavia/module-generator** for creating
 
-│   ├── layout.tsx          # Root layout with providerswebapp-template/
+feature modules with a standardized architecture.├── app/                     # Next.js App Router pages```
 
-│   └── page.tsx            # Home page├── app/                    # Next.js App Router
 
-├── components/             # React components│   ├── [locale]/          # Internationalized routes
 
-│   ├── AnalyticsProvider.tsx│   │   ├── page.tsx       # Home page (example)
+### Generate New Modules│   ├── layout.tsx          # Root layout with providerswebapp-template/
 
-│   └── ClientProviders.tsx│   │   └── about/         # About page (example)
 
-├── i18n/                   # Internationalization│   └── layout.tsx         # Root layout
 
-│   ├── config.ts           # Locale configuration├── components/            # Reusable components (examples)
+```bash│   └── page.tsx            # Home page├── app/                    # Next.js App Router
 
-│   └── request.ts          # Modular i18n loader├── lib/                   # Utility functions
+# From your app directory (e.g., apps/my-app)
 
-├── lib/                    # Utilities and helpers├── prisma/               # Prisma schema (minimal)
+pnpm generate:module├── components/             # React components│   ├── [locale]/          # Internationalized routes
 
-│   ├── prisma.ts           # Database client├── public/               # Static assets
 
-│   └── utils.ts            # Utility functions├── messages/             # i18n translations
 
-└── messages/               # Translation files (modular)└── tests/                # Test setup
+# Interactive prompts will guide you through:│   ├── AnalyticsProvider.tsx│   │   ├── page.tsx       # Home page (example)
 
-    ├── en/                 # English translations```
+# - Module name (e.g., "bookings", "restaurants")
 
-    │   ├── common.json
+# - Route group (optional, e.g., "(dashboard)", "(auth)")│   └── ClientProviders.tsx│   │   └── about/         # About page (example)
 
-    │   ├── navigation.json## 🚀 What to Customize
+# - Generates complete module structure automatically
 
-    │   ├── home.json
+```├── i18n/                   # Internationalization│   └── layout.tsx         # Root layout
 
-    │   ├── actions.jsonWhen creating a new app from this template, customize:
 
-    │   ├── auth.json
 
-    │   └── errors.json1. **Package name**: Update `name` in `package.json` to `@tavia/your-app-name`
+### Generated Module Structure│   ├── config.ts           # Locale configuration├── components/            # Reusable components (examples)
 
-    └── vi/                 # Vietnamese translations2. **Port**: Update port in `package.json` dev script if needed
+
+
+Each module follows this pattern:│   └── request.ts          # Modular i18n loader├── lib/                   # Utility functions
+
+
+
+```├── lib/                    # Utilities and helpers├── prisma/               # Prisma schema (minimal)
+
+src/app/(route-group)/module-name/
+
+├── _components/         # Module-specific components│   ├── prisma.ts           # Database client├── public/               # Static assets
+
+│   ├── ModuleName.tsx
+
+│   ├── ModuleName.styles.ts│   └── utils.ts            # Utility functions├── messages/             # i18n translations
+
+│   └── index.ts
+
+├── _types/             # TypeScript types & interfaces└── messages/               # Translation files (modular)└── tests/                # Test setup
+
+│   ├── ModuleName.ts
+
+│   └── index.ts    ├── en/                 # English translations```
+
+├── _hooks/             # Custom React hooks
+
+│   ├── useModuleName.ts    │   ├── common.json
+
+│   └── index.ts
+
+├── _utils/             # Utility functions    │   ├── navigation.json## 🚀 What to Customize
+
+│   ├── moduleName.utils.ts
+
+│   └── index.ts    │   ├── home.json
+
+├── _services/          # API calls & external services
+
+│   ├── moduleName.service.ts    │   ├── actions.jsonWhen creating a new app from this template, customize:
+
+│   └── index.ts
+
+├── _constants/         # Constants & enums    │   ├── auth.json
+
+│   ├── moduleName.constants.ts
+
+│   └── index.ts    │   └── errors.json1. **Package name**: Update `name` in `package.json` to `@tavia/your-app-name`
+
+├── layout.tsx          # Module layout (if needed)
+
+└── page.tsx            # Module page    └── vi/                 # Vietnamese translations2. **Port**: Update port in `package.json` dev script if needed
+
+```
 
         └── ... (same structure)3. **Prisma models**: Add your database models in `prisma/schema.prisma`
 
-```4. **Pages**: Replace example pages with your actual app pages
+**Key Benefits:**
 
-5. **i18n messages**: Update translations in `messages/` directory
+- ✅ **Consistent structure** across all modules```4. **Pages**: Replace example pages with your actual app pages
 
-## 🚀 Getting Started6. **Environment variables**: Copy `.env.example` and configure
+- ✅ **Route groups** for organizing related features (e.g., `(dashboard)`, `(auth)`)
 
-7. **README**: Update this file with your app-specific information
+- ✅ **Clear separation** of concerns (_components, _types, _hooks, _services, _utils, _constants)5. **i18n messages**: Update translations in `messages/` directory
 
-### Prerequisites
+- ✅ **TypeScript-ready** with proper types and interfaces
 
-## 🛠️ Development
+- ✅ **Barrel exports** for clean imports## 🚀 Getting Started6. **Environment variables**: Copy `.env.example` and configure
 
-- Node.js 18.18.0+
 
-- pnpm 10.17.1```bash
 
-- Docker (for PostgreSQL)# Install dependencies
+**Example Usage:**7. **README**: Update this file with your app-specific information
+
+
+
+```typescript### Prerequisites
+
+// After generating a "bookings" module in "(dashboard)" route group:
+
+// src/app/(dashboard)/bookings/_components/BookingList.tsx## 🛠️ Development
+
+// src/app/(dashboard)/bookings/_services/bookings.service.ts
+
+// src/app/(dashboard)/bookings/page.tsx- Node.js 18.18.0+
+
+
+
+// Clean imports from other parts of your app:- pnpm 10.17.1```bash
+
+import { BookingList } from '@/app/(dashboard)/bookings/_components';
+
+import { getBookings } from '@/app/(dashboard)/bookings/_services';- Docker (for PostgreSQL)# Install dependencies
+
+```
 
 pnpm install
+
+## 🚀 What to Customize
 
 ### Development
 
+When creating a new app from this template, customize:
+
 # Run development server
 
-```bashpnpm dev
+1. **Package name**: Update `name` in `package.json` to `@tavia/your-app-name`
 
-# Install dependencies (from monorepo root)
+2. **Port**: Update port in `package.json` dev script if needed```bashpnpm dev
 
-pnpm install# Build for production
+3. **Prisma models**: Add your database models in `prisma/schema.prisma`
+
+4. **Pages**: Replace example pages with your actual app pages# Install dependencies (from monorepo root)
+
+5. **i18n messages**: Update translations in `messages/` directory
+
+6. **Environment variables**: Copy `.env.example` and configurepnpm install# Build for production
+
+7. **README**: Update this file with your app-specific information
 
 pnpm build
 
+## 🛠️ Development
+
 # Start PostgreSQL with Docker
 
-pnpm docker:up# Run tests
+```bash
+
+# Install dependenciespnpm docker:up# Run tests
+
+pnpm install
 
 pnpm test
 
-# Generate Prisma client```
+# Run development server
 
-pnpm db:generate
+pnpm dev# Generate Prisma client```
+
+
+
+# Build for productionpnpm db:generate
+
+pnpm build
 
 ## 📝 Notes
 
-# Run database migrations
+# Run tests
+
+pnpm test# Run database migrations
+
+```
 
 pnpm db:migrate- This template uses `@tavia/core` for UI components
 
-- Prisma schema is minimal - add models as needed
-
-# Start development server- i18n is configured for English (en) and French (fr) by default
-
-pnpm dev- No authentication is implemented - add as needed
-
-```- No API routes included - add in `app/api/` as needed
-
-
-Visit `http://localhost:3000`
-
 ## 🗄️ Database
+
+- Prisma schema is minimal - add models as needed
 
 This template uses PostgreSQL via Docker Compose.
 
+# Start development server- i18n is configured for English (en) and French (fr) by default
+
 ```bash
-# Start database
+
+# Start databasepnpm dev- No authentication is implemented - add as needed
+
 pnpm docker:up
 
+```- No API routes included - add in `app/api/` as needed
+
 # Stop database
+
 pnpm docker:down
 
-# View logs
-pnpm docker:logs
+Visit `http://localhost:3000`
 
-# Clean (remove volume)
+# View logs
+
+pnpm docker:logs## 🗄️ Database
+
+
+
+# Clean (remove volume)This template uses PostgreSQL via Docker Compose.
+
 pnpm docker:clean
 
-# Full setup (Docker + migrate + seed)
-pnpm db:setup
-````
-
-### Prisma Commands
-
 ```bash
-# Generate Prisma Client
-pnpm db:generate
 
-# Push schema changes (dev)
-pnpm db:push
+# Full setup (Docker + migrate + seed)# Start database
 
-# Create migration
-pnpm db:migrate
+pnpm db:setuppnpm docker:up
 
-# Deploy migrations (prod)
-pnpm db:migrate:deploy
-
-# Prisma Studio (GUI)
-pnpm db:studio
-
-# Seed database
-pnpm db:seed
 ```
 
-## 🌐 Internationalization
+# Stop database
 
-This template uses **modular i18n** structure with next-intl.
+### Prisma Commandspnpm docker:down
+
+
+
+```bash# View logs
+
+# Generate Prisma Clientpnpm docker:logs
+
+pnpm db:generate
+
+# Clean (remove volume)
+
+# Push schema changes (dev)pnpm docker:clean
+
+pnpm db:push
+
+# Full setup (Docker + migrate + seed)
+
+# Create migrationpnpm db:setup
+
+pnpm db:migrate````
+
+
+
+# Deploy migrations (prod)### Prisma Commands
+
+pnpm db:migrate:deploy
+
+```bash
+
+# Prisma Studio (GUI)# Generate Prisma Client
+
+pnpm db:studiopnpm db:generate
+
+
+
+# Seed database# Push schema changes (dev)
+
+pnpm db:seedpnpm db:push
+
+```
+
+# Create migration
+
+## 🌐 Internationalizationpnpm db:migrate
+
+
+
+This template uses **modular i18n** structure with next-intl.# Deploy migrations (prod)
+
+pnpm db:migrate:deploy
 
 ### Supported Locales
 
-- `en` - English (default)
+# Prisma Studio (GUI)
+
+- `en` - English (default)pnpm db:studio
+
 - `vi` - Vietnamese
 
-### Translation Files
+# Seed database
+
+### Translation Filespnpm db:seed
+
+```
 
 Located in `src/messages/{locale}/`:
 
+## 🌐 Internationalization
+
 - `common.json` - Common app strings
-- `navigation.json` - Navigation labels
+
+- `navigation.json` - Navigation labelsThis template uses **modular i18n** structure with next-intl.
+
 - `home.json` - Home page content
-- `actions.json` - Action buttons (save, cancel, etc.)
+
+- `actions.json` - Action buttons (save, cancel, etc.)### Supported Locales
+
 - `auth.json` - Authentication strings
-- `errors.json` - Error messages
+
+- `errors.json` - Error messages- `en` - English (default)
+
+- `vi` - Vietnamese
 
 ### Usage in Components
 
-```tsx
-import { useTranslations } from 'next-intl';
+### Translation Files
 
-export default function Page() {
-  const t = useTranslations('home');
-  return <h1>{t('title')}</h1>;
-}
-```
+```tsx
+
+import { useTranslations } from 'next-intl';Located in `src/messages/{locale}/`:
+
+
+
+export default function Page() {- `common.json` - Common app strings
+
+  const t = useTranslations('home');- `navigation.json` - Navigation labels
+
+  return <h1>{t('title')}</h1>;- `home.json` - Home page content
+
+}- `actions.json` - Action buttons (save, cancel, etc.)
+
+```- `auth.json` - Authentication strings
+
+- `errors.json` - Error messages
 
 ### Locale Detection
 
+### Usage in Components
+
 Priority order:
 
-1. `NEXT_LOCALE` cookie
+```tsx
+
+1. `NEXT_LOCALE` cookieimport { useTranslations } from 'next-intl';
+
 2. `Accept-Language` header
-3. Default locale (`en`)
+
+3. Default locale (`en`)export default function Page() {
+
+  const t = useTranslations('home');
+
+## 🧪 Testing  return <h1>{t('title')}</h1>;
+
+}
+
+```bash```
+
+# Run tests
+
+pnpm test### Locale Detection
+
+
+
+# Watch modePriority order:
+
+pnpm test:watch
+
+1. `NEXT_LOCALE` cookie
+
+# Coverage report2. `Accept-Language` header
+
+pnpm test:coverage3. Default locale (`en`)
+
+```
 
 ## 🧪 Testing
 
-```bash
-# Run tests
-pnpm test
-
-# Watch mode
-pnpm test:watch
-
-# Coverage report
-pnpm test:coverage
-```
-
 ### Coverage Thresholds
 
-- Lines: 30%
-- Functions: 30%
+```bash
+
+- Lines: 30%# Run tests
+
+- Functions: 30%pnpm test
+
 - Branches: 30%
-- Statements: 30%
+
+- Statements: 30%# Watch mode
+
+pnpm test:watch
 
 Coverage includes:
 
-- `src/lib/**/*.{ts,tsx}`
-- `src/components/**/*.{ts,tsx}`
+# Coverage report
 
-Excluded:
+- `src/lib/**/*.{ts,tsx}`pnpm test:coverage
 
-- Styled components (`**/styles.ts`)
-- Prisma client
-- Config files
+- `src/components/**/*.{ts,tsx}````
+
+
+
+Excluded:### Coverage Thresholds
+
+
+
+- Styled components (`**/styles.ts`)- Lines: 30%
+
+- Prisma client- Functions: 30%
+
+- Config files- Branches: 30%
+
+- Statements: 30%
 
 ## 📦 Available Scripts
 
+Coverage includes:
+
 ```bash
-pnpm dev              # Start dev server (Turbopack)
-pnpm build            # Production build
+
+pnpm dev              # Start dev server (Turbopack)- `src/lib/**/*.{ts,tsx}`
+
+pnpm build            # Production build- `src/components/**/*.{ts,tsx}`
+
 pnpm start            # Start production server
-pnpm lint             # Lint (max 0 warnings)
+
+pnpm lint             # Lint (max 0 warnings)Excluded:
+
 pnpm lint:fix         # Auto-fix lint issues
-pnpm type-check       # TypeScript check
-pnpm format           # Format with Prettier
-pnpm format:check     # Check formatting
+
+pnpm type-check       # TypeScript check- Styled components (`**/styles.ts`)
+
+pnpm format           # Format with Prettier- Prisma client
+
+pnpm format:check     # Check formatting- Config files
+
 pnpm clean            # Clean build artifacts
-pnpm test             # Run tests
+
+pnpm test             # Run tests## 📦 Available Scripts
+
 pnpm test:watch       # Test watch mode
-pnpm test:coverage    # Coverage report
+
+pnpm test:coverage    # Coverage report```bash
+
+pnpm generate:module  # Generate new module with @tavia/module-generatorpnpm dev              # Start dev server (Turbopack)
+
+```pnpm build            # Production build
+
+pnpm start            # Start production server
+
+## 🎨 UI Componentspnpm lint             # Lint (max 0 warnings)
+
+pnpm lint:fix         # Auto-fix lint issues
+
+This template uses **@tavia/core** component library with Emotion styling.pnpm type-check       # TypeScript check
+
+pnpm format           # Format with Prettier
+
+```tsxpnpm format:check     # Check formatting
+
+import { Button, Card, Input } from '@tavia/core';pnpm clean            # Clean build artifacts
+
+pnpm test             # Run tests
+
+export default function Example() {pnpm test:watch       # Test watch mode
+
+  return (pnpm test:coverage    # Coverage report
+
+    <Card>pnpm generate:module  # Generate new module with @tavia/module-generator
+
+      <Input label="Email" type="email" />```
+
+      <Button variant="primary">Submit</Button>
+
+    </Card>## 🎨 UI Components
+
+  );
+
+}This template uses **@tavia/core** component library with Emotion styling.
+
 ```
-
-## 🎨 UI Components
-
-This template uses **@tavia/core** component library with Emotion styling.
 
 ```tsx
-import { Button, Card, Input } from '@tavia/core';
 
-export default function Example() {
-  return (
-    <Card>
-      <Input label="Email" type="email" />
-      <Button variant="primary">Submit</Button>
-    </Card>
-  );
-}
-```
+See [@tavia/core documentation](../../packages/core/README.md) for all availableimport { Button, Card, Input } from '@tavia/core';
 
-See [@tavia/core documentation](../../packages/core/README.md) for all available
 components.
 
-## 📊 Analytics
+export default function Example() {
 
-Integrated with **@tavia/analytics** SDK:
+## 📊 Analytics  return (
 
-```tsx
-// Already configured in src/components/AnalyticsProvider.tsx
-// Auto-tracks page views
+    <Card>
 
-// Manual event tracking:
-import { trackEvent } from '@tavia/analytics';
+Integrated with **@tavia/analytics** SDK:      <Input label="Email" type="email" />
 
-trackEvent('button_click', { label: 'Sign Up' });
+      <Button variant="primary">Submit</Button>
+
+```tsx    </Card>
+
+// Already configured in src/components/AnalyticsProvider.tsx  );
+
+// Auto-tracks page views}
+
 ```
 
-## 🔧 Configuration
+// Manual event tracking:
+
+import { trackEvent } from '@tavia/analytics';See [@tavia/core documentation](../../packages/core/README.md) for all available
+
+components.
+
+trackEvent('button_click', { label: 'Sign Up' });
+
+```## 📊 Analytics
+
+
+
+## 🔧 ConfigurationIntegrated with **@tavia/analytics** SDK:
+
+
+
+### Environment Variables```tsx
+
+// Already configured in src/components/AnalyticsProvider.tsx
+
+Copy `.env.example` to `.env.local` and update:// Auto-tracks page views
+
+
+
+```bash// Manual event tracking:
+
+# Appimport { trackEvent } from '@tavia/analytics';
+
+NEXT_PUBLIC_APP_URL=http://localhost:3000
+
+NEXT_PUBLIC_APP_NAME=Your App NametrackEvent('button_click', { label: 'Sign Up' });
+
+```
+
+# Database
+
+DATABASE_URL="postgresql://postgres:postgres@localhost:5432/yourdb?schema=public"## 🔧 Configuration
+
+POSTGRES_DB=yourdb
 
 ### Environment Variables
 
-Copy `.env.example` to `.env.local` and update:
+# Feature Flags
+
+NEXT_PUBLIC_ENABLE_ANALYTICS=trueCopy `.env.example` to `.env.local` and update:
+
+```
 
 ```bash
-# App
+
+### Next.js Config# App
+
 NEXT_PUBLIC_APP_URL=http://localhost:3000
-NEXT_PUBLIC_APP_NAME=Your App Name
 
-# Database
-DATABASE_URL="postgresql://postgres:postgres@localhost:5432/yourdb?schema=public"
-POSTGRES_DB=yourdb
+- **React Compiler**: Enabled for performanceNEXT_PUBLIC_APP_NAME=Your App Name
 
-# Feature Flags
-NEXT_PUBLIC_ENABLE_ANALYTICS=true
-```
-
-### Next.js Config
-
-- **React Compiler**: Enabled for performance
 - **Emotion**: Compiler support enabled
-- **next-intl**: Configured with modular message loading
 
-## 🏗️ Architecture Patterns
+- **next-intl**: Configured with modular message loading# Database
 
-### Providers Setup
+DATABASE_URL="postgresql://postgres:postgres@localhost:5432/yourdb?schema=public"
 
-```tsx
+## 🏗️ Architecture PatternsPOSTGRES_DB=yourdb
+
+
+
+### Providers Setup# Feature Flags
+
+NEXT_PUBLIC_ENABLE_ANALYTICS=true
+
+```tsx```
+
 // src/app/layout.tsx
-<ClientProviders>
+
+<ClientProviders>### Next.js Config
+
   {' '}
-  {/* GlobalStyles (Emotion) */}
-  <NextIntlClientProvider>
-    {' '}
+
+  {/* GlobalStyles (Emotion) */}- **React Compiler**: Enabled for performance
+
+  <NextIntlClientProvider>- **Emotion**: Compiler support enabled
+
+    {' '}- **next-intl**: Configured with modular message loading
+
     {/* i18n */}
-    <AnalyticsProvider>
+
+    <AnalyticsProvider>## 🏗️ Architecture Patterns
+
       {' '}
-      {/* Event tracking */}
+
+      {/* Event tracking */}### Providers Setup
+
       {children}
-    </AnalyticsProvider>
-  </NextIntlClientProvider>
-</ClientProviders>
-```
 
-### Modular i18n Loading
+    </AnalyticsProvider>```tsx
 
-Uses `Promise.all` for parallel loading:
+  </NextIntlClientProvider>// src/app/layout.tsx
 
-```typescript
-// src/i18n/request.ts
-const [common, navigation, home, actions, auth, errors] = await Promise.all([
-  import(`../messages/${locale}/common.json`),
-  // ... more modules
-]);
-```
+</ClientProviders><ClientProviders>
 
-### Form Validation
+```  {' '}
 
-```tsx
+  {/* GlobalStyles (Emotion) */}
+
+### Modular i18n Loading  <NextIntlClientProvider>
+
+    {' '}
+
+Uses `Promise.all` for parallel loading:    {/* i18n */}
+
+    <AnalyticsProvider>
+
+```typescript      {' '}
+
+// src/i18n/request.ts      {/* Event tracking */}
+
+const [common, navigation, home, actions, auth, errors] = await Promise.all([      {children}
+
+  import(`../messages/${locale}/common.json`),    </AnalyticsProvider>
+
+  // ... more modules  </NextIntlClientProvider>
+
+]);</ClientProviders>
+
+`````
+
+### Form Validation### Modular i18n Loading
+
+```tsxUses `Promise.all` for parallel loading:
+
 import { useForm } from 'react-hook-form';
+
+import { zodResolver } from '@hookform/resolvers/zod';```typescript
+
+import { z } from 'zod';// src/i18n/request.ts
+
+const [common, navigation, home, actions, auth, errors] = await Promise.all([
+
+const schema = z.object({ import(`../messages/${locale}/common.json`),
+
+email: z.string().email(), // ... more modules
+
+password: z.string().min(8),]);
+
+});```
+
+const { register, handleSubmit } = useForm({### Form Validation
+
+resolver: zodResolver(schema),
+
+});```tsx
+
+```import { useForm } from 'react-hook-form';
+
 import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
 
-const schema = z.object({
-  email: z.string().email(),
-  password: z.string().min(8),
-});
+## 📝 Notesimport { z } from 'zod';
 
-const { register, handleSubmit } = useForm({
+
+
+- This template uses `@tavia/core` for UI componentsconst schema = z.object({
+
+- Prisma schema is minimal - add models as needed  email: z.string().email(),
+
+- i18n is configured for English (en) and Vietnamese (vi) by default  password: z.string().min(8),
+
+- No authentication is implemented - add as needed});
+
+- No API routes included - add in `app/api/` as needed
+
+- Use `pnpm generate:module` to scaffold new feature modules with proper architectureconst { register, handleSubmit } = useForm({
+
   resolver: zodResolver(schema),
-});
-```
 
-## 🚨 Common Issues
+## 🚨 Common Issues});
+
+```
 
 ### TypeScript Errors
 
+## 🚨 Common Issues
+
 If you see module errors, install dependencies:
 
+### TypeScript Errors
+
 ```bash
-pnpm install
+
+pnpm installIf you see module errors, install dependencies:
+
 ```
 
-### React Version Conflicts
+```bash
+
+### React Version Conflictspnpm install
+
+```
 
 This template uses React 19.2.0. All dependencies are centralized in
-`pnpm-workspace.yaml` catalogs.
 
-### Database Connection
+`pnpm-workspace.yaml` catalogs.### React Version Conflicts
+
+### Database ConnectionThis template uses React 19.2.0. All dependencies are centralized in
+
+`pnpm-workspace.yaml` catalogs.
 
 Ensure Docker is running:
 
-```bash
-docker ps  # Check if postgres container is running
-pnpm docker:up  # Start if not running
-```
+### Database Connection
 
-## 📚 Resources
+```````bash
+
+docker ps  # Check if postgres container is runningEnsure Docker is running:
+
+pnpm docker:up  # Start if not running
+
+``````bash
+
+docker ps  # Check if postgres container is running
+
+## 📚 Resourcespnpm docker:up  # Start if not running
+
+```````
 
 - [Next.js Documentation](https://nextjs.org/docs)
-- [next-intl Documentation](https://next-intl.dev/)
-- [Prisma Documentation](https://www.prisma.io/docs)
-- [@tavia/core Components](../../packages/core/README.md)
-- [@tavia/analytics SDK](../../packages/analytics/README.md)
 
-## 📝 License
+- [next-intl Documentation](https://next-intl.dev/)## 📚 Resources
+
+- [Prisma Documentation](https://www.prisma.io/docs)
+
+- [@tavia/core Components](../../packages/core/README.md)-
+  [Next.js Documentation](https://nextjs.org/docs)
+
+- [@tavia/analytics SDK](../../packages/analytics/README.md)-
+  [next-intl Documentation](https://next-intl.dev/)
+
+- [@tavia/module-generator](../../packages/module-generator/README.md)-
+  [Prisma Documentation](https://www.prisma.io/docs)
+
+- [@tavia/core Components](../../packages/core/README.md)
+
+## 📝 License- [@tavia/analytics SDK](../../packages/analytics/README.md)
+
+Private - Tavia Monorepo## 📝 License
 
 Private - Tavia Monorepo

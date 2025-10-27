@@ -55,7 +55,7 @@ pnpm install
 # Generate Prisma client
 pnpm db:generate
 
-# Run development server with hot reload
+# Run in development mode with hot reload
 pnpm dev
 
 # Build for production
@@ -64,9 +64,38 @@ pnpm build
 # Start production server
 pnpm start
 
+# Run tests
+pnpm test
+
 # Prisma Studio (database GUI)
 pnpm db:studio
 ```
+
+## 🗄️ Database
+
+This template uses PostgreSQL with Prisma ORM.
+
+### Prisma Commands
+
+```bash
+# Generate Prisma Client
+pnpm db:generate
+
+# Push schema changes (dev)
+pnpm db:push
+
+# Create migration
+pnpm db:migrate
+
+# Prisma Studio (GUI)
+pnpm db:studio
+
+# Seed database
+pnpm db:seed
+```
+
+**Note**: Add Docker Compose if you need a local PostgreSQL instance. See
+`apps/restaurant-service/docker-compose.yml` for reference.
 
 ## 📝 API Endpoints
 

@@ -17,6 +17,7 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
+    "generate:module": "generate-module",
     "postinstall": "prisma generate",
     "docker:up": "docker-compose up -d",
     "docker:down": "docker-compose down",
@@ -34,6 +35,7 @@
   "dependencies": {
     "@tavia/analytics": "workspace:*",
     "@tavia/core": "workspace:*",
+    "@tavia/module-generator": "workspace:*",
     "@emotion/react": "catalog:emotion",
     "@emotion/styled": "catalog:emotion",
     "next": "catalog:",

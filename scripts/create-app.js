@@ -171,6 +171,13 @@ console.log('   ✅ @tavia/core UI components with Emotion styling');
 console.log('   ✅ @tavia/analytics SDK integrated');
 console.log('   ✅ Vitest + Testing Library with React 19 support');
 console.log('   ✅ ClientProviders and AnalyticsProvider setup');
+console.log('   ✅ @tavia/module-generator for scaffolding feature modules');
+console.log('\n💡 Pro Tip:');
+console.log('   Generate feature modules with: pnpm generate:module');
+console.log('   Creates standardized module structure with:');
+console.log('   - _components, _types, _hooks, _utils, _services, _constants');
+console.log('   - Route group support (e.g., "(dashboard)", "(auth)")');
+console.log('   - TypeScript-ready with barrel exports');
 console.log('\n✨ Happy coding!\n');
 
 /**

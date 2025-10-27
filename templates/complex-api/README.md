@@ -61,8 +61,11 @@ When creating a new API from this template, customize:
 # Install dependencies
 pnpm install
 
+# Start PostgreSQL with Docker
+pnpm docker:up
+
 # Generate Prisma client
-pnpm db:generate
+pnpm prisma:generate
 
 # Run in development mode with hot reload
 pnpm dev
@@ -78,7 +81,55 @@ pnpm test
 pnpm test:e2e
 
 # Prisma Studio (database GUI)
-pnpm db:studio
+pnpm prisma:studio
+```
+
+## 🗄️ Database
+
+This template uses PostgreSQL via Docker Compose.
+
+### Docker Commands
+
+```bash
+# Start database
+pnpm docker:up
+
+# Stop database
+pnpm docker:down
+
+# View logs
+pnpm docker:logs
+
+# Clean (remove volume)
+pnpm docker:clean
+```
+
+### Prisma Commands
+
+```bash
+# Generate Prisma Client
+pnpm prisma:generate
+
+# Push schema changes (dev)
+pnpm db:push
+
+# Create migration
+pnpm prisma:migrate
+
+# Deploy migrations (prod)
+pnpm prisma:migrate:deploy
+
+# Check migration status
+pnpm prisma:migrate:status
+
+# Prisma Studio (GUI)
+pnpm prisma:studio
+
+# Seed database
+pnpm prisma:seed
+
+# Reset database (⚠️ deletes all data)
+pnpm prisma:reset
 ```
 
 ## 📝 API Endpoints

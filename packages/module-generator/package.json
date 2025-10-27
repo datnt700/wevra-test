@@ -1,0 +1,25 @@
+{
+  "name": "@tavia/module-generator",
+  "version": "0.1.0",
+  "description": "Module scaffolding generator for Tavia apps",
+  "type": "module",
+  "private": true,
+  "bin": {
+    "generate-module": "./bin/generate-module.js"
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "type-check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "chalk": "catalog:",
+    "inquirer": "catalog:"
+  },
+  "devDependencies": {
+    "@repo/eslint-config": "workspace:*",
+    "@repo/typescript-config": "workspace:*",
+    "@types/node": "catalog:",
+    "eslint": "catalog:",
+    "typescript": "catalog:"
+  }
+}
