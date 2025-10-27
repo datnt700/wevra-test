@@ -48,7 +48,7 @@ body:
         - Owner Dashboard
         - Notifications
         - Database/Prisma
-        - UI Components (@tavia/core)
+        - UI Components (@tavia/taviad)
         - API Routes
         - Mobile App (Future)
         - Other

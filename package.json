@@ -7,10 +7,10 @@
     "dev:backoffice": "pnpm --filter=backoffice dev",
     "dev:storybook": "pnpm --filter=@tavia/docs storybook:dev",
     "test": "turbo run test",
-    "test:core": "pnpm --filter=@tavia/core test --run",
-    "test:coverage": "pnpm --filter=@tavia/core test --coverage --run",
-    "test:watch": "pnpm --filter=@tavia/core test --watch",
-    "test:ui": "pnpm --filter=@tavia/core test --ui",
+    "test:taviad": "pnpm --filter=@tavia/taviad test --run",
+    "test:coverage": "pnpm --filter=@tavia/taviad test --coverage --run",
+    "test:watch": "pnpm --filter=@tavia/taviad test --watch",
+    "test:ui": "pnpm --filter=@tavia/taviad test --ui",
     "lint": "turbo run lint",
     "lint:fix": "turbo run lint -- --fix",
     "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md,mdx,css,scss,yaml,yml}\"",
@@ -40,9 +40,9 @@
       "path": "./node_modules/cz-conventional-changelog"
     }
   },
-  "packageManager": "pnpm@10.17.1",
+  "packageManager": "pnpm@10.19.0+sha512.c9fc7236e92adf5c8af42fd5bf1612df99c2ceb62f27047032f4720b33f8eacdde311865e91c411f2774f618d82f320808ecb51718bfa82c060c4ba7c76a32b8",
   "engines": {
-    "node": ">=18.18.0",
-    "pnpm": ">=10.17.1"
+    "node": ">=22.17.1",
+    "pnpm": ">=10.19.0"
   }
 }

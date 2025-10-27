@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Tooltip, Button, Badge } from '@tavia/core';
+import { Tooltip, Button, Badge } from '@tavia/taviad';
 import { QuestionMarkCircledIcon } from '@radix-ui/react-icons';
 import { HelpCircle, Info, AlertTriangle, CheckCircle, Star, Trash, Settings } from 'lucide-react';
 

@@ -21,8 +21,8 @@ vi.mock('../SignOutButton', () => ({
   SignOutButton: () => <button>Sign Out</button>,
 }));
 
-// Mock @tavia/core Button
-vi.mock('@tavia/core', () => ({
+// Mock @tavia/taviad Button
+vi.mock('@tavia/taviad', () => ({
   Button: ({
     children,
     onClick,

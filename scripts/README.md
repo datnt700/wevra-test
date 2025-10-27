@@ -89,7 +89,7 @@ All apps created from this script include:
 - ✅ **TypeScript** configuration
 - ✅ **i18n** with next-intl (en, fr by default)
 - ✅ **Prisma ORM** setup (PostgreSQL ready, minimal schema)
-- ✅ **@tavia/core** UI component library
+- ✅ **@tavia/taviad** UI component library
 - ✅ **Vitest** testing setup
 - ✅ **ESLint 9** flat config
 - ✅ **Example pages** (home, about with i18n)

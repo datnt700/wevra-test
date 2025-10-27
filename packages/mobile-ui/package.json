@@ -25,7 +25,7 @@
     "react-native": "catalog:expo"
   },
   "dependencies": {
-    "@tavia/core": "workspace:*"
+    "@tavia/taviad": "workspace:*"
   },
   "devDependencies": {
     "@babel/preset-flow": "^7.27.1",

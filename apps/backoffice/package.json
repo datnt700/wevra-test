@@ -30,12 +30,12 @@
     "db:migrate": "prisma migrate dev",
     "db:migrate:deploy": "prisma migrate deploy",
     "db:seed": "tsx prisma/seed.ts",
-    "db:studio": "prisma studio"
+    "db:studio": "prisma studio",
+    "generate:module": "generate-module"
   },
   "dependencies": {
-    "@repo/ui": "workspace:*",
     "@tavia/analytics": "workspace:*",
-    "@tavia/core": "workspace:*",
+    "@tavia/taviad": "workspace:*",
     "next": "catalog:",
     "next-intl": "catalog:",
     "react": "catalog:",
@@ -55,6 +55,7 @@
     "@playwright/test": "catalog:",
     "@repo/eslint-config": "workspace:*",
     "@repo/typescript-config": "workspace:*",
+    "@tavia/module-generator": "workspace:*",
     "@testing-library/jest-dom": "catalog:",
     "@testing-library/react": "catalog:",
     "@testing-library/user-event": "catalog:",

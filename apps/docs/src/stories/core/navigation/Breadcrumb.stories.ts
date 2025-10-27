@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Breadcrumb } from '@tavia/core';
+import { Breadcrumb } from '@tavia/taviad';
 
 const meta = {
   title: 'Core/Navigation/Breadcrumb',

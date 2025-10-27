@@ -10,7 +10,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslations } from 'next-intl';
-import { Button, InputText, Card, Alert, Link, Field } from '@tavia/core';
+import { Button, InputText, Card, Alert, Link, Field } from '@tavia/taviad';
 import { Styled } from './LoginPage.styles';
 import { createLoginSchema, type LoginFormData } from './_validations/loginSchema';
 import { ROUTES } from '@/lib/constants';

@@ -27,7 +27,7 @@ Generic Next.js template for creating web applications.
 - TypeScript
 - next-intl (i18n)
 - Prisma ORM
-- @tavia/core UI components
+- @tavia/taviad UI components
 - Vitest + Testing Library
 
 **Use when:** Creating any customer-facing or internal web application.
@@ -181,7 +181,7 @@ When adding dependencies to templates, **always use catalog references**:
 {
   "dependencies": {
     "new-package": "catalog:",
-    "@tavia/core": "workspace:*"
+    "@tavia/taviad": "workspace:*"
   }
 }
 ```

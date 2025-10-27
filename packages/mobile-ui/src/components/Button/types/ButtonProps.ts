@@ -15,7 +15,7 @@ export type ButtonSize = 'sm' | 'md' | 'lg';
 /**
  * Props for the Button component
  *
- * Maintains API compatibility with @tavia/core Button where possible,
+ * Maintains API compatibility with @tavia/taviad Button where possible,
  * with React Native-specific adaptations.
  */
 export interface ButtonProps {

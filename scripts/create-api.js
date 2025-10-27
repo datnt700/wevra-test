@@ -26,7 +26,7 @@ const question = (query) => new Promise((resolve) => rl.question(query, resolve)
 
 // Get API name from command line (optional)
 let apiName = process.argv[2];
-let apiType = null;
+let _apiType = null;
 
 // Main function to handle interactive prompts
 async function main() {
@@ -327,7 +327,7 @@ export async function exampleRoutes(app: FastifyInstance) {
 /**
  * Create a complex NestJS microservice
  */
-async function createNestJSAPI(apiName, apiDir, templatesDir) {
+async function createNestJSAPI(apiName, apiDir, _templatesDir) {
   console.log(`\n🚀 Creating new NestJS microservice: ${apiName}\n`);
 
   // Ask for transport layer

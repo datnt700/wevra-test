@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import React from 'react';
-import { Tabs, TabsProps } from '@tavia/core'; // Importing Tabs from your design system
+import { Tabs, TabsProps } from '@tavia/taviad'; // Importing Tabs from your design system
 import { Home, User, Settings } from 'lucide-react';
 
 const meta: Meta<typeof Tabs> = {

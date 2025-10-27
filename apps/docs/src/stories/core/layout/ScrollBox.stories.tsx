@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { ScrollBox, Card } from '@tavia/core';
+import { ScrollBox, Card } from '@tavia/taviad';
 
 const meta: Meta<typeof ScrollBox> = {
   title: 'Core/Layout/ScrollBox',
@@ -292,7 +292,7 @@ export const CodeBlock: Story = {
           }}
         >
           {`import React from 'react';
-import { ScrollBox } from '@tavia/core';
+import { ScrollBox } from '@tavia/taviad';
 
 export const MyComponent = () => {
   return (

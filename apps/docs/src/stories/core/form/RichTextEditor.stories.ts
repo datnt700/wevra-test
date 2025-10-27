@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { RichTextEditor } from '@tavia/core';
+import { RichTextEditor } from '@tavia/taviad';
 import { content } from './mock-data';
 
 const meta = {
@@ -24,7 +24,7 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
     defaultValue: content,
-    uploadImage: async ({ file }) => {
+    uploadImage: async ({ file: _file }) => {
       return new Promise((resolve) => setTimeout(() => resolve('image-url'), 1000));
     },
   },

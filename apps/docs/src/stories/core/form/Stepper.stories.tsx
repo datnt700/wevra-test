@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Stepper } from '@tavia/core';
+import { Stepper } from '@tavia/taviad';
 import { useState } from 'react';
 
 /**
@@ -393,7 +393,7 @@ export const VolumeControl: Story = {
  * Shows integration with other form elements.
  */
 export const CompleteForm: Story = {
-  render: (args) => {
+  render: (_args) => {
     const [adults, setAdults] = useState(2);
     const [children, setChildren] = useState(1);
     const [nights, setNights] = useState(3);
@@ -531,7 +531,7 @@ export const CompleteForm: Story = {
  * Showcase of all Stepper states and variants.
  */
 export const AllVariants: Story = {
-  render: (args) => {
+  render: (_args) => {
     const [value1, setValue1] = useState(5);
     const [value2, setValue2] = useState(5);
 

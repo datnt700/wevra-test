@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Combobox } from '@tavia/core'; // Import đúng vị trí của component Combobox
+import { Combobox } from '@tavia/taviad'; // Import đúng vị trí của component Combobox
 
 const meta = {
   title: 'Core/Form/Combobox', // Đặt tên cho Story của bạn

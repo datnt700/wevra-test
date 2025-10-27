@@ -6,8 +6,8 @@ import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom/vitest';
 import userEvent from '@testing-library/user-event';
 
-// Mock @tavia/core - include cssVars and radii for styled components
-vi.mock('@tavia/core', () => ({
+// Mock @tavia/taviad - include cssVars and radii for styled components
+vi.mock('@tavia/taviad', () => ({
   Button: ({
     children,
     onClick,

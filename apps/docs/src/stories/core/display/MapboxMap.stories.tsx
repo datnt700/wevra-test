@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { MapboxMap } from '@tavia/core/ui/mapbox-map';
-import type { MapVenue } from '@tavia/core/types/MapVenue';
+import { MapboxMap } from '@tavia/taviad/ui/mapbox-map';
+import type { MapVenue } from '@tavia/taviad/types/MapVenue';
 
 // Sample venues in Ho Chi Minh City, Vietnam
 const hcmcVenues: MapVenue[] = [

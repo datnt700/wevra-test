@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Link } from '@tavia/core';
+import { Link } from '@tavia/taviad';
 import { ExternalLink, ArrowRight, Download, Mail, Phone, Github, Twitter } from 'lucide-react';
 
 /**

@@ -1,6 +1,6 @@
 'use client';
 
-import { GlobalStyles } from '@tavia/core';
+import { GlobalStyles } from '@tavia/taviad';
 
 /**
  * Client-side providers wrapper

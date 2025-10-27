@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
-import { Toast, Button } from '@tavia/core';
+import { Toast, Button } from '@tavia/taviad';
 
 /**
  * Toast component - Notification messages with Radix UI.

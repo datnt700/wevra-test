@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Button, Icon } from '@tavia/core';
+import { Button, Icon } from '@tavia/taviad';
 import { Search, FileText } from 'lucide-react';
 
 // More on how to set up stories at: https://storybook.js.org/docs/react/writing-stories/introduction#default-export

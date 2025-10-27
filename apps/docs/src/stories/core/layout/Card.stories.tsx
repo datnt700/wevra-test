@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Card } from '@tavia/core';
+import { Card } from '@tavia/taviad';
 
 const meta = {
   title: 'Core/Layout/Card',

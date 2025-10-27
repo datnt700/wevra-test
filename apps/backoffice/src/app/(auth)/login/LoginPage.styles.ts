@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import styled from '@emotion/styled';
-import { cssVars } from '@tavia/core';
+import { cssVars } from '@tavia/taviad';
 
 /**
  * Styled components for Login Page

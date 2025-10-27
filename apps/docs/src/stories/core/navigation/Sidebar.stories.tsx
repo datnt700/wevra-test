@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Sidebar } from '@tavia/core';
+import { Sidebar } from '@tavia/taviad';
 import { Home, Settings, Users, FileText, Folder, BarChart } from 'lucide-react';
 
 const meta = {

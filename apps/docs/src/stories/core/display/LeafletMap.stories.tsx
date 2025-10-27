@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { LeafletMap } from '@tavia/core';
+import { LeafletMap } from '@tavia/taviad';
 
 const meta = {
   title: 'Core/Display/LeafletMap',

@@ -1,8 +1,8 @@
 /**
  * Color tokens for Tavia Mobile UI
- * Shared design tokens with @tavia/core
+ * Shared design tokens with @tavia/taviad
  *
- * Note: These colors are identical to @tavia/core for consistency
+ * Note: These colors are identical to @tavia/taviad for consistency
  * across web and mobile platforms.
  */
 

@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { ImageUpload } from '@tavia/core';
+import { ImageUpload } from '@tavia/taviad';
 import { useState } from 'react';
 import { Image as ImageIcon, User, Camera } from 'lucide-react';
 

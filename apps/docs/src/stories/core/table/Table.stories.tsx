@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import React from 'react';
-import { Table } from '@tavia/core';
+import { Table } from '@tavia/taviad';
 
 const meta: Meta<typeof Table<any, keyof any>> = {
   title: 'Core/Table/Table',

@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Link, MenuBar } from '@tavia/core';
+import { Link, MenuBar } from '@tavia/taviad';
 import {
   File,
   Edit,

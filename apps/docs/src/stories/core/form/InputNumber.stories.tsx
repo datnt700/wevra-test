@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { InputNumber, Label, Field } from '@tavia/core';
+import { InputNumber, Label, Field } from '@tavia/taviad';
 import { useState } from 'react';
 
 const meta: Meta<typeof InputNumber> = {

@@ -29,7 +29,7 @@ application.
 - ✅ **Next.js 15** with App Router and React 19
 - ✅ **TypeScript** for type safety
 - ✅ **Database** with Prisma ORM + PostgreSQL
-- ✅ **UI Components** - @tavia/core design system
+- ✅ **UI Components** - @tavia/taviad design system
 - ✅ **Unit Testing** with Vitest + Testing Library
 - ✅ **E2E Testing** with Playwright
 - ✅ **ESLint 9** flat config for code quality
@@ -356,7 +356,7 @@ Key dependencies:
 - `next` - Next.js framework (15.5.5)
 - `next-auth` - Authentication with Auth.js v5
 - `@prisma/client` - Database ORM
-- `@tavia/core` - Internal UI component library
+- `@tavia/taviad` - Internal UI component library
 - `bcryptjs` - Password hashing
 - `zod` - Schema validation
 - `@playwright/test` - E2E testing
@@ -394,7 +394,7 @@ Key dependencies:
 - [Playwright Documentation](https://playwright.dev/)
 - [Vitest Documentation](https://vitest.dev/)
 - [Turborepo Documentation](https://turbo.build/repo/docs)
-- [@tavia/core Component Library](../../packages/core/README.md)
+- [@tavia/taviad Component Library](../../packages/core/README.md)
 
 ## Additional Documentation
 

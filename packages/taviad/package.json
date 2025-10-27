@@ -1,0 +1,98 @@
+{
+  "name": "@tavia/taviad",
+  "private": false,
+  "version": "0.0.1-rc1",
+  "type": "module",
+  "exports": {
+    ".": "./src/main.ts",
+    "./globals.css": "./src/globals.css",
+    "./lib/*": "./src/lib/*.ts",
+    "./tokens/*": "./src/tokens/*.ts",
+    "./hooks/*": [
+      "./src/hooks/*.ts",
+      "./src/hooks/*.tsx"
+    ],
+    "./types/*": "./src/types/*.ts",
+    "./components/*": "./src/components/*.tsx",
+    "./ui/*": [
+      "./src/ui/*/index.ts",
+      "./src/ui/*/components/*.tsx"
+    ]
+  },
+  "files": [
+    "dist/main.js",
+    "dist/main.css",
+    "dist/main.d.ts"
+  ],
+  "scripts": {
+    "build": "tsup src/main.ts",
+    "dev": "vite",
+    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 10",
+    "type-check": "tsc --noEmit",
+    "format": "prettier --write \"src/**/*.{ts,tsx,js,jsx,json,md,css}\"",
+    "format:check": "prettier --check \"src/**/*.{ts,tsx,js,jsx,json,md,css}\"",
+    "preview": "vite preview",
+    "clean": "rm -rf dist node_modules .turbo",
+    "test:update": "vitest run -u",
+    "test:watch": "vitest",
+    "test": "vitest --run",
+    "test:coverage": "vitest run --coverage"
+  },
+  "peerDependencies": {
+    "@emotion/react": "catalog:emotion",
+    "@emotion/styled": "catalog:emotion",
+    "react": "catalog:",
+    "react-dom": "catalog:"
+  },
+  "dependencies": {
+    "@emotion/cache": "catalog:",
+    "@radix-ui/react-checkbox": "catalog:",
+    "@radix-ui/react-icons": "catalog:",
+    "@radix-ui/react-radio-group": "catalog:",
+    "@tanstack/react-table": "catalog:",
+    "@tiptap/core": "catalog:",
+    "@tiptap/extension-color": "catalog:",
+    "@tiptap/extension-dropcursor": "catalog:",
+    "@tiptap/extension-heading": "catalog:",
+    "@tiptap/extension-image": "catalog:",
+    "@tiptap/extension-list-item": "catalog:",
+    "@tiptap/extension-paragraph": "catalog:",
+    "@tiptap/extension-text-align": "catalog:",
+    "@tiptap/extension-text-style": "catalog:",
+    "@tiptap/pm": "catalog:",
+    "@tiptap/react": "catalog:",
+    "@tiptap/starter-kit": "catalog:",
+    "@vis.gl/react-google-maps": "catalog:",
+    "clsx": "catalog:",
+    "date-fns": "catalog:",
+    "leaflet": "catalog:",
+    "lucide-react": "catalog:",
+    "framer-motion": "catalog:",
+    "mapbox-gl": "catalog:",
+    "radix-ui": "catalog:",
+    "react-image-crop": "catalog:",
+    "react-leaflet": "catalog:",
+    "react-map-gl": "catalog:"
+  },
+  "devDependencies": {
+    "@repo/eslint-config": "workspace:*",
+    "@repo/typescript-config": "workspace:*",
+    "@testing-library/jest-dom": "catalog:",
+    "@testing-library/react": "catalog:",
+    "@testing-library/user-event": "catalog:",
+    "@types/leaflet": "catalog:",
+    "@types/mapbox-gl": "catalog:",
+    "@types/node": "catalog:",
+    "@types/react": "catalog:",
+    "@types/react-dom": "catalog:",
+    "@vitejs/plugin-react": "catalog:",
+    "@vitest/coverage-istanbul": "catalog:",
+    "eslint": "catalog:",
+    "eslint-plugin-react-hooks": "catalog:",
+    "eslint-plugin-react-refresh": "catalog:",
+    "jsdom": "catalog:",
+    "tsup": "catalog:",
+    "typescript": "catalog:",
+    "vitest": "catalog:"
+  }
+}

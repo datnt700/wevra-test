@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Tag, Card } from '@tavia/core';
+import { Tag, Card } from '@tavia/taviad';
 import { useState } from 'react';
 
 const meta: Meta<typeof Tag> = {

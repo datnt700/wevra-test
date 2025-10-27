@@ -10,7 +10,7 @@ venues and reservations).
 - **Auth**: Auth.js (NextAuth) with role-based access control
 - **Database**: PostgreSQL via Prisma ORM (Docker/Supabase/Neon)
 - **Analytics**: @tavia/analytics (in-house click tracking SDK)
-- **UI Components**: @tavia/core (54+ components with Emotion + Radix UI)
+- **UI Components**: @tavia/taviad (54+ components with Emotion + Radix UI)
 - **Styling**: Emotion CSS + Framer Motion animations
 - **i18n**: next-intl (cookie-based, no routing)
 - **Realtime**: Supabase Realtime for live booking updates
@@ -32,8 +32,7 @@ tavia/
 │   └── docs/             # Storybook documentation
 ├── packages/
 │   ├── analytics/        # @tavia/analytics - Click tracking SDK
-│   ├── core/             # @tavia/core - 54+ UI components
-│   ├── ui/               # @repo/ui - Legacy minimal UI
+│   ├── core/             # @tavia/taviad - 54+ UI components
 │   ├── eslint-config/    # ESLint configurations
 │   └── typescript-config/ # TypeScript configurations
 ├── scripts/
@@ -189,7 +188,7 @@ npx prisma migrate reset
 
 ## 📚 Component Library
 
-The `@tavia/core` package contains a comprehensive component library with:
+The `@tavia/taviad` package contains a comprehensive component library with:
 
 - ✅ **50+ React components** built with Emotion and Radix UI
 - ✅ **Lucide React icons** for consistent iconography
@@ -239,7 +238,7 @@ hardcode versions in package.json**.
   "dependencies": {
     "next": "catalog:", // ✅ Use catalog
     "react": "catalog:", // ✅ Use catalog
-    "@tavia/core": "workspace:*" // ✅ Internal packages
+    "@tavia/taviad": "workspace:*" // ✅ Internal packages
   }
 }
 ```

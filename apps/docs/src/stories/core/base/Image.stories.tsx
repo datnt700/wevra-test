@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Image } from '@tavia/core';
+import { Image } from '@tavia/taviad';
 
 const meta = {
   title: 'Core/Base/Image',

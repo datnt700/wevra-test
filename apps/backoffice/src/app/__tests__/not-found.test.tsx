@@ -5,8 +5,8 @@ import { describe, it, expect, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom/vitest';
 
-// Mock @tavia/core
-vi.mock('@tavia/core', () => ({
+// Mock @tavia/taviad
+vi.mock('@tavia/taviad', () => ({
   Button: ({ children, variant, ...props }: { children: React.ReactNode; variant?: string }) => (
     <button data-variant={variant} {...props}>
       {children}

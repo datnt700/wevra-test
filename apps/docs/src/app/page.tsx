@@ -1,6 +1,6 @@
 'use client';
 import { Global, ThemeProvider, css } from '@emotion/react';
-import { cssVars, GlobalStyles, theme } from '@tavia/core';
+import { cssVars, GlobalStyles, theme } from '@tavia/taviad';
 import { ThemeProvider as LocalThemeProvider } from '@/context/ThemeContext';
 
 export default function Home() {

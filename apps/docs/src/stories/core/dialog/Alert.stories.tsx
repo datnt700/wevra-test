@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { Alert } from '@tavia/core';
+import { Alert } from '@tavia/taviad';
 
 const meta: Meta<typeof Alert> = {
   title: 'Core/Dialog/Alert',

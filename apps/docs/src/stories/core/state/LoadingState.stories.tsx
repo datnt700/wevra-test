@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { LoadingState } from '@tavia/core';
+import { LoadingState } from '@tavia/taviad';
 
 const meta: Meta<typeof LoadingState> = {
   title: 'Core/State/LoadingState',

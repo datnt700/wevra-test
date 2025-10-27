@@ -3,14 +3,14 @@
 > React Native design system for Tavia mobile applications
 
 A comprehensive React Native component library that shares design tokens with
-`@tavia/core` for cross-platform consistency while providing platform-optimized
-mobile components.
+`@tavia/taviad` for cross-platform consistency while providing
+platform-optimized mobile components.
 
 ## Features
 
 - ✅ **Platform-Optimized**: Built specifically for React Native/Expo
 - ✅ **Shared Design Tokens**: Same colors, spacing, and typography as
-  `@tavia/core`
+  `@tavia/taviad`
 - ✅ **TypeScript First**: Fully typed with comprehensive TypeScript support
 - ✅ **Accessible**: Built with React Native accessibility best practices
 - ✅ **Well Tested**: 70% coverage threshold with comprehensive test suite
@@ -228,21 +228,21 @@ pnpm format:check
 
 1. **Platform-First**: Built for React Native, not adapted from web
 2. **Performance**: Optimized for mobile performance with efficient styles
-3. **Consistency**: Shares design tokens with `@tavia/core` for brand
+3. **Consistency**: Shares design tokens with `@tavia/taviad` for brand
    consistency
 4. **Accessibility**: Follows React Native accessibility best practices
 5. **Developer Experience**: Comprehensive TypeScript support and documentation
 
-## Comparison with @tavia/core
+## Comparison with @tavia/taviad
 
-| Aspect              | @tavia/core (Web) | @tavia/mobile-ui (Mobile) |
-| ------------------- | ----------------- | ------------------------- |
-| **Framework**       | React for Web     | React Native              |
-| **Styling**         | Emotion           | StyleSheet                |
-| **Base Components** | DOM elements      | RN components             |
-| **Icons**           | Lucide React      | RN Vector Icons           |
-| **Design Tokens**   | ✅ Shared         | ✅ Shared                 |
-| **Component API**   | ✅ Similar        | ✅ Similar                |
+| Aspect              | @tavia/taviad (Web) | @tavia/mobile-ui (Mobile) |
+| ------------------- | ------------------- | ------------------------- |
+| **Framework**       | React for Web       | React Native              |
+| **Styling**         | Emotion             | StyleSheet                |
+| **Base Components** | DOM elements        | RN components             |
+| **Icons**           | Lucide React        | RN Vector Icons           |
+| **Design Tokens**   | ✅ Shared           | ✅ Shared                 |
+| **Component API**   | ✅ Similar          | ✅ Similar                |
 
 ## Roadmap
 
@@ -268,4 +268,4 @@ See [LICENSE](../../LICENSE) for details.
 ---
 
 **Note**: This package is part of the Tavia monorepo and shares design tokens
-with `@tavia/core` for cross-platform consistency.
+with `@tavia/taviad` for cross-platform consistency.

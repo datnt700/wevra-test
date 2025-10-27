@@ -1,5 +1,5 @@
 import { Meta, StoryObj } from '@storybook/react';
-import { RadioCard, Button, Badge } from '@tavia/core';
+import { RadioCard, Button, Badge } from '@tavia/taviad';
 import { useState } from 'react';
 
 /**

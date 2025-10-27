@@ -1,7 +1,7 @@
 'use client';
 
 import { signOut } from 'next-auth/react';
-import { Button } from '@tavia/core';
+import { Button } from '@tavia/taviad';
 import { ROUTES } from '@/lib/constants';
 
 export function SignOutButton() {

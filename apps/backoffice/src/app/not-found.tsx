@@ -6,7 +6,7 @@
 
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
-import { Button } from '@tavia/core';
+import { Button } from '@tavia/taviad';
 import { Styled } from './not-found.styles';
 
 export default function NotFound() {

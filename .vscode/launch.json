@@ -41,7 +41,7 @@
       "name": "Run Vitest Tests",
       "type": "node-terminal",
       "request": "launch",
-      "command": "pnpm --filter=@tavia/core test",
+      "command": "pnpm --filter=@tavia/taviad test",
       "cwd": "${workspaceFolder}"
     }
   ]

@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { ButtonGroup, Button } from '@tavia/core';
+import { ButtonGroup, Button } from '@tavia/taviad';
 import { useState } from 'react';
 import {
   Copy,

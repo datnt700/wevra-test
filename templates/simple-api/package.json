@@ -5,22 +5,30 @@
   "description": "Generic Fastify 5 API template for Tavia monorepo",
   "type": "module",
   "scripts": {
-    "dev": "tsx watch src/server.ts",
+    "dev": "tsx watch --clear-screen=false src/server.ts",
     "build": "tsup",
     "start": "node dist/server.js",
-    "lint": "eslint .",
+    "test": "node --test test/**/*.test.js",
+    "lint": "eslint . --ext ts --report-unused-disable-directives --max-warnings 0",
     "lint:fix": "eslint . --fix",
     "type-check": "tsc --noEmit",
+    "format": "prettier --write \"**/*.{ts,js,json,md}\"",
+    "format:check": "prettier --check \"**/*.{ts,js,json,md}\"",
     "db:generate": "prisma generate",
+    "db:migrate": "prisma migrate dev",
     "db:push": "prisma db push",
-    "db:studio": "prisma studio"
+    "db:studio": "prisma studio",
+    "db:seed": "tsx prisma/seed.ts"
   },
   "dependencies": {
+    "@fastify/autoload": "catalog:",
     "@fastify/cors": "catalog:",
     "@fastify/helmet": "catalog:",
     "@fastify/rate-limit": "catalog:",
+    "@fastify/sensible": "catalog:",
     "@prisma/client": "catalog:",
     "fastify": "catalog:",
+    "fastify-plugin": "catalog:",
     "zod": "catalog:"
   },
   "devDependencies": {
@@ -28,6 +36,8 @@
     "@repo/typescript-config": "workspace:*",
     "@types/node": "catalog:",
     "eslint": "catalog:",
+    "fastify-cli": "catalog:",
+    "prettier": "catalog:",
     "prisma": "catalog:",
     "tsup": "catalog:",
     "tsx": "catalog:",

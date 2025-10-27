@@ -1,5 +1,5 @@
 import { Meta, StoryObj } from '@storybook/react';
-import { CheckboxCard, Button } from '@tavia/core';
+import { CheckboxCard, Button } from '@tavia/taviad';
 import { useState } from 'react';
 
 /**

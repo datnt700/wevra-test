@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Accordion } from '@tavia/core';
+import { Accordion } from '@tavia/taviad';
 
 const meta: Meta<typeof Accordion> = {
   title: 'Core/Radix/Accordion',

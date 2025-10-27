@@ -7,7 +7,7 @@ Tavia is a Next.js 15 café/restaurant booking platform built as a
 
 **Core Architecture:**
 
-- **@tavia/core**: 54+ UI components (Emotion + Radix UI) - PRIMARY for web UI
+- **@tavia/taviad**: 57+ UI components (Emotion + Radix UI) - PRIMARY for web UI
 - **apps/backoffice**: Next.js 15 booking platform with Auth.js, Prisma, Docker
   PostgreSQL (port 3000)
 - **apps/analytics**: Fastify 5 event tracking API (port 3001)
@@ -19,7 +19,7 @@ Tavia is a Next.js 15 café/restaurant booking platform built as a
 
 - Next.js 15 (App Router) + React 19 | Node.js 18.18.0+
 - Styling: 100% Emotion (NO SCSS) + Radix UI primitives
-- Package Manager: pnpm v10.17.1 with **catalog dependencies**
+- Package Manager: pnpm v10.19.0+ with **catalog dependencies**
 - Build: Turborepo | Testing: Vitest (15-50 tests/component), Playwright
 - Linting: ESLint 9 flat config (NOT .eslintrc) | Git: Husky + Commitizen
 
@@ -32,10 +32,10 @@ apps/
   ├── restaurant-service/   # NestJS (port 3002)
   └── docs/                 # Storybook (port 6006)
 packages/
-  ├── core/                 # @tavia/core - 54+ web components (Emotion + Radix) ⭐
+  ├── taviad/               # @tavia/taviad - 57+ web components (Emotion + Radix) ⭐
   ├── mobile-ui/            # @tavia/mobile-ui - React Native components
   ├── analytics/            # @tavia/analytics SDK
-  ├── ui/                   # @repo/ui - Legacy minimal UI
+  ├── module-generator/     # @tavia/module-generator - Feature module scaffolding
   ├── eslint-config/        # Shared ESLint 9 configs
   └── typescript-config/    # Shared tsconfig
 templates/                  # For generators (webapp, simple-api, complex-api, mobile-app)
@@ -57,7 +57,7 @@ from `pnpm-workspace.yaml`.
   "dependencies": {
     "next": "catalog:",              // Main catalog
     "@emotion/react": "catalog:emotion",  // Named catalog
-    "@tavia/core": "workspace:*"     // Internal package
+    "@tavia/taviad": "workspace:*"     // Internal package
   }
 }
 
@@ -74,10 +74,10 @@ from `pnpm-workspace.yaml`.
 **Available catalogs:** `catalog:`, `catalog:emotion`, `catalog:next14`,
 `catalog:next15`, `catalog:expo`
 
-### Pattern 2: @tavia/core Component Structure
+### Pattern 2: @tavia/taviad Component Structure
 
-**Flat structure** - All 54 components in
-`packages/core/src/ui/<component-name>/` (lowercase-with-dashes).
+**Flat structure** - All 57 components in
+`packages/taviad/src/ui/<component-name>/` (lowercase-with-dashes).
 
 **For web apps only.** Mobile apps use `@tavia/mobile-ui` with React Native
 components (StyleSheet, not Emotion).
@@ -100,27 +100,29 @@ ui/button/                           # ⚠️ lowercase-with-dashes
 
 ```typescript
 // ✅ PREFERRED - Package imports
-import { Button, Modal, Input } from '@tavia/core';
+import { Button, Modal, Input } from '@tavia/taviad';
 
 // ✅ Also correct - Direct imports
-import { Button } from '@tavia/core/ui/button';
+import { Button } from '@tavia/taviad/ui/button';
 
 // ❌ DEPRECATED - Old categorized paths
-import { Button } from '@tavia/core/components/form/Button';
+import { Button } from '@tavia/taviad/components/form/Button';
 ```
 
 **Component categories** (documentation only - all in flat `ui/`):
 
-- **Base** (8): Avatar, Badge, Button, Code, Icon, Image, Spinner, Tag
+- **Base** (9): Avatar, Badge, Button, ButtonGroup, Code, Icon, Image, Spinner,
+  Tag
 - **Radix** (8): Accordion, Checkbox, DropdownMenu, Modal, Popover, Radio, Tabs,
   Tooltip
-- **Form** (16): Input, Select, Combobox, Switch, Slider, TextArea, FileUpload,
-  RichTextEditor
+- **Form** (18): Field, Form, Input, InputNumber, InputSearch, InputTags, Label,
+  Select, Combobox, Switch, Slider, TextArea, FileUpload, ImageUpload,
+  RichTextEditor, Text
 - **Dialog** (4): Alert, Drawer, MenuBar, Toast
-- **Layout** (6): Card, Divider, LoadingScreen, ScrollBox, Skeleton,
-  ThemeProvider
+- **Layout** (9): Card, Divider, GoogleMap, LeafletMap, MapboxMap,
+  LoadingScreen, ScrollBox, Skeleton, ThemeProvider
 - **Navigation** (4): Breadcrumb, Link, Pagination, Sidebar
-- **State** (5): EmptyState, ErrorState, LoadingLogo, LoadingState, ProgressBar
+- **State** (5): EmptyState, ErrorState, LoadingLogo, LoadingState, Progress
 - **Table** (2): DataTable, Table
 
 ### Pattern 3: Emotion Styling (NO SCSS)
@@ -212,7 +214,7 @@ pnpm create:app admin              # Creates apps/admin on port 3089
 pnpm create:app customer-portal    # Creates apps/customer-portal on port 3042
 ```
 
-Creates: Next.js 15 + TypeScript + modular i18n + Prisma + @tavia/core +
+Creates: Next.js 15 + TypeScript + modular i18n + Prisma + @tavia/taviad +
 @tavia/analytics + Emotion + Vitest + Docker PostgreSQL + deterministic port
 (3000-3099)
 
@@ -240,6 +242,14 @@ pnpm create:api notifications      # Interactive: Fastify or NestJS
 
 ```bash
 pnpm create:mobile customer-app    # Expo + TypeScript + @tavia/analytics
+```
+
+**Generate feature modules (Next.js apps):**
+
+```bash
+cd apps/backoffice
+pnpm generate:module        # Interactive: Creates feature module (model, services, hooks, UI)
+# Example: Creates src/modules/products/ with all boilerplate
 ```
 
 **Port allocation:**
@@ -291,11 +301,15 @@ pnpm lint:fix               # Auto-fix
 pnpm format                 # Prettier format
 pnpm type-check             # TypeScript
 
-# Testing (packages/core)
-cd packages/core
+# Testing (packages/taviad)
+cd packages/taviad
 pnpm test                   # Run tests
 pnpm test:coverage          # Coverage (80% threshold)
 pnpm test:watch             # Watch mode
+
+# Module Generation (apps/backoffice)
+cd apps/backoffice
+pnpm generate:module        # Scaffold feature module (interactive)
 
 # Git (ALWAYS USE)
 pnpm commit                 # Commitizen (conventional commits)
@@ -371,7 +385,7 @@ export const Tag = () => <div css={styles}>...</div>;
 **ESLint 9 flat config:**
 
 - Extend from `@repo/eslint-config/react-internal` (no `.js`)
-- @tavia/core allows `--max-warnings 10`
+- @tavia/taviad allows `--max-warnings 10`
 - Each workspace has own `eslint.config.js`
 
 ## Git Workflow (Conventional Commits)
@@ -474,11 +488,13 @@ DATABASE_URL="postgresql://postgres:postgres@localhost:5432/web"
 
 - `pnpm-workspace.yaml` - Catalog dependencies (read first!)
 - `turbo.json` - Build pipeline
-- `packages/core/src/ui/` - 54 components (flat)
-- `packages/core/src/theme/tokens/` - Theme tokens
+- `packages/taviad/src/ui/` - 57 components (flat)
+- `packages/taviad/src/theme/tokens/` - Theme tokens (colors, radii, typography)
+- `packages/taviad/src/main.ts` - Main export file with all public APIs
 - `.github/workflows/ci.yml` - CI/CD
 - `eslint.config.js` - Root ESLint
 - `packages/eslint-config/` - Shared configs
+- `.nvmrc` - Node version (18.18.0)
 
 ## Implementation Checklist
 
@@ -496,4 +512,4 @@ When adding features:
 
 **Remember:** Microservices-first architecture. Use generators (`templates/`)
 not production apps (`apps/`). Web apps: 3000-3099, APIs: 4000-4099. Share code
-via `packages/` (@tavia/core, @tavia/analytics).
+via `packages/` (@tavia/taviad, @tavia/analytics).

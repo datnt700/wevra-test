@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Code } from '@tavia/core';
+import { Code } from '@tavia/taviad';
 
 const meta = {
   title: 'Core/Base/Code',
@@ -31,7 +31,7 @@ export const Basic: Story = {
 
 export const Command: Story = {
   args: {
-    children: 'npm install @tavia/core',
+    children: 'npm install @tavia/taviad',
   },
 };
 
@@ -67,7 +67,7 @@ export const InSentence: Story = {
 export const MultipleCodes: Story = {
   render: (_args) => (
     <p>
-      Import components with <Code>{'import { Button }'}</Code> from <Code>@tavia/core</Code>.
+      Import components with <Code>{'import { Button }'}</Code> from <Code>@tavia/taviad</Code>.
     </p>
   ),
   args: {

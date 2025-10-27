@@ -13,7 +13,7 @@ vi.mock('next-auth/react', () => ({
 // Mock next/navigation
 const mockPush = vi.fn();
 const mockRefresh = vi.fn();
-const mockSearchParams = new URLSearchParams();
+const _mockSearchParams = new URLSearchParams();
 let mockGetSearchParam: (key: string) => string | null = () => null;
 
 vi.mock('next/navigation', () => ({
@@ -54,9 +54,9 @@ vi.mock('next-intl', () => ({
   useTranslations: () => mockT,
 }));
 
-// Mock @tavia/core components
-vi.mock('@tavia/core', async () => {
-  const actual = await vi.importActual('@tavia/core');
+// Mock @tavia/taviad components
+vi.mock('@tavia/taviad', async () => {
+  const actual = await vi.importActual('@tavia/taviad');
   return {
     ...actual,
     Button: ({ children, type, variant, isLoading, ...props }: any) => (

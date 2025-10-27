@@ -5,7 +5,7 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
-import { Spinner } from '@tavia/core';
+import { Spinner } from '@tavia/taviad';
 import { Styled } from './loading.styles';
 
 export default function Loading() {

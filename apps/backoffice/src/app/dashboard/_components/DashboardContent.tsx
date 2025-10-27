@@ -4,7 +4,7 @@
  * Dashboard Content Client Component
  * Handles the client-side rendering of the dashboard UI
  */
-import { Button, cssVars } from '@tavia/core';
+import { Button, cssVars } from '@tavia/taviad';
 import { Styled } from './DashboardContent.styles';
 import { SignOutButton } from './SignOutButton';
 import { USER_ROLES, ROUTES } from '@/lib/constants';

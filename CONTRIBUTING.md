@@ -214,7 +214,7 @@ This will guide you through creating a proper conventional commit.
 ### Styling
 
 - Use Tailwind CSS utility classes
-- Use shadcn/ui components from `@tavia/core`
+- Use shadcn/ui components from `@tavia/taviad`
 - Follow responsive-first approach
 - Maintain accessibility standards (WCAG 2.1 AA)
 

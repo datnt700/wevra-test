@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { ErrorState } from '@tavia/core';
-import { Icon, Button } from '@tavia/core';
+import { ErrorState } from '@tavia/taviad';
+import { Icon, Button } from '@tavia/taviad';
 import { ServerOff } from 'lucide-react';
 
 const meta: Meta<typeof ErrorState> = {

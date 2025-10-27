@@ -2,7 +2,7 @@
  * Tavia Mobile UI
  *
  * A React Native design system for Tavia mobile applications.
- * Shares design tokens with @tavia/core for cross-platform consistency.
+ * Shares design tokens with @tavia/taviad for cross-platform consistency.
  *
  * @example
  * ```tsx

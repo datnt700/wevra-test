@@ -8,7 +8,10 @@ export class CreateExampleDto {
   @MaxLength(100)
   name: string;
 
-  @ApiPropertyOptional({ description: 'Example description', example: 'This is an example' })
+  @ApiPropertyOptional({
+    description: 'Example description',
+    example: 'This is an example',
+  })
   @IsString()
   @IsOptional()
   description?: string;

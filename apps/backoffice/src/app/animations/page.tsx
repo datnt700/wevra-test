@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion';
 import styled from '@emotion/styled';
 import { useState } from 'react';
-import { animations, createAnimation, transition, css } from '@tavia/core';
+import { animations, createAnimation, transition, css } from '@tavia/taviad';
 
 const Page = styled.div`
   min-height: 100vh;

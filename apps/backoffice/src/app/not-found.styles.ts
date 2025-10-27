@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { cssVars, radii } from '@tavia/core';
+import { cssVars, radii } from '@tavia/taviad';
 
 /**
  * Styled components for Not Found Page

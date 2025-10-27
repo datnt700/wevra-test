@@ -27,7 +27,7 @@
     "react-dom": "catalog:",
     "@emotion/react": "catalog:emotion",
     "@emotion/styled": "catalog:emotion",
-    "@tavia/core": "workspace:*",
+    "@tavia/taviad": "workspace:*",
     "lucide-react": "catalog:",
     "@radix-ui/react-icons": "catalog:",
     "@tanstack/react-table": "catalog:"

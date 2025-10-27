@@ -3,7 +3,7 @@ import React from 'react';
 import { Preview } from '@storybook/react';
 import { ThemeProvider, Global } from '@emotion/react';
 
-import { globalStyles, theme } from '@tavia/core';
+import { globalStyles, theme } from '@tavia/taviad';
 
 const preview: Preview = {
   parameters: {

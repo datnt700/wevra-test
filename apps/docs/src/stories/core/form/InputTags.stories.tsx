@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { InputTags } from '@tavia/core';
+import { InputTags } from '@tavia/taviad';
 import { useState } from 'react';
 
 /**
@@ -523,7 +523,7 @@ export const CompleteForm: Story = {
  * Showcase of all InputTags states and variants.
  */
 export const AllVariants: Story = {
-  render: (args) => {
+  render: (_args) => {
     const [tags1, setTags1] = useState([{ id: '1', name: 'Default' }]);
     const [tags2, setTags2] = useState([{ id: '1', name: 'Error' }]);
 

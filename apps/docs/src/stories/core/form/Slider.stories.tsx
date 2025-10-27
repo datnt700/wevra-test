@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
-import { Slider } from '@tavia/core';
+import { Slider } from '@tavia/taviad';
 import { Volume2, VolumeX, Minus, Plus, DollarSign, ThermometerSun } from 'lucide-react';
 
 /**

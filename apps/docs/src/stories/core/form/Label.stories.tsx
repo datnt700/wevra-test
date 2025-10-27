@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Label, InputText, Field } from '@tavia/core';
+import { Label, InputText, Field } from '@tavia/taviad';
 
 const meta: Meta<typeof Label> = {
   title: 'Core/Form/Label',

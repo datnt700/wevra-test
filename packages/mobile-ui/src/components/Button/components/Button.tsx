@@ -8,7 +8,7 @@
  * - Accessibility labels
  * - Customizable shapes and sizes
  *
- * Maintains API compatibility with @tavia/core Button where possible.
+ * Maintains API compatibility with @tavia/taviad Button where possible.
  */
 import { ActivityIndicator, Text, TouchableOpacity, View } from 'react-native';
 import type { ButtonProps } from '../types';

@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { LoadingLogo } from '@tavia/core';
+import { LoadingLogo } from '@tavia/taviad';
 
 const meta = {
   title: 'Core/State/LoadingLogo',
