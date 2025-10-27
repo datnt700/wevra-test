@@ -19,11 +19,17 @@ export interface AnalyticsProviderProps {
  * Analytics provider component
  */
 export function AnalyticsProvider({ config, children }: AnalyticsProviderProps) {
-  const [client] = useState(() => new AnalyticsClient(config));
+  // Lazy initialization - only create client on the client side
+  const [client] = useState<AnalyticsClient | null>(() => {
+    if (typeof window === 'undefined') {
+      return null;
+    }
+    return new AnalyticsClient(config);
+  });
 
   useEffect(() => {
     return () => {
-      client.destroy();
+      client?.destroy();
     };
   }, [client]);
 
@@ -36,7 +42,7 @@ export function AnalyticsProvider({ config, children }: AnalyticsProviderProps) 
 export function useAnalytics() {
   const client = useContext(AnalyticsContext);
 
-  if (!client) {
+  if (!client && typeof window !== 'undefined') {
     throw new Error('useAnalytics must be used within AnalyticsProvider');
   }
 
@@ -54,6 +60,8 @@ export function useTrackClick() {
     metadata?: Record<string, unknown>
   ): ((event: React.MouseEvent) => void) => {
     return (event: React.MouseEvent) => {
+      if (!client) return;
+
       const target = event.currentTarget as HTMLElement;
 
       client.trackClick({
@@ -77,7 +85,9 @@ export function usePageView(metadata?: Record<string, unknown>) {
   const client = useAnalytics();
 
   useEffect(() => {
-    client.trackPageView({ metadata });
+    if (client) {
+      client.trackPageView({ metadata });
+    }
   }, [client, metadata]);
 }
 
@@ -88,6 +98,8 @@ export function useTrack() {
   const client = useAnalytics();
 
   return (name: string, properties?: Record<string, unknown>) => {
-    client.track(name, properties);
+    if (client) {
+      client.track(name, properties);
+    }
   };
 }

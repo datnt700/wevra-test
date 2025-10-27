@@ -5,6 +5,9 @@ import { LocaleSwitcher } from '@/components/LocaleSwitcher';
 import { AnalyticsProvider } from '@/components/AnalyticsProvider';
 import { ClientProviders } from '@/components/ClientProviders';
 
+// Force dynamic rendering for all pages due to client-side dependencies
+export const dynamic = 'force-dynamic';
+
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'),
   title: {
