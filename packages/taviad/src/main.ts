@@ -93,10 +93,12 @@ export { Toast, ToastsContainer, type ToastProps } from './ui/toast';
 // Layout Components
 export { Card, type CardProps } from './ui/card';
 export { Divider, type DividerProps } from './ui/divider';
-export { GoogleMap, type GoogleMapProps } from './ui/google-map';
-export { LeafletMap, type LeafletMapProps } from './ui/leaflet-map';
+// Map components are excluded from main export due to SSR issues with browser-only dependencies
+// Import them directly when needed: import { LeafletMap } from '@tavia/taviad/ui/leaflet-map'
+// export { GoogleMap, type GoogleMapProps } from './ui/google-map';
+// export { LeafletMap, type LeafletMapProps } from './ui/leaflet-map';
+// export { MapboxMap, type MapboxMapProps } from './ui/mapbox-map';
 export { LoadingScreen } from './ui/loading-screen';
-export { MapboxMap, type MapboxMapProps } from './ui/mapbox-map';
 export { ScrollBox } from './ui/scroll-box';
 export {
   SkeletonDisplayText,

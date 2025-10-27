@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { GoogleMap } from '@tavia/taviad';
+import { GoogleMap } from '@tavia/taviad/ui/google-map';
 
 const meta = {
   title: 'Core/Display/GoogleMap',
