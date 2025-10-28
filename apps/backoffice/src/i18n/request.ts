@@ -23,15 +23,17 @@ export default getRequestConfig(async () => {
   }
 
   // Load modular i18n files
-  const [common, navigation, home, actions, auth, dashboard, errors] = await Promise.all([
-    import(`../messages/${locale}/common.json`),
-    import(`../messages/${locale}/navigation.json`),
-    import(`../messages/${locale}/home.json`),
-    import(`../messages/${locale}/actions.json`),
-    import(`../messages/${locale}/auth.json`),
-    import(`../messages/${locale}/dashboard.json`),
-    import(`../messages/${locale}/errors.json`),
-  ]);
+  const [common, navigation, home, actions, auth, dashboard, errors, restaurants] =
+    await Promise.all([
+      import(`../messages/${locale}/common.json`),
+      import(`../messages/${locale}/navigation.json`),
+      import(`../messages/${locale}/home.json`),
+      import(`../messages/${locale}/actions.json`),
+      import(`../messages/${locale}/auth.json`),
+      import(`../messages/${locale}/dashboard.json`),
+      import(`../messages/${locale}/errors.json`),
+      import(`../messages/${locale}/restaurants.json`),
+    ]);
 
   return {
     locale,
@@ -43,6 +45,7 @@ export default getRequestConfig(async () => {
       auth: auth.default,
       dashboard: dashboard.default,
       errors: errors.default,
+      restaurants: restaurants.default,
     },
   };
 });

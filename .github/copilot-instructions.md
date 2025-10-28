@@ -7,7 +7,7 @@ Tavia is a Next.js 15 café/restaurant booking platform built as a
 
 **Core Architecture:**
 
-- **@tavia/taviad**: 57+ UI components (Emotion + Radix UI) - PRIMARY for web UI
+- **@tavia/taviad**: 58+ UI components (Emotion + Radix UI) - PRIMARY for web UI
 - **apps/backoffice**: Next.js 15 booking platform with Auth.js, Prisma, Docker
   PostgreSQL (port 3000)
 - **apps/analytics**: Fastify 5 event tracking API (port 3001)
@@ -17,9 +17,11 @@ Tavia is a Next.js 15 café/restaurant booking platform built as a
 
 **Tech Stack:**
 
-- Next.js 15 (App Router) + React 19 | Node.js 18.18.0+
+- Next.js 15 (App Router) + React 19 | Node.js 22.17.1+ (`.nvmrc`: 18.18.0 for
+  CI)
 - Styling: 100% Emotion (NO SCSS) + Radix UI primitives
-- Package Manager: pnpm v10.19.0+ with **catalog dependencies**
+- Package Manager: pnpm v10.19.0+ (exact: 10.19.0+sha512) with **catalog
+  dependencies**
 - Build: Turborepo | Testing: Vitest (15-50 tests/component), Playwright
 - Linting: ESLint 9 flat config (NOT .eslintrc) | Git: Husky + Commitizen
 
@@ -32,7 +34,7 @@ apps/
   ├── restaurant-service/   # NestJS (port 3002)
   └── docs/                 # Storybook (port 6006)
 packages/
-  ├── taviad/               # @tavia/taviad - 57+ web components (Emotion + Radix) ⭐
+  ├── taviad/               # @tavia/taviad - 58+ web components (Emotion + Radix) ⭐
   ├── mobile-ui/            # @tavia/mobile-ui - React Native components
   ├── analytics/            # @tavia/analytics SDK
   ├── module-generator/     # @tavia/module-generator - Feature module scaffolding
@@ -76,7 +78,7 @@ from `pnpm-workspace.yaml`.
 
 ### Pattern 2: @tavia/taviad Component Structure
 
-**Flat structure** - All 57 components in
+**Flat structure** - All 58 components in
 `packages/taviad/src/ui/<component-name>/` (lowercase-with-dashes).
 
 **For web apps only.** Mobile apps use `@tavia/mobile-ui` with React Native
@@ -488,7 +490,7 @@ DATABASE_URL="postgresql://postgres:postgres@localhost:5432/web"
 
 - `pnpm-workspace.yaml` - Catalog dependencies (read first!)
 - `turbo.json` - Build pipeline
-- `packages/taviad/src/ui/` - 57 components (flat)
+- `packages/taviad/src/ui/` - 58 components (flat)
 - `packages/taviad/src/theme/tokens/` - Theme tokens (colors, radii, typography)
 - `packages/taviad/src/main.ts` - Main export file with all public APIs
 - `.github/workflows/ci.yml` - CI/CD

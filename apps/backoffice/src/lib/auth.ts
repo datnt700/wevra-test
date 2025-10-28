@@ -32,7 +32,7 @@ const result = NextAuth({
         const validatedFields = loginSchema.safeParse(credentials);
 
         if (!validatedFields.success) {
-          return null;
+          throw new Error('Invalid email or password format');
         }
 
         const { email, password } = validatedFields.data;
@@ -42,13 +42,13 @@ const result = NextAuth({
         });
 
         if (!user || !user.password) {
-          return null;
+          throw new Error('No user found with this email');
         }
 
         const passwordsMatch = await bcrypt.compare(password, user.password);
 
         if (!passwordsMatch) {
-          return null;
+          throw new Error('Invalid email or password format');
         }
 
         return {
@@ -80,7 +80,9 @@ const result = NextAuth({
       // Only allow ADMIN and RESTAURANT_OWNER to access the backoffice
       const allowedRoles: string[] = [USER_ROLES.ADMIN, USER_ROLES.RESTAURANT_OWNER];
       if (user.role && !allowedRoles.includes(user.role)) {
-        return false; // Deny access for regular users
+        throw new Error(
+          'Access denied. Only restaurant owners and admins can access the backoffice.'
+        );
       }
       return true;
     },

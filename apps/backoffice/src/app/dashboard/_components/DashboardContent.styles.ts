@@ -300,21 +300,28 @@ export const Styled = {
     align-items: center;
     gap: 1rem;
     margin-top: 0.5rem;
+
+    /* Status tag styling */
+    .status-active {
+      background-color: ${cssVars.colorSuccessLight};
+
+      & > div {
+        color: ${cssVars.colorGreenDark};
+      }
+    }
+
+    .status-inactive {
+      background-color: ${cssVars.gray100};
+
+      & > div {
+        color: ${cssVars.gray800};
+      }
+    }
   `,
 
   RestaurantMetaText: styled.span`
     font-size: 0.75rem;
     color: ${cssVars.gray500};
-  `,
-
-  RestaurantStatus: styled.span<{ $isActive: boolean }>`
-    padding: 0.25rem 0.5rem;
-    font-size: 0.75rem;
-    font-weight: 500;
-    border-radius: ${radii.full};
-    background-color: ${({ $isActive }) =>
-      $isActive ? cssVars.colorSuccessLight : cssVars.gray100};
-    color: ${({ $isActive }) => ($isActive ? cssVars.colorGreenDark : cssVars.gray800)};
   `,
 
   RestaurantManageLink: styled.a`

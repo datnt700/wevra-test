@@ -14,7 +14,9 @@ const StyledRoot = styled(Select.Root)`
   /* Root container for the select */
 `;
 
-const StyledTrigger = styled(Select.Trigger)<{ $isDisabled?: boolean; $isInvalid?: boolean }>`
+const StyledTrigger = styled(Select.Trigger, {
+  shouldForwardProp: (prop: string) => !prop.startsWith('$'),
+})<{ $isDisabled?: boolean; $isInvalid?: boolean }>`
   ${({ $isDisabled = false, $isInvalid = false }) => `
     display: inline-flex;
     align-items: center;

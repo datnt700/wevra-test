@@ -70,6 +70,7 @@
     "framer-motion": "catalog:",
     "mapbox-gl": "catalog:",
     "radix-ui": "catalog:",
+    "react-day-picker": "catalog:",
     "react-image-crop": "catalog:",
     "react-leaflet": "catalog:",
     "react-map-gl": "catalog:"

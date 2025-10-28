@@ -50,7 +50,9 @@ const StyledCheckboxWrapper = styled.div`
   gap: 0.5rem;
 `;
 
-const StyledCheckboxRoot = styled(RadixCheckbox.Root)<{
+const StyledCheckboxRoot = styled(RadixCheckbox.Root, {
+  shouldForwardProp: (prop: string) => !prop.startsWith('$'),
+})<{
   $isDisabled?: boolean;
   $size?: CheckboxSize;
 }>`
@@ -99,7 +101,9 @@ const StyledCheckboxRoot = styled(RadixCheckbox.Root)<{
   }}
 `;
 
-const StyledCheckboxIndicator = styled(RadixCheckbox.Indicator)<{ $size?: string }>`
+const StyledCheckboxIndicator = styled(RadixCheckbox.Indicator, {
+  shouldForwardProp: (prop: string) => !prop.startsWith('$'),
+})<{ $size?: string }>`
   color: ${cssVars.light};
   display: flex;
   align-items: center;

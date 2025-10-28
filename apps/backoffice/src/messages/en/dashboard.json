@@ -1,31 +1,33 @@
 {
   "title": "Dashboard",
-  "welcome": "Welcome back, {name}!",
+  "welcome": "Welcome back, {name}",
+  "roles": {
+    "admin": "Admin",
+    "restaurantOwner": "Restaurant Owner"
+  },
   "stats": {
     "totalRestaurants": "Total Restaurants",
     "activeBookings": "Active Bookings",
-    "monthlyRevenue": "Monthly Revenue"
+    "totalTables": "Total Tables"
   },
   "quickActions": {
     "title": "Quick Actions",
-    "newRestaurant": "New Restaurant",
+    "addRestaurant": "Add Restaurant",
     "viewBookings": "View Bookings",
-    "analytics": "Analytics",
+    "manageTables": "Manage Tables",
     "settings": "Settings"
   },
   "restaurants": {
-    "title": "My Restaurants",
-    "empty": {
-      "title": "No Restaurants Yet",
-      "description": "Get started by adding your first restaurant to the platform.",
-      "cta": "Add Restaurant"
-    },
+    "title": "Your Restaurants",
+    "manage": "Manage",
     "status": {
       "active": "Active",
       "inactive": "Inactive"
-    },
-    "manage": "Manage",
-    "bookings": "{count} bookings",
-    "rating": "Rating"
+    }
+  },
+  "emptyState": {
+    "title": "No restaurants yet",
+    "description": "Get started by adding your first restaurant or café",
+    "button": "Add Your First Restaurant"
   }
 }

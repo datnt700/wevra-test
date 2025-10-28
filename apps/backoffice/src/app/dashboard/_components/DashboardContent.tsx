@@ -4,21 +4,13 @@
  * Dashboard Content Client Component
  * Handles the client-side rendering of the dashboard UI
  */
-import { Button, cssVars } from '@tavia/taviad';
+import { Button, Tag, cssVars } from '@tavia/taviad';
+import { useTranslations } from 'next-intl';
 import { Styled } from './DashboardContent.styles';
 import { SignOutButton } from './SignOutButton';
 import { USER_ROLES, ROUTES } from '@/lib/constants';
+import { RestaurantListItem } from '@/types';
 import Image from 'next/image';
-
-type Restaurant = {
-  id: string;
-  name: string;
-  address: string;
-  cuisine: string[];
-  priceRange: string;
-  isActive: boolean;
-  image: string | null;
-};
 
 type DashboardContentProps = {
   user: {
@@ -26,10 +18,12 @@ type DashboardContentProps = {
     email: string | null;
     role: string;
   };
-  restaurants: Restaurant[];
+  restaurants: RestaurantListItem[];
 };
 
 export function DashboardContent({ user, restaurants }: DashboardContentProps) {
+  const t = useTranslations('dashboard');
+
   return (
     <Styled.Container>
       {/* Header */}
@@ -37,12 +31,12 @@ export function DashboardContent({ user, restaurants }: DashboardContentProps) {
         <Styled.HeaderContent>
           <Styled.HeaderRow>
             <Styled.HeaderLeft>
-              <Styled.Title>Dashboard</Styled.Title>
-              <Styled.Subtitle>Welcome back, {user.name || user.email}</Styled.Subtitle>
+              <Styled.Title>{t('title')}</Styled.Title>
+              <Styled.Subtitle>{t('welcome', { name: user.name || user.email })}</Styled.Subtitle>
             </Styled.HeaderLeft>
             <Styled.HeaderRight>
               <Styled.RoleBadge>
-                {user.role === USER_ROLES.ADMIN ? 'Admin' : 'Restaurant Owner'}
+                {user.role === USER_ROLES.ADMIN ? t('roles.admin') : t('roles.restaurantOwner')}
               </Styled.RoleBadge>
               <SignOutButton />
             </Styled.HeaderRight>
@@ -57,7 +51,7 @@ export function DashboardContent({ user, restaurants }: DashboardContentProps) {
           <Styled.StatCard>
             <Styled.StatCardRow>
               <Styled.StatCardLeft>
-                <Styled.StatLabel>Total Restaurants</Styled.StatLabel>
+                <Styled.StatLabel>{t('stats.totalRestaurants')}</Styled.StatLabel>
                 <Styled.StatValue>{restaurants.length}</Styled.StatValue>
               </Styled.StatCardLeft>
               <Styled.StatIcon $color={cssVars.mainColorLight9}>
@@ -82,7 +76,7 @@ export function DashboardContent({ user, restaurants }: DashboardContentProps) {
           <Styled.StatCard>
             <Styled.StatCardRow>
               <Styled.StatCardLeft>
-                <Styled.StatLabel>Active Bookings</Styled.StatLabel>
+                <Styled.StatLabel>{t('stats.activeBookings')}</Styled.StatLabel>
                 <Styled.StatValue>0</Styled.StatValue>
               </Styled.StatCardLeft>
               <Styled.StatIcon $color={cssVars.colorSuccessLight}>
@@ -107,7 +101,7 @@ export function DashboardContent({ user, restaurants }: DashboardContentProps) {
           <Styled.StatCard>
             <Styled.StatCardRow>
               <Styled.StatCardLeft>
-                <Styled.StatLabel>Total Tables</Styled.StatLabel>
+                <Styled.StatLabel>{t('stats.totalTables')}</Styled.StatLabel>
                 <Styled.StatValue>0</Styled.StatValue>
               </Styled.StatCardLeft>
               <Styled.StatIcon $color={cssVars.colorCyanLight}>
@@ -132,7 +126,7 @@ export function DashboardContent({ user, restaurants }: DashboardContentProps) {
 
         {/* Quick Actions */}
         <Styled.QuickActionsCard>
-          <Styled.QuickActionsTitle>Quick Actions</Styled.QuickActionsTitle>
+          <Styled.QuickActionsTitle>{t('quickActions.title')}</Styled.QuickActionsTitle>
           <Styled.QuickActionsGrid>
             <Styled.QuickActionLink href={ROUTES.RESTAURANT.NEW} $isPrimary>
               <Styled.QuickActionIcon>
@@ -145,7 +139,7 @@ export function DashboardContent({ user, restaurants }: DashboardContentProps) {
                   />
                 </Styled.QuickActionIconSvg>
               </Styled.QuickActionIcon>
-              <Styled.QuickActionText>Add Restaurant</Styled.QuickActionText>
+              <Styled.QuickActionText>{t('quickActions.addRestaurant')}</Styled.QuickActionText>
             </Styled.QuickActionLink>
 
             <Styled.QuickActionLink href={ROUTES.BOOKING.LIST}>
@@ -159,7 +153,7 @@ export function DashboardContent({ user, restaurants }: DashboardContentProps) {
                   />
                 </Styled.QuickActionIconSvg>
               </Styled.QuickActionIcon>
-              <Styled.QuickActionText>View Bookings</Styled.QuickActionText>
+              <Styled.QuickActionText>{t('quickActions.viewBookings')}</Styled.QuickActionText>
             </Styled.QuickActionLink>
 
             <Styled.QuickActionLink href={ROUTES.TABLE.LIST}>
@@ -173,7 +167,7 @@ export function DashboardContent({ user, restaurants }: DashboardContentProps) {
                   />
                 </Styled.QuickActionIconSvg>
               </Styled.QuickActionIcon>
-              <Styled.QuickActionText>Manage Tables</Styled.QuickActionText>
+              <Styled.QuickActionText>{t('quickActions.manageTables')}</Styled.QuickActionText>
             </Styled.QuickActionLink>
 
             <Styled.QuickActionLink href={ROUTES.SETTINGS.HOME}>
@@ -193,7 +187,7 @@ export function DashboardContent({ user, restaurants }: DashboardContentProps) {
                   />
                 </Styled.QuickActionIconSvg>
               </Styled.QuickActionIcon>
-              <Styled.QuickActionText>Settings</Styled.QuickActionText>
+              <Styled.QuickActionText>{t('quickActions.settings')}</Styled.QuickActionText>
             </Styled.QuickActionLink>
           </Styled.QuickActionsGrid>
         </Styled.QuickActionsCard>
@@ -202,7 +196,7 @@ export function DashboardContent({ user, restaurants }: DashboardContentProps) {
         {restaurants.length > 0 && (
           <Styled.RestaurantsCard>
             <Styled.RestaurantsHeader>
-              <Styled.RestaurantsTitle>Your Restaurants</Styled.RestaurantsTitle>
+              <Styled.RestaurantsTitle>{t('restaurants.title')}</Styled.RestaurantsTitle>
             </Styled.RestaurantsHeader>
             <Styled.RestaurantsList>
               {restaurants.map((restaurant) => (
@@ -238,14 +232,20 @@ export function DashboardContent({ user, restaurants }: DashboardContentProps) {
                           <Styled.RestaurantMetaText>
                             {restaurant.priceRange}
                           </Styled.RestaurantMetaText>
-                          <Styled.RestaurantStatus $isActive={restaurant.isActive}>
-                            {restaurant.isActive ? 'Active' : 'Inactive'}
-                          </Styled.RestaurantStatus>
+                          <Tag
+                            wrapperClassName={
+                              restaurant.isActive ? 'status-active' : 'status-inactive'
+                            }
+                          >
+                            {restaurant.isActive
+                              ? t('restaurants.status.active')
+                              : t('restaurants.status.inactive')}
+                          </Tag>
                         </Styled.RestaurantMeta>
                       </Styled.RestaurantInfo>
                     </Styled.RestaurantLeft>
                     <Styled.RestaurantManageLink href={ROUTES.RESTAURANT.DETAIL(restaurant.id)}>
-                      Manage
+                      {t('restaurants.manage')}
                     </Styled.RestaurantManageLink>
                   </Styled.RestaurantRow>
                 </Styled.RestaurantItem>
@@ -267,9 +267,9 @@ export function DashboardContent({ user, restaurants }: DashboardContentProps) {
                 />
               </svg>
             </Styled.EmptyStateIcon>
-            <Styled.EmptyStateTitle>No restaurants yet</Styled.EmptyStateTitle>
+            <Styled.EmptyStateTitle>{t('emptyState.title')}</Styled.EmptyStateTitle>
             <Styled.EmptyStateDescription>
-              Get started by adding your first restaurant or café
+              {t('emptyState.description')}
             </Styled.EmptyStateDescription>
             <Button
               variant="primary"
@@ -289,7 +289,7 @@ export function DashboardContent({ user, restaurants }: DashboardContentProps) {
                   d="M12 4v16m8-8H4"
                 />
               </svg>
-              Add Your First Restaurant
+              {t('emptyState.button')}
             </Button>
           </Styled.EmptyState>
         )}

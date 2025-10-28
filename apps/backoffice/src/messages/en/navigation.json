@@ -2,5 +2,7 @@
   "home": "Home",
   "about": "About",
   "contact": "Contact",
-  "bookings": "My Bookings"
+  "bookings": "My Bookings",
+  "restaurants": "Restaurants",
+  "createRestaurant": "Create Restaurant"
 }
