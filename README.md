@@ -1,4 +1,4 @@
-# Tavia
+# Tavia 
 
 **Tavia** is a modern café and restaurant booking platform built as a
 **microservices-first monorepo** with Next.js 15, designed for both customers
