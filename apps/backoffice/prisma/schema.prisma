@@ -81,6 +81,10 @@ model Restaurant {
     cuisine     String[]
     priceRange  String   @map("price_range")
     rating      Float    @default(0)
+    reviewCount Int      @default(0) @map("review_count")
+    latitude    Float?
+    longitude   Float?
+    isOpen      Boolean  @default(true) @map("is_open")
     isActive    Boolean  @default(true) @map("is_active")
     createdAt   DateTime @default(now()) @map("created_at")
     updatedAt   DateTime @updatedAt @map("updated_at")
@@ -89,6 +93,8 @@ model Restaurant {
     tables   Table[]
 
     @@index([slug])
+    @@index([isActive])
+    @@index([isOpen])
     @@map("restaurants")
 }
 

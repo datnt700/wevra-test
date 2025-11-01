@@ -7,7 +7,8 @@ Tavia is a Next.js 15 café/restaurant booking platform built as a
 
 **Core Architecture:**
 
-- **@tavia/taviad**: 58+ UI components (Emotion + Radix UI) - PRIMARY for web UI
+- **@tavia/taviad**: 60+ UI components (Emotion + Radix UI) - **PRIMARY for ALL
+  web UI** ⭐
 - **apps/backoffice**: Next.js 15 booking platform with Auth.js, Prisma, Docker
   PostgreSQL (port 3000)
 - **apps/analytics**: Fastify 5 event tracking API (port 3001)
@@ -34,7 +35,7 @@ apps/
   ├── restaurant-service/   # NestJS (port 3002)
   └── docs/                 # Storybook (port 6006)
 packages/
-  ├── taviad/               # @tavia/taviad - 58+ web components (Emotion + Radix) ⭐
+  ├── taviad/               # @tavia/taviad - 60+ web components (Emotion + Radix) ⭐
   ├── mobile-ui/            # @tavia/mobile-ui - React Native components
   ├── analytics/            # @tavia/analytics SDK
   ├── module-generator/     # @tavia/module-generator - Feature module scaffolding
@@ -46,7 +47,131 @@ pnpm-workspace.yaml         # ⚠️ CRITICAL - Catalog dependencies
 turbo.json                  # Build pipeline config
 ```
 
+## ⚠️ CRITICAL RULE: Always Use @tavia/taviad First
+
+**BEFORE creating ANY UI component or using HTML elements, ALWAYS:**
+
+1. ✅ **Check if @tavia/taviad has the component** - See "Available Components"
+   section below
+2. ✅ **Read the component's Props file** in
+   `packages/taviad/src/ui/{component}/types/`
+3. ✅ **Use ONLY the documented props** - Never add props that don't exist in
+   the type definition
+4. ❌ **DO NOT create custom styled components** if taviad has it
+5. ❌ **DO NOT use native HTML** (`<button>`, `<input>`, `<a>`) - use taviad
+   equivalents
+
+**Examples:**
+
+```tsx
+// ❌ WRONG - Using native HTML
+<button onClick={handleClick}>Click me</button>
+<a href="/home">Home</a>
+<input type="text" placeholder="Search" />
+
+// ✅ CORRECT - Using @tavia/taviad
+import { Button, Link, InputText } from '@tavia/taviad';
+
+<Button onClick={handleClick}>Click me</Button>
+<Link href="/home">Home</Link>
+<InputText placeholder="Search" />
+```
+
+**Props Validation Workflow:**
+
+```tsx
+// 1. BEFORE using a component, read its props file:
+// packages/taviad/src/ui/button/types/ButtonProps.ts
+
+// 2. Check valid prop names and types
+export interface ButtonProps {
+  variant?: 'primary' | 'secondary' | 'danger' | 'dark' | 'link' | 'tertiary' | 'info';
+  shape?: 'default' | 'rounded' | 'circle';
+  onClick?: () => void;
+  children?: React.ReactNode;
+  // ... etc
+}
+
+// 3. Use ONLY these props
+<Button variant="primary" onClick={handleClick}>Save</Button>
+
+// ❌ WRONG - "outline" is NOT a valid variant
+<Button variant="outline">Save</Button>
+
+// ❌ WRONG - "label" prop doesn't exist
+<ErrorState action={{ label: 'Retry', onClick: handleRetry }} />
+
+// ✅ CORRECT - action expects React.ReactNode
+<ErrorState action={<Button onClick={handleRetry}>Retry</Button>} />
+```
+
 ## 🔥 Critical Patterns
+
+### Pattern 0: @tavia/taviad Component Usage (NEW - MOST IMPORTANT)
+
+**MANDATORY WORKFLOW for ALL UI components:**
+
+1. **Check component availability** in taviad (see list below)
+2. **Read the TypeScript props file** at
+   `packages/taviad/src/ui/{component}/types/`
+3. **Import from @tavia/taviad** - never create custom versions
+4. **Use exact prop names and values** from the type definition
+5. **Wrap taviad components with styled()** if custom styling needed
+
+**Available @tavia/taviad Components (60+):**
+
+**Base (9):** Avatar, Badge, Button, ButtonGroup, Code, Icon, Image, Spinner,
+Tag
+
+**Radix (8):** Accordion, Checkbox, DropdownMenu, Modal, Popover, Radio, Tabs,
+Tooltip
+
+**Form (19):** Calendar, Field, Form, Input, InputNumber, InputSearch,
+InputTags, Label, Select, Combobox, Switch, Slider, TextArea, FileUpload,
+ImageUpload, RichTextEditor, Text, InputText
+
+**Dialog (4):** Alert, Drawer, MenuBar, Toast
+
+**Layout (10):** Card, Divider, GoogleMap, LeafletMap, MapboxMap, LoadingScreen,
+ScrollBox, Skeleton, Stack, ThemeProvider
+
+**Navigation (4):** Breadcrumb, Link, Pagination, Sidebar
+
+**State (5):** EmptyState, ErrorState, LoadingLogo, LoadingState, Progress
+
+**Table (2):** DataTable, Table
+
+**How to verify props:**
+
+```bash
+# Read the props file BEFORE using a component
+cat packages/taviad/src/ui/button/types/ButtonProps.ts
+cat packages/taviad/src/ui/error-state/types/ErrorStateProps.ts
+cat packages/taviad/src/ui/link/types/LinkProps.ts
+```
+
+**Common mistakes to avoid:**
+
+```tsx
+// ❌ WRONG - Using <a> instead of Link
+<a href="/home">Home</a>
+
+// ✅ CORRECT
+import { Link } from '@tavia/taviad';
+<Link href="/home">Home</Link>
+
+// ❌ WRONG - Invalid variant
+<Button variant="outline">Click</Button>  // "outline" doesn't exist
+
+// ✅ CORRECT - Valid variants only
+<Button variant="secondary">Click</Button>  // secondary, primary, danger, etc.
+
+// ❌ WRONG - Wrong prop structure
+<ErrorState action={{ label: 'Retry', onClick: fn }} />
+
+// ✅ CORRECT - action is ReactNode
+<ErrorState action={<Button onClick={fn}>Retry</Button>} />
+```
 
 ### Pattern 1: pnpm Catalog Dependencies
 
@@ -76,9 +201,15 @@ from `pnpm-workspace.yaml`.
 **Available catalogs:** `catalog:`, `catalog:emotion`, `catalog:next14`,
 `catalog:next15`, `catalog:expo`
 
+**Exceptions (not in catalog):**
+
+- App-specific dependencies (e.g., `sonner` in backoffice) can be added directly
+  with versions
+- These should be rare - prefer adding to catalog for reusability
+
 ### Pattern 2: @tavia/taviad Component Structure
 
-**Flat structure** - All 58 components in
+**Flat structure** - All 60+ components in
 `packages/taviad/src/ui/<component-name>/` (lowercase-with-dashes).
 
 **For web apps only.** Mobile apps use `@tavia/mobile-ui` with React Native
@@ -117,12 +248,12 @@ import { Button } from '@tavia/taviad/components/form/Button';
   Tag
 - **Radix** (8): Accordion, Checkbox, DropdownMenu, Modal, Popover, Radio, Tabs,
   Tooltip
-- **Form** (18): Field, Form, Input, InputNumber, InputSearch, InputTags, Label,
-  Select, Combobox, Switch, Slider, TextArea, FileUpload, ImageUpload,
-  RichTextEditor, Text
+- **Form** (19): Calendar, Field, Form, Input, InputNumber, InputSearch,
+  InputTags, Label, Select, Combobox, Switch, Slider, TextArea, FileUpload,
+  ImageUpload, RichTextEditor, Text
 - **Dialog** (4): Alert, Drawer, MenuBar, Toast
-- **Layout** (9): Card, Divider, GoogleMap, LeafletMap, MapboxMap,
-  LoadingScreen, ScrollBox, Skeleton, ThemeProvider
+- **Layout** (10): Card, Divider, GoogleMap, LeafletMap, MapboxMap,
+  LoadingScreen, ScrollBox, Skeleton, Stack, ThemeProvider
 - **Navigation** (4): Breadcrumb, Link, Pagination, Sidebar
 - **State** (5): EmptyState, ErrorState, LoadingLogo, LoadingState, Progress
 - **Table** (2): DataTable, Table
@@ -204,6 +335,114 @@ ComponentName.displayName = 'ComponentName';
 - **Spacing**: Use rem (`0.25rem`, `0.5rem`, `0.75rem`, `1rem`, `1.5rem`,
   `2rem`)
 
+**Emotion SSR (Server-Side Rendering):**
+
+Emotion 10+ works with Next.js 15 SSR **out of the box** with proper
+configuration:
+
+✅ **Already configured correctly:**
+
+- `next.config.ts`: `compiler: { emotion: true }` enables Next.js Emotion
+  support
+- Root layout: `<html suppressHydrationWarning>` handles minor class name
+  differences
+- Client components: `'use client'` directive on all Emotion styled components
+
+❌ **Do NOT use advanced SSR setup** (CacheProvider, extractCritical) - only
+needed for:
+
+- Custom servers (Express, Fastify) - not Next.js
+- nth-child/nth-of-type selectors with SSR conflicts
+- Manual critical CSS extraction
+
+📚 **Reference:** https://emotion.sh/docs/ssr
+
+> "For v10 and above, SSR just works in Next.js."
+
+**Layout Pattern to Prevent Hydration Errors:**
+
+```tsx
+// ✅ CORRECT - Root layout (minimal, no styled components)
+// apps/{app}/src/app/layout.tsx
+export default async function RootLayout({ children }) {
+  return (
+    <html lang={locale} suppressHydrationWarning>
+      <body>
+        <ClientProviders>
+          <NextIntlClientProvider messages={messages}>
+            <AnalyticsProvider>
+              {children} {/* ← No layout wrapper with styled components */}
+            </AnalyticsProvider>
+          </NextIntlClientProvider>
+        </ClientProviders>
+      </body>
+    </html>
+  );
+}
+
+// ✅ CORRECT - Page-level layout (client component)
+// apps/{app}/src/components/layouts/DefaultLayout.tsx
+('use client');
+
+export function DefaultLayout({ children }) {
+  return (
+    <>
+      <Header /> {/* Emotion styled component */}
+      <Sidebar /> {/* Emotion styled component */}
+      {children}
+    </>
+  );
+}
+
+// ✅ CORRECT - Use in pages
+// apps/{app}/src/app/dashboard/page.tsx
+import { DefaultLayout } from '@/components/layouts/DefaultLayout';
+
+export default function DashboardPage() {
+  return (
+    <DefaultLayout>
+      <h1>Content</h1>
+    </DefaultLayout>
+  );
+}
+
+// ❌ WRONG - Styled components in root layout cause hydration errors
+export default async function RootLayout({ children }) {
+  return (
+    <html>
+      <body>
+        <Header /> {/* ❌ Causes class name mismatch */}
+        {children}
+      </body>
+    </html>
+  );
+}
+```
+
+**Route Groups for Multiple Layouts:**
+
+```
+app/
+├── (public)/              # Route group - no sidebar
+│   ├── layout.tsx         # Uses DefaultLayout (Header only)
+│   └── page.tsx
+├── (dashboard)/           # Route group - with sidebar
+│   ├── layout.tsx         # Uses DashboardLayout (Header + Sidebar)
+│   ├── dashboard/page.tsx
+│   └── settings/page.tsx
+└── layout.tsx             # Root (minimal, providers only)
+```
+
+**Key SSR Rules:**
+
+1. ✅ Root layout: Providers only, no Emotion styled components
+2. ✅ Add `suppressHydrationWarning` to `<html>` tag
+3. ✅ Use `'use client'` on all components with styled components
+4. ✅ Apply layouts at page level or via route groups
+5. ✅ Keep `compiler: { emotion: true }` in next.config.ts
+6. ❌ Never render Emotion styled components in server layouts
+7. ❌ Don't use CacheProvider unless you have a custom server
+
 ### Pattern 4: Generator Scripts
 
 **ALWAYS use generators** - never copy existing apps. Ensures correct ports,
@@ -274,6 +513,33 @@ src/messages/
   │   └── errors.json      # Error messages
   └── vi/                  # Same structure for Vietnamese
 ```
+
+**i18n loading pattern** (from `src/i18n/request.ts`):
+
+```typescript
+// Load modular i18n files with Promise.all for performance
+const [common, navigation, home, actions, auth, dashboard, errors] =
+  await Promise.all([
+    import(`../messages/${locale}/common.json`),
+    import(`../messages/${locale}/navigation.json`),
+    // ... more modules
+  ]);
+
+return {
+  locale,
+  messages: {
+    common: common.default,
+    navigation: navigation.default,
+    // ... spread all modules
+  },
+};
+```
+
+**Locale detection priority:**
+
+1. Cookie (`NEXT_LOCALE`) - highest priority
+2. Accept-Language header - fallback
+3. Default locale (from config) - final fallback
 
 **Key template patterns:**
 
@@ -485,12 +751,38 @@ DATABASE_URL="postgresql://postgres:postgres@localhost:5432/web"
 8. **Use `radii` tokens** - Never `border-radius: 8px`
 9. **Transient props need `$` prefix** - `$variant`, not `variant`
 10. **Don't export from empty files** - Causes "is not a module" errors
+11. **Avoid hydration errors** - Never put Emotion styled components in root
+    layout
+12. **Use suppressHydrationWarning** - Add to `<html>` tag for Emotion SSR
+13. **Apply layouts at page level** - Use route groups or page-level wrappers
+
+## Platform-Specific Notes
+
+### Windows Development
+
+**Shell commands in generators:**
+
+- Generator scripts use Unix-style commands (`cp -r`, `rm -rf`)
+- On Windows, ensure Git Bash, WSL, or compatible shell is available
+- Or use PowerShell equivalents: `Copy-Item -Recurse`, `Remove-Item -Recurse`
+
+**Line endings:**
+
+- Git auto-converts to CRLF on Windows
+- Prettier enforces LF (`"endOfLine": "lf"`)
+- Set Git config: `git config --global core.autocrlf input`
+
+**Docker commands:**
+
+- Docker Desktop required for PostgreSQL containers
+- Run `pnpm docker:up` from app directories (e.g., `apps/backoffice`)
+- Ensure Docker Desktop is running before database commands
 
 ## Key Files Reference
 
 - `pnpm-workspace.yaml` - Catalog dependencies (read first!)
 - `turbo.json` - Build pipeline
-- `packages/taviad/src/ui/` - 58 components (flat)
+- `packages/taviad/src/ui/` - 60+ components (flat)
 - `packages/taviad/src/theme/tokens/` - Theme tokens (colors, radii, typography)
 - `packages/taviad/src/main.ts` - Main export file with all public APIs
 - `.github/workflows/ci.yml` - CI/CD

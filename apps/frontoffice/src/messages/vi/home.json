@@ -1,0 +1,23 @@
+{
+  "title": "Tìm bàn cho mọi dịp",
+  "subtitle": "Khám phá những nhà hàng tốt nhất gần bạn",
+  "searchPlaceholder": "Địa điểm, nhà hàng hoặc món ăn",
+  "guests": "Số lượng khách",
+  "filterByDate": "Chọn ngày",
+  "filterByGuests": "Số lượng khách",
+  "filterByTime": "Chọn giờ",
+  "search": "Tìm kiếm",
+  "popularNearYou": "Nhà hàng phổ biến gần bạn",
+  "viewMenu": "Xem thực đơn",
+  "book": "Đặt bàn",
+  "rating": "Đánh giá",
+  "reviews": "{count} đánh giá",
+  "cuisineType": "Món ăn",
+  "priceRange": "Mức giá",
+  "openNow": "Đang mở cửa",
+  "closedNow": "Đã đóng cửa",
+  "kilometers": "Cách {distance} km",
+  "loading": "Đang tải nhà hàng...",
+  "noResults": "Không tìm thấy nhà hàng",
+  "tryDifferentSearch": "Thử điều chỉnh bộ lọc tìm kiếm"
+}

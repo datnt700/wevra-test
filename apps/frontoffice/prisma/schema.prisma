@@ -1,0 +1,207 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
+}
+
+// Shared schema with backoffice
+// Both frontoffice and backoffice use the same database
+
+// NextAuth.js Models
+model Account {
+    id                String  @id @default(cuid())
+    userId            String  @map("user_id")
+    type              String
+    provider          String
+    providerAccountId String  @map("provider_account_id")
+    refresh_token     String? @db.Text
+    access_token      String? @db.Text
+    expires_at        Int?
+    token_type        String?
+    scope             String?
+    id_token          String? @db.Text
+    session_state     String?
+
+    user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+    @@unique([provider, providerAccountId])
+    @@map("accounts")
+}
+
+model Session {
+    id           String   @id @default(cuid())
+    sessionToken String   @unique @map("session_token")
+    userId       String   @map("user_id")
+    expires      DateTime
+    user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+    @@map("sessions")
+}
+
+model User {
+    id            String    @id @default(cuid())
+    name          String?
+    email         String    @unique
+    emailVerified DateTime? @map("email_verified")
+    password      String?
+    image         String?
+    role          UserRole  @default(USER)
+    createdAt     DateTime  @default(now()) @map("created_at")
+    updatedAt     DateTime  @updatedAt @map("updated_at")
+
+    accounts Account[]
+    sessions Session[]
+    bookings Booking[]
+
+    @@map("users")
+}
+
+model VerificationToken {
+    identifier String
+    token      String
+    expires    DateTime
+
+    @@unique([identifier, token])
+    @@map("verification_tokens")
+}
+
+// Tavia Business Models
+model Restaurant {
+    id          String   @id @default(cuid())
+    name        String
+    slug        String   @unique
+    description String?  @db.Text
+    address     String
+    phone       String
+    email       String
+    image       String?
+    cuisine     String[]
+    priceRange  String   @map("price_range")
+    rating      Float    @default(0)
+    reviewCount Int      @default(0) @map("review_count")
+    latitude    Float?
+    longitude   Float?
+    isOpen      Boolean  @default(true) @map("is_open")
+    isActive    Boolean  @default(true) @map("is_active")
+    createdAt   DateTime @default(now()) @map("created_at")
+    updatedAt   DateTime @updatedAt @map("updated_at")
+
+    bookings Booking[]
+    tables   Table[]
+
+    @@index([slug])
+    @@index([isActive])
+    @@index([isOpen])
+    @@map("restaurants")
+}
+
+model Table {
+    id           String   @id @default(cuid())
+    restaurantId String   @map("restaurant_id")
+    number       String
+    capacity     Int
+    isAvailable  Boolean  @default(true) @map("is_available")
+    createdAt    DateTime @default(now()) @map("created_at")
+    updatedAt    DateTime @updatedAt @map("updated_at")
+
+    restaurant Restaurant @relation(fields: [restaurantId], references: [id], onDelete: Cascade)
+    bookings   Booking[]
+
+    @@unique([restaurantId, number])
+    @@index([restaurantId])
+    @@map("tables")
+}
+
+model Booking {
+    id           String        @id @default(cuid())
+    userId       String        @map("user_id")
+    restaurantId String        @map("restaurant_id")
+    tableId      String?       @map("table_id")
+    date         DateTime
+    time         String
+    guests       Int
+    status       BookingStatus @default(PENDING)
+    notes        String?       @db.Text
+    createdAt    DateTime      @default(now()) @map("created_at")
+    updatedAt    DateTime      @updatedAt @map("updated_at")
+
+    user       User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+    restaurant Restaurant @relation(fields: [restaurantId], references: [id], onDelete: Cascade)
+    table      Table?     @relation(fields: [tableId], references: [id], onDelete: SetNull)
+
+    @@index([userId])
+    @@index([restaurantId])
+    @@index([date])
+    @@map("bookings")
+}
+
+// Enums
+enum UserRole {
+    USER
+    ADMIN
+    RESTAURANT_OWNER
+}
+
+enum BookingStatus {
+    PENDING
+    CONFIRMED
+    CANCELLED
+    COMPLETED
+}
+
+enum AnalyticsEventType {
+    CLICK
+    PAGEVIEW
+    CUSTOM
+}
+
+// Analytics Models
+model AnalyticsEvent {
+    id        String             @id @default(cuid())
+    type      AnalyticsEventType
+    timestamp DateTime
+    sessionId String?            @map("session_id")
+
+    // Browser context
+    url            String
+    referrer       String?
+    userAgent      String  @map("user_agent") @db.Text
+    screenWidth    Int?    @map("screen_width")
+    screenHeight   Int?    @map("screen_height")
+    viewportWidth  Int?    @map("viewport_width")
+    viewportHeight Int?    @map("viewport_height")
+
+    // Click event data
+    elementType    String?  @map("element_type")
+    elementText    String?  @map("element_text") @db.Text
+    elementId      String?  @map("element_id")
+    elementClasses String[] @map("element_classes")
+    clickX         Int?     @map("click_x")
+    clickY         Int?     @map("click_y")
+    eventName      String?  @map("event_name")
+
+    // Page view data
+    pageTitle String? @map("page_title")
+    pagePath  String? @map("page_path")
+
+    // Custom event data
+    customName       String? @map("custom_name")
+    customProperties Json?   @map("custom_properties")
+
+    // Common metadata
+    metadata  Json?
+    createdAt DateTime @default(now()) @map("created_at")
+
+    @@index([type])
+    @@index([timestamp])
+    @@index([sessionId])
+    @@index([eventName])
+    @@index([pagePath])
+    @@map("analytics_events")
+}

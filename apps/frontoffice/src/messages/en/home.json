@@ -1,0 +1,23 @@
+{
+  "title": "Find your table for any occasion",
+  "subtitle": "Discover the best restaurants near you",
+  "searchPlaceholder": "Location, restaurant or cuisine",
+  "guests": "Number of guests",
+  "filterByDate": "Select a date",
+  "filterByGuests": "Number of guests",
+  "filterByTime": "Select a time",
+  "search": "Search",
+  "popularNearYou": "Popular restaurants near you",
+  "viewMenu": "View Menu",
+  "book": "Book",
+  "rating": "Rating",
+  "reviews": "{count} reviews",
+  "cuisineType": "Cuisine",
+  "priceRange": "Price range",
+  "openNow": "Open now",
+  "closedNow": "Closed",
+  "kilometers": "{distance} km away",
+  "loading": "Loading restaurants...",
+  "noResults": "No restaurants found",
+  "tryDifferentSearch": "Try adjusting your search filters"
+}

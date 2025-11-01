@@ -53,7 +53,7 @@
     "@emotion/styled": "catalog:emotion",
     "framer-motion": "catalog:",
     "lucide-react": "catalog:",
-    "sonner": "^1.7.1"
+    "sonner": "catalog:"
   },
   "devDependencies": {
     "@playwright/test": "catalog:",

@@ -1,0 +1,32 @@
+version: '3.8'
+# NOTE: This docker-compose is NOT needed for frontoffice development.
+# Frontoffice shares the database with backoffice.
+# Use backoffice's docker-compose instead: cd apps/backoffice && pnpm docker:up
+
+# If you need to run frontoffice's database independently for testing:
+# 1. Uncomment the services below
+# 2. Change the port to 5433 (to avoid conflict with backoffice on 5432)
+# 3. Update .env DATABASE_URL to use port 5433
+
+# services:
+#   postgres:
+#     image: postgres:16-alpine
+#     container_name: frontoffice-postgres
+#     restart: unless-stopped
+#     ports:
+#       - '5433:5432'  # Different port to avoid conflict
+#     environment:
+#       POSTGRES_USER: ${POSTGRES_USER:-postgres}
+#       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+#       POSTGRES_DB: ${POSTGRES_DB:-tavia}  # Same database name
+#     volumes:
+#       - frontoffice_postgres_data:/var/lib/postgresql/data
+#     healthcheck:
+#       test: ['CMD-SHELL', 'pg_isready -U ${POSTGRES_USER:-postgres}']
+#       interval: 10s
+#       timeout: 5s
+#       retries: 5
+
+# volumes:
+#   frontoffice_postgres_data:
+#     driver: local

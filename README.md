@@ -1,23 +1,22 @@
-# Tavia 
+# Tavia
 
-**Tavia** is a modern, serverless café and restaurant booking platform built
-with Next.js 15, designed for both clients (booking tables) and owners (managing
-venues and reservations).
+**Tavia** is a modern café and restaurant booking platform built as a
+**microservices-first monorepo** with Next.js 15, designed for both customers
+(booking tables) and restaurant owners (managing venues and reservations).
 
 ## 🚀 Tech Stack
 
 - **Framework**: Next.js 15 (App Router) with React Server Components
 - **Auth**: Auth.js (NextAuth) with role-based access control
-- **Database**: PostgreSQL via Prisma ORM (Docker/Supabase/Neon)
-- **Analytics**: @tavia/analytics (in-house click tracking SDK)
-- **UI Components**: @tavia/taviad (54+ components with Emotion + Radix UI)
-- **Styling**: Emotion CSS + Framer Motion animations
-- **i18n**: next-intl (cookie-based, no routing)
-- **Realtime**: Supabase Realtime for live booking updates
-- **Notifications**: Resend (email) + FCM (push notifications)
-- **Payments**: Stripe (optional, for deposits)
+- **Database**: PostgreSQL via Prisma ORM (shared between apps)
+- **Analytics**: @tavia/analytics (in-house event tracking SDK)
+- **UI Components**: @tavia/taviad (60+ components with Emotion + Radix UI)
+- **Styling**: Emotion CSS-in-JS + Framer Motion animations
+- **i18n**: next-intl (cookie-based, modular)
+- **API**: Fastify 5 (analytics service) + NestJS 11 (restaurant service)
 - **Testing**: Vitest + Testing Library + Playwright
-- **Package Manager**: pnpm v10.17.1 with catalog dependencies
+- **State Management**: React Query (@tanstack/react-query)
+- **Package Manager**: pnpm v10.19.0 with catalog dependencies
 - **Monorepo**: Turborepo for build orchestration and caching
 - **Docker**: PostgreSQL 16 Alpine for local development
 - **Deployment**: Vercel (fully serverless)
@@ -27,49 +26,57 @@ venues and reservations).
 ```
 tavia/
 ├── apps/
-│   ├── web/              # Next.js 15 app (client + owner interfaces)
-│   ├── analytics/        # Fastify API for analytics event tracking
-│   └── docs/             # Storybook documentation
+│   ├── backoffice/       # Restaurant management (port 3000)
+│   ├── frontoffice/      # Customer restaurant discovery (port 3003)
+│   ├── analytics/        # Fastify event tracking API (port 3001)
+│   ├── restaurant-service/ # NestJS microservice (port 3002)
+│   └── docs/             # Storybook documentation (port 6006)
 ├── packages/
-│   ├── analytics/        # @tavia/analytics - Click tracking SDK
-│   ├── core/             # @tavia/taviad - 54+ UI components
-│   ├── eslint-config/    # ESLint configurations
-│   └── typescript-config/ # TypeScript configurations
+│   ├── taviad/           # @tavia/taviad - 60+ UI components
+│   ├── mobile-ui/        # @tavia/mobile-ui - React Native components
+│   ├── analytics/        # @tavia/analytics - Event tracking SDK
+│   ├── module-generator/ # Feature module scaffolding
+│   ├── eslint-config/    # Shared ESLint configurations
+│   └── typescript-config/ # Shared TypeScript configurations
 ├── scripts/
 │   ├── create-app.js     # Next.js webapp generator
-│   └── create-api.js     # Fastify API generator
+│   ├── create-api.js     # Fastify/NestJS API generator
+│   ├── create-mobile.js  # Expo mobile app generator
+│   └── setup-database.js # Database setup automation
+├── templates/            # Generator templates (webapp, simple-api, complex-api, mobile-app)
 ├── pnpm-workspace.yaml   # Workspace config with catalogs
 └── turbo.json            # Turborepo pipeline config
 ```
 
 ## 🎯 Key Features
 
-### For Clients
+### Frontoffice (Customer App)
 
-- 🔍 Browse and search cafés/restaurants by location, cuisine, and availability
-- 📅 Real-time table booking with instant confirmation
-- 🔔 Email and push notifications for booking updates
-- ⭐ Review and rate venues
-- 📱 Mobile-responsive interface
+- 🔍 Browse and search restaurants by location, cuisine, and price range
+- 📅 Real-time table booking with React Query
+- ⭐ Restaurant ratings and reviews
+- 🗺️ GPS-based distance calculation
+- 📱 Mobile-responsive design
+- 🌐 Multi-language support (English/Vietnamese)
 
-### For Owners
+### Backoffice (Restaurant Management)
 
-- 🏪 Manage multiple venues and locations
+- 🏪 Manage multiple restaurants
 - 📊 Dashboard with booking analytics
-- ⚡ Real-time booking management
-- 📅 Configure opening hours and capacity
+- 👥 User management (Admin, Owner, Customer roles)
+- 📅 Configure opening hours and table capacity
 - 🎫 Accept/reject/manage reservations
-- 📈 Track occupancy and revenue
+- � Secure authentication with Auth.js
 
 ## 🛠️ Development Setup
 
 ### Prerequisites
 
-- **Node.js**: v18+ (LTS recommended)
-- **pnpm**: v10.17.1+
-- **PostgreSQL**: Database (Supabase or Neon recommended)
+- **Node.js**: v22.17.1+ (`.nvmrc` specifies 18.18.0 for CI)
+- **pnpm**: v10.19.0+
+- **Docker Desktop**: For PostgreSQL database
 
-### Installation
+### Quick Start
 
 ```bash
 # Clone the repository
@@ -79,193 +86,355 @@ cd tavia
 # Install dependencies
 pnpm install
 
-# Set up environment variables
-cp apps/web/.env.example apps/web/.env.local
-# Edit .env.local with your credentials
+# Set up database (Docker + migrations + seed)
+pnpm db:setup
 
-# Run database migrations
-cd apps/web
-npx prisma migrate dev
-
-# Generate Prisma Client
-npx prisma generate
+# Start development servers
+pnpm dev:frontoffice  # Customer app (localhost:3003)
+pnpm dev:backoffice   # Admin app (localhost:3000)
 ```
+
+### Database Setup
+
+Both frontoffice and backoffice share the same PostgreSQL database:
+
+```bash
+# Automated setup (recommended)
+pnpm db:setup
+
+# Or manual setup:
+cd apps/backoffice
+pnpm docker:up          # Start PostgreSQL container
+pnpm db:migrate         # Run migrations
+pnpm db:seed            # Seed sample data
+pnpm db:studio          # Open Prisma Studio GUI
+```
+
+**Database Connection:**
+
+- Host: `localhost:5432`
+- Database: `tavia`
+- User: `postgres`
+- Password: `postgres`
+
+**Seeded Data:**
+
+- 6 restaurants (Le Jardin Secret, Sushi Master, Trattoria Bella, etc.)
+- 24 tables (4 per restaurant)
+- 3 test users (see below)
+- 2 sample bookings
+
+**Test Users:**
+
+| Email             | Password | Role             | Access                 |
+| ----------------- | -------- | ---------------- | ---------------------- |
+| admin@tavia.io    | admin123 | Admin            | Full backoffice access |
+| owner@example.com | owner123 | Restaurant Owner | Own restaurants        |
+| user@example.com  | user123  | Customer         | Frontoffice only       |
 
 ### Environment Variables
 
-Create `apps/web/.env.local`:
+**Backoffice** (`apps/backoffice/.env`):
 
 ```env
-# Database
-DATABASE_URL="postgresql://user:password@localhost:5432/tavia"
+# Database (shared with frontoffice)
+DATABASE_URL="postgresql://postgres:postgres@localhost:5432/tavia?schema=public"
+```
+
+**Frontoffice** (`apps/frontoffice/.env`):
+
+```env
+# Database (shared with backoffice)
+DATABASE_URL="postgresql://postgres:postgres@localhost:5432/tavia?schema=public"
 
 # Auth
-NEXTAUTH_URL="http://localhost:3000"
-NEXTAUTH_SECRET="your-secret-key"
-GOOGLE_CLIENT_ID="your-google-client-id"
-GOOGLE_CLIENT_SECRET="your-google-client-secret"
+NEXTAUTH_URL="http://localhost:3003"
+NEXTAUTH_SECRET="your-secret-key-change-in-production"
 
-# Supabase (Realtime)
-NEXT_PUBLIC_SUPABASE_URL="https://xxx.supabase.co"
-NEXT_PUBLIC_SUPABASE_ANON_KEY="your-anon-key"
-
-# Email (Resend)
-RESEND_API_KEY="re_xxx"
-
-# Stripe (optional)
-STRIPE_SECRET_KEY="sk_test_xxx"
-STRIPE_WEBHOOK_SECRET="whsec_xxx"
+# Analytics Service
+NEXT_PUBLIC_ANALYTICS_URL="http://localhost:3001"
 ```
 
 ## 🚦 Development Commands
 
 ```bash
-# Start all apps in development mode
-pnpm dev
+# Development
+pnpm dev                  # All apps (backoffice + docs)
+pnpm dev:backoffice       # Backoffice app (localhost:3000)
+pnpm dev:frontoffice      # Frontoffice app (localhost:3003)
+pnpm dev:storybook        # Storybook (localhost:6006)
 
-# Start specific app
-pnpm dev:web          # Start web app on localhost:3000
-pnpm dev:storybook    # Start Storybook on localhost:6006
-
-# Generate new applications systematically
-pnpm create:app <app-name>        # Create Next.js web app
-pnpm create:api <api-name>        # Create Fastify API microservice
+# Generate new applications
+pnpm create:app <name>    # Next.js webapp (auto-port 3000-3099)
+pnpm create:api <name>    # Fastify/NestJS API (auto-port 4000-4099)
+pnpm create:mobile <name> # Expo mobile app
 
 # Examples:
-pnpm create:app admin             # Next.js app on port 3089
-pnpm create:app customer-portal   # Next.js app on port 3042
-pnpm create:api notifications     # Fastify API on port 3047
-pnpm create:api payments          # Fastify API on port 3023
+pnpm create:app admin             # Creates apps/admin on port 3089
+pnpm create:app customer-portal   # Creates apps/customer-portal on port 3042
+pnpm create:api notifications     # Fastify or NestJS (interactive choice)
 
-# Each generated app includes:
-# Web Apps: Docker PostgreSQL, Analytics SDK, Auth.js, Prisma ORM, i18n
-# API Services: Fastify 5, Prisma, Zod validation, Security plugins, Health checks
+# Each generated webapp includes:
+# - Next.js 15 + TypeScript + Turbopack
+# - Modular i18n (7 modules: common, navigation, home, actions, auth, dashboard, errors)
+# - Docker PostgreSQL + Prisma
+# - @tavia/taviad components + @tavia/analytics
+# - Emotion GlobalStyles + React Query
+# - Vitest + Playwright
+# - Deterministic ports (same name = same port)
 
-# Build all apps
-pnpm build
+# Building & Quality
+pnpm build                # Build all with Turborepo
+pnpm build --filter=frontoffice  # Build specific app
+pnpm lint                 # Lint all (ESLint 9)
+pnpm lint:fix             # Auto-fix
+pnpm format               # Prettier format
+pnpm type-check           # TypeScript check
 
-# Build specific app
-pnpm build --filter=web
-pnpm build --filter=@tavia/docs
+# Testing
+cd packages/taviad
+pnpm test                 # Run tests
+pnpm test:coverage        # Coverage (80% threshold)
+pnpm test:watch           # Watch mode
 
-# Lint all packages
-pnpm lint
-
-# Format code
-pnpm format
-
-# Type check
-pnpm type-check
+# Git (ALWAYS USE)
+pnpm commit               # Commitizen (conventional commits)
+# Pre-commit hooks auto-run: Prettier + type-check
 ```
 
 ## 🗄️ Database Commands
 
 ```bash
-# Docker PostgreSQL (recommended for local development)
-pnpm docker:up        # Start PostgreSQL container
-pnpm docker:down      # Stop PostgreSQL container
-pnpm docker:logs      # View PostgreSQL logs
-pnpm docker:clean     # Remove container and volumes
+# Automated Setup (recommended)
+pnpm db:setup             # Complete setup: Docker + migrate + seed
 
-# Complete database setup (Docker + migrate + seed)
-pnpm db:setup
+# Docker PostgreSQL
+cd apps/backoffice        # Or any app with Docker setup
+pnpm docker:up            # Start PostgreSQL container
+pnpm docker:down          # Stop PostgreSQL container
+pnpm docker:logs          # View PostgreSQL logs
+pnpm docker:restart       # Restart container
+pnpm docker:clean         # Remove container and volumes (⚠️ deletes data)
 
-# Create and apply migration
-npx prisma migrate dev --name add_feature
+# Prisma Migrations
+pnpm db:generate          # Generate Prisma Client
+pnpm db:migrate           # Create migration (development)
+pnpm db:migrate:deploy    # Apply migrations (production)
+pnpm db:seed              # Seed sample data
+pnpm db:studio            # Open Prisma Studio GUI
+pnpm db:push              # Push schema without migration
 
-# Apply migrations (production)
-npx prisma migrate deploy
-
-# Open Prisma Studio (GUI)
-npx prisma studio
-
-# Generate Prisma Client
-npx prisma generate
-
-# Reset database (development only)
-npx prisma migrate reset
+# Complete reset (development only)
+pnpm docker:clean         # Remove everything
+pnpm docker:up            # Fresh start
+pnpm db:migrate           # Recreate schema
+pnpm db:seed              # Reseed data
 ```
 
-## 📚 Component Library
+### Shared Database Architecture
 
-The `@tavia/taviad` package contains a comprehensive component library with:
+Both frontoffice and backoffice use the **same PostgreSQL database** (`tavia`):
 
-- ✅ **50+ React components** built with Emotion and Radix UI
-- ✅ **Lucide React icons** for consistent iconography
-- ✅ **Responsive design** with mobile-first approach
-- ✅ **Accessibility** (WCAG 2.1 AA compliant)
-- ✅ **Storybook documentation** with live examples
-- ✅ **TypeScript** for type safety
+```
+┌─────────────────┐
+│  PostgreSQL DB  │
+│   "tavia"       │
+│  Port: 5432     │
+└────────┬────────┘
+         │
+    ┌────┴────┐
+    │         │
+┌───▼────┐ ┌──▼──────┐
+│Backoffice│ │Frontoffice│
+│Port 3000│ │Port 3003│
+└─────────┘ └─────────┘
+```
 
-View the component library:
+**Benefits:**
+
+- Restaurant data managed in backoffice appears instantly in frontoffice
+- Single source of truth
+- No data synchronization needed
+- Shared user authentication
+
+## 📚 Component Library (@tavia/taviad)
+
+60+ production-ready React components with full TypeScript support:
+
+**Categories:**
+
+- **Base** (9): Avatar, Badge, Button, ButtonGroup, Code, Icon, Image, Spinner,
+  Tag
+- **Radix UI** (8): Accordion, Checkbox, DropdownMenu, Modal, Popover, Radio,
+  Tabs, Tooltip
+- **Form** (19): Calendar, Field, Form, Input, InputNumber, InputSearch,
+  InputTags, Label, Select, Combobox, Switch, Slider, TextArea, FileUpload,
+  ImageUpload, RichTextEditor, Text
+- **Dialog** (4): Alert, Drawer, MenuBar, Toast
+- **Layout** (10): Card, Divider, GoogleMap, LeafletMap, MapboxMap,
+  LoadingScreen, ScrollBox, Skeleton, Stack, ThemeProvider
+- **Navigation** (4): Breadcrumb, Link, Pagination, Sidebar
+- **State** (5): EmptyState, ErrorState, LoadingLogo, LoadingState, Progress
+- **Table** (2): DataTable, Table
+
+**Features:**
+
+- ✅ Emotion CSS-in-JS with theme tokens
+- ✅ Radix UI primitives for accessibility
+- ✅ Lucide React icons
+- ✅ Responsive design
+- ✅ 15-50 tests per component (Vitest)
+- ✅ Storybook documentation
 
 ```bash
+# View component library
 pnpm dev:storybook
 # Open http://localhost:6006
+
+# Import components
+import { Button, Modal, Input, Card } from '@tavia/taviad';
 ```
 
 ## 🏗️ Architecture Patterns
 
-### Serverless-First
+### Microservices-First Monorepo
 
-All backend logic runs as Next.js API routes or Server Actions. No traditional
-server required.
+Each app is an independent service:
 
-### Role-Based Access Control
+- **Frontoffice** (3003): Customer-facing restaurant discovery
+- **Backoffice** (3000): Restaurant management dashboard
+- **Analytics** (3001): Event tracking API (Fastify)
+- **Restaurant Service** (3002): Restaurant microservice (NestJS)
 
-- `CLIENT`: Can browse cafés and create bookings
-- `OWNER`: Can manage venues and handle reservations
+### Shared Database Pattern
 
-### Atomic Booking Logic
+Single PostgreSQL database shared between frontoffice/backoffice for real-time
+consistency.
 
-Uses Prisma transactions to prevent double-booking and ensure data consistency.
+### React Query for Data Fetching
 
-### Timezone Management
+Frontoffice uses `@tanstack/react-query` for:
 
-All timestamps stored in UTC, converted to user's timezone on display.
+- Automatic caching (5-15 min stale times)
+- Loading/error states
+- Optimistic updates
+- Background refetching
 
-### Real-time Updates
+```typescript
+// Example usage
+import { useSearchRestaurants } from '@/hooks/useRestaurants';
 
-Supabase Realtime for live booking notifications between clients and owners.
+const { data, isLoading } = useSearchRestaurants({
+  location: 'Paris',
+  guests: 2,
+});
+```
+
+### Server Actions Pattern
+
+Next.js 15 server actions for type-safe API calls:
+
+- `searchRestaurantsAction()` - Search with filters
+- `getRestaurantByIdAction()` - Single restaurant
+- `getFeaturedRestaurantsAction()` - Top-rated
+
+### Role-Based Access Control (RBAC)
+
+- `USER`: Browse restaurants, create bookings (frontoffice)
+- `RESTAURANT_OWNER`: Manage own venues (backoffice)
+- `ADMIN`: Full system access (backoffice)
+
+### Atomic Operations
+
+Prisma transactions prevent double-booking and ensure data consistency.
 
 ## 📝 pnpm Catalog Dependencies
 
-This project uses pnpm catalogs for centralized dependency management. **Never
-hardcode versions in package.json**.
+Centralized dependency management in `pnpm-workspace.yaml`. **NEVER hardcode
+versions.**
 
 ```json
+// ✅ CORRECT - Use catalog
 {
   "dependencies": {
-    "next": "catalog:", // ✅ Use catalog
-    "react": "catalog:", // ✅ Use catalog
-    "@tavia/taviad": "workspace:*" // ✅ Internal packages
+    "next": "catalog:",
+    "@emotion/react": "catalog:emotion",
+    "@tavia/taviad": "workspace:*"
+  }
+}
+
+// ❌ WRONG - Hardcoded version
+{
+  "dependencies": {
+    "next": "^15.5.5"
   }
 }
 ```
 
-Add new dependencies to `pnpm-workspace.yaml` first:
+**Adding dependencies:**
 
-```yaml
-catalog:
-  new-package: ^1.0.0
+1. Add to `pnpm-workspace.yaml`:
+   ```yaml
+   catalog:
+     new-package: ^1.0.0
+   ```
+2. Reference in package.json:
+   ```json
+   { "dependencies": { "new-package": "catalog:" } }
+   ```
+3. Run `pnpm install`
+
+**Available catalogs:**
+
+- `catalog:` - Main dependencies
+- `catalog:emotion` - Emotion packages
+- `catalog:next14`, `catalog:next15` - Next.js versions
+- `catalog:expo` - React Native/Expo
+
+**Exceptions:** App-specific dependencies (e.g., `sonner` in backoffice) can be
+added directly with versions.
+
+## 🧪 Testing
+
+### Component Testing
+
+60+ components in `@tavia/taviad` with 15-50 tests each:
+
+```bash
+cd packages/taviad
+pnpm test              # Run tests
+pnpm test:coverage     # Coverage report (80% threshold)
+pnpm test:watch        # Watch mode
 ```
 
-Then reference in package.json:
+**Test categories:**
 
-```json
-{
-  "dependencies": {
-    "new-package": "catalog:"
-  }
-}
+1. Basic rendering
+2. Props and variants
+3. User interactions
+4. Accessibility (ARIA)
+5. Display names
+
+### E2E Testing (Playwright)
+
+Critical booking flows:
+
+```bash
+cd apps/frontoffice
+pnpm test:e2e          # Run Playwright tests
 ```
 
-## 🧪 Testing (Coming Soon)
+### CI/CD Pipeline
 
-- **E2E Tests**: Playwright for critical booking flows
-- **Unit Tests**: Vitest for business logic
-- **API Tests**: Test server actions with mock Prisma
-- **Visual Tests**: Chromatic for Storybook components
+GitHub Actions (`.github/workflows/ci.yml`):
+
+- ✅ Lint (ESLint 9)
+- ✅ Type check (TypeScript)
+- ✅ Build (Turborepo)
+- ✅ Test (Vitest)
+- ✅ Commitlint
+
+**Triggers:** Push to main/develop, all PRs
 
 ## 🚀 Deployment
 
@@ -275,62 +444,110 @@ Then reference in package.json:
 # Install Vercel CLI
 pnpm add -g vercel
 
-# Deploy to production
+# Deploy frontoffice
+cd apps/frontoffice
 vercel --prod
 
-# Or connect your GitHub repo for automatic deployments
-```
-
-### Database Migrations
-
-```bash
-# Production migrations
-npx prisma migrate deploy
+# Deploy backoffice
+cd apps/backoffice
+vercel --prod
 ```
 
 ### Environment Variables
 
-Set all environment variables in your Vercel project settings.
+Set in Vercel project settings:
+
+- `DATABASE_URL` - Production PostgreSQL (Neon, Supabase, etc.)
+- `NEXTAUTH_URL` - Production URL
+- `NEXTAUTH_SECRET` - Generate with `openssl rand -base64 32`
+
+### Database Migrations
+
+```bash
+# Production migrations (run before deploy)
+cd apps/backoffice
+npx prisma migrate deploy
+```
+
+### Production Database
+
+Use managed PostgreSQL:
+
+- **Neon** (recommended, serverless)
+- **Supabase** (includes Realtime)
+- **AWS RDS**
+- **Digital Ocean Managed Databases**
+
+**Important:**
+
+- Enable SSL connections
+- Set up connection pooling (Prisma Data Proxy or PgBouncer)
+- Regular automated backups
+- Use strong passwords
 
 ## 📖 Documentation
 
-- **API Documentation**: See `.github/copilot-instructions.md`
-- **Component Library**: Run `pnpm dev:storybook`
-- **Database Schema**: See `prisma/schema.prisma`
+- **Project Architecture**: See `.github/copilot-instructions.md`
+- **Component Library**: `pnpm dev:storybook` → http://localhost:6006
+- **Database Schema**: `apps/backoffice/prisma/schema.prisma`
+- **Generator Templates**: `templates/` directory
 
 ## 🤝 Contributing
 
 1. Fork the repository
-2. Create a feature branch: `git checkout -b feature/amazing-feature`
-3. Commit your changes: `git commit -m 'Add amazing feature'`
-4. Push to the branch: `git push origin feature/amazing-feature`
+2. Create a feature branch: `git checkout -b feat/amazing-feature`
+3. Commit your changes: `pnpm commit` (Commitizen)
+4. Push to the branch: `git push origin feat/amazing-feature`
 5. Open a Pull Request
 
 ### Coding Guidelines
 
-- Use TypeScript for all code
-- Follow ESLint and Prettier configurations
-- Use pnpm catalog dependencies
-- Write tests for new features
-- Update Storybook documentation for new components
+- ✅ Use TypeScript for all code
+- ✅ Follow ESLint 9 flat config
+- ✅ Use pnpm catalog dependencies (never hardcode versions)
+- ✅ Write 15-50 tests per component
+- ✅ Use Emotion for styling (NO SCSS)
+- ✅ Prefix unused variables with `_`
+- ✅ Use conventional commits (`feat:`, `fix:`, `docs:`, etc.)
+- ✅ Update Storybook for new components
+- ✅ Run `pnpm lint:fix` and `pnpm format` before commit
 
-## 📄 License
+### Git Workflow
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
-for details.
+```bash
+git checkout -b feat/your-feature
+# Make changes
+pnpm commit  # Interactive Commitizen prompt
+git push origin feat/your-feature
+```
 
-## 🙏 Acknowledgments
+**Pre-commit hooks** auto-run:
 
-- Built with [Next.js 15](https://nextjs.org/)
-- Monorepo powered by [Turborepo](https://turborepo.org/)
-- Components built with [Radix UI](https://www.radix-ui.com/)
-- Icons from [Lucide React](https://lucide.dev/)
-- Database ORM by [Prisma](https://www.prisma.io/)
+- Prettier formatting
+- TypeScript type-check
+
+## Acknowledgments
+
+- [Next.js 15](https://nextjs.org/) - React framework
+- [Turborepo](https://turborepo.org/) - Monorepo build system
+- [Radix UI](https://www.radix-ui.com/) - Accessible UI primitives
+- [Lucide React](https://lucide.dev/) - Icon library
+- [Prisma](https://www.prisma.io/) - Database ORM
+- [Emotion](https://emotion.sh/) - CSS-in-JS
+- [TanStack Query](https://tanstack.com/query) - Data fetching
+- [Fastify](https://fastify.dev/) - Fast web framework
+- [NestJS](https://nestjs.com/) - Progressive Node.js framework
+- [Vitest](https://vitest.dev/) - Blazing fast unit testing
 
 ## 📞 Support
 
-For support, email support@tavia.io or open an issue on GitHub.
+- **Email**: support@tavia.io
+- **GitHub Issues**: [Open an issue](https://github.com/tavia-io/tavia/issues)
+- **Documentation**: See `.github/copilot-instructions.md`
 
 ---
 
-**Built with ❤️ for the café and restaurant industry**
+**Built with ❤️ for the restaurant industry**
+
+**Microservices-first architecture • 60+ components • Full TypeScript •
+Production-ready**

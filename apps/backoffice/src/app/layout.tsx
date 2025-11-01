@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages, getLocale } from 'next-intl/server';
-import { LocaleSwitcher } from '@/components/LocaleSwitcher';
 import { AnalyticsProvider } from '@/components/AnalyticsProvider';
 import { ClientProviders } from '@/components/ClientProviders';
 
@@ -69,7 +68,7 @@ export default async function RootLayout({
   const messages = await getMessages();
 
   return (
-    <html lang={locale}>
+    <html lang={locale} suppressHydrationWarning>
       <head>
         <link
           rel="stylesheet"
@@ -83,10 +82,7 @@ export default async function RootLayout({
       <body>
         <ClientProviders>
           <NextIntlClientProvider messages={messages}>
-            <AnalyticsProvider>
-              <LocaleSwitcher />
-              {children}
-            </AnalyticsProvider>
+            <AnalyticsProvider>{children}</AnalyticsProvider>
           </NextIntlClientProvider>
         </ClientProviders>
       </body>
