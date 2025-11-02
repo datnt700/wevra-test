@@ -130,6 +130,16 @@ const StyledInput = styled.input`
   &:disabled {
     cursor: not-allowed;
   }
+
+  /* Autofill styles */
+  &:-webkit-autofill,
+  &:-webkit-autofill:hover,
+  &:-webkit-autofill:focus,
+  &:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 30px ${cssVars.light3} inset !important;
+    -webkit-text-fill-color: ${cssVars.dark} !important;
+    transition: background-color 5000s ease-in-out 0s;
+  }
 `;
 
 const StyledErrorMessage = styled.span`

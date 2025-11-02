@@ -58,6 +58,16 @@ export const SETTINGS_ROUTES = {
 } as const;
 
 /**
+ * IAM (Identity and Access Management) Routes
+ */
+export const IAM_ROUTES = {
+  LIST: '/iam',
+  NEW: '/iam/new',
+  DETAIL: (id: string) => `/iam/${id}`,
+  EDIT: (id: string) => `/iam/${id}/edit`,
+} as const;
+
+/**
  * API Routes
  */
 export const API_ROUTES = {
@@ -80,5 +90,6 @@ export const ROUTES = {
   BOOKING: BOOKING_ROUTES,
   TABLE: TABLE_ROUTES,
   SETTINGS: SETTINGS_ROUTES,
+  IAM: IAM_ROUTES,
   API: API_ROUTES,
 } as const;

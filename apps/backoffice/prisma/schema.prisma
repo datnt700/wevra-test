@@ -142,6 +142,8 @@ model Booking {
 enum UserRole {
     USER
     ADMIN
+    MANAGER
+    EMPLOYEE
     RESTAURANT_OWNER
 }
 

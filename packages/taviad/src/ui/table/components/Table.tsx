@@ -102,9 +102,9 @@ export type { Column, RowAlign, SortDirection, TableProps } from '../types';
 export const Table = <T, K extends keyof T>({
   columns,
   data,
-  selectable = true,
-  searchable = true,
-  pagination = true,
+  selectable = false,
+  searchable = false,
+  pagination = false,
   onSelectionChange,
   onSort,
   onSearch,

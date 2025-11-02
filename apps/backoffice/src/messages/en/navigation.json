@@ -2,7 +2,11 @@
   "home": "Home",
   "about": "About",
   "contact": "Contact",
-  "bookings": "My Bookings",
+  "dashboard": "Dashboard",
+  "bookings": "Bookings",
   "restaurants": "Restaurants",
+  "iam": "IAM",
+  "users": "Users",
+  "settings": "Settings",
   "createRestaurant": "Create Restaurant"
 }

@@ -18,54 +18,62 @@ export const Wrapper = styled.div`
 
 /**
  * Scrollable container for the table
- * Provides fixed max-height with scrolling for large datasets
+ * No borders, clean design
  */
 export const Container = styled.div`
-  max-height: 400px;
-  overflow-y: auto;
   overflow-x: auto;
-  border: 1px solid ${cssVars.light5};
 `;
 
 /**
  * Main table element with TanStack Table integration
  * Features:
- * - Striped rows (odd rows have light background)
+ * - Clean design with no borders except header separator
  * - Hover effects on rows
- * - Consistent cell padding and borders
+ * - Consistent cell padding
  * - Smooth transitions
  */
 export const Table = styled.table`
   margin: 0;
   padding: 0;
   background-color: ${cssVars.light};
-  border: 1px solid transparent;
   border-spacing: 0;
   width: 100%;
   max-width: 100%;
+  border-collapse: collapse;
+
+  thead {
+    background-color: #f9fafb;
+    border-bottom: 1px solid #e5e7eb;
+  }
+
+  th {
+    padding: 0.75rem 1rem;
+    text-align: left;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #6b7280;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
 
   tr {
     text-align: left;
     cursor: pointer;
-    transition: all 0.5s ease-out;
+    transition: background-color 0.2s ease;
   }
 
   tbody {
     tr {
       &:hover {
-        background-color: ${cssVars.light4};
+        background-color: #f9fafb;
       }
     }
   }
-  tbody tr:nth-child(odd) {
-    background-color: ${cssVars.light2};
-  }
 
-  th,
   td {
     padding: 1rem;
     vertical-align: middle;
     color: ${cssVars.dark};
-    border-right: 1px solid ${cssVars.light5};
+    font-size: 0.875rem;
   }
 `;

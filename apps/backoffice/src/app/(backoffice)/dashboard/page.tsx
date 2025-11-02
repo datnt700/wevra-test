@@ -6,7 +6,6 @@ import { auth } from '@/lib/auth';
 import { redirect } from 'next/navigation';
 import { prisma } from '@/lib/prisma';
 import { USER_ROLES, ROUTES } from '@/lib/constants';
-import { DefaultLayout } from '@/components/layouts/DefaultLayout';
 import { DashboardContent } from './_components/DashboardContent';
 
 export default async function DashboardPage() {
@@ -25,16 +24,5 @@ export default async function DashboardPage() {
         })
       : []; // TODO: Add owner filter when we add owner relationship
 
-  return (
-    <DefaultLayout>
-      <DashboardContent
-        user={{
-          name: session.user.name ?? null,
-          email: session.user.email ?? null,
-          role: session.user.role,
-        }}
-        restaurants={restaurants}
-      />
-    </DefaultLayout>
-  );
+  return <DashboardContent restaurants={restaurants} />;
 }

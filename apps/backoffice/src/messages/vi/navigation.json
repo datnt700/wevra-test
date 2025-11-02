@@ -2,7 +2,11 @@
   "home": "Trang chủ",
   "about": "Giới thiệu",
   "contact": "Liên hệ",
-  "bookings": "Đặt chỗ của tôi",
+  "dashboard": "Bảng điều khiển",
+  "bookings": "Đặt chỗ",
   "restaurants": "Nhà hàng",
+  "iam": "Quản lý người dùng",
+  "users": "Người dùng",
+  "settings": "Cài đặt",
   "createRestaurant": "Tạo nhà hàng"
 }

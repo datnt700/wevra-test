@@ -7,43 +7,19 @@
 import { Button, Tag, cssVars } from '@tavia/taviad';
 import { useTranslations } from 'next-intl';
 import { Styled } from './DashboardContent.styles';
-import { SignOutButton } from './SignOutButton';
-import { USER_ROLES, ROUTES } from '@/lib/constants';
+import { ROUTES } from '@/lib/constants';
 import { RestaurantListItem } from '@/types';
 import Image from 'next/image';
 
 type DashboardContentProps = {
-  user: {
-    name: string | null;
-    email: string | null;
-    role: string;
-  };
   restaurants: RestaurantListItem[];
 };
 
-export function DashboardContent({ user, restaurants }: DashboardContentProps) {
+export function DashboardContent({ restaurants }: DashboardContentProps) {
   const t = useTranslations('dashboard');
 
   return (
     <Styled.Container>
-      {/* Header */}
-      <Styled.Header>
-        <Styled.HeaderContent>
-          <Styled.HeaderRow>
-            <Styled.HeaderLeft>
-              <Styled.Title>{t('title')}</Styled.Title>
-              <Styled.Subtitle>{t('welcome', { name: user.name || user.email })}</Styled.Subtitle>
-            </Styled.HeaderLeft>
-            <Styled.HeaderRight>
-              <Styled.RoleBadge>
-                {user.role === USER_ROLES.ADMIN ? t('roles.admin') : t('roles.restaurantOwner')}
-              </Styled.RoleBadge>
-              <SignOutButton />
-            </Styled.HeaderRight>
-          </Styled.HeaderRow>
-        </Styled.HeaderContent>
-      </Styled.Header>
-
       {/* Main Content */}
       <Styled.Main>
         {/* Stats Cards */}
@@ -54,14 +30,8 @@ export function DashboardContent({ user, restaurants }: DashboardContentProps) {
                 <Styled.StatLabel>{t('stats.totalRestaurants')}</Styled.StatLabel>
                 <Styled.StatValue>{restaurants.length}</Styled.StatValue>
               </Styled.StatCardLeft>
-              <Styled.StatIcon $color={cssVars.mainColorLight9}>
-                <svg
-                  className="h-6 w-6"
-                  style={{ color: cssVars.mainColor }}
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
+              <Styled.StatIcon $color={cssVars.mainColorLight9} $iconColor={cssVars.mainColor}>
+                <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -79,14 +49,11 @@ export function DashboardContent({ user, restaurants }: DashboardContentProps) {
                 <Styled.StatLabel>{t('stats.activeBookings')}</Styled.StatLabel>
                 <Styled.StatValue>0</Styled.StatValue>
               </Styled.StatCardLeft>
-              <Styled.StatIcon $color={cssVars.colorSuccessLight}>
-                <svg
-                  className="h-6 w-6"
-                  style={{ color: cssVars.colorGreenDark }}
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
+              <Styled.StatIcon
+                $color={cssVars.colorSuccessLight}
+                $iconColor={cssVars.colorGreenDark}
+              >
+                <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -104,14 +71,8 @@ export function DashboardContent({ user, restaurants }: DashboardContentProps) {
                 <Styled.StatLabel>{t('stats.totalTables')}</Styled.StatLabel>
                 <Styled.StatValue>0</Styled.StatValue>
               </Styled.StatCardLeft>
-              <Styled.StatIcon $color={cssVars.colorCyanLight}>
-                <svg
-                  className="h-6 w-6"
-                  style={{ color: cssVars.colorCyan }}
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
+              <Styled.StatIcon $color={cssVars.colorCyanLight} $iconColor={cssVars.colorCyan}>
+                <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -275,20 +236,16 @@ export function DashboardContent({ user, restaurants }: DashboardContentProps) {
               variant="primary"
               onClick={() => (window.location.href = ROUTES.RESTAURANT.NEW)}
             >
-              <svg
-                className="h-5 w-5"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                style={{ marginRight: '0.5rem' }}
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M12 4v16m8-8H4"
-                />
-              </svg>
+              <Styled.ButtonIcon>
+                <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M12 4v16m8-8H4"
+                  />
+                </svg>
+              </Styled.ButtonIcon>
               {t('emptyState.button')}
             </Button>
           </Styled.EmptyState>

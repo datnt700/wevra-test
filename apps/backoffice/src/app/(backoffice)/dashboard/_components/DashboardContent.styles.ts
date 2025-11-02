@@ -138,7 +138,7 @@ export const Styled = {
     color: ${cssVars.gray900};
   `,
 
-  StatIcon: styled.div<{ $color: string }>`
+  StatIcon: styled.div<{ $color: string; $iconColor?: string }>`
     display: flex;
     align-items: center;
     justify-content: center;
@@ -146,6 +146,10 @@ export const Styled = {
     height: 3rem;
     border-radius: ${radii.lg};
     background-color: ${({ $color }) => $color};
+
+    svg {
+      color: ${({ $iconColor }) => $iconColor || 'currentColor'};
+    }
   `,
 
   QuickActionsCard: styled.div`
@@ -374,5 +378,9 @@ export const Styled = {
   EmptyStateDescription: styled.p`
     margin-bottom: 1.5rem;
     color: ${cssVars.gray600};
+  `,
+
+  ButtonIcon: styled.span`
+    margin-right: 0.5rem;
   `,
 };

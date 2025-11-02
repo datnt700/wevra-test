@@ -44,15 +44,17 @@ export function RestaurantSearch() {
   if (error) {
     return (
       <MainContent>
-        <ErrorState
-          title={tErrors('loadingRestaurants')}
-          subTitle={tErrors('loadingRestaurantsDescription')}
-          action={
-            <Button variant="primary" onClick={() => window.location.reload()}>
-              {tErrors('tryAgain')}
-            </Button>
-          }
-        />
+        <CenteredMessage>
+          <ErrorState
+            title={tErrors('loadingRestaurants')}
+            subTitle={tErrors('loadingRestaurantsDescription')}
+            action={
+              <Button variant="primary" onClick={() => window.location.reload()}>
+                {tErrors('tryAgain')}
+              </Button>
+            }
+          />
+        </CenteredMessage>
       </MainContent>
     );
   }

@@ -17,8 +17,6 @@ const TableWrapper = styled.div`
   margin: 0;
   padding: 0;
   background-color: ${cssVars.light};
-  border: 1px solid transparent;
-  border-spacing: 0;
   width: 100%;
   max-width: 100%;
   border-radius: ${radii.md};
@@ -30,7 +28,6 @@ const TableWrapper = styled.div`
 const Header = styled.div`
   padding: 1rem;
   background-color: ${cssVars.light};
-  border-bottom: 1px solid ${cssVars.light};
 `;
 
 /**
@@ -39,6 +36,24 @@ const Header = styled.div`
 const TableElement = styled.table`
   width: 100%;
   border-spacing: 0;
+  border-collapse: collapse;
+
+  thead {
+    background-color: #f9fafb;
+    border-bottom: 1px solid #e5e7eb;
+  }
+
+  tbody tr {
+    transition: background-color 0.2s ease;
+
+    &:hover {
+      background-color: #f9fafb;
+    }
+
+    &.selectedRow {
+      background-color: ${cssVars.mainColorLight};
+    }
+  }
 `;
 
 /**
@@ -46,9 +61,14 @@ const TableElement = styled.table`
  * Includes sorting functionality
  */
 const TableHeader = styled.th`
-  padding: 1rem;
+  padding: 0.75rem 1rem;
+  text-align: left;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
   vertical-align: middle;
-  color: ${cssVars.dark};
   cursor: pointer;
 
   .headerContent {
@@ -65,15 +85,6 @@ const TableHeader = styled.th`
 const TableRow = styled.tr`
   text-align: left;
   cursor: pointer;
-  transition: all 0.5s ease-out;
-
-  &:hover {
-    background-color: ${cssVars.light4};
-  }
-
-  &.selectedRow {
-    background-color: ${cssVars.mainColorLight};
-  }
 `;
 
 /**
@@ -83,6 +94,7 @@ const TableCell = styled.td`
   padding: 1rem;
   vertical-align: middle;
   color: ${cssVars.dark};
+  font-size: 0.875rem;
 `;
 
 /**
