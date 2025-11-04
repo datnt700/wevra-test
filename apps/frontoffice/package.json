@@ -18,7 +18,6 @@
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
     "generate:module": "generate-module",
-    "postinstall": "prisma generate",
     "docker:up": "docker-compose up -d",
     "docker:down": "docker-compose down",
     "docker:logs": "docker-compose logs -f postgres",

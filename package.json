@@ -2,7 +2,7 @@
   "name": "tavia",
   "private": true,
   "scripts": {
-    "build": "turbo run build",
+    "build": "turbo run build --filter=@tavia/wevra",
     "dev": "turbo run dev",
     "dev:backoffice": "pnpm --filter=backoffice dev",
     "dev:frontoffice": "pnpm --filter=frontoffice dev",
@@ -23,6 +23,7 @@
     "create:mobile": "node scripts/create-mobile.js",
     "db:setup": "node scripts/setup-database.js",
     "db:studio": "pnpm --filter=@tavia/frontoffice db:studio",
+    "postinstall": "pnpm --filter=@tavia/wevra prisma generate",
     "prepare": "husky",
     "commit": "cz"
   },
