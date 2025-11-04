@@ -1,0 +1,429 @@
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
+}
+
+// ============================================
+// WEVRA - Financial Education Platform Schema
+// ============================================
+
+// Auth.js Required Models
+model Account {
+    id                String  @id @default(cuid())
+    userId            String
+    type              String
+    provider          String
+    providerAccountId String
+    refresh_token     String? @db.Text
+    access_token      String? @db.Text
+    expires_at        Int?
+    token_type        String?
+    scope             String?
+    id_token          String? @db.Text
+    session_state     String?
+
+    user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+    @@unique([provider, providerAccountId])
+    @@map("accounts")
+}
+
+model Session {
+    id           String   @id @default(cuid())
+    sessionToken String   @unique
+    userId       String
+    expires      DateTime
+    user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+    @@map("sessions")
+}
+
+model VerificationToken {
+    identifier String
+    token      String
+    expires    DateTime
+
+    @@unique([identifier, token])
+    @@map("verification_tokens")
+}
+
+// User & Authentication
+model User {
+    id            String    @id @default(cuid())
+    email         String?   @unique
+    emailVerified DateTime?
+    password      String? // Hashed password (for credentials provider)
+    name          String?
+    image         String?
+
+    // Auth.js relations
+    accounts Account[]
+    sessions Session[]
+
+    // Onboarding
+    onboardingCompleted Boolean   @default(false)
+    currentStage        UserStage @default(STARTER)
+
+    // Progression & Rewards (XP + Coins)
+    currentLevel     Int @default(1) // User's current level (1-20)
+    currentXP        Int @default(0) // XP in current level
+    totalXP          Int @default(0) // Total XP earned (all time)
+    coinBalance      Int @default(0) // Current coin balance
+    totalCoinsEarned Int @default(0) // Total coins earned (all time)
+    totalCoinsSpent  Int @default(0) // Total coins spent
+
+    // Legacy progress tracking (kept for backward compatibility)
+    totalPoints    Int      @default(0)
+    streak         Int      @default(0)
+    lastActiveDate DateTime @default(now())
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    // Relations
+    quizResults      QuizResult[]
+    challenges       UserChallenge[]
+    lessons          UserLesson[]
+    achievements     UserAchievement[]
+    financialGoals   FinancialGoal[]
+    habitTracking    HabitTracking[]
+    coinTransactions CoinTransaction[]
+    xpTransactions   XPTransaction[]
+
+    @@map("users")
+}
+
+// Onboarding Quiz
+model QuizResult {
+    id     String @id @default(cuid())
+    userId String
+    user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+    // Quiz answers (JSON)
+    answers Json
+
+    // Calculated results
+    financialAwareness Int @default(0) // 0-100
+    habitDiscipline    Int @default(0) // 0-100
+    motivation         Int @default(0) // 0-100
+
+    recommendedStage UserStage
+    recommendations  Json // AI/rules-based recommendations
+
+    createdAt DateTime @default(now())
+
+    @@map("quiz_results")
+}
+
+// Learning Roadmap Stages
+enum UserStage {
+    STARTER // Learn basics
+    STABILIZER // Track spending, save
+    BUILDER // Plan, invest
+    GROWER // Scale and manage wealth
+}
+
+// Lessons/Modules
+model Lesson {
+    id          String @id @default(cuid())
+    title       String
+    description String
+    content     String @db.Text // Rich text/markdown
+
+    stage    UserStage
+    order    Int // Order within stage
+    duration Int // Estimated minutes
+
+    // Content type
+    type LessonType @default(ARTICLE)
+
+    // Metadata
+    points      Int     @default(10) // Points awarded on completion
+    isPublished Boolean @default(true)
+    isPremium   Boolean @default(false)
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    // Relations
+    userLessons UserLesson[]
+    challenges  Challenge[]
+
+    @@index([stage, order])
+    @@map("lessons")
+}
+
+enum LessonType {
+    ARTICLE
+    VIDEO
+    INTERACTIVE
+    QUIZ
+}
+
+// User Lesson Progress
+model UserLesson {
+    id       String @id @default(cuid())
+    userId   String
+    lessonId String
+
+    user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+    lesson Lesson @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+
+    completed    Boolean @default(false)
+    progress     Int     @default(0) // 0-100
+    timeSpent    Int     @default(0) // Minutes
+    pointsEarned Int     @default(0)
+
+    startedAt   DateTime  @default(now())
+    completedAt DateTime?
+
+    @@unique([userId, lessonId])
+    @@index([userId, completed])
+    @@map("user_lessons")
+}
+
+// Challenges
+model Challenge {
+    id          String @id @default(cuid())
+    title       String
+    description String
+
+    lessonId String?
+    lesson   Lesson? @relation(fields: [lessonId], references: [id])
+
+    stage UserStage
+    type  ChallengeType
+
+    // Challenge config
+    targetValue Int? // e.g., save 100 euros, track 7 days
+    duration    Int? // Days to complete
+
+    points      Int     @default(50)
+    isPremium   Boolean @default(false)
+    isPublished Boolean @default(true)
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    // Relations
+    userChallenges UserChallenge[]
+
+    @@index([stage, type])
+    @@map("challenges")
+}
+
+enum ChallengeType {
+    SAVE_MONEY // Save X amount
+    TRACK_SPENDING // Track expenses for X days
+    NO_SPEND // No unnecessary spending for X days
+    LEARN // Complete X lessons
+    REFLECT // Write financial reflection
+    AUTOMATE // Set up automated saving
+    BUDGET // Create/follow budget
+}
+
+// User Challenge Progress
+model UserChallenge {
+    id          String @id @default(cuid())
+    userId      String
+    challengeId String
+
+    user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+    challenge Challenge @relation(fields: [challengeId], references: [id], onDelete: Cascade)
+
+    status       ChallengeStatus @default(IN_PROGRESS)
+    progress     Int             @default(0) // 0-100
+    currentValue Int             @default(0) // Current progress toward target
+    pointsEarned Int             @default(0)
+
+    startedAt   DateTime  @default(now())
+    completedAt DateTime?
+    failedAt    DateTime?
+
+    @@unique([userId, challengeId])
+    @@index([userId, status])
+    @@map("user_challenges")
+}
+
+enum ChallengeStatus {
+    IN_PROGRESS
+    COMPLETED
+    FAILED
+    ABANDONED
+}
+
+// Achievements/Badges
+model Achievement {
+    id          String @id @default(cuid())
+    title       String
+    description String
+    icon        String // Icon name or URL
+
+    // Unlock criteria
+    type          AchievementType
+    requiredValue Int // e.g., 100 points, 30 day streak
+
+    isPremium Boolean @default(false)
+
+    createdAt DateTime @default(now())
+
+    // Relations
+    userAchievements UserAchievement[]
+
+    @@map("achievements")
+}
+
+enum AchievementType {
+    TOTAL_POINTS
+    STREAK
+    LESSONS_COMPLETED
+    CHALLENGES_COMPLETED
+    STAGE_REACHED
+    SPECIAL // Special achievements
+}
+
+model UserAchievement {
+    id            String @id @default(cuid())
+    userId        String
+    achievementId String
+
+    user        User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+    achievement Achievement @relation(fields: [achievementId], references: [id], onDelete: Cascade)
+
+    unlockedAt DateTime @default(now())
+
+    @@unique([userId, achievementId])
+    @@index([userId, unlockedAt])
+    @@map("user_achievements")
+}
+
+// Financial Goals
+model FinancialGoal {
+    id     String @id @default(cuid())
+    userId String
+    user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+    title         String
+    description   String?
+    targetAmount  Float // Target amount in euros
+    currentAmount Float   @default(0)
+
+    category GoalCategory
+    deadline DateTime?
+
+    status GoalStatus @default(ACTIVE)
+
+    createdAt   DateTime  @default(now())
+    updatedAt   DateTime  @updatedAt
+    completedAt DateTime?
+
+    @@index([userId, status])
+    @@map("financial_goals")
+}
+
+enum GoalCategory {
+    EMERGENCY_FUND
+    SAVE
+    INVEST
+    DEBT_PAYOFF
+    RETIREMENT
+    OTHER
+}
+
+enum GoalStatus {
+    ACTIVE
+    COMPLETED
+    PAUSED
+    CANCELLED
+}
+
+// Habit Tracking
+model HabitTracking {
+    id     String @id @default(cuid())
+    userId String
+    user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+    habit HabitType
+    date  DateTime  @db.Date
+
+    completed Boolean @default(true)
+    notes     String?
+
+    createdAt DateTime @default(now())
+
+    @@unique([userId, habit, date])
+    @@index([userId, date])
+    @@map("habit_tracking")
+}
+
+enum HabitType {
+    SAVE
+    BUDGET
+    LEARN
+    TRACK_EXPENSES
+    REVIEW_FINANCES
+    NO_IMPULSE_BUY
+}
+
+// Coin Transaction History
+model CoinTransaction {
+    id     String @id @default(cuid())
+    userId String
+    user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+    amount      Int // Positive = earned, Negative = spent
+    balance     Int // Balance after transaction
+    type        CoinTransactionType
+    source      String // e.g., "QUIZ_COMPLETE", "LEVEL_UP", "HABIT_STREAK", "MARKETPLACE_PURCHASE"
+    description String // Human-readable description
+
+    // Optional references
+    relatedId String? // ID of related entity (lessonId, challengeId, etc.)
+
+    createdAt DateTime @default(now())
+
+    @@index([userId, createdAt])
+    @@map("coin_transactions")
+}
+
+enum CoinTransactionType {
+    EARNED // User earned coins
+    SPENT // User spent coins
+    BONUS // Special bonus coins
+    REFUND // Refunded coins
+}
+
+// XP Transaction History
+model XPTransaction {
+    id     String @id @default(cuid())
+    userId String
+    user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+    amount      Int // XP amount (always positive for earning)
+    totalXP     Int // Total XP after transaction
+    level       Int // User level after transaction
+    type        XPTransactionType
+    source      String // e.g., "QUIZ_COMPLETE", "LESSON_COMPLETE", "CHALLENGE_COMPLETE"
+    description String // Human-readable description
+
+    // Optional references
+    relatedId String? // ID of related entity
+
+    createdAt DateTime @default(now())
+
+    @@index([userId, createdAt])
+    @@map("xp_transactions")
+}
+
+enum XPTransactionType {
+    QUEST // From completing quests/tasks
+    LESSON // From completing lessons
+    CHALLENGE // From completing challenges
+    HABIT // From habit streaks
+    MILESTONE // From reaching milestones
+    BONUS // Special bonus XP
+}

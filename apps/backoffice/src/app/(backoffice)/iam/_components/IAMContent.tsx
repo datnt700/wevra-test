@@ -4,6 +4,7 @@ import { Button, Card, EmptyState, DataTable, Badge, Stack } from '@tavia/taviad
 import Link from 'next/link';
 import { Plus, Shield, Mail, Calendar } from 'lucide-react';
 import { useTranslations } from 'next-intl';
+import { UserRole } from '@prisma/client';
 import { ROUTES } from '@/lib/constants';
 import { Styled } from './IAMContent.styles';
 import type { UserListItem } from '../_types';
@@ -126,15 +127,21 @@ export function IAMContent({ users }: IAMContentProps) {
         </Card>
         <Card style={{ flex: '1 1 200px', minWidth: '200px' }}>
           <Styled.StatLabel>{t('stats.admins')}</Styled.StatLabel>
-          <Styled.StatValue>{users.filter((u) => u.role === 'ADMIN').length}</Styled.StatValue>
+          <Styled.StatValue>
+            {users.filter((u) => u.role === UserRole.ADMIN).length}
+          </Styled.StatValue>
         </Card>
         <Card style={{ flex: '1 1 200px', minWidth: '200px' }}>
           <Styled.StatLabel>{t('stats.managers')}</Styled.StatLabel>
-          <Styled.StatValue>{users.filter((u) => u.role === 'MANAGER').length}</Styled.StatValue>
+          <Styled.StatValue>
+            {users.filter((u) => u.role === UserRole.MANAGER).length}
+          </Styled.StatValue>
         </Card>
         <Card style={{ flex: '1 1 200px', minWidth: '200px' }}>
           <Styled.StatLabel>{t('stats.employees')}</Styled.StatLabel>
-          <Styled.StatValue>{users.filter((u) => u.role === 'EMPLOYEE').length}</Styled.StatValue>
+          <Styled.StatValue>
+            {users.filter((u) => u.role === UserRole.EMPLOYEE).length}
+          </Styled.StatValue>
         </Card>
       </Stack>
     </Styled.Container>

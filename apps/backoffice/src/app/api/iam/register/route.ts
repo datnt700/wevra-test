@@ -1,15 +1,19 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { auth } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
+import { UserRole } from '@prisma/client';
 import { hash } from 'bcryptjs';
 import { z } from 'zod';
-import { USER_ROLES } from '@/lib/constants';
 
 const registerUserSchema = z.object({
   name: z.string().min(2),
   email: z.string().email(),
   password: z.string().min(8),
-  role: z.enum(['ADMIN', 'MANAGER', 'EMPLOYEE']),
+  role: z
+    .nativeEnum(UserRole)
+    .refine((role) => role !== UserRole.USER && role !== UserRole.RESTAURANT_OWNER, {
+      message: 'Only ADMIN, MANAGER, or EMPLOYEE roles can be assigned via IAM',
+    }),
 });
 
 export async function POST(request: NextRequest) {
@@ -17,7 +21,7 @@ export async function POST(request: NextRequest) {
     const session = await auth();
 
     // Only admins can register users
-    if (!session?.user || session.user.role !== USER_ROLES.ADMIN) {
+    if (!session?.user || session.user.role !== UserRole.ADMIN) {
       return NextResponse.json({ message: 'Unauthorized' }, { status: 403 });
     }
 

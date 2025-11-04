@@ -9,8 +9,10 @@ Tavia is a Next.js 15 café/restaurant booking platform built as a
 
 - **@tavia/taviad**: 60+ UI components (Emotion + Radix UI) - **PRIMARY for ALL
   web UI** ⭐
-- **apps/backoffice**: Next.js 15 booking platform with Auth.js, Prisma, Docker
+- **apps/backoffice**: Next.js 15 admin platform with Auth.js, Prisma, Docker
   PostgreSQL (port 3000)
+- **apps/frontoffice**: Next.js 15 customer restaurant discovery (port 3003) -
+  **shared database with backoffice**
 - **apps/analytics**: Fastify 5 event tracking API (port 3001)
 - **apps/restaurant-service**: NestJS 11 microservice with Swagger (port 3002)
 - **Generator scripts**: Systematic scaffolding via `pnpm create:app`,
@@ -30,7 +32,8 @@ Tavia is a Next.js 15 café/restaurant booking platform built as a
 
 ```
 apps/
-  ├── backoffice/           # Next.js 15 (port 3000)
+  ├── backoffice/           # Next.js 15 admin (port 3000) - ADMIN/OWNER roles only
+  ├── frontoffice/          # Next.js 15 customer app (port 3003) - Shared DB with backoffice
   ├── analytics/            # Fastify API (port 3001)
   ├── restaurant-service/   # NestJS (port 3002)
   └── docs/                 # Storybook (port 6006)
@@ -107,73 +110,331 @@ export interface ButtonProps {
 
 ## 🔥 Critical Patterns
 
-### Pattern 0: @tavia/taviad Component Usage (NEW - MOST IMPORTANT)
+### Pattern 0: Shared Database Architecture
 
-**MANDATORY WORKFLOW for ALL UI components:**
+**Frontoffice and backoffice share the SAME PostgreSQL database (`tavia`)**:
 
-1. **Check component availability** in taviad (see list below)
-2. **Read the TypeScript props file** at
-   `packages/taviad/src/ui/{component}/types/`
-3. **Import from @tavia/taviad** - never create custom versions
-4. **Use exact prop names and values** from the type definition
-5. **Wrap taviad components with styled()** if custom styling needed
+```
+┌─────────────────┐
+│  PostgreSQL DB  │
+│   "tavia"       │  ← Single source of truth
+│  Port: 5432     │
+└────────┬────────┘
+         │
+    ┌────┴────┐
+    │         │
+┌───▼────┐ ┌──▼──────┐
+│Backoffice│ │Frontoffice│
+│Port 3000│ │Port 3003│
+│ADMIN/    │ │USER role │
+│OWNER     │ │only      │
+└─────────┘ └─────────┘
+```
 
-**Available @tavia/taviad Components (60+):**
+**Critical implications:**
 
-**Base (9):** Avatar, Badge, Button, ButtonGroup, Code, Icon, Image, Spinner,
-Tag
+- ✅ Restaurant data managed in backoffice appears **instantly** in frontoffice
+  (no sync)
+- ✅ Prisma schema lives in **both** `apps/backoffice/prisma` and
+  `apps/frontoffice/prisma` (must stay in sync)
+- ✅ **Only ONE database container** runs - typically from backoffice
+- ⚠️ Schema changes in backoffice? **Must copy to frontoffice**
+  `prisma/schema.prisma`
+- ⚠️ Migrations run from backoffice, frontoffice uses `prisma generate` only
 
-**Radix (8):** Accordion, Checkbox, DropdownMenu, Modal, Popover, Radio, Tabs,
-Tooltip
-
-**Form (19):** Calendar, Field, Form, Input, InputNumber, InputSearch,
-InputTags, Label, Select, Combobox, Switch, Slider, TextArea, FileUpload,
-ImageUpload, RichTextEditor, Text, InputText
-
-**Dialog (4):** Alert, Drawer, MenuBar, Toast
-
-**Layout (10):** Card, Divider, GoogleMap, LeafletMap, MapboxMap, LoadingScreen,
-ScrollBox, Skeleton, Stack, ThemeProvider
-
-**Navigation (4):** Breadcrumb, Link, Pagination, Sidebar
-
-**State (5):** EmptyState, ErrorState, LoadingLogo, LoadingState, Progress
-
-**Table (2):** DataTable, Table
-
-**How to verify props:**
+**Database commands workflow:**
 
 ```bash
-# Read the props file BEFORE using a component
-cat packages/taviad/src/ui/button/types/ButtonProps.ts
-cat packages/taviad/src/ui/error-state/types/ErrorStateProps.ts
-cat packages/taviad/src/ui/link/types/LinkProps.ts
+# 1. Start database (from backoffice)
+cd apps/backoffice
+pnpm docker:up
+
+# 2. Migrate schema (from backoffice)
+pnpm db:migrate
+
+# 3. Sync frontoffice Prisma Client (from frontoffice)
+cd apps/frontoffice
+pnpm db:generate  # NOT migrate - just generate client
 ```
 
-**Common mistakes to avoid:**
+### Pattern 1: Next.js 15 Server Actions (Frontoffice)
 
-```tsx
-// ❌ WRONG - Using <a> instead of Link
-<a href="/home">Home</a>
+**Frontoffice uses server actions** for type-safe database operations:
+
+```typescript
+// apps/frontoffice/src/actions/restaurant.actions.ts
+'use server';
+
+import prisma from '@/lib/prisma';
+
+export async function searchRestaurantsAction(
+  params: SearchRestaurantsParams
+): Promise<SearchRestaurantsResponse> {
+  const where = { isActive: true };
+
+  const [restaurants, total] = await Promise.all([
+    prisma.restaurant.findMany({ where, skip, take: limit }),
+    prisma.restaurant.count({ where }),
+  ]);
+
+  return { restaurants, total, page, totalPages };
+}
+```
+
+**Server actions live in `apps/frontoffice/src/actions/`** and are called from:
+
+- React Query hooks (`src/hooks/`)
+- Client components directly
+
+**Pattern:**
+
+1. ✅ Always add `'use server'` directive at top
+2. ✅ Use `prisma` for database operations
+3. ✅ Return plain objects (no functions, React nodes, etc.)
+4. ✅ Handle errors with try/catch and throw meaningful errors
+5. ✅ Use Prisma transactions for atomic operations
+6. ✅ Return plain objects (no functions, React nodes, etc.)
+7. ✅ Handle errors with try/catch and throw meaningful errors
+8. ✅ Use Prisma transactions for atomic operations
+
+### Pattern 2: Route-Based Layouts (Next.js 15 App Router)
+
+**Use route groups for different layouts** - prevents Emotion hydration errors:
+
+```
+apps/{app}/src/app/
+├── layout.tsx              # ⚠️ ROOT - Providers only, NO Emotion components
+├── (auth)/                 # Route group - auth layout
+│   ├── layout.tsx          # Can use Emotion styled components
+│   └── login/page.tsx
+├── (dashboard)/            # Route group - dashboard layout
+│   ├── layout.tsx          # Header + Sidebar layout
+│   ├── dashboard/page.tsx
+│   └── restaurants/page.tsx
+└── (public)/               # Route group - public layout
+    ├── layout.tsx          # Header only
+    └── page.tsx
+```
+
+**Root layout pattern** (`apps/{app}/src/app/layout.tsx`):
+
+```typescript
+export const dynamic = 'force-dynamic'; // ⚠️ Required for client-side dependencies
+
+export default async function RootLayout({ children }) {
+  const locale = await getLocale();
+  const messages = await getMessages();
+
+  return (
+    <html lang={locale} suppressHydrationWarning> {/* ⚠️ Required for Emotion */}
+      <body>
+        <ClientProviders>  {/* GlobalStyles here */}
+          <NextIntlClientProvider messages={messages}>
+            <AnalyticsProvider>
+              {children}  {/* ⚠️ NO Header/Sidebar - causes hydration errors */}
+            </AnalyticsProvider>
+          </NextIntlClientProvider>
+        </ClientProviders>
+      </body>
+    </html>
+  );
+}
+```
+
+**Route group layout pattern** (`apps/{app}/src/app/(dashboard)/layout.tsx`):
+
+```typescript
+'use client';  // ⚠️ Required for Emotion styled components
+
+import { BackofficeLayoutClient } from '@/components/layouts/BackofficeLayoutClient';
+
+export default function DashboardLayout({ children }) {
+  return (
+    <BackofficeLayoutClient>  {/* Header + Sidebar */}
+      {children}
+    </BackofficeLayoutClient>
+  );
+}
+```
+
+**Critical rules:**
+
+1. ✅ Root layout: `export const dynamic = 'force-dynamic'` for all apps
+2. ✅ Root layout: `suppressHydrationWarning` on `<html>` tag
+3. ✅ Root layout: Providers only (NextIntl, Analytics, Emotion GlobalStyles)
+4. ❌ Root layout: NO Emotion styled components (Header, Sidebar, etc.)
+5. ✅ Route group layouts: `'use client'` + Emotion components allowed
+6. ✅ Page components: Can be server or client components
+
+### Pattern 3: Auth.js RBAC (Backoffice)
+
+**Backoffice uses Auth.js (NextAuth v5)** with role-based access:
+
+```typescript
+// apps/backoffice/src/lib/auth.ts
+import NextAuth from 'next-auth';
+import Credentials from 'next-auth/providers/credentials';
+import { PrismaAdapter } from '@auth/prisma-adapter';
+
+export const { handlers, auth, signIn, signOut } = NextAuth({
+  adapter: PrismaAdapter(prisma),
+  session: { strategy: 'jwt' },
+  providers: [
+    Credentials({
+      /* ... */
+    }),
+  ],
+  callbacks: {
+    async signIn({ user }) {
+      // Only ADMIN and RESTAURANT_OWNER can access backoffice
+      const allowedRoles = [USER_ROLES.ADMIN, USER_ROLES.RESTAURANT_OWNER];
+      if (!user.role || !allowedRoles.includes(user.role)) {
+        throw new Error('Access denied');
+      }
+      return true;
+    },
+    async jwt({ token, user }) {
+      if (user) {
+        token.id = user.id;
+        token.role = user.role;
+      }
+      return token;
+    },
+    async session({ session, token }) {
+      session.user.id = token.id;
+      session.user.role = token.role;
+      return session;
+    },
+  },
+});
+```
+
+**User roles** (defined in `prisma/schema.prisma`):
+
+- **ADMIN**: Full system access (all restaurants, IAM management)
+- **RESTAURANT_OWNER**: Manage own restaurants only
+- **USER**: Frontoffice only (no backoffice access)
+
+**Auth setup:**
+
+1. Route handlers: `apps/backoffice/src/app/api/auth/[...nextauth]/route.ts`
+2. Auth config: `apps/backoffice/src/lib/auth.ts`
+3. Middleware: `apps/backoffice/middleware.ts` (protects routes)
+4. Protected routes: All under `(backoffice)` route group
+
+**Session access:**
+
+```typescript
+// Server component
+import { auth } from '@/lib/auth';
+const session = await auth();
+
+// Client component
+import { useSession } from 'next-auth/react';
+const { data: session } = useSession();
+```
+
+### Pattern 4: Centralized Constants
+
+**All apps use centralized constants** - NEVER hardcode routes or roles:
+
+```typescript
+// apps/{app}/src/lib/constants/index.ts
+export * from './roles';
+export * from './routes';
+
+// apps/{app}/src/lib/constants/routes.ts
+export const ROUTES = {
+  AUTH: {
+    LOGIN: '/login',
+    REGISTER: '/register',
+  },
+  DASHBOARD: {
+    HOME: '/dashboard',
+  },
+  RESTAURANT: {
+    LIST: '/restaurants',
+    NEW: '/restaurants/new',
+    DETAIL: (id: string) => `/restaurants/${id}`, // ⚠️ Function for dynamic routes
+    EDIT: (id: string) => `/restaurants/${id}/edit`,
+  },
+} as const;
+
+// apps/{app}/src/lib/constants/roles.ts
+export const USER_ROLES = {
+  ADMIN: 'ADMIN',
+  RESTAURANT_OWNER: 'RESTAURANT_OWNER',
+  USER: 'USER',
+} as const;
+```
+
+**Usage:**
+
+```typescript
+import { ROUTES, USER_ROLES } from '@/lib/constants';
 
 // ✅ CORRECT
-import { Link } from '@tavia/taviad';
-<Link href="/home">Home</Link>
+<Link href={ROUTES.RESTAURANT.NEW}>Add Restaurant</Link>
+<Link href={ROUTES.RESTAURANT.DETAIL(id)}>View</Link>
 
-// ❌ WRONG - Invalid variant
-<Button variant="outline">Click</Button>  // "outline" doesn't exist
+if (user.role === USER_ROLES.ADMIN) { /* ... */ }
 
-// ✅ CORRECT - Valid variants only
-<Button variant="secondary">Click</Button>  // secondary, primary, danger, etc.
-
-// ❌ WRONG - Wrong prop structure
-<ErrorState action={{ label: 'Retry', onClick: fn }} />
-
-// ✅ CORRECT - action is ReactNode
-<ErrorState action={<Button onClick={fn}>Retry</Button>} />
+// ❌ WRONG - hardcoded
+<Link href="/restaurants/new">Add Restaurant</Link>
+if (user.role === 'ADMIN') { /* ... */ }
 ```
 
-### Pattern 1: pnpm Catalog Dependencies
+### Pattern 5: Directory Structure (Next.js Apps)
+
+**Frontoffice and backoffice follow `src/` structure:**
+
+```
+apps/{app}/src/
+├── actions/              # Server actions (frontoffice only - 'use server')
+├── app/                  # Next.js App Router
+│   ├── (auth)/          # Route group - auth layout
+│   ├── (dashboard)/     # Route group - dashboard layout
+│   ├── api/             # API routes
+│   ├── layout.tsx       # Root layout (providers only)
+│   ├── page.tsx         # Home page
+│   ├── loading.tsx      # Global loading UI
+│   ├── error.tsx        # Global error UI
+│   └── not-found.tsx    # 404 page
+├── components/
+│   ├── layouts/         # Layout components (Header, Sidebar, etc.)
+│   ├── backoffice/      # App-specific components
+│   └── AnalyticsProvider.tsx
+├── hooks/               # Custom React hooks (frontoffice: React Query wrappers)
+├── i18n/                # i18n config (request.ts, routing.ts)
+├── lib/
+│   ├── auth.ts          # Auth.js config (backoffice only)
+│   ├── prisma.ts        # Prisma client singleton
+│   ├── constants/       # Routes, roles, etc.
+│   └── utils/           # Utility functions
+├── messages/            # i18n translations
+│   ├── en/              # 7 modules: common, navigation, home, actions, auth, dashboard, errors
+│   └── vi/
+├── services/            # API client functions (frontoffice only)
+├── types/               # TypeScript types and interfaces
+└── middleware.ts        # Auth middleware (backoffice only)
+```
+
+**Component file naming:**
+
+```
+apps/{app}/src/app/{route}/_components/
+├── ComponentName.tsx        # Main component
+├── ComponentName.styles.ts  # Emotion styles (if complex)
+└── ComponentName.test.tsx   # Tests (optional in apps - required in packages/taviad)
+```
+
+**⚠️ Underscore prefix (`_components/`):**
+
+- Next.js 15 ignores `_folders` in routing
+- Use for co-located components, utils, constants
+- Examples: `_components/`, `_types/`, `_hooks/`, `_constants/`
+
+### Pattern 6: @tavia/taviad Component Usage (MOST IMPORTANT)
 
 **NEVER hardcode versions in package.json.** Always use `catalog:` references
 from `pnpm-workspace.yaml`.
@@ -207,7 +468,7 @@ from `pnpm-workspace.yaml`.
   with versions
 - These should be rare - prefer adding to catalog for reusability
 
-### Pattern 2: @tavia/taviad Component Structure
+### Pattern 7: @tavia/taviad Component Structure
 
 **Flat structure** - All 60+ components in
 `packages/taviad/src/ui/<component-name>/` (lowercase-with-dashes).
@@ -258,7 +519,7 @@ import { Button } from '@tavia/taviad/components/form/Button';
 - **State** (5): EmptyState, ErrorState, LoadingLogo, LoadingState, Progress
 - **Table** (2): DataTable, Table
 
-### Pattern 3: Emotion Styling (NO SCSS)
+### Pattern 8: Emotion Styling (NO SCSS)
 
 **ALL components use Emotion.** No CSS modules, no SCSS.
 
@@ -443,7 +704,7 @@ app/
 6. ❌ Never render Emotion styled components in server layouts
 7. ❌ Don't use CacheProvider unless you have a custom server
 
-### Pattern 4: Generator Scripts
+### Pattern 9: Generator Scripts
 
 **ALWAYS use generators** - never copy existing apps. Ensures correct ports,
 dependencies, configs.

@@ -5,14 +5,15 @@
 import { auth } from '@/lib/auth';
 import { redirect } from 'next/navigation';
 import { prisma } from '@/lib/prisma';
-import { ROUTES, USER_ROLES } from '@/lib/constants';
+import { UserRole } from '@prisma/client';
+import { ROUTES } from '@/lib/constants';
 import { IAMContent } from './_components/IAMContent';
 
 export default async function IAMPage() {
   const session = await auth();
 
   // Only admins can access IAM
-  if (!session?.user || session.user.role !== USER_ROLES.ADMIN) {
+  if (!session?.user || session.user.role !== UserRole.ADMIN) {
     redirect(ROUTES.DASHBOARD.HOME);
   }
 
@@ -20,7 +21,7 @@ export default async function IAMPage() {
   const users = await prisma.user.findMany({
     where: {
       role: {
-        in: [USER_ROLES.ADMIN, USER_ROLES.MANAGER, USER_ROLES.EMPLOYEE],
+        in: [UserRole.ADMIN, UserRole.MANAGER, UserRole.EMPLOYEE],
       },
     },
     select: {

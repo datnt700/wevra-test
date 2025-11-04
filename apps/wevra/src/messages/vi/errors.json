@@ -1,0 +1,9 @@
+{
+  "generic": "Đã xảy ra lỗi",
+  "notFound": "Không tìm thấy trang",
+  "unauthorized": "Chưa được phép",
+  "forbidden": "Bị cấm",
+  "serverError": "Lỗi máy chủ",
+  "tryAgain": "Thử lại",
+  "goHome": "Về trang chủ"
+}

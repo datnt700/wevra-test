@@ -7,6 +7,14 @@
 // Theme & Design Tokens
 // ========================================
 export { theme, lightTheme, darkTheme, type TaviaTheme, type ColorMode } from './theme/theme';
+export {
+  gamingLightTheme,
+  gamingDarkTheme,
+  gamingCssVars,
+  getTheme,
+  themes,
+  type ThemeName,
+} from './theme/themes';
 export { breakpoints, mq, mqMax } from './theme/breakpoints';
 export { GlobalStyles, globalStyles } from './theme/global';
 export { cssVars, semanticColors } from './theme/tokens/colors';

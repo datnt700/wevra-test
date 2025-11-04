@@ -1,5 +1,5 @@
 type ButtonVariant = 'primary' | 'secondary' | 'dark' | 'link' | 'tertiary' | 'danger' | 'info';
-type ButtonShape = 'default' | 'round' | 'square' | 'pill' | 'circle';
+type ButtonShape = 'default' | 'round' | 'rounded' | 'square' | 'pill' | 'circle';
 
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   type?: 'button' | 'submit' | undefined;
