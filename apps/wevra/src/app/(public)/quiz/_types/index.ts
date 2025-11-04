@@ -2,7 +2,7 @@
  * Quiz Types & Interfaces
  */
 
-import type { UserStage } from '../../../../node_modules/.prisma/client-wevra';
+import type { UserStage } from '@prisma/client';
 
 export type QuestionType = 'multiple-choice' | 'text' | 'scale';
 

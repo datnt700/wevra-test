@@ -3,7 +3,7 @@
  * NextAuth v5 with Credentials (username/password) and Google OAuth
  */
 
-import NextAuth, { type DefaultSession } from 'next-auth';
+import NextAuth, { type DefaultSession, type NextAuthResult } from 'next-auth';
 import Credentials from 'next-auth/providers/credentials';
 import Google from 'next-auth/providers/google';
 import { PrismaAdapter } from '@auth/prisma-adapter';
@@ -21,13 +21,8 @@ declare module 'next-auth' {
 
 /**
  * NextAuth v5 Configuration
- *
- * Note: TypeScript may show inference errors on the export line.
- * This is a known issue with NextAuth v5 beta and doesn't affect runtime.
- * The official Auth.js docs use this exact pattern.
- * See: https://authjs.dev/getting-started/installation
  */
-export const { handlers, signIn, signOut, auth } = NextAuth({
+const result = NextAuth({
   adapter: PrismaAdapter(prisma),
   session: { strategy: 'jwt' },
   providers: [
@@ -91,3 +86,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     signIn: '/login',
   },
 });
+
+export const handlers: NextAuthResult['handlers'] = result.handlers;
+export const auth: NextAuthResult['auth'] = result.auth;
+export const signIn: NextAuthResult['signIn'] = result.signIn;
+export const signOut: NextAuthResult['signOut'] = result.signOut;
