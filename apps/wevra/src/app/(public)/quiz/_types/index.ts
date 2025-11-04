@@ -2,6 +2,8 @@
  * Quiz Types & Interfaces
  */
 
+import type { UserStage } from '../../../../node_modules/.prisma/client-wevra';
+
 export type QuestionType = 'multiple-choice' | 'text' | 'scale';
 
 export interface QuizQuestion {
@@ -15,6 +17,7 @@ export interface QuizQuestion {
   scaleMax?: number;
   scaleLabels?: { min: string; max: string };
   required?: boolean;
+  placeholder?: string; // For text input questions
 }
 
 export interface QuizOption {
@@ -37,7 +40,7 @@ export interface QuizState {
 }
 
 export interface QuizResult {
-  stage: 'STARTER' | 'STABILIZER' | 'BUILDER' | 'GROWER';
+  stage: UserStage;
   profile: {
     financialAwareness: number; // 0-100
     habitDiscipline: number; // 0-100
@@ -71,6 +74,6 @@ export interface QuizAnalysis {
 }
 
 /**
- * Stage type for quiz results (re-exported from journey)
+ * Stage type for quiz results (re-exported from Prisma)
  */
-export type Stage = 'STARTER' | 'STABILIZER' | 'BUILDER' | 'GROWER';
+export type Stage = UserStage;

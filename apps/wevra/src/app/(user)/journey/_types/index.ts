@@ -2,10 +2,14 @@
  * Wevra Journey & Progression System Types
  */
 
+import type { UserStage } from '@prisma/client';
+
 /**
  * Progression System Types
  */
-export type Stage = 'STARTER' | 'STABILIZER' | 'BUILDER' | 'GROWER';
+
+// Re-export Prisma enum as type alias
+export type Stage = UserStage;
 
 export interface StageConfig {
   name: Stage;
