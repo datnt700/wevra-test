@@ -166,4 +166,72 @@ export const Styled = {
       }
     }
   `,
+
+  EmailForm: styled.form`
+    display: flex;
+    gap: 0.75rem;
+    width: 100%;
+    align-items: stretch;
+  `,
+
+  EmailInput: styled.input`
+    flex: 1;
+    padding: 1rem 1.25rem;
+    border: 2px solid ${(p) => (p.theme as TaviaTheme).colors.gray.gray200};
+    border-radius: 1.5rem;
+    background: ${(p) => (p.theme as TaviaTheme).colors.background};
+    color: ${(p) => (p.theme as TaviaTheme).colors.text.primary};
+    font-size: 1rem;
+    font-family: inherit;
+    line-height: 1.5;
+    transition: all 0.2s ease;
+
+    &::placeholder {
+      color: ${(p) => (p.theme as TaviaTheme).colors.text.secondary};
+    }
+    &:focus {
+      outline: none;
+      border-color: ${(p) => (p.theme as TaviaTheme).colors.border.focus};
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    }
+    &:disabled {
+      background: ${(p) => (p.theme as TaviaTheme).colors.gray.gray100};
+      cursor: not-allowed;
+      opacity: 0.7;
+    }
+  `,
+
+  EmailButton: styled.button`
+    min-width: 120px;
+    height: 48px;
+    padding: 0 1.25rem;
+    border: none;
+    border-radius: 1.5rem;
+    background: ${(p) => (p.theme as TaviaTheme).colors.primary};
+    color: ${(p) => (p.theme as TaviaTheme).colors.text.inverse};
+    font-weight: 700;
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 12px ${(p) => (p.theme as TaviaTheme).colors.primary}30;
+
+    &:hover:not(:disabled) {
+      filter: brightness(1.06);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px ${(p) => (p.theme as TaviaTheme).colors.primary}40;
+    }
+    &:active:not(:disabled) {
+      transform: translateY(0) scale(0.98);
+      box-shadow: 0 2px 8px ${(p) => (p.theme as TaviaTheme).colors.primary}30;
+    }
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      box-shadow: none;
+    }
+  `,
 };

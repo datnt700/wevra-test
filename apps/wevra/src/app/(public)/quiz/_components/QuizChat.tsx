@@ -27,8 +27,9 @@ export function QuizChat() {
     currentStep: 1,
     answers: [],
     isComplete: false,
+    email: '',
   });
-
+  const [needEmail, setNeedEmail] = useState(false);
   const [messages, setMessages] = useState<ChatMessage[]>([
     {
       id: 'intro',
@@ -37,6 +38,17 @@ export function QuizChat() {
       timestamp: new Date(),
     },
   ]);
+  const [sessionId] = useState(() => {
+    const existing = localStorage.getItem('quiz-session-id');
+    if (existing) return existing;
+    const newId =
+      typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function'
+        ? crypto.randomUUID()
+        : `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+    localStorage.setItem('quiz-session-id', newId);
+    return newId;
+  });
+  const startTime = useRef(Date.now());
 
   const [showAnswer, setShowAnswer] = useState(false);
   const [isTyping, setIsTyping] = useState(false);
@@ -47,6 +59,7 @@ export function QuizChat() {
   const currentQuestion = QUIZ_QUESTIONS.find((q) => q.step === quizState.currentStep);
   const progress = (quizState.currentStep / TOTAL_STEPS) * 100;
 
+  const submittedRef = useRef(false);
   // Auto-scroll to bottom when messages change
   useEffect(() => {
     chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -101,9 +114,102 @@ export function QuizChat() {
     setShowAnswer(false);
   };
 
-  const handleAnswer = (answer: QuizAnswer, displayText: string) => {
-    console.log('📥 Answer received:', answer);
-    console.log('💬 Display text:', displayText);
+  const submitWithEmail = async (e?: React.FormEvent) => {
+    e?.preventDefault();
+    const timeToFinish = Math.round((Date.now() - startTime.current) / 1000);
+    const email = quizState.email.trim();
+    const ok = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    if (!ok) return;
+
+    setQuizState((prev) => ({ ...prev, email }));
+    setNeedEmail(false);
+    setIsAnalyzing(true);
+
+    try {
+      // 1) Save email
+      const results = await Promise.allSettled([
+        fetch('/api/survey/submit', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            sessionId,
+            email,
+            questionId: 'Email',
+            value: email,
+            step: 0,
+          }),
+        }),
+        fetch('/api/survey/submit', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            sessionId,
+            questionId: 'stepLastCompleted',
+            value: quizState.currentStep,
+          }),
+        }),
+        fetch('/api/survey/submit', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            sessionId,
+            questionId: 'timeToFinish',
+            value: timeToFinish,
+          }),
+        }),
+      ]);
+      results.forEach((result, i) => {
+        if (result.status === 'rejected') {
+          console.error(
+            `Failed to submit ${['email', 'stepLastCompleted', 'timeToFinish'][i]}:`,
+            result.reason
+          );
+        }
+      });
+    } catch (err) {
+      submittedRef.current = false;
+    } finally {
+      completeTimerRef.current = setTimeout(() => {
+        setIsAnalyzing(false);
+        setQuizState((prev) => ({ ...prev, isComplete: true }));
+      }, 800);
+    }
+  };
+
+  const handleAnswer = async (answer: QuizAnswer, displayText: string) => {
+    if (process.env.NODE_ENV === 'development') {
+      console.log('📥 Answer received:', answer);
+      console.log('💬 Display text:', displayText);
+    }
+
+    if (currentQuestion?.type === 'text') {
+      const v = await fetch('/api/quiz/validate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ text: displayText }),
+      }).then((r) => r.json());
+      if (!v.ok) {
+        addDuoMessage(
+          `Hmm… this sentence is not good: ${v.reason}\n\nTry to be more specific (e.g., goal, real-life example, number, deadline).`
+        );
+        return;
+      }
+    }
+    try {
+      fetch('/api/survey/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          sessionId,
+          email: quizState.email || 'none',
+          questionId: answer.questionId,
+          value: answer.value,
+          step: quizState.currentStep,
+        }),
+      });
+    } catch (err) {
+      console.error('Error submitting answer:', err);
+    }
 
     // Add user response to chat
     addUserMessage(displayText);
@@ -122,7 +228,6 @@ export function QuizChat() {
       ...prev,
       answers: newAnswers,
     }));
-
     // Move to next question or complete
     if (quizState.currentStep < TOTAL_STEPS) {
       const nextStep = quizState.currentStep + 1;
@@ -143,22 +248,15 @@ export function QuizChat() {
         }
       }, 1000);
     } else {
-      // Complete quiz - show full-screen analyzing state
-      console.log('🏁 Quiz complete! Final answers:', newAnswers);
-      console.log('🎯 Moving to analyzing screen...');
-
-      setShowAnswer(false); // Hide input/options immediately
-      setIsAnalyzing(true); // Show analyzing screen
-
-      // Show analyzing screen for 3 seconds, then show results
-      completeTimerRef.current = setTimeout(() => {
-        console.log('✅ Analyzing complete, showing results...');
-        setIsAnalyzing(false);
-        setQuizState((prev) => ({
-          ...prev,
-          isComplete: true,
-        }));
-      }, 3000);
+      if (!submittedRef.current) {
+        submittedRef.current = true;
+        setShowAnswer(false);
+        setNeedEmail(true);
+        addDuoMessage(
+          "Great! Before I show your results, what's your email so I can save them?",
+          undefined
+        );
+      }
     }
   };
 
@@ -224,19 +322,34 @@ export function QuizChat() {
         </Styled.MessagesWrapper>
 
         {/* Answer Options or Input - Hide when analyzing */}
-        {!isAnalyzing && (
+        {needEmail && !isAnalyzing && !quizState.isComplete && (
+          <Styled.AnswerContainer>
+            <Styled.EmailForm onSubmit={submitWithEmail}>
+              <Styled.EmailInput
+                type="email"
+                required
+                placeholder="your@email.com"
+                value={quizState.email}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setQuizState((prev) => ({ ...prev, email: e.target.value }))
+                }
+              />
+              <Styled.EmailButton type="submit">Continue</Styled.EmailButton>
+            </Styled.EmailForm>
+          </Styled.AnswerContainer>
+        )}
+
+        {!needEmail && !isAnalyzing && (
           <Styled.AnswerContainer>
             {isTyping || !showAnswer ? (
-              // Show disabled input while Duo is typing or waiting
               <QuizChatAnswer
                 question={currentQuestion}
                 currentAnswer={getCurrentAnswer()}
                 onAnswer={handleAnswer}
-                showOnlyInput={true}
+                showOnlyInput
                 isTyping={isTyping}
               />
             ) : (
-              // Show options when ready to answer
               <QuizChatAnswer
                 question={currentQuestion}
                 currentAnswer={getCurrentAnswer()}

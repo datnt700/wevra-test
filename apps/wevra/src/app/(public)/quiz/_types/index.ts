@@ -37,6 +37,7 @@ export interface QuizState {
   currentStep: number;
   answers: QuizAnswer[];
   isComplete: boolean;
+  email: string;
 }
 
 export interface QuizResult {
