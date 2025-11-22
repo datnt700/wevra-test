@@ -1,7 +1,32 @@
 # Tavia - AI Agent Instructions
 
-Tavia is a Next.js 15 café/restaurant booking platform built as a
-**microservices-first monorepo** with a production-ready component library.
+Tavia is a **community networking platform** using a **Freemium model**, built
+as a **microservices-first monorepo** with Next.js 15 and a production-ready
+component library.
+
+## 🎯 Product Vision
+
+Build a **two-sided platform** (broker model) connecting:
+
+- **Organizers (B2B)**: Community managers who create groups, host events, and
+  grow communities
+- **Attendees (B2C)**: Individuals discovering and joining activities (unlimited
+  access)
+
+**Business Model:**
+
+- **Free Plan**: Organizers get 1 group (50 members max), 2 events/month, basic
+  tools
+- **Premium Plan**: Unlimited groups/events, advanced analytics, custom
+  branding, automation
+- **Attendees**: Always free with unlimited joining and participation
+
+**Conversion Strategy:**
+
+- Generous Free tier attracts organizers
+- Clear limits trigger upsell (50 members, 2 events/month, no analytics)
+- High-value Premium features drive conversions
+- More groups → more events → more attendees → more paid organizers
 
 ## 🎯 Project Overview
 
@@ -9,12 +34,12 @@ Tavia is a Next.js 15 café/restaurant booking platform built as a
 
 - **@tavia/taviad**: 60+ UI components (Emotion + Radix UI) - **PRIMARY for ALL
   web UI** ⭐
-- **apps/backoffice**: Next.js 15 admin platform with Auth.js, Prisma, Docker
-  PostgreSQL (port 3000)
-- **apps/frontoffice**: Next.js 15 customer restaurant discovery (port 3003) -
+- **apps/backoffice**: Next.js 15 organizer platform with Auth.js, Prisma,
+  Stripe, Docker PostgreSQL (port 3000)
+- **apps/frontoffice**: Next.js 15 attendee event discovery (port 3003) -
   **shared database with backoffice**
 - **apps/analytics**: Fastify 5 event tracking API (port 3001)
-- **apps/restaurant-service**: NestJS 11 microservice with Swagger (port 3002)
+- **apps/event-service**: NestJS 11 microservice with Swagger (port 3002)
 - **Generator scripts**: Systematic scaffolding via `pnpm create:app`,
   `create:api`, `create:mobile`
 
@@ -22,6 +47,7 @@ Tavia is a Next.js 15 café/restaurant booking platform built as a
 
 - Next.js 15 (App Router) + React 19 | Node.js 22.17.1+ (`.nvmrc`: 18.18.0 for
   CI)
+- Payments: Stripe subscription billing (Monthly/Annual plans)
 - Styling: 100% Emotion (NO SCSS) + Radix UI primitives
 - Package Manager: pnpm v10.19.0+ (exact: 10.19.0+sha512) with **catalog
   dependencies**
@@ -32,10 +58,10 @@ Tavia is a Next.js 15 café/restaurant booking platform built as a
 
 ```
 apps/
-  ├── backoffice/           # Next.js 15 admin (port 3000) - ADMIN/OWNER roles only
-  ├── frontoffice/          # Next.js 15 customer app (port 3003) - Shared DB with backoffice
+  ├── backoffice/           # Next.js 15 organizer (port 3000) - ADMIN/ORGANIZER/MODERATOR roles
+  ├── frontoffice/          # Next.js 15 attendee app (port 3003) - ATTENDEE role, unlimited access
   ├── analytics/            # Fastify API (port 3001)
-  ├── restaurant-service/   # NestJS (port 3002)
+  ├── event-service/        # NestJS (port 3002)
   └── docs/                 # Storybook (port 6006)
 packages/
   ├── taviad/               # @tavia/taviad - 60+ web components (Emotion + Radix) ⭐
@@ -110,7 +136,183 @@ export interface ButtonProps {
 
 ## 🔥 Critical Patterns
 
-### Pattern 0: Shared Database Architecture
+### Pattern 0: Freemium Model & Feature Flags
+
+**Tavia uses a two-sided platform (broker model) with Freemium monetization:**
+
+**Free Plan (Organizers):**
+
+- Create 1 group (max 50 members)
+- Host 2 events per month
+- Basic tools: RSVP, simple chat, manual member approval
+- Platform watermark on pages
+- NO analytics or custom branding
+
+**Premium Plan (Organizers):**
+
+- Unlimited groups and members
+- Unlimited events per month
+- Advanced analytics (growth, retention, engagement)
+- Custom branding (logo, colors, domain)
+- Moderators and co-hosts
+- Automated member management
+- Priority support
+
+**Attendees:**
+
+- Always FREE with unlimited access
+- Unlimited group joining and event participation
+
+**Feature Flag System:**
+
+Centralized permission checks in `apps/backoffice/src/lib/features/`:
+
+```typescript
+// apps/backoffice/src/lib/features/planLimits.ts
+export const PLAN_LIMITS = {
+  FREE: {
+    maxGroups: 1,
+    maxMembers: 50,
+    maxEventsPerMonth: 2,
+    hasAnalytics: false,
+    hasCustomBranding: false,
+    canAddModerators: false,
+  },
+  PREMIUM: {
+    maxGroups: Infinity,
+    maxMembers: Infinity,
+    maxEventsPerMonth: Infinity,
+    hasAnalytics: true,
+    hasCustomBranding: true,
+    canAddModerators: true,
+  },
+} as const;
+
+// Feature flag checks
+export function canCreateGroup(user: User): boolean {
+  if (user.subscriptionStatus === 'PREMIUM') return true;
+  return user.groupCount < PLAN_LIMITS.FREE.maxGroups;
+}
+
+export function canCreateEvent(user: User, groupId: string): boolean {
+  if (user.subscriptionStatus === 'PREMIUM') return true;
+  const eventsThisMonth = getEventsCountThisMonth(user, groupId);
+  return eventsThisMonth < PLAN_LIMITS.FREE.maxEventsPerMonth;
+}
+
+export function getMaxMembers(group: Group): number {
+  return group.isPremium
+    ? PLAN_LIMITS.PREMIUM.maxMembers
+    : PLAN_LIMITS.FREE.maxMembers;
+}
+
+export function canAccessAnalytics(user: User): boolean {
+  return user.subscriptionStatus === 'PREMIUM';
+}
+
+export function canCustomizeBranding(user: User): boolean {
+  return user.subscriptionStatus === 'PREMIUM';
+}
+```
+
+**Premium Upsell Triggers:**
+
+1. **Group hits 50 members** → Show upgrade modal:
+
+   ```typescript
+   if (group.memberCount >= 50 && !group.isPremium) {
+     showUpgradeModal(
+       'Your group is at capacity! Upgrade to add unlimited members.'
+     );
+   }
+   ```
+
+2. **Creating 3rd event of month** → Block + paywall:
+
+   ```typescript
+   if (!canCreateEvent(user, groupId)) {
+     showPremiumPaywall(
+       "You've reached your 2 events/month limit. Go Premium for unlimited events!"
+     );
+   }
+   ```
+
+3. **Accessing analytics** → Premium gate:
+
+   ```typescript
+   if (!canAccessAnalytics(user)) {
+     return <PremiumFeature feature="Advanced Analytics" />;
+   }
+   ```
+
+4. **Customizing branding** → Premium gate:
+   ```typescript
+   if (!canCustomizeBranding(user)) {
+     return <PremiumFeature feature="Custom Branding" />;
+   }
+   ```
+
+**Stripe Subscription Management:**
+
+```typescript
+// apps/backoffice/src/lib/stripe.ts
+import Stripe from 'stripe';
+
+export const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
+
+// Subscription plans
+export const STRIPE_PLANS = {
+  MONTHLY: {
+    priceId: process.env.STRIPE_MONTHLY_PRICE_ID,
+    amount: 2900, // $29/month
+  },
+  ANNUAL: {
+    priceId: process.env.STRIPE_ANNUAL_PRICE_ID,
+    amount: 29000, // $290/year (2 months free)
+  },
+};
+
+// Upgrade flow
+export async function upgradeToPremium(
+  userId: string,
+  plan: 'MONTHLY' | 'ANNUAL'
+) {
+  const session = await stripe.checkout.sessions.create({
+    customer_email: user.email,
+    line_items: [
+      {
+        price: STRIPE_PLANS[plan].priceId,
+        quantity: 1,
+      },
+    ],
+    mode: 'subscription',
+    success_url: `${process.env.NEXT_PUBLIC_URL}/dashboard?upgraded=true`,
+    cancel_url: `${process.env.NEXT_PUBLIC_URL}/pricing`,
+  });
+
+  return session.url;
+}
+
+// Downgrade behavior
+export async function cancelSubscription(userId: string) {
+  // Graceful downgrade: preserve data, freeze premium features
+  await prisma.user.update({
+    where: { id: userId },
+    data: {
+      subscriptionStatus: 'FREE',
+      subscriptionEndDate: new Date(), // Immediate effect
+    },
+  });
+
+  // Groups remain but premium features disabled
+  await prisma.group.updateMany({
+    where: { ownerId: userId },
+    data: { isPremium: false },
+  });
+}
+```
+
+### Pattern 1: Shared Database Architecture
 
 **Frontoffice and backoffice share the SAME PostgreSQL database (`tavia`)**:
 
@@ -126,15 +328,16 @@ export interface ButtonProps {
 ┌───▼────┐ ┌──▼──────┐
 │Backoffice│ │Frontoffice│
 │Port 3000│ │Port 3003│
-│ADMIN/    │ │USER role │
-│OWNER     │ │only      │
+│ADMIN/    │ │ATTENDEE  │
+│ORGANIZER │ │role only │
+│MODERATOR │ │          │
 └─────────┘ └─────────┘
 ```
 
 **Critical implications:**
 
-- ✅ Restaurant data managed in backoffice appears **instantly** in frontoffice
-  (no sync)
+- ✅ Event data managed in backoffice appears **instantly** in frontoffice (no
+  sync)
 - ✅ Prisma schema lives in **both** `apps/backoffice/prisma` and
   `apps/frontoffice/prisma` (must stay in sync)
 - ✅ **Only ONE database container** runs - typically from backoffice
@@ -157,27 +360,27 @@ cd apps/frontoffice
 pnpm db:generate  # NOT migrate - just generate client
 ```
 
-### Pattern 1: Next.js 15 Server Actions (Frontoffice)
+### Pattern 2: Next.js 15 Server Actions (Frontoffice)
 
 **Frontoffice uses server actions** for type-safe database operations:
 
 ```typescript
-// apps/frontoffice/src/actions/restaurant.actions.ts
+// apps/frontoffice/src/actions/event.actions.ts
 'use server';
 
 import prisma from '@/lib/prisma';
 
-export async function searchRestaurantsAction(
-  params: SearchRestaurantsParams
-): Promise<SearchRestaurantsResponse> {
+export async function searchEventsAction(
+  params: SearchEventsParams
+): Promise<SearchEventsResponse> {
   const where = { isActive: true };
 
-  const [restaurants, total] = await Promise.all([
-    prisma.restaurant.findMany({ where, skip, take: limit }),
-    prisma.restaurant.count({ where }),
+  const [events, total] = await Promise.all([
+    prisma.event.findMany({ where, skip, take: limit }),
+    prisma.event.count({ where }),
   ]);
 
-  return { restaurants, total, page, totalPages };
+  return { events, total, page, totalPages };
 }
 ```
 
@@ -210,7 +413,7 @@ apps/{app}/src/app/
 ├── (dashboard)/            # Route group - dashboard layout
 │   ├── layout.tsx          # Header + Sidebar layout
 │   ├── dashboard/page.tsx
-│   └── restaurants/page.tsx
+│   └── events/page.tsx
 └── (public)/               # Route group - public layout
     ├── layout.tsx          # Header only
     └── page.tsx
@@ -286,8 +489,12 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   ],
   callbacks: {
     async signIn({ user }) {
-      // Only ADMIN and RESTAURANT_OWNER can access backoffice
-      const allowedRoles = [USER_ROLES.ADMIN, USER_ROLES.RESTAURANT_OWNER];
+      // Only ADMIN, ORGANIZER, and MODERATOR can access backoffice
+      const allowedRoles = [
+        USER_ROLES.ADMIN,
+        USER_ROLES.ORGANIZER,
+        USER_ROLES.MODERATOR,
+      ];
       if (!user.role || !allowedRoles.includes(user.role)) {
         throw new Error('Access denied');
       }
@@ -297,12 +504,14 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       if (user) {
         token.id = user.id;
         token.role = user.role;
+        token.subscriptionStatus = user.subscriptionStatus;
       }
       return token;
     },
     async session({ session, token }) {
       session.user.id = token.id;
       session.user.role = token.role;
+      session.user.subscriptionStatus = token.subscriptionStatus;
       return session;
     },
   },
@@ -311,9 +520,12 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
 
 **User roles** (defined in `prisma/schema.prisma`):
 
-- **ADMIN**: Full system access (all restaurants, IAM management)
-- **RESTAURANT_OWNER**: Manage own restaurants only
-- **USER**: Frontoffice only (no backoffice access)
+- **ADMIN**: Full system access (all events, user management, subscription
+  oversight)
+- **ORGANIZER**: Create and manage own events and groups (Free or Premium plan)
+- **MODERATOR**: Assist organizers with group management (Premium feature only)
+- **ATTENDEE**: Frontoffice only (unlimited joining and participation, no
+  backoffice access)
 
 **Auth setup:**
 
@@ -352,36 +564,52 @@ export const ROUTES = {
   DASHBOARD: {
     HOME: '/dashboard',
   },
-  RESTAURANT: {
-    LIST: '/restaurants',
-    NEW: '/restaurants/new',
-    DETAIL: (id: string) => `/restaurants/${id}`, // ⚠️ Function for dynamic routes
-    EDIT: (id: string) => `/restaurants/${id}/edit`,
+  EVENT: {
+    LIST: '/events',
+    NEW: '/events/new',
+    DETAIL: (id: string) => `/events/${id}`, // ⚠️ Function for dynamic routes
+    EDIT: (id: string) => `/events/${id}/edit`,
+  },
+  GROUP: {
+    LIST: '/groups',
+    NEW: '/groups/new',
+    DETAIL: (id: string) => `/groups/${id}`,
+    EDIT: (id: string) => `/groups/${id}/edit`,
   },
 } as const;
 
 // apps/{app}/src/lib/constants/roles.ts
 export const USER_ROLES = {
   ADMIN: 'ADMIN',
-  RESTAURANT_OWNER: 'RESTAURANT_OWNER',
-  USER: 'USER',
+  ORGANIZER: 'ORGANIZER',
+  MODERATOR: 'MODERATOR',
+  ATTENDEE: 'ATTENDEE',
+} as const;
+
+export const SUBSCRIPTION_STATUS = {
+  FREE: 'FREE',
+  PREMIUM: 'PREMIUM',
+  TRIAL: 'TRIAL',
+  CANCELED: 'CANCELED',
 } as const;
 ```
 
 **Usage:**
 
 ```typescript
-import { ROUTES, USER_ROLES } from '@/lib/constants';
+import { ROUTES, USER_ROLES, SUBSCRIPTION_STATUS } from '@/lib/constants';
 
 // ✅ CORRECT
-<Link href={ROUTES.RESTAURANT.NEW}>Add Restaurant</Link>
-<Link href={ROUTES.RESTAURANT.DETAIL(id)}>View</Link>
+<Link href={ROUTES.EVENT.NEW}>Add Event</Link>
+<Link href={ROUTES.EVENT.DETAIL(id)}>View</Link>
 
 if (user.role === USER_ROLES.ADMIN) { /* ... */ }
+if (user.subscriptionStatus === SUBSCRIPTION_STATUS.PREMIUM) { /* ... */ }
 
 // ❌ WRONG - hardcoded
-<Link href="/restaurants/new">Add Restaurant</Link>
+<Link href="/events/new">Add Event</Link>
 if (user.role === 'ADMIN') { /* ... */ }
+if (user.subscriptionStatus === 'PREMIUM') { /* ... */ }
 ```
 
 ### Pattern 5: Directory Structure (Next.js Apps)

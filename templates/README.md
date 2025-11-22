@@ -12,7 +12,7 @@ Templates are **not production applications**. They are:
 - ✅ Pre-configured with Tavia monorepo structure
 - ✅ Include essential setup (TypeScript, ESLint, Prisma, etc.)
 - ✅ Contain placeholder code and examples
-- ❌ **NO business logic** (no booking, analytics, restaurant features)
+- ❌ **NO business logic** (no event management, analytics, or domain features)
 - ❌ **NOT deployed** or used in production
 
 ## 📁 Available Templates
@@ -200,7 +200,7 @@ Templates should be updated when:
 **DO NOT:**
 
 - Add business logic to templates
-- Include specific features (booking, analytics, etc.)
+- Include specific features (event management, analytics, etc.)
 - Add dependencies that aren't universally needed
 - Create overly complex templates
 
@@ -250,8 +250,8 @@ content.
 - Used by customers/internal teams
 - Independent deployment
 
-**Example:** `apps/web` is the main Tavia web app with booking, auth, restaurant
-features.
+**Example:** `apps/backoffice` is the main Tavia organizer app with event
+management, auth, and group features.
 
 ---
 

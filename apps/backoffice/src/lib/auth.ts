@@ -39,6 +39,15 @@ const result = NextAuth({
 
         const user = await prisma.user.findUnique({
           where: { email },
+          select: {
+            id: true,
+            email: true,
+            password: true,
+            name: true,
+            image: true,
+            role: true,
+            subscriptionStatus: true,
+          },
         });
 
         if (!user || !user.password) {
@@ -57,6 +66,7 @@ const result = NextAuth({
           name: user.name,
           image: user.image,
           role: user.role,
+          subscriptionStatus: user.subscriptionStatus,
         };
       },
     }),
@@ -66,6 +76,7 @@ const result = NextAuth({
       if (user) {
         token.id = user.id;
         token.role = user.role;
+        token.subscriptionStatus = user.subscriptionStatus;
       }
       return token;
     },
@@ -73,15 +84,16 @@ const result = NextAuth({
       if (session.user) {
         session.user.id = token.id as string;
         session.user.role = token.role as string;
+        session.user.subscriptionStatus = token.subscriptionStatus as string;
       }
       return session;
     },
     async signIn({ user }) {
-      // Only allow ADMIN and RESTAURANT_OWNER to access the backoffice
-      const allowedRoles: string[] = [USER_ROLES.ADMIN, USER_ROLES.RESTAURANT_OWNER];
+      // Only allow ADMIN, ORGANIZER, and MODERATOR to access the backoffice
+      const allowedRoles: string[] = [USER_ROLES.ADMIN, USER_ROLES.ORGANIZER, USER_ROLES.MODERATOR];
       if (user.role && !allowedRoles.includes(user.role)) {
         throw new Error(
-          'Access denied. Only restaurant owners and admins can access the backoffice.'
+          'Access denied. Only organizers, moderators, and admins can access the backoffice.'
         );
       }
       return true;

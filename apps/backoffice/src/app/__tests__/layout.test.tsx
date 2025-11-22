@@ -240,7 +240,7 @@ describe('RootLayout', () => {
 
   describe('provider nesting order', () => {
     it('should nest providers in correct order', async () => {
-      const { container } = render(
+      const { container: _container } = render(
         await RootLayout({
           children: <div data-testid="test-child">Test Content</div>,
         })

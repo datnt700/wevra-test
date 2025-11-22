@@ -242,7 +242,7 @@ $ pnpm create:api
 
 🚀 Tavia API Generator
 
-? What name would you like to use for the API? restaurant-service
+? What name would you like to use for the API? event-service
 ? Which type of API would you like to create?
   1) Simple API (Fastify - Lightweight, fast, simple REST API)
   2) Complex API (NestJS - Full-featured microservice with advanced features)
@@ -294,7 +294,7 @@ logic
 DI, etc.) ✅ Multiple developers working together ✅ Complex business logic ✅
 Need Swagger documentation ✅ Want built-in microservice support
 
-**Examples**: Restaurant management, user service, payment processing
+**Examples**: Event management service, user service, payment processing
 
 ### What Each Type Creates
 
@@ -511,7 +511,7 @@ API names must:
 
    ```bash
    npx @nestjs/cli generate resource <name>
-   # Example: npx @nestjs/cli generate resource restaurants
+   # Example: npx @nestjs/cli generate resource events
    ```
 
 7. **Start development:**

@@ -1,21 +1,30 @@
-# Tavia 
+# Tavia
 
-**Tavia** is a modern café and restaurant booking platform built as a
-**microservices-first monorepo** with Next.js 15, designed for both customers
-(booking tables) and restaurant owners (managing venues and reservations).
+**Tavia** is a community networking platform built as a **microservices-first
+monorepo** with Next.js 15, using a **Freemium model** that empowers Organizers
+to easily create groups, host events, and grow their communities, while
+providing Attendees unlimited access to discover and join activities.
+
+The platform acts as a **broker between two sides**:
+
+- **Organizers (B2B)** who need tools to manage and grow communities
+- **Attendees (B2C)** who want to discover relevant activities
 
 ## 🚀 Tech Stack
 
 - **Framework**: Next.js 15 (App Router) with React Server Components
-- **Auth**: Auth.js (NextAuth) with role-based access control
+- **Auth**: Auth.js (NextAuth) with role-based access control (Admin, Organizer,
+  Attendee, Moderator)
 - **Database**: PostgreSQL via Prisma ORM (shared between apps)
+- **Payments**: Stripe for subscription billing (Monthly/Annual plans)
 - **Analytics**: @tavia/analytics (in-house event tracking SDK)
 - **UI Components**: @tavia/taviad (60+ components with Emotion + Radix UI)
 - **Styling**: Emotion CSS-in-JS + Framer Motion animations
 - **i18n**: next-intl (cookie-based, modular)
-- **API**: Fastify 5 (analytics service) + NestJS 11 (restaurant service)
+- **API**: Fastify 5 (analytics service) + NestJS 11 (event service)
 - **Testing**: Vitest + Testing Library + Playwright
 - **State Management**: React Query (@tanstack/react-query)
+- **Realtime**: Supabase Realtime for notifications (Phase 2)
 - **Package Manager**: pnpm v10.19.0 with catalog dependencies
 - **Monorepo**: Turborepo for build orchestration and caching
 - **Docker**: PostgreSQL 16 Alpine for local development
@@ -26,10 +35,10 @@
 ```
 tavia/
 ├── apps/
-│   ├── backoffice/       # Restaurant management (port 3000)
-│   ├── frontoffice/      # Customer restaurant discovery (port 3003)
+│   ├── backoffice/       # Event organizer management (port 3000)
+│   ├── frontoffice/      # User event discovery & participation (port 3003)
 │   ├── analytics/        # Fastify event tracking API (port 3001)
-│   ├── restaurant-service/ # NestJS microservice (port 3002)
+│   ├── event-service/    # NestJS microservice (port 3002)
 │   └── docs/             # Storybook documentation (port 6006)
 ├── packages/
 │   ├── taviad/           # @tavia/taviad - 60+ UI components
@@ -48,25 +57,75 @@ tavia/
 └── turbo.json            # Turborepo pipeline config
 ```
 
+## 🎯 Product Vision & Model
+
+### Freemium Business Model
+
+Tavia uses a **two-sided platform** (broker model) connecting:
+
+- **Organizers (B2B)**: Community managers who create and host events
+- **Attendees (B2C)**: Individuals discovering and joining activities
+
+### Monetization Strategy
+
+**Free Plan** (Organizers)
+
+- ✅ Create 1 group with max 50 members
+- ✅ Host up to 2 events per month
+- ✅ Basic tools: RSVP, simple chat, manual approvals
+- ⚠️ Platform watermark on pages
+- ❌ No analytics or custom branding
+
+**Premium Plan** (Organizers - Pro/Business)
+
+- 🚀 Unlimited groups and members
+- 🚀 Unlimited events per month
+- 📊 Advanced analytics (growth, retention, engagement)
+- 🎨 Custom branding (logo, colors, domain)
+- 👥 Add moderators and co-hosts
+- 🤖 Automated member management
+- 📈 Growth insights and retention curves
+
+**Attendees** (Always Free)
+
+- 🎉 Unlimited group joining
+- 🎉 Unlimited event participation
+- 🔍 Advanced discovery and recommendations
+
 ## 🎯 Key Features
 
-### Frontoffice (Customer App)
+### Frontoffice (Attendee App) - B2C
 
-- 🔍 Browse and search restaurants by location, cuisine, and price range
-- 📅 Real-time table booking with React Query
-- ⭐ Restaurant ratings and reviews
-- 🗺️ GPS-based distance calculation
-- 📱 Mobile-responsive design
-- 🌐 Multi-language support (English/Vietnamese)
+- 🔍 **Discovery**: Browse events by location, category, date, and interests
+- 👥 **Communities**: Join unlimited groups and participate
+- 📅 **RSVP**: Reserve spots for events with automatic notifications
+- ⭐ **Engagement**: Rate events and provide feedback
+- 🗺️ **Location**: GPS-based distance calculation
+- 🔔 **Notifications**: Push/email reminders for upcoming events
+- 📱 **Mobile-responsive**: Seamless experience across devices
+- 🌐 **Multi-language**: English/Vietnamese support
 
-### Backoffice (Restaurant Management)
+### Backoffice (Organizer Management) - B2B
 
-- 🏪 Manage multiple restaurants
-- 📊 Dashboard with booking analytics
-- 👥 User management (Admin, Owner, Customer roles)
-- 📅 Configure opening hours and table capacity
-- 🎫 Accept/reject/manage reservations
-- � Secure authentication with Auth.js
+**Free Tier Features:**
+
+- 🎯 Create 1 group (max 50 members)
+- 📅 Host 2 events per month
+- 👥 Manual member approval
+- 📊 Basic counts (members, RSVPs)
+- 🎫 Simple RSVP management
+- ✉️ Email notifications
+
+**Premium Tier Features:**
+
+- 🚀 **Unlimited**: Groups, members, and events
+- 📊 **Advanced Analytics**: Growth charts, attendance rates, retention curves,
+  top attendees
+- 🎨 **Custom Branding**: Logo, colors, theme, optional domain
+- 👥 **Team Management**: Add moderators and co-hosts
+- 🤖 **Automation**: Auto-approval rules, member segmentation, bulk actions
+- 📈 **Insights**: Engagement heatmaps, behavior data
+- 🔐 **Premium Support**: Priority assistance
 
 ## 🛠️ Development Setup
 
@@ -90,8 +149,8 @@ pnpm install
 pnpm db:setup
 
 # Start development servers
-pnpm dev:frontoffice  # Customer app (localhost:3003)
-pnpm dev:backoffice   # Admin app (localhost:3000)
+pnpm dev:frontoffice  # User app (localhost:3003)
+pnpm dev:backoffice   # Organizer app (localhost:3000)
 ```
 
 ### Database Setup
@@ -119,18 +178,21 @@ pnpm db:studio          # Open Prisma Studio GUI
 
 **Seeded Data:**
 
-- 6 restaurants (Le Jardin Secret, Sushi Master, Trattoria Bella, etc.)
-- 24 tables (4 per restaurant)
-- 3 test users (see below)
-- 2 sample bookings
+- 10 sample events across different categories (Tech, Music, Sports, Arts)
+- 5 groups (2 Free tier with 50 member limit, 3 Premium with unlimited)
+- 5 test users: 1 admin, 2 organizers (1 free, 1 premium), 2 attendees
+- 20+ RSVPs demonstrating event participation
+- Sample analytics data for Premium features
 
 **Test Users:**
 
-| Email             | Password | Role             | Access                 |
-| ----------------- | -------- | ---------------- | ---------------------- |
-| admin@tavia.io    | admin123 | Admin            | Full backoffice access |
-| owner@example.com | owner123 | Restaurant Owner | Own restaurants        |
-| user@example.com  | user123  | Customer         | Frontoffice only       |
+| Email                   | Password     | Role      | Subscription | Access                                       |
+| ----------------------- | ------------ | --------- | ------------ | -------------------------------------------- |
+| admin@tavia.io          | admin123     | Admin     | N/A          | Full system access                           |
+| organizer.free@tavia.io | organizer123 | Organizer | Free         | 1 group (50 max), 2 events/month, basic      |
+| organizer.pro@tavia.io  | organizer123 | Organizer | Premium      | Unlimited groups/events, analytics, branding |
+| attendee1@tavia.io      | attendee123  | Attendee  | Free         | Unlimited joining and participation          |
+| attendee2@tavia.io      | attendee123  | Attendee  | Free         | Unlimited joining and participation          |
 
 ### Environment Variables
 
@@ -252,7 +314,7 @@ Both frontoffice and backoffice use the **same PostgreSQL database** (`tavia`):
 
 **Benefits:**
 
-- Restaurant data managed in backoffice appears instantly in frontoffice
+- Event data managed in backoffice appears instantly in frontoffice
 - Single source of truth
 - No data synchronization needed
 - Shared user authentication
@@ -301,10 +363,10 @@ import { Button, Modal, Input, Card } from '@tavia/taviad';
 
 Each app is an independent service:
 
-- **Frontoffice** (3003): Customer-facing restaurant discovery
-- **Backoffice** (3000): Restaurant management dashboard
+- **Frontoffice** (3003): User-facing event discovery and participation
+- **Backoffice** (3000): Organizer event and group management dashboard
 - **Analytics** (3001): Event tracking API (Fastify)
-- **Restaurant Service** (3002): Restaurant microservice (NestJS)
+- **Event Service** (3002): Event microservice (NestJS)
 
 ### Shared Database Pattern
 
@@ -322,11 +384,12 @@ Frontoffice uses `@tanstack/react-query` for:
 
 ```typescript
 // Example usage
-import { useSearchRestaurants } from '@/hooks/useRestaurants';
+import { useSearchEvents } from '@/hooks/useEvents';
 
-const { data, isLoading } = useSearchRestaurants({
+const { data, isLoading } = useSearchEvents({
   location: 'Paris',
-  guests: 2,
+  category: 'TECH',
+  date: '2025-12-01',
 });
 ```
 
@@ -334,19 +397,185 @@ const { data, isLoading } = useSearchRestaurants({
 
 Next.js 15 server actions for type-safe API calls:
 
-- `searchRestaurantsAction()` - Search with filters
-- `getRestaurantByIdAction()` - Single restaurant
-- `getFeaturedRestaurantsAction()` - Top-rated
+- `searchEventsAction()` - Search events with filters
+- `getEventByIdAction()` - Single event details
+- `getFeaturedEventsAction()` - Featured events
+- `joinEventAction()` - Join an event
+- `getEventGroupsAction()` - List event groups
 
 ### Role-Based Access Control (RBAC)
 
-- `USER`: Browse restaurants, create bookings (frontoffice)
-- `RESTAURANT_OWNER`: Manage own venues (backoffice)
-- `ADMIN`: Full system access (backoffice)
+- **ATTENDEE**: Browse/join events and groups, unlimited participation
+  (frontoffice)
+- **ORGANIZER**: Create/manage events and groups with Free or Premium features
+  (backoffice)
+- **MODERATOR**: Assist organizers with group management (Premium feature)
+- **ADMIN**: Full system access, user management, subscription oversight
+  (backoffice)
+
+### Freemium Logic & Feature Flags
+
+Central permission service checks plan limits:
+
+```typescript
+// Feature flag checks
+canCreateGroup(user); // Free: 1 group, Premium: unlimited
+canCreateEvent(user, groupId); // Free: 2/month, Premium: unlimited
+getMaxMembers(groupId); // Free: 50, Premium: unlimited
+canAccessAnalytics(user); // Premium only
+canCustomizeBranding(user); // Premium only
+```
+
+**Upsell Triggers:**
+
+- Group hits 50 members → Upgrade modal
+- Creating 3rd event of month → Block + Premium paywall
+- Accessing analytics → Premium paywall
+- Customizing branding → Premium paywall
+
+### Stripe Subscription Management
+
+- Monthly and Annual billing cycles
+- Instant Premium feature unlock on upgrade
+- Graceful downgrade: freeze premium features, preserve data
+- Webhook handling for payment events
+- Trial period support (optional)
 
 ### Atomic Operations
 
-Prisma transactions prevent double-booking and ensure data consistency.
+Prisma transactions prevent duplicate event registrations and ensure data
+consistency.
+
+## 📊 Product Goals & Success Metrics
+
+### Business Objectives
+
+1. **Acquire Organizers**: Generous Free tier to attract community builders
+2. **Maximize Attendee Liquidity**: Unlimited joining and participation to grow
+   the network
+3. **Drive Premium Conversions**: High-value features incentivize upgrades
+4. **Ecosystem Growth**: More groups → more events → more users → more paid
+   organizers
+
+### Key Performance Indicators (KPIs)
+
+**Activation Metrics:**
+
+- New group creation rate
+- First event creation rate (within 7 days of signup)
+- Time to first member invite
+
+**Engagement Metrics:**
+
+- Monthly Active Attendees (MAA)
+- Events per group (avg)
+- RSVPs per event (avg)
+- Event attendance rate (%)
+- Member retention in groups (30/60/90 day)
+
+**Revenue Metrics:**
+
+- Free → Premium conversion rate (%)
+- Monthly Recurring Revenue (MRR)
+- Average Revenue Per Organizer (ARPO)
+- Organizer churn rate (%)
+- Lifetime Value (LTV) / Customer Acquisition Cost (CAC)
+
+**Platform Health:**
+
+- Groups created per week
+- Events hosted per week
+- Total platform RSVPs
+- Organizer/Attendee ratio
+
+## 🗓️ Product Roadmap
+
+### Phase 1: MVP (Current Development)
+
+**Core Features:**
+
+- ✅ User authentication (email + social login)
+- ✅ Free Plan: 1 group (max 50 members), 2 events/month
+- ✅ Group creation and management
+- ✅ Event CRUD with RSVP system
+- ✅ Basic analytics (counts and lists)
+- ✅ Manual member approval
+- ✅ Email notifications
+- ✅ Attendee discovery (browse groups/events)
+
+**Premium Features:**
+
+- 🚧 Stripe subscription billing (Monthly/Annual)
+- 🚧 Unlimited groups and events
+- 🚧 Advanced analytics dashboard
+- 🚧 Custom branding (logo, colors)
+- 🚧 Member auto-approval rules
+
+**Infrastructure:**
+
+- ✅ Next.js 15 App Router
+- ✅ PostgreSQL + Prisma ORM
+- ✅ @tavia/taviad component library
+- 🚧 Stripe integration
+- 🚧 Feature flag system
+
+### Phase 2: Growth & Automation (Q2 2025)
+
+**Organizer Features:**
+
+- 👥 Moderator roles and permissions
+- 🤖 Automated member segmentation (active/inactive)
+- 📊 Engagement heatmaps
+- 📈 Growth forecasting
+- 🔄 Recurring events
+- 💌 Bulk email campaigns
+- 📱 Mobile app notifications
+
+**Attendee Features:**
+
+- 🎯 AI-powered event recommendations
+- 🏆 Gamification (badges, leaderboards)
+- 💬 In-app messaging
+- 📅 Personal event calendar sync
+
+**Platform:**
+
+- ⚡ Real-time notifications (Supabase Realtime)
+- 🔍 Advanced search filters
+- 📍 Geolocation-based discovery
+- 🌐 Additional language support
+
+### Phase 3: Marketplace & Monetization (Q3-Q4 2025)
+
+**Premium Expansion:**
+
+- 🎫 Paid events and ticketing
+- 💳 Payment processing for organizers
+- 📊 Revenue sharing model
+- 🏢 Enterprise plan (white-label, API access)
+
+**Platform Growth:**
+
+- 🤝 Integration marketplace (Zoom, Meet, Calendar)
+- 🔌 Public API for developers
+- 🎨 Custom domain support
+- 📱 Native mobile apps (iOS/Android)
+- 🌍 Multi-region deployment
+
+**AI & Insights:**
+
+- 🧠 ML-based attendee matching
+- 📈 Predictive analytics for organizers
+- 🎤 AI event description generator
+- 📸 Automated content moderation
+
+### Future Considerations (2026+)
+
+- Affiliate/referral program for organizers
+- Community marketplace (sponsors, vendors)
+- Live streaming integration
+- Virtual event support (hybrid events)
+- B2B Enterprise solutions
 
 ## 📝 pnpm Catalog Dependencies
 
@@ -417,7 +646,7 @@ pnpm test:watch        # Watch mode
 
 ### E2E Testing (Playwright)
 
-Critical booking flows:
+Critical event participation flows:
 
 ```bash
 cd apps/frontoffice
@@ -547,7 +776,7 @@ git push origin feat/your-feature
 
 ---
 
-**Built with ❤️ for the restaurant industry**
+**Built with ❤️ for event organizers and communities**
 
 **Microservices-first architecture • 60+ components • Full TypeScript •
 Production-ready**

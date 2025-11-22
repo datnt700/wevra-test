@@ -4,13 +4,24 @@
  */
 export const USER_ROLES = {
   ADMIN: 'ADMIN',
-  MANAGER: 'MANAGER',
-  EMPLOYEE: 'EMPLOYEE',
-  RESTAURANT_OWNER: 'RESTAURANT_OWNER',
-  USER: 'USER',
+  ORGANIZER: 'ORGANIZER',
+  MODERATOR: 'MODERATOR',
+  ATTENDEE: 'ATTENDEE',
 } as const;
 
 export type UserRole = (typeof USER_ROLES)[keyof typeof USER_ROLES];
+
+/**
+ * Subscription Status Constants
+ */
+export const SUBSCRIPTION_STATUS = {
+  FREE: 'FREE',
+  PREMIUM: 'PREMIUM',
+  TRIAL: 'TRIAL',
+  CANCELED: 'CANCELED',
+} as const;
+
+export type SubscriptionStatus = (typeof SUBSCRIPTION_STATUS)[keyof typeof SUBSCRIPTION_STATUS];
 
 /**
  * Check if user has admin access
@@ -18,25 +29,35 @@ export type UserRole = (typeof USER_ROLES)[keyof typeof USER_ROLES];
 export const isAdmin = (role?: string) => role === USER_ROLES.ADMIN;
 
 /**
- * Check if user has manager access
+ * Check if user has organizer access
  */
-export const isManager = (role?: string) => role === USER_ROLES.MANAGER;
+export const isOrganizer = (role?: string) => role === USER_ROLES.ORGANIZER;
 
 /**
- * Check if user has employee access
+ * Check if user has moderator access
  */
-export const isEmployee = (role?: string) => role === USER_ROLES.EMPLOYEE;
+export const isModerator = (role?: string) => role === USER_ROLES.MODERATOR;
 
 /**
- * Check if user has restaurant owner access
+ * Check if user is attendee
  */
-export const isRestaurantOwner = (role?: string) => role === USER_ROLES.RESTAURANT_OWNER;
+export const isAttendee = (role?: string) => role === USER_ROLES.ATTENDEE;
 
 /**
- * Check if user has backoffice access (Admin, Manager, Employee, or Restaurant Owner)
+ * Check if user has backoffice access (Admin, Organizer, or Moderator)
  */
 export const hasBackofficeAccess = (role?: string) =>
-  role === USER_ROLES.ADMIN ||
-  role === USER_ROLES.MANAGER ||
-  role === USER_ROLES.EMPLOYEE ||
-  role === USER_ROLES.RESTAURANT_OWNER;
+  role === USER_ROLES.ADMIN || role === USER_ROLES.ORGANIZER || role === USER_ROLES.MODERATOR;
+
+/**
+ * Check if user has Premium subscription
+ */
+export const isPremium = (subscriptionStatus?: string) =>
+  subscriptionStatus === SUBSCRIPTION_STATUS.PREMIUM ||
+  subscriptionStatus === SUBSCRIPTION_STATUS.TRIAL;
+
+/**
+ * Check if user has Free subscription
+ */
+export const isFree = (subscriptionStatus?: string) =>
+  subscriptionStatus === SUBSCRIPTION_STATUS.FREE;

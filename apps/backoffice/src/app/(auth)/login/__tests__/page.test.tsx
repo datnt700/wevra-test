@@ -13,7 +13,7 @@ vi.mock('next-auth/react', () => ({
 // Mock next/navigation
 const mockPush = vi.fn();
 const mockRefresh = vi.fn();
-const _mockSearchParams = new URLSearchParams();
+const _mockSearchParams = new URLSearchParams(); // eslint-disable-line @typescript-eslint/no-unused-vars
 let mockGetSearchParam: (key: string) => string | null = () => null;
 
 vi.mock('next/navigation', () => ({

@@ -123,7 +123,7 @@ We follow [Conventional Commits](https://www.conventionalcommits.org/):
 
 ```bash
 feat(auth): add Google OAuth login
-fix(booking): prevent double booking race condition
+fix(events): prevent duplicate event registration
 docs(readme): update installation instructions
 refactor(core): migrate to Lucide icons
 chore(deps): update Next.js to v15.5.0
@@ -220,11 +220,10 @@ This will guide you through creating a proper conventional commit.
 
 ### File Naming
 
-- Components: PascalCase (e.g., `BookingForm.tsx`)
+- Components: PascalCase (e.g., `EventForm.tsx`)
 - Utilities: camelCase (e.g., `formatDate.ts`)
-- Server Actions: camelCase with 'Action' suffix (e.g.,
-  `createBookingAction.ts`)
-- Routes: kebab-case (e.g., `booking-history/`)
+- Server Actions: camelCase with 'Action' suffix (e.g., `createEventAction.ts`)
+- Routes: kebab-case (e.g., `event-history/`)
 
 ### Code Organization
 
@@ -261,7 +260,8 @@ feature/
 ### E2E Tests (Future)
 
 - Use Playwright for critical flows
-- Test booking flow end-to-end
+- Test event joining flow end-to-end
+- Test event creation flow
 - Test authentication flow
 
 ### Running Tests
