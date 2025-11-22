@@ -1,1 +1,1 @@
-export * from './restaurant.actions';
+export * from './event.actions';

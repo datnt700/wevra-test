@@ -6,7 +6,7 @@
  */
 import styled from '@emotion/styled';
 import { RadioGroup } from 'radix-ui';
-import { cssVars } from '../../../theme/tokens/colors';
+import type { TaviaTheme } from '../../../theme/theme';
 
 type RadioSize = 'sm' | 'default' | 'md' | 'lg';
 
@@ -65,44 +65,46 @@ const StyledRadioItem = styled(RadioGroup.Item)<{
   $size?: RadioSize;
   $isDisabled?: boolean;
 }>`
-  ${({ $size = 'default', $isDisabled }) => {
+  ${({ theme, $size = 'default', $isDisabled }) => {
+    const taviaTheme = theme as TaviaTheme;
     const styles = getSizeStyles($size);
     return `
-      background-color: ${cssVars.light};
+      background-color: ${taviaTheme.colors.surface};
       width: ${styles.itemSize};
       height: ${styles.itemSize};
       border-radius: 100%;
-      border: 2px solid ${cssVars.dark6};
+      border: 2px solid ${taviaTheme.colors.border.default};
       transition: all 0.2s ease;
       cursor: ${$isDisabled ? 'not-allowed' : 'pointer'};
       opacity: ${$isDisabled ? '0.5' : '1'};
 
       &:hover:not(:disabled) {
-        border-color: ${cssVars.mainColor};
-        background-color: ${cssVars.mainColorLight}20;
+        border-color: ${taviaTheme.colors.primary};
+        background-color: ${taviaTheme.colors.primary}20;
       }
 
       &:focus-visible {
-        outline: 2px solid ${cssVars.mainColor};
+        outline: 2px solid ${taviaTheme.colors.primary};
         outline-offset: 2px;
       }
 
       &[data-state="checked"] {
-        border-color: ${cssVars.mainColor};
-        background-color: ${cssVars.light};
+        border-color: ${taviaTheme.colors.primary};
+        background-color: ${taviaTheme.colors.surface};
       }
 
       &:disabled {
         cursor: not-allowed;
         opacity: 0.5;
-        background-color: ${cssVars.light4};
+        background-color: ${taviaTheme.colors.gray.gray200};
       }
     `;
   }}
 `;
 
 const StyledIndicator = styled(RadioGroup.Indicator)<{ $size?: RadioSize }>`
-  ${({ $size = 'default' }) => {
+  ${({ theme, $size = 'default' }) => {
+    const taviaTheme = theme as TaviaTheme;
     const styles = getSizeStyles($size);
     return `
       display: flex;
@@ -118,7 +120,7 @@ const StyledIndicator = styled(RadioGroup.Indicator)<{ $size?: RadioSize }>`
         width: ${styles.indicatorSize};
         height: ${styles.indicatorSize};
         border-radius: 50%;
-        background-color: ${cssVars.mainColor};
+        background-color: ${taviaTheme.colors.primary};
         transition: transform 0.15s ease;
         transform: scale(1);
       }
@@ -134,10 +136,11 @@ const StyledLabel = styled.label<{
   $size?: RadioSize;
   $isDisabled?: boolean;
 }>`
-  ${({ $size = 'default', $isDisabled }) => {
+  ${({ theme, $size = 'default', $isDisabled }) => {
+    const taviaTheme = theme as TaviaTheme;
     const styles = getSizeStyles($size);
     return `
-      color: ${$isDisabled ? cssVars.dark6 : cssVars.dark};
+      color: ${$isDisabled ? taviaTheme.colors.text.disabled : taviaTheme.colors.text.primary};
       font-size: ${styles.fontSize};
       line-height: 1.5;
       cursor: ${$isDisabled ? 'not-allowed' : 'pointer'};
@@ -145,7 +148,7 @@ const StyledLabel = styled.label<{
       transition: color 0.2s ease;
 
       &:hover {
-        color: ${$isDisabled ? cssVars.dark6 : cssVars.mainColor};
+        color: ${$isDisabled ? taviaTheme.colors.text.disabled : taviaTheme.colors.primary};
       }
     `;
   }}

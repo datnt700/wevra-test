@@ -2,6 +2,8 @@ import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { setLocale } from '../locale';
 import { locales } from '@/i18n/config';
 
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 // Mock next/headers
 const mockCookieSet = vi.fn();
 const mockCookies = vi.fn(() => ({

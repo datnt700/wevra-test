@@ -173,6 +173,89 @@ This will:
 
 ## 🔧 Template Maintenance
 
+### Environment Variables with @tavia/env
+
+All templates now use the **@tavia/env** package for type-safe environment
+variable validation:
+
+**Benefits:**
+
+- ✅ Runtime validation with Zod schemas
+- ✅ Type-safe access to environment variables
+- ✅ Helpful error messages on startup
+- ✅ Server/client variable separation (Next.js)
+- ✅ Default values for all optional variables
+
+**Structure:**
+
+**Next.js apps (webapp template):**
+
+```typescript
+// src/lib/env/index.ts
+import { createEnv, envHelpers } from '@tavia/env';
+
+export const env = createEnv({
+  server: {
+    DATABASE_URL: z.string().url().default('...'),
+    NODE_ENV: envHelpers.nodeEnv(),
+  },
+  client: {
+    NEXT_PUBLIC_APP_URL: envHelpers.url('http://localhost:3000'),
+  },
+  runtimeEnv: {
+    DATABASE_URL: process.env.DATABASE_URL,
+    NEXT_PUBLIC_APP_URL: process.env.NEXT_PUBLIC_APP_URL,
+  },
+});
+
+export const envUtils = {
+  isDevelopment: () => env.NODE_ENV === 'development',
+  getAppUrl: (path = '') => `${env.NEXT_PUBLIC_APP_URL}${path}`,
+};
+```
+
+**API services (simple-api / complex-api templates):**
+
+```typescript
+// src/lib/env.ts
+import { createEnv, envHelpers } from '@tavia/env';
+
+export const env = createEnv({
+  server: {
+    PORT: envHelpers.port(4000),
+    DATABASE_URL: z.string().url().default('...'),
+  },
+  runtimeEnv: {
+    PORT: process.env.PORT,
+    DATABASE_URL: process.env.DATABASE_URL,
+  },
+});
+
+export const envUtils = {
+  isDevelopment: () => env.NODE_ENV === 'development',
+  getAllowedOrigins: () => env.ALLOWED_ORIGINS.split(','),
+};
+```
+
+**Usage in code:**
+
+```typescript
+// ✅ Type-safe access
+import { env, envUtils } from '@/lib/env';
+
+const dbUrl = env.DATABASE_URL;
+if (envUtils.isDevelopment()) { ... }
+
+// ❌ Don't use directly
+process.env.DATABASE_URL  // Not type-safe, no validation
+```
+
+**Each template includes:**
+
+- `.env.example` - All available environment variables with defaults
+- `src/lib/env/index.ts` (webapp) or `src/lib/env.ts` (APIs) - Validation config
+- Updated code to use `env` instead of `process.env`
+
 ### Adding New Dependencies
 
 When adding dependencies to templates, **always use catalog references**:

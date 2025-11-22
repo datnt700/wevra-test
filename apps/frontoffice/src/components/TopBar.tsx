@@ -9,7 +9,7 @@ export function TopBar() {
   return (
     <Styled.Wrapper>
       <Styled.Content>
-        <Styled.Link url="/register-restaurant">{t('registerRestaurant')}</Styled.Link>
+        <Styled.Link url="/create-group">{t('registerGroup')}</Styled.Link>
         <Styled.Link url="/help">{t('help')}</Styled.Link>
       </Styled.Content>
     </Styled.Wrapper>

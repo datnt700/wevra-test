@@ -32,6 +32,11 @@ export interface DropdownMenuItem {
   label?: React.ReactNode;
 
   /**
+   * Optional icon to display before the label
+   */
+  icon?: React.ReactNode;
+
+  /**
    * Callback when item is selected/clicked
    */
   onSelect?: (event: Event) => void;

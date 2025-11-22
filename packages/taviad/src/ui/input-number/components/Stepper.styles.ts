@@ -1,8 +1,7 @@
 'use client';
 
 import styled from '@emotion/styled';
-import { cssVars } from '../../../theme/tokens/colors';
-import { radii } from '../../../theme/tokens/radii';
+import type { TaviaTheme } from '../../../theme/theme';
 
 interface InputWrapperProps {
   $isDisabled: boolean;
@@ -21,24 +20,23 @@ interface WrapperStyles {
   isInteractive: boolean;
 }
 
-const getInputWrapperStyles = ({
-  $isDisabled,
-  $isReadOnly,
-  $hasError,
-}: InputWrapperProps): WrapperStyles => {
+const getInputWrapperStyles = (
+  taviaTheme: TaviaTheme,
+  { $isDisabled, $isReadOnly, $hasError }: InputWrapperProps
+): WrapperStyles => {
   if ($isDisabled || $isReadOnly) {
     return {
-      backgroundColor: cssVars.light3,
-      borderColor: cssVars.light4,
-      focusBorderColor: cssVars.light4,
+      backgroundColor: taviaTheme.colors.surfaceHover,
+      borderColor: taviaTheme.colors.border.default,
+      focusBorderColor: taviaTheme.colors.border.default,
       isInteractive: false,
     };
   }
 
   return {
-    backgroundColor: cssVars.light,
-    borderColor: $hasError ? cssVars.colorDanger : cssVars.light4,
-    focusBorderColor: $hasError ? cssVars.colorDanger : cssVars.mainColor,
+    backgroundColor: taviaTheme.colors.surface,
+    borderColor: $hasError ? taviaTheme.colors.danger : taviaTheme.colors.border.default,
+    focusBorderColor: $hasError ? taviaTheme.colors.danger : taviaTheme.colors.primary,
     isInteractive: true,
   };
 };
@@ -51,14 +49,15 @@ const StyledWrapper = styled.div`
 `;
 
 const StyledInputWrapper = styled.div<InputWrapperProps>`
-  ${({ $isDisabled, $isReadOnly, $hasError }) => {
-    const styles = getInputWrapperStyles({ $isDisabled, $isReadOnly, $hasError });
+  ${({ theme, $isDisabled, $isReadOnly, $hasError }) => {
+    const taviaTheme = theme as TaviaTheme;
+    const styles = getInputWrapperStyles(taviaTheme, { $isDisabled, $isReadOnly, $hasError });
     return `
       display: flex;
       align-items: center;
       background-color: ${styles.backgroundColor};
       border: 1px solid ${styles.borderColor};
-      border-radius: ${radii.md};
+      border-radius: ${taviaTheme.radii.md};
       pointer-events: ${styles.isInteractive ? 'auto' : 'none'};
 
       &:focus-within {
@@ -70,7 +69,8 @@ const StyledInputWrapper = styled.div<InputWrapperProps>`
 `;
 
 const StyledInput = styled.input<InputProps>`
-  ${({ $hasError }) => {
+  ${({ theme, $hasError }) => {
+    const taviaTheme = theme as TaviaTheme;
     return `
       flex-grow: 1;
       height: 100%;
@@ -79,13 +79,13 @@ const StyledInput = styled.input<InputProps>`
       outline: none;
       padding: 0;
       font-size: 1rem;
-      color: ${cssVars.dark};
-      ${$hasError ? `background: ${cssVars.light4};` : ''}
+      color: ${taviaTheme.colors.text.primary};
+      ${$hasError ? `background: ${taviaTheme.colors.border.default};` : ''}
 
       &::placeholder {
         font-style: italic;
         font-weight: 300;
-        color: ${cssVars.dark6};
+        color: ${taviaTheme.colors.text.disabled};
       }
 
       &::-webkit-inner-spin-button,
@@ -98,11 +98,16 @@ const StyledInput = styled.input<InputProps>`
 `;
 
 const StyledErrorMessage = styled.span`
-  color: ${cssVars.colorDanger};
-  font-size: 0.75rem;
-  font-style: normal;
-  font-weight: 600;
-  line-height: normal;
+  ${({ theme }) => {
+    const taviaTheme = theme as TaviaTheme;
+    return `
+      color: ${taviaTheme.colors.danger};
+      font-size: 0.75rem;
+      font-style: normal;
+      font-weight: 600;
+      line-height: normal;
+    `;
+  }}
 `;
 
 export const Styled = {

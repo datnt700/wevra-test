@@ -5,7 +5,7 @@
  * Emotion-based styles for Icon component
  */
 import styled from '@emotion/styled';
-import { cssVars } from '../../../theme/tokens/colors';
+import type { TaviaTheme } from '../../../theme/theme';
 
 /**
  * Icon variant types
@@ -27,16 +27,16 @@ interface WrapperProps {
 /**
  * Get color based on variant
  */
-const getVariantColor = (variant: IconVariant = 'inherit'): string => {
+const getVariantColor = (taviaTheme: TaviaTheme, variant: IconVariant = 'inherit'): string => {
   const variantMap: Record<IconVariant, string> = {
     base: 'inherit',
     inherit: 'inherit',
-    primary: cssVars.mainColor,
-    info: cssVars.colorCyan,
-    success: cssVars.colorSuccess,
-    caution: cssVars.colorWarning,
-    warning: cssVars.colorWarning,
-    danger: cssVars.colorDanger,
+    primary: taviaTheme.colors.primary,
+    info: taviaTheme.colors.gray.colorCyan,
+    success: taviaTheme.colors.success,
+    caution: taviaTheme.colors.gray.colorWarning,
+    warning: taviaTheme.colors.gray.colorWarning,
+    danger: taviaTheme.colors.danger,
   };
   return variantMap[variant];
 };
@@ -45,17 +45,20 @@ const getVariantColor = (variant: IconVariant = 'inherit'): string => {
  * Icon wrapper container
  */
 const Wrapper = styled.div<WrapperProps>`
-  ${({ $variant = 'inherit' }) => `
-    width: max-content;
-    height: max-content;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  ${({ theme, $variant = 'inherit' }) => {
+    const taviaTheme = theme as TaviaTheme;
+    return `
+      width: max-content;
+      height: max-content;
+      display: flex;
+      align-items: center;
+      justify-content: center;
 
-    svg {
-      color: ${getVariantColor($variant)};
-    }
-  `}
+      svg {
+        color: ${getVariantColor(taviaTheme, $variant)};
+      }
+    `;
+  }}
 `;
 
 /**

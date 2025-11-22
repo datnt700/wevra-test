@@ -1,8 +1,7 @@
 'use client';
 
 import styled from '@emotion/styled';
-import { cssVars } from '../../../theme/tokens/colors';
-import { radii } from '../../../theme/tokens/radii';
+import type { TaviaTheme } from '../../../theme/theme';
 import type { CardVariant } from '../types';
 
 interface WrapperProps {
@@ -15,20 +14,20 @@ interface VariantStyles {
   boxShadow: string;
 }
 
-const getVariantStyles = (variant: CardVariant): VariantStyles => {
+const getVariantStyles = (theme: TaviaTheme, variant: CardVariant): VariantStyles => {
   const variantMap: Record<CardVariant, VariantStyles> = {
     elevated: {
-      backgroundColor: cssVars.light,
+      backgroundColor: theme.colors.surface,
       border: 'none',
       boxShadow: '0px 4px 24px rgba(0, 0, 0, 0.08)',
     },
     outlined: {
-      backgroundColor: cssVars.light,
-      border: `1px solid ${cssVars.light4}`,
+      backgroundColor: theme.colors.surface,
+      border: `1px solid ${theme.colors.border.default}`,
       boxShadow: 'none',
     },
     flat: {
-      backgroundColor: cssVars.light,
+      backgroundColor: theme.colors.surface,
       border: 'none',
       boxShadow: 'none',
     },
@@ -38,12 +37,13 @@ const getVariantStyles = (variant: CardVariant): VariantStyles => {
 };
 
 const StyledWrapper = styled.div<WrapperProps>`
-  ${({ $variant = 'elevated' }) => {
-    const styles = getVariantStyles($variant);
+  ${({ theme, $variant = 'elevated' }) => {
+    const taviaTheme = theme as TaviaTheme;
+    const styles = getVariantStyles(taviaTheme, $variant);
     return `
       background-color: ${styles.backgroundColor};
       box-shadow: ${styles.boxShadow};
-      border-radius: ${radii.lg};
+      border-radius: ${taviaTheme.radii.lg};
       border: ${styles.border};
       overflow: hidden;
     `;
@@ -51,15 +51,25 @@ const StyledWrapper = styled.div<WrapperProps>`
 `;
 
 const StyledHeader = styled.div`
-  padding: 1rem 1.5rem;
-  border-bottom: 1px solid ${cssVars.light4};
-  font-weight: 600;
-  color: ${cssVars.dark};
+  ${({ theme }) => {
+    const taviaTheme = theme as TaviaTheme;
+    return `
+      padding: 1rem 1.5rem;
+      border-bottom: 1px solid ${taviaTheme.colors.border.default};
+      font-weight: 600;
+      color: ${taviaTheme.colors.text.primary};
+    `;
+  }}
 `;
 
 const StyledBody = styled.div`
-  padding: 1.5rem;
-  color: ${cssVars.dark2};
+  ${({ theme }) => {
+    const taviaTheme = theme as TaviaTheme;
+    return `
+      padding: 1.5rem;
+      color: ${taviaTheme.colors.text.secondary};
+    `;
+  }}
 `;
 
 export const Styled = {

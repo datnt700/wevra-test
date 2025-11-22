@@ -6,8 +6,7 @@
  * @module ProgressBar.styles
  */
 import styled from '@emotion/styled';
-import { cssVars } from '../../../theme/tokens/colors';
-import { radii } from '../../../theme/tokens/radii';
+import type { TaviaTheme } from '../../../theme/theme';
 
 type ProgressVariant = 'default' | 'success' | 'warning' | 'error';
 
@@ -19,12 +18,12 @@ interface ProgressBarProps {
 /**
  * Get background color for progress bar based on variant
  */
-const getVariantColor = (variant: ProgressVariant = 'default'): string => {
+const getVariantColor = (taviaTheme: TaviaTheme, variant: ProgressVariant = 'default'): string => {
   const variantMap: Record<ProgressVariant, string> = {
-    success: cssVars.colorSuccess,
-    warning: cssVars.colorWarning,
-    error: cssVars.colorDanger,
-    default: cssVars.mainColor,
+    success: taviaTheme.colors.success,
+    warning: taviaTheme.colors.gray.gray600,
+    error: taviaTheme.colors.danger,
+    default: taviaTheme.colors.primary,
   };
 
   return variantMap[variant];
@@ -45,13 +44,18 @@ const Wrapper = styled.div`
  * Progress bar track (background)
  */
 const Track = styled.div`
-  width: 100%;
-  max-width: 20rem;
-  height: 0.5rem;
-  border-radius: ${radii.md};
-  background-color: ${cssVars.light4};
-  position: relative;
-  overflow: hidden;
+  ${({ theme }) => {
+    const taviaTheme = theme as TaviaTheme;
+    return `
+      width: 100%;
+      max-width: 20rem;
+      height: 0.5rem;
+      border-radius: ${taviaTheme.radii.md};
+      background-color: ${taviaTheme.colors.gray.gray200};
+      position: relative;
+      overflow: hidden;
+    `;
+  }}
 `;
 
 /**
@@ -59,13 +63,14 @@ const Track = styled.div`
  * Uses transient props ($) to avoid DOM warnings
  */
 const Fill = styled.div<ProgressBarProps>`
-  ${({ $isIndeterminate = false, $variant = 'default' }) => {
-    const color = getVariantColor($variant);
+  ${({ theme, $isIndeterminate = false, $variant = 'default' }) => {
+    const taviaTheme = theme as TaviaTheme;
+    const color = getVariantColor(taviaTheme, $variant);
 
     return `
       position: absolute;
       height: 100%;
-      border-radius: ${radii.md};
+      border-radius: ${taviaTheme.radii.md};
       background-color: ${color};
       transition: transform 0.3s ease-in-out;
 
@@ -102,9 +107,14 @@ const Fill = styled.div<ProgressBarProps>`
  * Label for displaying progress percentage or status
  */
 const Label = styled.span`
-  font-size: 0.875rem;
-  font-weight: 500;
-  color: ${cssVars.dark};
+  ${({ theme }) => {
+    const taviaTheme = theme as TaviaTheme;
+    return `
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: ${taviaTheme.colors.text.primary};
+    `;
+  }}
 `;
 
 export const Styled = {

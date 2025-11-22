@@ -4,11 +4,12 @@ import helmet from '@fastify/helmet';
 import rateLimit from '@fastify/rate-limit';
 import healthRoutes from './routes/health.js';
 import exampleRoutes from './routes/example.js';
+import { env, envUtils } from './lib/env.js';
 
 export async function buildApp(opts = {}) {
   const app = Fastify({
     logger: {
-      level: process.env.LOG_LEVEL || 'info',
+      level: env.LOG_LEVEL,
     },
     ...opts,
   });
@@ -19,7 +20,7 @@ export async function buildApp(opts = {}) {
   });
 
   await app.register(cors, {
-    origin: process.env.ALLOWED_ORIGINS?.split(',') || ['http://localhost:3000'],
+    origin: envUtils.getAllowedOrigins(),
     credentials: true,
   });
 

@@ -49,7 +49,7 @@ export const GET = withApiHandler(async (request, { session }) => {
 
 export const POST = withApiHandler(async (request, { session }) => {
   const body = await request.json();
-  const { groupId, title, description, startDate, endDate, location, maxAttendees } = body;
+  const { groupId, title, description, startDate, endDate, location, category, capacity } = body;
 
   if (!groupId || !title || !startDate) {
     throw new BadRequestError('Group ID, title, and start date are required');
@@ -84,29 +84,39 @@ export const POST = withApiHandler(async (request, { session }) => {
   }
 
   // Check event limit for the month (only for non-premium users)
-  const eventsThisMonth = await getEventsCountThisMonth(groupId);
+  const eventsThisMonth = await getEventsCountThisMonth(groupId, session!.user!.id);
   const userWithEvents = {
+    id: session!.user!.id,
     subscriptionStatus: group.owner.subscriptionStatus,
-    eventsThisMonth,
+    groupCount: 0,
   };
 
-  if (!canCreateEvent(userWithEvents)) {
+  if (!canCreateEvent(userWithEvents, groupId, eventsThisMonth)) {
     throw new PlanLimitError(
       `You've reached your 2 events per month limit. Upgrade to Premium for unlimited events.`,
       { needsUpgrade: true, current: eventsThisMonth }
     );
   }
 
+  // Generate slug from title
+  const slug = title
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-|-$/g, '');
+
   // Create the event
   const event = await prisma.event.create({
     data: {
       groupId,
+      createdById: session!.user!.id,
       title,
+      slug,
       description,
+      category: category || 'General',
       startDate: new Date(startDate),
       endDate: endDate ? new Date(endDate) : null,
       location,
-      maxAttendees,
+      capacity: capacity || null,
       status: 'DRAFT',
     },
   });

@@ -6,7 +6,7 @@
  * @module Link.styles
  */
 import styled from '@emotion/styled';
-import { cssVars } from '../../../theme/tokens/colors';
+import type { TaviaTheme } from '../../../theme/theme';
 
 type LinkVariant = 'default' | 'monochrome';
 
@@ -18,18 +18,18 @@ interface StyledLinkProps {
 /**
  * Get color styles based on link variant
  */
-const getVariantStyles = (variant: LinkVariant = 'default'): string => {
+const getVariantStyles = (taviaTheme: TaviaTheme, variant: LinkVariant = 'default'): string => {
   const variantMap: Record<LinkVariant, string> = {
     default: `
-      color: ${cssVars.mainColor};
+      color: ${taviaTheme.colors.primary};
 
       &:hover {
-        color: ${cssVars.mainColorDark};
+        color: ${taviaTheme.colors.gray.mainColorDark};
         text-decoration: underline;
       }
 
       &:visited {
-        color: ${cssVars.mainColorDark2};
+        color: ${taviaTheme.colors.gray.mainColorDark2};
       }
     `,
     monochrome: `
@@ -49,27 +49,30 @@ const getVariantStyles = (variant: LinkVariant = 'default'): string => {
  * Uses transient props ($) to avoid DOM warnings
  */
 const StyledLink = styled.a<StyledLinkProps>`
-  ${({ $variant = 'default', $underlined = false }) => `
-    /* Base styles */
-    text-decoration: ${$underlined ? 'underline' : 'none'};
-    cursor: pointer;
-    transition: all 0.2s ease-in-out;
+  ${({ theme, $variant = 'default', $underlined = false }) => {
+    const taviaTheme = theme as TaviaTheme;
+    return `
+      /* Base styles */
+      text-decoration: ${$underlined ? 'underline' : 'none'};
+      cursor: pointer;
+      transition: all 0.2s ease-in-out;
 
-    /* Variant styles */
-    ${getVariantStyles($variant)}
+      /* Variant styles */
+      ${getVariantStyles(taviaTheme, $variant)}
 
-    /* Focus state for accessibility */
-    &:focus-visible {
-      outline: 2px solid ${cssVars.mainColor};
-      outline-offset: 2px;
-      border-radius: 2px;
-    }
+      /* Focus state for accessibility */
+      &:focus-visible {
+        outline: 2px solid ${taviaTheme.colors.primary};
+        outline-offset: 2px;
+        border-radius: 2px;
+      }
 
-    /* Active state */
-    &:active {
-      opacity: 0.7;
-    }
-  `}
+      /* Active state */
+      &:active {
+        opacity: 0.7;
+      }
+    `;
+  }}
 `;
 
 export const Styled = {

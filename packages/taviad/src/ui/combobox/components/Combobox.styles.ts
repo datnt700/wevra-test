@@ -6,8 +6,7 @@
  * @module Combobox.styles
  */
 import styled from '@emotion/styled';
-import { cssVars } from '../../../theme/tokens/colors';
-import { radii } from '../../../theme/tokens/radii';
+import type { TaviaTheme } from '../../../theme/theme';
 
 type ComboboxVariant = 'default' | 'danger' | 'success' | 'disabled';
 
@@ -21,31 +20,34 @@ interface VariantStyles {
 /**
  * Get variant styles from theme tokens
  */
-const getVariantStyles = (variant: ComboboxVariant = 'default'): VariantStyles => {
+const getVariantStyles = (
+  taviaTheme: TaviaTheme,
+  variant: ComboboxVariant = 'default'
+): VariantStyles => {
   const variantMap: Record<ComboboxVariant, VariantStyles> = {
     default: {
-      bg: cssVars.light,
-      border: cssVars.light5,
+      bg: taviaTheme.colors.surface,
+      border: taviaTheme.colors.text.tertiary,
       boxShadow: 'none',
-      focusBorder: cssVars.mainColor,
+      focusBorder: taviaTheme.colors.primary,
     },
     danger: {
-      bg: cssVars.light,
-      border: cssVars.colorDanger,
-      boxShadow: `0 0 3px ${cssVars.colorDanger}`,
-      focusBorder: cssVars.colorDanger,
+      bg: taviaTheme.colors.surface,
+      border: taviaTheme.colors.danger,
+      boxShadow: `0 0 3px ${taviaTheme.colors.danger}`,
+      focusBorder: taviaTheme.colors.danger,
     },
     success: {
-      bg: cssVars.light,
-      border: cssVars.colorSuccess,
-      boxShadow: `0 0 3px ${cssVars.colorSuccess}`,
-      focusBorder: cssVars.colorSuccess,
+      bg: taviaTheme.colors.surface,
+      border: taviaTheme.colors.success,
+      boxShadow: `0 0 3px ${taviaTheme.colors.success}`,
+      focusBorder: taviaTheme.colors.success,
     },
     disabled: {
-      bg: cssVars.light4,
-      border: cssVars.light4,
+      bg: taviaTheme.colors.border.default,
+      border: taviaTheme.colors.border.default,
       boxShadow: 'none',
-      focusBorder: cssVars.light4,
+      focusBorder: taviaTheme.colors.border.default,
     },
   };
 
@@ -71,15 +73,16 @@ const StyledWrapper = styled.div<{ $variant?: ComboboxVariant }>`
 `;
 
 const StyledInputWrapper = styled.div<{ $variant?: ComboboxVariant }>`
-  ${({ $variant = 'default' }) => {
-    const styles = getVariantStyles($variant);
+  ${({ theme, $variant = 'default' }) => {
+    const taviaTheme = theme as TaviaTheme;
+    const styles = getVariantStyles(taviaTheme, $variant);
 
     return `
       display: flex;
       align-items: center;
       background-color: ${styles.bg};
       border: 1px solid ${styles.border};
-      border-radius: ${radii.md};
+      border-radius: ${taviaTheme.radii.md};
       transition: all 0.2s ease-in-out;
       ${styles.boxShadow !== 'none' ? `box-shadow: ${styles.boxShadow};` : ''}
 
@@ -103,86 +106,111 @@ const StyledInputWrapper = styled.div<{ $variant?: ComboboxVariant }>`
 `;
 
 const StyledClearBtn = styled.button`
-  background-color: transparent;
-  border-radius: ${radii.md};
-  color: ${cssVars.dark6};
-  border: none;
-  cursor: pointer;
-  padding: 0.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: color 0.2s ease;
+  ${({ theme }) => {
+    const taviaTheme = theme as TaviaTheme;
+    return `
+      background-color: transparent;
+      border-radius: ${taviaTheme.radii.md};
+      color: ${taviaTheme.colors.text.disabled};
+      border: none;
+      cursor: pointer;
+      padding: 0.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: color 0.2s ease;
 
-  &:hover {
-    color: ${cssVars.dark};
-  }
+      &:hover {
+        color: ${taviaTheme.colors.text.primary};
+      }
+    `;
+  }}
 `;
 
 const StyledInput = styled.input`
-  height: 3rem;
-  outline: none;
-  color: ${cssVars.dark};
-  padding: 0.5rem 1rem;
-  width: 100%;
-  font-size: 1rem;
-  border-radius: ${radii.md};
-  border: 0;
-  background-color: transparent;
+  ${({ theme }) => {
+    const taviaTheme = theme as TaviaTheme;
+    return `
+      height: 3rem;
+      outline: none;
+      color: ${taviaTheme.colors.text.primary};
+      padding: 0.5rem 1rem;
+      width: 100%;
+      font-size: 1rem;
+      border-radius: ${taviaTheme.radii.md};
+      border: 0;
+      background-color: transparent;
 
-  &::placeholder {
-    font-weight: 300;
-    line-height: 1.875rem;
-    color: ${cssVars.dark6};
-  }
+      &::placeholder {
+        font-weight: 300;
+        line-height: 1.875rem;
+        color: ${taviaTheme.colors.text.disabled};
+      }
 
-  &:disabled {
-    cursor: not-allowed;
-  }
+      &:disabled {
+        cursor: not-allowed;
+      }
+    `;
+  }}
 `;
 
 const StyledErrorMessage = styled.span`
-  color: ${cssVars.colorDanger};
-  font-size: 0.75rem;
-  font-style: normal;
-  font-weight: 600;
-  line-height: normal;
+  ${({ theme }) => {
+    const taviaTheme = theme as TaviaTheme;
+    return `
+      color: ${taviaTheme.colors.danger};
+      font-size: 0.75rem;
+      font-style: normal;
+      font-weight: 600;
+      line-height: normal;
+    `;
+  }}
 `;
 
 const StyledDropdown = styled.div`
-  max-height: 8rem;
-  overflow-x: hidden;
-  overflow-y: auto;
-  position: relative;
-  border-radius: ${radii.sm};
-  background-color: ${cssVars.light};
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  ${({ theme }) => {
+    const taviaTheme = theme as TaviaTheme;
+    return `
+      max-height: 8rem;
+      overflow-x: hidden;
+      overflow-y: auto;
+      position: relative;
+      border-radius: ${taviaTheme.radii.sm};
+      background-color: ${taviaTheme.colors.surface};
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    `;
+  }}
 `;
 
 const StyledOption = styled.li`
-  padding: 0.75rem;
-  background-color: ${cssVars.light};
-  list-style: none;
-  transition: background-color 0.2s ease;
+  ${({ theme }) => {
+    const taviaTheme = theme as TaviaTheme;
+    return `
+      padding: 0.75rem;
+      background-color: ${taviaTheme.colors.surface};
+      list-style: none;
+      transition: background-color 0.2s ease;
 
-  button {
-    width: 100%;
-    text-align: left;
-    background: none;
-    border: none;
-    color: ${cssVars.dark};
-    font-size: 1rem;
-    cursor: pointer;
-    padding: 0;
-  }
+      button {
+        width: 100%;
+        text-align: left;
+        background: none;
+        border: none;
+        color: ${taviaTheme.colors.text.primary};
+        font-size: 1rem;
+        cursor: pointer;
+        padding: 0;
+      }
 
-  &:hover {
-    background-color: ${cssVars.light3};
-  }
+      &:hover {
+        background-color: ${taviaTheme.colors.surfaceHover};
+      }
 
-  &:active {
-    background-color: ${cssVars.light4};
-  }
+      &:active {
+        background-color: ${taviaTheme.colors.border.default};
+      }
+    `;
+  }}
 `;
 
 export const Styled = {

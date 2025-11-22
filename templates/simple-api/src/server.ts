@@ -1,16 +1,14 @@
 import { buildApp } from './app.js';
-
-const PORT = parseInt(process.env.PORT || '4000', 10);
-const HOST = process.env.HOST || '0.0.0.0';
+import { env, envUtils } from './lib/env.js';
 
 async function start() {
   try {
     const app = await buildApp();
 
-    await app.listen({ port: PORT, host: HOST });
+    await app.listen({ port: env.PORT, host: env.HOST });
 
-    console.log(`🚀 Simple API server running on http://${HOST}:${PORT}`);
-    console.log(`📚 Health check: http://${HOST}:${PORT}/health`);
+    console.log(`🚀 Simple API server running on ${envUtils.getServerUrl()}`);
+    console.log(`📚 Health check: ${envUtils.getServerUrl()}/health`);
   } catch (err) {
     console.error('Error starting server:', err);
     process.exit(1);

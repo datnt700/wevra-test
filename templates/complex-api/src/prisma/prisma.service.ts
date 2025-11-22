@@ -1,5 +1,6 @@
 import { Injectable, OnModuleInit, OnModuleDestroy } from '@nestjs/common';
 import { PrismaClient } from '@prisma/client';
+import { envUtils } from '../lib/env';
 
 @Injectable()
 export class PrismaService
@@ -8,10 +9,7 @@ export class PrismaService
 {
   constructor() {
     super({
-      log:
-        process.env.NODE_ENV === 'development'
-          ? ['query', 'error', 'warn']
-          : ['error'],
+      log: envUtils.isDevelopment() ? ['query', 'error', 'warn'] : ['error'],
     });
   }
 

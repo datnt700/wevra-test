@@ -6,8 +6,7 @@
  * @module Pagination.styles
  */
 import styled from '@emotion/styled';
-import { cssVars } from '../../../theme/tokens/colors';
-import { radii } from '../../../theme/tokens/radii';
+import type { TaviaTheme } from '../../../theme/theme';
 
 /**
  * Main pagination container
@@ -28,7 +27,8 @@ const PaginationItem = styled.button<{
   $isActive?: boolean;
   $isDisabled?: boolean;
 }>`
-  ${({ $isActive = false, $isDisabled = false }) => {
+  ${({ theme, $isActive = false, $isDisabled = false }) => {
+    const taviaTheme = theme as TaviaTheme;
     return `
       /* Base styles */
       min-width: 2.5rem;
@@ -44,10 +44,10 @@ const PaginationItem = styled.button<{
       line-height: 1;
 
       /* Appearance */
-      background-color: ${$isActive ? cssVars.mainColor : 'transparent'};
-      color: ${$isActive ? cssVars.light : cssVars.dark};
-      border: 1px solid ${$isActive ? cssVars.mainColor : 'transparent'};
-      border-radius: ${radii.full};
+      background-color: ${$isActive ? taviaTheme.colors.primary : 'transparent'};
+      color: ${$isActive ? taviaTheme.colors.surface : taviaTheme.colors.text.primary};
+      border: 1px solid ${$isActive ? taviaTheme.colors.primary : 'transparent'};
+      border-radius: ${taviaTheme.radii.full};
 
       /* Transitions */
       transition: all 0.2s ease-in-out;
@@ -61,8 +61,8 @@ const PaginationItem = styled.button<{
         !$isActive && !$isDisabled
           ? `
         &:hover {
-          background-color: ${cssVars.light3};
-          border-color: ${cssVars.mainColor};
+          background-color: ${taviaTheme.colors.surfaceHover};
+          border-color: ${taviaTheme.colors.primary};
         }
 
         &:active {
@@ -70,7 +70,7 @@ const PaginationItem = styled.button<{
         }
 
         &:focus-visible {
-          outline: 2px solid ${cssVars.mainColor};
+          outline: 2px solid ${taviaTheme.colors.primary};
           outline-offset: 2px;
         }
       `
@@ -89,14 +89,19 @@ const PaginationItem = styled.button<{
  * Ellipsis item for page breaks
  */
 const EllipsisItem = styled.span`
-  min-width: 2.5rem;
-  height: 2.5rem;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  color: ${cssVars.dark5};
-  font-size: 0.875rem;
-  user-select: none;
+  ${({ theme }) => {
+    const taviaTheme = theme as TaviaTheme;
+    return `
+      min-width: 2.5rem;
+      height: 2.5rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: ${taviaTheme.colors.text.tertiary};
+      font-size: 0.875rem;
+      user-select: none;
+    `;
+  }}
 `;
 
 export const Styled = {

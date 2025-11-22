@@ -1,1 +1,1 @@
-export * from './useRestaurants';
+export * from './useEvents';

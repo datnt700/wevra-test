@@ -6,8 +6,7 @@
  * @module Modal.styles
  */
 import styled from '@emotion/styled';
-import { cssVars } from '../../../theme/tokens/colors';
-import { radii } from '../../../theme/tokens/radii';
+import type { TaviaTheme } from '../../../theme/theme';
 
 type ModalPosition = 'center' | 'top' | 'bottom';
 
@@ -63,16 +62,21 @@ const Wrapper = styled.div<PositionProps>`
  * Overlay background with blur effect
  */
 const Overlay = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 1040;
-  width: 100vw;
-  height: 100vh;
-  background-color: ${cssVars.dark};
-  opacity: 0.5;
-  cursor: pointer;
-  backdrop-filter: blur(4px);
+  ${({ theme }) => {
+    const taviaTheme = theme as TaviaTheme;
+    return `
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 1040;
+      width: 100vw;
+      height: 100vh;
+      background-color: ${taviaTheme.colors.text.primary};
+      opacity: 0.5;
+      cursor: pointer;
+      backdrop-filter: blur(4px);
+    `;
+  }}
 `;
 
 /**
@@ -92,85 +96,110 @@ const Main = styled.div`
  * Container for modal content with background and shadow
  */
 const Container = styled.div`
-  z-index: 1041;
-  background-color: ${cssVars.light};
-  position: relative;
-  border-radius: ${radii.md};
-  min-width: 30rem;
-  max-height: 90vh;
-  overflow-y: auto;
-  box-shadow: 0 10px 25px ${cssVars.dark}33; /* 33 = 20% opacity */
+  ${({ theme }) => {
+    const taviaTheme = theme as TaviaTheme;
+    return `
+      z-index: 1041;
+      background-color: ${taviaTheme.colors.surface};
+      position: relative;
+      border-radius: ${taviaTheme.radii.md};
+      min-width: 30rem;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: 0 10px 25px ${taviaTheme.colors.text.primary}33; /* 33 = 20% opacity */
+    `;
+  }}
 `;
 
 /**
  * Modal header with title and close button
  */
 const Header = styled.div`
-  display: flex;
-  justify-content: space-between;
-  padding: 2rem;
-  padding-bottom: 1rem;
-  align-items: center;
-  border-bottom: 1px solid ${cssVars.light4};
+  ${({ theme }) => {
+    const taviaTheme = theme as TaviaTheme;
+    return `
+      display: flex;
+      justify-content: space-between;
+      padding: 2rem;
+      padding-bottom: 1rem;
+      align-items: center;
+      border-bottom: 1px solid ${taviaTheme.colors.border.default};
 
-  .header {
-    display: flex;
-    align-items: center;
-    font-weight: 600;
-    font-size: 1.25rem;
-    color: ${cssVars.dark};
-  }
+      .header {
+        display: flex;
+        align-items: center;
+        font-weight: 600;
+        font-size: 1.25rem;
+        color: ${taviaTheme.colors.text.primary};
+      }
+    `;
+  }}
 `;
 
 /**
  * Close button in header
  */
 const CloseButton = styled.button`
-  font-size: 1.5rem;
-  line-height: 1;
-  color: ${cssVars.dark};
-  opacity: 0.5;
-  cursor: pointer;
-  border: none;
-  background: transparent;
-  transition: opacity 0.3s ease;
-  padding: 0.25rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  ${({ theme }) => {
+    const taviaTheme = theme as TaviaTheme;
+    return `
+      font-size: 1.5rem;
+      line-height: 1;
+      color: ${taviaTheme.colors.text.primary};
+      opacity: 0.5;
+      cursor: pointer;
+      border: none;
+      background: transparent;
+      transition: opacity 0.3s ease;
+      padding: 0.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
 
-  &:hover {
-    opacity: 1;
-  }
+      &:hover {
+        opacity: 1;
+      }
 
-  &:focus-visible {
-    outline: 2px solid ${cssVars.mainColor};
-    outline-offset: 2px;
-    border-radius: ${radii.sm};
-  }
+      &:focus-visible {
+        outline: 2px solid ${taviaTheme.colors.primary};
+        outline-offset: 2px;
+        border-radius: ${taviaTheme.radii.sm};
+      }
+    `;
+  }}
 `;
 
 /**
  * Modal content area
  */
 const Content = styled.div`
-  padding: 1rem 2rem;
-  flex: 1;
-  overflow-y: auto;
-  color: ${cssVars.dark};
+  ${({ theme }) => {
+    const taviaTheme = theme as TaviaTheme;
+    return `
+      padding: 1rem 2rem;
+      flex: 1;
+      overflow-y: auto;
+      color: ${taviaTheme.colors.text.primary};
+    `;
+  }}
 `;
 
 /**
  * Modal footer with action buttons
  */
 const Footer = styled.div`
-  padding: 1rem 2rem;
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-end;
-  align-items: center;
-  gap: 0.75rem;
-  border-top: 1px solid ${cssVars.light4};
+  ${({ theme }) => {
+    const taviaTheme = theme as TaviaTheme;
+    return `
+      padding: 1rem 2rem;
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 0.75rem;
+      border-top: 1px solid ${taviaTheme.colors.border.default};
+    `;
+  }}
 `;
 
 export const Styled = {

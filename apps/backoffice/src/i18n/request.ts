@@ -23,7 +23,7 @@ export default getRequestConfig(async () => {
   }
 
   // Load modular i18n files
-  const [common, navigation, home, actions, auth, dashboard, errors, restaurants, iam] =
+  const [common, navigation, home, actions, auth, dashboard, errors, groups, iam] =
     await Promise.all([
       import(`../messages/${locale}/common.json`),
       import(`../messages/${locale}/navigation.json`),
@@ -32,7 +32,7 @@ export default getRequestConfig(async () => {
       import(`../messages/${locale}/auth.json`),
       import(`../messages/${locale}/dashboard.json`),
       import(`../messages/${locale}/errors.json`),
-      import(`../messages/${locale}/restaurants.json`),
+      import(`../messages/${locale}/groups.json`),
       import(`../messages/${locale}/iam.json`),
     ]);
 
@@ -46,7 +46,7 @@ export default getRequestConfig(async () => {
       auth: auth.default,
       dashboard: dashboard.default,
       errors: errors.default,
-      restaurants: restaurants.default,
+      groups: groups.default,
       iam: iam.default,
     },
   };

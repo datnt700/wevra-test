@@ -2,7 +2,7 @@
 
 import styled from '@emotion/styled';
 import { Separator as RadixSeparator } from 'radix-ui';
-import { cssVars } from '../../../theme/tokens/colors';
+import type { TaviaTheme } from '../../../theme/theme';
 import { DividerSize } from '../types';
 
 interface RootProps {
@@ -32,14 +32,14 @@ export const Styled = {
   Root: styled(RadixSeparator.Root, {
     shouldForwardProp: (prop) => !prop.startsWith('$'),
   })<RootProps>`
-    background-color: ${cssVars.light4};
-
-    ${({ $orientation = 'horizontal', $size }) => {
+    ${({ theme, $orientation = 'horizontal', $size }) => {
+      const taviaTheme = theme as TaviaTheme;
       const thickness = getThickness($size);
 
-      return $orientation === 'vertical'
-        ? `width: ${thickness}; height: 100%;`
-        : `height: ${thickness}; width: 100%;`;
+      return `
+        background-color: ${taviaTheme.colors.border.default};
+        ${$orientation === 'vertical' ? `width: ${thickness}; height: 100%;` : `height: ${thickness}; width: 100%;`}
+      `;
     }}
   `,
 };

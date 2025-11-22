@@ -6,69 +6,79 @@
  * @module TextArea.styles
  */
 import styled from '@emotion/styled';
-import { cssVars } from '../../../theme/tokens/colors';
-import { radii } from '../../../theme/tokens/radii';
+import type { TaviaTheme } from '../../../theme/theme';
 
 const StyledWrapper = styled.div<{ $hasError?: boolean }>`
-  ${({ $hasError = false }) => `
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    width: 100%;
-    border: 1px solid ${$hasError ? cssVars.colorDanger : cssVars.light5};
-    border-radius: ${radii.md};
-    transition: all 0.2s ease-in-out;
+  ${({ theme, $hasError = false }) => {
+    const taviaTheme = theme as TaviaTheme;
+    return `
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      width: 100%;
+      border: 1px solid ${$hasError ? taviaTheme.colors.danger : taviaTheme.colors.border.default};
+      border-radius: ${taviaTheme.radii.md};
+      transition: all 0.2s ease-in-out;
 
-    &:focus-within {
-      border-color: ${$hasError ? cssVars.colorDanger : cssVars.mainColor};
-      box-shadow: 0 0 3px ${$hasError ? cssVars.colorDanger : cssVars.mainColor};
-    }
-  `}
+      &:focus-within {
+        border-color: ${$hasError ? taviaTheme.colors.danger : taviaTheme.colors.primary};
+        box-shadow: 0 0 3px ${$hasError ? taviaTheme.colors.danger : taviaTheme.colors.primary};
+      }
+    `;
+  }}
 `;
 
 const StyledTextArea = styled.textarea<{ $hasError?: boolean }>`
-  ${({ $hasError = false }) => `
-    min-height: 8rem;
-    background: ${cssVars.light};
-    outline: none;
-    color: ${cssVars.dark};
-    padding: 0.5rem 1rem;
-    width: 100%;
-    font-size: 1rem;
-    border-radius: ${radii.md};
-    border: 1px solid ${$hasError ? cssVars.colorDanger : cssVars.light5};
-    font-family: inherit;
-    transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-    resize: vertical;
-
-    &:focus {
+  ${({ theme, $hasError = false }) => {
+    const taviaTheme = theme as TaviaTheme;
+    return `
+      min-height: 8rem;
+      background: ${taviaTheme.colors.surface};
       outline: none;
-      border-color: ${$hasError ? cssVars.colorDanger : cssVars.mainColor};
-      box-shadow: 0 0 3px ${$hasError ? cssVars.colorDanger : cssVars.mainColor};
-    }
+      color: ${taviaTheme.colors.text.primary};
+      padding: 0.5rem 1rem;
+      width: 100%;
+      font-size: 1rem;
+      border-radius: ${taviaTheme.radii.md};
+      border: 1px solid ${$hasError ? taviaTheme.colors.danger : taviaTheme.colors.border.default};
+      font-family: inherit;
+      transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+      resize: vertical;
 
-    &::placeholder {
-      font-style: italic;
-      font-weight: 300;
-      line-height: 1.875rem;
-      color: ${cssVars.dark6};
-    }
+      &:focus {
+        outline: none;
+        border-color: ${$hasError ? taviaTheme.colors.danger : taviaTheme.colors.primary};
+        box-shadow: 0 0 3px ${$hasError ? taviaTheme.colors.danger : taviaTheme.colors.primary};
+      }
 
-    &:disabled {
-      background-color: ${cssVars.light4};
-      cursor: not-allowed;
-      opacity: 0.6;
-    }
-  `}
+      &::placeholder {
+        font-style: italic;
+        font-weight: 300;
+        line-height: 1.875rem;
+        color: ${taviaTheme.colors.text.disabled};
+      }
+
+      &:disabled {
+        background-color: ${taviaTheme.colors.gray.gray200};
+        cursor: not-allowed;
+        opacity: 0.6;
+      }
+    `;
+  }}
 `;
 
 const StyledErrorMessage = styled.span`
-  color: ${cssVars.colorDanger};
-  font-size: 0.75rem;
-  font-style: normal;
-  font-weight: 600;
-  line-height: normal;
-  padding: 0 0.25rem;
+  ${({ theme }) => {
+    const taviaTheme = theme as TaviaTheme;
+    return `
+      color: ${taviaTheme.colors.danger};
+      font-size: 0.75rem;
+      font-style: normal;
+      font-weight: 600;
+      line-height: normal;
+      padding: 0 0.25rem;
+    `;
+  }}
 `;
 
 export const Styled = {

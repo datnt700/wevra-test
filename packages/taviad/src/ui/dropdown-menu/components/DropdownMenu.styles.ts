@@ -7,8 +7,7 @@
  */
 import styled from '@emotion/styled';
 import { DropdownMenu as RadixDropdownMenu } from 'radix-ui';
-import { cssVars } from '../../../theme/tokens/colors';
-import { radii } from '../../../theme/tokens/radii';
+import type { TaviaTheme } from '../../../theme/theme';
 
 /**
  * Root container (unstyled, just Radix Root)
@@ -19,99 +18,133 @@ const Root = styled(RadixDropdownMenu.Root)``;
  * Trigger button for dropdown
  */
 const Trigger = styled(RadixDropdownMenu.Trigger)`
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: ${radii.md};
-  padding: 0.5rem 1rem;
-  font-size: 0.875rem;
-  height: 3rem;
-  background-color: ${cssVars.light};
-  color: ${cssVars.dark};
-  border: 1px solid ${cssVars.light4};
-  cursor: pointer;
-  transition: all 0.2s ease;
+  ${({ theme }) => {
+    const taviaTheme = theme as TaviaTheme;
+    return `
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: ${taviaTheme.radii.md};
+      padding: 0;
+      font-size: 0.875rem;
+      height: auto;
+      background-color: transparent;
+      color: ${taviaTheme.colors.text.primary};
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s ease;
 
-  &:hover {
-    background-color: ${cssVars.light2};
-    border-color: ${cssVars.light5};
-  }
+      &:hover {
+        background-color: transparent;
+      }
 
-  &:focus-visible {
-    outline: 2px solid ${cssVars.mainColor};
-    outline-offset: 2px;
-  }
+      &:focus-visible {
+        outline: none;
+      }
 
-  &[data-state='open'] {
-    background-color: ${cssVars.light3};
-  }
+      &[data-state='open'] {
+        background-color: transparent;
+      }
+    `;
+  }}
 `;
 
 /**
  * Dropdown content container
  */
 const Content = styled(RadixDropdownMenu.Content)`
-  min-width: 220px;
-  background-color: ${cssVars.light};
-  border-radius: ${radii.md};
-  padding: 0.5rem;
-  box-shadow:
-    0 10px 38px -10px ${cssVars.dark}59,
-    0 10px 20px -15px ${cssVars.dark}33;
-  animation-duration: 400ms;
-  animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
-  will-change: transform, opacity;
-  z-index: 1050;
+  ${({ theme }) => {
+    const taviaTheme = theme as TaviaTheme;
+    return `
+      min-width: 220px;
+      background-color: ${taviaTheme.colors.surface};
+      border-radius: ${taviaTheme.radii.md};
+      padding: 0.5rem;
+      box-shadow:
+        0 10px 38px -10px ${taviaTheme.colors.text.primary}59,
+        0 10px 20px -15px ${taviaTheme.colors.text.primary}33;
+      animation-duration: 400ms;
+      animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: transform, opacity;
+      z-index: 1050;
+    `;
+  }}
 `;
 
 /**
  * Dropdown menu item
  */
 const Item = styled(RadixDropdownMenu.Item)`
-  font-size: 0.875rem;
-  line-height: 1.5;
-  border-radius: ${radii.sm};
+  ${({ theme }) => {
+    const taviaTheme = theme as TaviaTheme;
+    return `
+      font-size: 0.875rem;
+      line-height: 1.5;
+      border-radius: ${taviaTheme.radii.sm};
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      min-height: 2.5rem;
+      padding: 0.5rem 1rem;
+      position: relative;
+      user-select: none;
+      cursor: pointer;
+      color: ${taviaTheme.colors.text.primary};
+      transition: background-color 0.15s ease;
+
+      &[data-disabled] {
+        color: ${taviaTheme.colors.text.secondary};
+        pointer-events: none;
+        opacity: 0.5;
+      }
+
+      &[data-highlighted] {
+        background-color: ${taviaTheme.colors.gray.light3};
+        color: ${taviaTheme.colors.text.primary};
+        outline: none;
+      }
+
+      &:focus {
+        outline: none;
+      }
+    `;
+  }}
+`;
+
+/**
+ * Icon wrapper for menu items
+ */
+const ItemIcon = styled.span`
   display: flex;
   align-items: center;
-  min-height: 2.5rem;
-  padding: 0.5rem 1rem;
-  position: relative;
-  user-select: none;
-  cursor: pointer;
-  color: ${cssVars.dark};
-  transition: background-color 0.15s ease;
-
-  &[data-disabled] {
-    color: ${cssVars.light6};
-    pointer-events: none;
-    opacity: 0.5;
-  }
-
-  &[data-highlighted] {
-    background-color: ${cssVars.mainColorLight};
-    color: ${cssVars.dark};
-    outline: none;
-  }
-
-  &:focus {
-    outline: none;
-  }
+  justify-content: center;
+  flex-shrink: 0;
 `;
 
 /**
  * Separator between menu items
  */
 const Separator = styled(RadixDropdownMenu.Separator)`
-  height: 1px;
-  background-color: ${cssVars.light4};
-  margin: 0.5rem 0;
+  ${({ theme }) => {
+    const taviaTheme = theme as TaviaTheme;
+    return `
+      height: 1px;
+      background-color: ${taviaTheme.colors.border.default};
+      margin: 0.5rem 0;
+    `;
+  }}
 `;
 
 /**
  * Arrow pointing to trigger
  */
 const Arrow = styled(RadixDropdownMenu.Arrow)`
-  fill: ${cssVars.light};
+  ${({ theme }) => {
+    const taviaTheme = theme as TaviaTheme;
+    return `
+      fill: ${taviaTheme.colors.surface};
+    `;
+  }}
 `;
 
 export const Styled = {
@@ -119,6 +152,7 @@ export const Styled = {
   Trigger,
   Content,
   Item,
+  ItemIcon,
   Separator,
   Arrow,
 };

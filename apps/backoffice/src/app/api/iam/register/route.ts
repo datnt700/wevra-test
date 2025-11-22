@@ -9,11 +9,9 @@ const registerUserSchema = z.object({
   name: z.string().min(2),
   email: z.string().email(),
   password: z.string().min(8),
-  role: z
-    .nativeEnum(UserRole)
-    .refine((role) => role !== UserRole.USER && role !== UserRole.RESTAURANT_OWNER, {
-      message: 'Only ADMIN, MANAGER, or EMPLOYEE roles can be assigned via IAM',
-    }),
+  role: z.nativeEnum(UserRole).refine((role) => role !== UserRole.ATTENDEE, {
+    message: 'Only ADMIN, ORGANIZER, or MODERATOR roles can be assigned via IAM',
+  }),
 });
 
 export async function POST(request: NextRequest) {

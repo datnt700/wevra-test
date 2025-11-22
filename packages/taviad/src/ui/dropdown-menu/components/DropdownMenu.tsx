@@ -50,6 +50,7 @@ export const DropdownMenu = ({ items = [], trigger }: DropdownMenuProps) => {
               disabled={item.isDisabled}
               onSelect={(e) => item?.onSelect?.(e)}
             >
+              {item.icon && <Styled.ItemIcon>{item.icon}</Styled.ItemIcon>}
               {item.label}
             </Styled.Item>
           ))}

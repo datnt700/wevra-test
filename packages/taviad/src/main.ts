@@ -138,3 +138,6 @@ export { ProgressBar, type ProgressBarProps } from './ui/progress';
 // Table Components
 export { DataTable } from './ui/data-table';
 export { Table } from './ui/table';
+
+// OAuth Icons
+export { GoogleIcon, AppleIcon, FacebookIcon, type OAuthIconProps } from './ui/oauth-icons';

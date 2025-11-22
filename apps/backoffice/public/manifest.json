@@ -2,7 +2,7 @@
   "@context": "https://schema.org",
   "@type": "WebSite",
   "name": "Tavia",
-  "description": "Discover and book amazing cafés and restaurants",
+  "description": "Community networking and event management platform",
   "url": "https://tavia.io",
   "potentialAction": {
     "@type": "SearchAction",

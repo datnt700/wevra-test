@@ -1,34 +1,54 @@
 'use client';
 
 import styled from '@emotion/styled';
-import { cssVars } from '../../../theme/tokens/colors';
+import type { TaviaTheme } from '../../../theme/theme';
 
 const Styled = {
   Breadcrumb: styled.nav`
-    display: flex;
-    align-items: center;
-    font-size: 14px;
-    color: ${cssVars.dark6};
+    ${({ theme }) => {
+      const taviaTheme = theme as TaviaTheme;
+      return `
+        display: flex;
+        align-items: center;
+        font-size: 14px;
+        color: ${taviaTheme.colors.text.secondary};
+      `;
+    }}
   `,
   BreadcrumbItem: styled('div', {
     shouldForwardProp: (prop) => prop !== 'isLast',
   })<{ isLast: boolean }>`
-    display: flex;
-    align-items: center;
-    color: ${(props) => (props.isLast ? cssVars.dark : 'inherit')};
-    font-weight: ${(props) => (props.isLast ? 'bold' : 'normal')};
+    ${({ theme, isLast }) => {
+      const taviaTheme = theme as TaviaTheme;
+      return `
+        display: flex;
+        align-items: center;
+        color: ${isLast ? taviaTheme.colors.text.primary : 'inherit'};
+        font-weight: ${isLast ? 'bold' : 'normal'};
+      `;
+    }}
   `,
   BreadcrumbLink: styled.a`
-    text-decoration: none;
-    color: ${cssVars.mainColor};
+    ${({ theme }) => {
+      const taviaTheme = theme as TaviaTheme;
+      return `
+        text-decoration: none;
+        color: ${taviaTheme.colors.primary};
 
-    &:hover {
-      text-decoration: underline;
-    }
+        &:hover {
+          text-decoration: underline;
+        }
+      `;
+    }}
   `,
   BreadcrumbSeparator: styled.span`
-    margin: 0 8px;
-    color: ${cssVars.light5};
+    ${({ theme }) => {
+      const taviaTheme = theme as TaviaTheme;
+      return `
+        margin: 0 8px;
+        color: ${taviaTheme.colors.text.tertiary};
+      `;
+    }}
   `,
 };
 

@@ -1,6 +1,7 @@
 'use client';
 
 import { AnalyticsProvider as TaviaAnalyticsProvider } from '@tavia/analytics';
+import { envUtils } from '@/lib/env';
 import type { ReactNode } from 'react';
 
 export function AnalyticsProvider({ children }: { children: ReactNode }) {
@@ -8,7 +9,7 @@ export function AnalyticsProvider({ children }: { children: ReactNode }) {
     <TaviaAnalyticsProvider
       config={{
         endpoint: '/api/analytics',
-        debug: process.env.NODE_ENV === 'development',
+        debug: envUtils.isDevelopment(),
         batchSize: 10,
         flushInterval: 5000,
       }}

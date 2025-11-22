@@ -10,7 +10,17 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslations } from 'next-intl';
-import { Button, InputText, Card, Alert, Link, Field } from '@tavia/taviad';
+import {
+  Button,
+  InputText,
+  Card,
+  Alert,
+  Link,
+  Field,
+  GoogleIcon,
+  AppleIcon,
+  FacebookIcon,
+} from '@tavia/taviad';
 import { Styled } from './LoginPage.styles';
 import { createLoginSchema, type LoginFormData } from './_validations/loginSchema';
 import { ROUTES } from '@/lib/constants';
@@ -73,15 +83,49 @@ export default function LoginPage() {
         {/* Logo and Header */}
         <Styled.Header>
           <Styled.Logo>{t('common.appName')}</Styled.Logo>
-          <Styled.Subtitle>{t('auth.login.subtitle')}</Styled.Subtitle>
         </Styled.Header>
 
         {/* Login Card */}
         <Card variant="elevated">
           <Styled.CardHeader>
             <Styled.Title>{t('auth.login.title')}</Styled.Title>
-            <Styled.Description>{t('auth.login.description')}</Styled.Description>
           </Styled.CardHeader>
+
+          {/* Error Alert */}
+          {/* OAuth Buttons */}
+          <Styled.OAuthButtons>
+            <Button
+              variant="tertiary"
+              onClick={() => signIn('google', { callbackUrl })}
+              disabled={isLoading}
+              icon={<GoogleIcon />}
+            >
+              {t('auth.login.continueWithGoogle')}
+            </Button>
+
+            <Button
+              variant="tertiary"
+              onClick={() => signIn('apple', { callbackUrl })}
+              disabled={isLoading}
+              icon={<AppleIcon />}
+            >
+              {t('auth.login.continueWithApple')}
+            </Button>
+
+            <Button
+              variant="tertiary"
+              onClick={() => signIn('facebook', { callbackUrl })}
+              disabled={isLoading}
+              icon={<FacebookIcon />}
+            >
+              {t('auth.login.continueWithFacebook')}
+            </Button>
+          </Styled.OAuthButtons>
+
+          {/* Divider */}
+          <Styled.Divider>
+            <Styled.DividerText>{t('auth.login.orContinueWith')}</Styled.DividerText>
+          </Styled.Divider>
 
           {/* Error Alert */}
           {loginError && (
@@ -150,9 +194,6 @@ export default function LoginPage() {
               </Button>
             </Styled.FormFields>
           </form>
-
-          {/* Divider */}
-          <Styled.Divider />
 
           {/* Footer */}
           <Styled.CardFooter>

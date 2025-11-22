@@ -1,10 +1,10 @@
 import { DefaultLayout } from '@/components/layouts/DefaultLayout';
-import { RestaurantSearch } from '@/components/RestaurantSearch';
+import { EventSearch } from '@/components/EventSearch';
 
 export default async function HomePage() {
   return (
     <DefaultLayout>
-      <RestaurantSearch />
+      <EventSearch />
     </DefaultLayout>
   );
 }

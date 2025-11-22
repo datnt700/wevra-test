@@ -1,7 +1,7 @@
 'use client';
 
 import styled from '@emotion/styled';
-import { radii } from '../../../theme/tokens/radii';
+import type { TaviaTheme } from '../../../theme/theme';
 import type { ButtonGroupVariant, ButtonGroupOrientation } from '../types';
 
 interface VariantStyles {
@@ -34,7 +34,8 @@ interface StyledProps {
 }
 
 const StyledButtonGroup = styled.div<StyledProps>`
-  ${({ $variant = 'default', $orientation = 'horizontal' }) => {
+  ${({ theme, $variant = 'default', $orientation = 'horizontal' }) => {
+    const taviaTheme = theme as TaviaTheme;
     const styles = getVariantStyles($variant, $orientation);
     return `
       display: flex;
@@ -55,13 +56,13 @@ const StyledButtonGroup = styled.div<StyledProps>`
           $orientation === 'horizontal'
             ? `
           > *:first-of-type {
-            border-top-left-radius: ${radii.md};
-            border-bottom-left-radius: ${radii.md};
+            border-top-left-radius: ${taviaTheme.radii.md};
+            border-bottom-left-radius: ${taviaTheme.radii.md};
           }
 
           > *:last-of-type {
-            border-top-right-radius: ${radii.md};
-            border-bottom-right-radius: ${radii.md};
+            border-top-right-radius: ${taviaTheme.radii.md};
+            border-bottom-right-radius: ${taviaTheme.radii.md};
           }
 
           > *:not(:last-of-type) {
@@ -70,13 +71,13 @@ const StyledButtonGroup = styled.div<StyledProps>`
         `
             : `
           > *:first-of-type {
-            border-top-left-radius: ${radii.md};
-            border-top-right-radius: ${radii.md};
+            border-top-left-radius: ${taviaTheme.radii.md};
+            border-top-right-radius: ${taviaTheme.radii.md};
           }
 
           > *:last-of-type {
-            border-bottom-left-radius: ${radii.md};
-            border-bottom-right-radius: ${radii.md};
+            border-bottom-left-radius: ${taviaTheme.radii.md};
+            border-bottom-right-radius: ${taviaTheme.radii.md};
           }
 
           > *:not(:last-of-type) {

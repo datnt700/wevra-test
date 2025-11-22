@@ -6,8 +6,7 @@
  */
 
 import styled from '@emotion/styled';
-import { cssVars } from '../../../theme/tokens/colors';
-import { radii } from '../../../theme/tokens/radii';
+import type { TaviaTheme } from '../../../theme/theme';
 
 /**
  * Props for styled Wrapper component
@@ -29,34 +28,37 @@ const InputUpload = styled.input`
  * Handles active state when images are dragged over
  */
 const Wrapper = styled.label<WrapperProps>`
-  ${({ $isActive = false }) => `
-    background: transparent;
-    border-radius: ${radii.md};
-    border: 1px dashed ${cssVars.dark};
-    margin-left: auto;
-    margin-right: auto;
-    width: 100%;
-    height: 18rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    min-width: 16rem;
-    cursor: pointer;
+  ${({ theme, $isActive = false }) => {
+    const taviaTheme = theme as TaviaTheme;
+    return `
+      background: transparent;
+      border-radius: ${taviaTheme.radii.md};
+      border: 1px dashed ${taviaTheme.colors.text.primary};
+      margin-left: auto;
+      margin-right: auto;
+      width: 100%;
+      height: 18rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      min-width: 16rem;
+      cursor: pointer;
 
-    ${
-      $isActive
-        ? `
-      border-color: ${cssVars.mainColor};
-    `
-        : ''
-    }
+      ${
+        $isActive
+          ? `
+        border-color: ${taviaTheme.colors.primary};
+      `
+          : ''
+      }
 
-    &:focus-within {
-      border-color: ${cssVars.mainColor};
-      box-shadow: 0 0 3px ${cssVars.mainColor};
-    }
-  `}
+      &:focus-within {
+        border-color: ${taviaTheme.colors.primary};
+        box-shadow: 0 0 3px ${taviaTheme.colors.primary};
+      }
+    `;
+  }}
 `;
 
 /**
@@ -76,17 +78,22 @@ const Preview = styled.img`
  * Content wrapper for the upload zone elements
  */
 const Content = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 1rem;
-  z-index: 2;
+  ${({ theme }) => {
+    const taviaTheme = theme as TaviaTheme;
+    return `
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      z-index: 2;
 
-  p {
-    color: ${cssVars.dark};
-    opacity: 0.8;
-  }
+      p {
+        color: ${taviaTheme.colors.text.primary};
+        opacity: 0.8;
+      }
+    `;
+  }}
 `;
 
 export const Styled = {

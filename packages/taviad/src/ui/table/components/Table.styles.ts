@@ -6,54 +6,68 @@
  */
 
 import styled from '@emotion/styled';
-import { cssVars } from '../../../theme/tokens/colors';
-import { radii } from '../../../theme/tokens/radii';
+import type { TaviaTheme } from '../../../theme/theme';
 
 /**
  * Wrapper for the entire table component
  * Contains search, table, and pagination sections
  */
 const TableWrapper = styled.div`
-  margin: 0;
-  padding: 0;
-  background-color: ${cssVars.light};
-  width: 100%;
-  max-width: 100%;
-  border-radius: ${radii.md};
+  ${({ theme }) => {
+    const taviaTheme = theme as TaviaTheme;
+    return `
+      margin: 0;
+      padding: 0;
+      background-color: ${taviaTheme.colors.surface};
+      width: 100%;
+      max-width: 100%;
+      border-radius: ${taviaTheme.radii.md};
+    `;
+  }}
 `;
 
 /**
  * Header section for table controls (e.g., search)
  */
 const Header = styled.div`
-  padding: 1rem;
-  background-color: ${cssVars.light};
+  ${({ theme }) => {
+    const taviaTheme = theme as TaviaTheme;
+    return `
+      padding: 1rem;
+      background-color: ${taviaTheme.colors.surface};
+    `;
+  }}
 `;
 
 /**
  * Main HTML table element
  */
 const TableElement = styled.table`
-  width: 100%;
-  border-spacing: 0;
-  border-collapse: collapse;
+  ${({ theme }) => {
+    const taviaTheme = theme as TaviaTheme;
+    return `
+      width: 100%;
+      border-spacing: 0;
+      border-collapse: collapse;
 
-  thead {
-    background-color: #f9fafb;
-    border-bottom: 1px solid #e5e7eb;
-  }
+      thead {
+        background-color: #f9fafb;
+        border-bottom: 1px solid #e5e7eb;
+      }
 
-  tbody tr {
-    transition: background-color 0.2s ease;
+      tbody tr {
+        transition: background-color 0.2s ease;
 
-    &:hover {
-      background-color: #f9fafb;
-    }
+        &:hover {
+          background-color: #f9fafb;
+        }
 
-    &.selectedRow {
-      background-color: ${cssVars.mainColorLight};
-    }
-  }
+        &.selectedRow {
+          background-color: ${taviaTheme.colors.gray.gray100};
+        }
+      }
+    `;
+  }}
 `;
 
 /**
@@ -91,10 +105,15 @@ const TableRow = styled.tr`
  * Table data cell (td element)
  */
 const TableCell = styled.td`
-  padding: 1rem;
-  vertical-align: middle;
-  color: ${cssVars.dark};
-  font-size: 0.875rem;
+  ${({ theme }) => {
+    const taviaTheme = theme as TaviaTheme;
+    return `
+      padding: 1rem;
+      vertical-align: middle;
+      color: ${taviaTheme.colors.text.primary};
+      font-size: 0.875rem;
+    `;
+  }}
 `;
 
 /**

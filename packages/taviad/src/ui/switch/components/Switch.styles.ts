@@ -7,7 +7,7 @@
  */
 import styled from '@emotion/styled';
 import { Switch as RadixSwitch } from 'radix-ui';
-import { cssVars } from '../../../theme/tokens/colors';
+import type { TaviaTheme } from '../../../theme/theme';
 
 type SwitchVariant = 'default' | 'primary';
 
@@ -19,15 +19,18 @@ interface VariantStyles {
 /**
  * Get variant styles from theme tokens
  */
-const getVariantStyles = (variant: SwitchVariant = 'default'): VariantStyles => {
+const getVariantStyles = (
+  taviaTheme: TaviaTheme,
+  variant: SwitchVariant = 'default'
+): VariantStyles => {
   const variantMap: Record<SwitchVariant, VariantStyles> = {
     default: {
-      bgUnchecked: cssVars.dark6,
-      bgChecked: cssVars.mainColor,
+      bgUnchecked: taviaTheme.colors.text.disabled,
+      bgChecked: taviaTheme.colors.primary,
     },
     primary: {
-      bgUnchecked: cssVars.light5,
-      bgChecked: cssVars.mainColor,
+      bgUnchecked: taviaTheme.colors.border.default,
+      bgChecked: taviaTheme.colors.primary,
     },
   };
 
@@ -41,29 +44,35 @@ const StyledWrapper = styled.div`
 `;
 
 const StyledLabel = styled.label`
-  font-size: 1rem;
-  color: ${cssVars.dark};
-  font-style: normal;
-  font-weight: 500;
-  line-height: 1.5;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  cursor: pointer;
-  user-select: none;
-  transition: color 0.2s ease;
+  ${({ theme }) => {
+    const taviaTheme = theme as TaviaTheme;
+    return `
+      font-size: 1rem;
+      color: ${taviaTheme.colors.text.primary};
+      font-style: normal;
+      font-weight: 500;
+      line-height: 1.5;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      user-select: none;
+      transition: color 0.2s ease;
 
-  &:hover {
-    color: ${cssVars.mainColor};
-  }
+      &:hover {
+        color: ${taviaTheme.colors.primary};
+      }
+    `;
+  }}
 `;
 
 const StyledSwitchRoot = styled(RadixSwitch.Root)<{
   $hasShadow?: boolean;
   $variant?: SwitchVariant;
 }>`
-  ${({ $hasShadow, $variant = 'default' }) => {
-    const styles = getVariantStyles($variant);
+  ${({ theme, $hasShadow, $variant = 'default' }) => {
+    const taviaTheme = theme as TaviaTheme;
+    const styles = getVariantStyles(taviaTheme, $variant);
 
     return `
       display: inline-flex;
@@ -89,7 +98,7 @@ const StyledSwitchRoot = styled(RadixSwitch.Root)<{
 
       &:focus-visible {
         outline: none;
-        box-shadow: 0 0 0 2px ${cssVars.mainColor};
+        box-shadow: 0 0 0 2px ${taviaTheme.colors.primary};
       }
 
       &:hover:not([data-disabled]) {
@@ -100,25 +109,30 @@ const StyledSwitchRoot = styled(RadixSwitch.Root)<{
 `;
 
 const StyledSwitchThumb = styled(RadixSwitch.Thumb)`
-  width: 1.25rem;
-  height: 1.25rem;
-  background-color: ${cssVars.light};
-  border-radius: 2rem;
-  transition: transform 0.2s ease;
-  transform: translateX(0.125rem);
-  will-change: transform;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  ${({ theme }) => {
+    const taviaTheme = theme as TaviaTheme;
+    return `
+      width: 1.25rem;
+      height: 1.25rem;
+      background-color: ${taviaTheme.colors.surface};
+      border-radius: 2rem;
+      transition: transform 0.2s ease;
+      transform: translateX(0.125rem);
+      will-change: transform;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 
-  &[data-state='checked'] {
-    transform: translateX(1.5rem);
+      &[data-state='checked'] {
+        transform: translateX(1.5rem);
 
-    svg {
-      color: ${cssVars.mainColor};
-    }
-  }
+        svg {
+          color: ${taviaTheme.colors.primary};
+        }
+      }
+    `;
+  }}
 `;
 
 export const Styled = {

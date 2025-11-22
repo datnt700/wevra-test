@@ -6,8 +6,7 @@
  */
 
 import styled from '@emotion/styled';
-import { cssVars } from '../../../theme/tokens/colors';
-import { radii } from '../../../theme/tokens/radii';
+import type { TaviaTheme } from '../../../theme/theme';
 
 /**
  * Props for styled Wrapper component
@@ -29,50 +28,58 @@ const InputUpload = styled.input`
  * Handles active state when files are dragged over
  */
 const Wrapper = styled.div<WrapperProps>`
-  ${({ $isActive = false }) => `
-    background: transparent;
-    border-radius: ${radii.md};
-    border: 1px dashed ${cssVars.dark3};
-    margin: 1rem 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    cursor: pointer;
-    padding: 1rem 2rem;
-    width: 100%;
+  ${({ theme, $isActive = false }) => {
+    const taviaTheme = theme as TaviaTheme;
+    return `
+      background: transparent;
+      border-radius: ${taviaTheme.radii.md};
+      border: 1px dashed ${taviaTheme.colors.text.secondary};
+      margin: 1rem 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      cursor: pointer;
+      padding: 1rem 2rem;
+      width: 100%;
 
-    ${
-      $isActive
-        ? `
-      border-color: ${cssVars.mainColor} !important;
-    `
-        : ''
-    }
-  `}
+      ${
+        $isActive
+          ? `
+        border-color: ${taviaTheme.colors.primary} !important;
+      `
+          : ''
+      }
+    `;
+  }}
 `;
 
 /**
  * Label for the file upload input
  */
 const Label = styled.label`
-  font-size: 1rem;
-  color: ${cssVars.dark};
-  font-weight: 500;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  ${({ theme }) => {
+    const taviaTheme = theme as TaviaTheme;
+    return `
+      font-size: 1rem;
+      color: ${taviaTheme.colors.text.primary};
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
 
-  .errorMessage {
-    color: ${cssVars.mainColor};
-    font-size: 1rem;
-    font-weight: 600;
-  }
+      .errorMessage {
+        color: ${taviaTheme.colors.primary};
+        font-size: 1rem;
+        font-weight: 600;
+      }
 
-  .title {
-    color: ${cssVars.dark};
-    font-size: 1rem;
-  }
+      .title {
+        color: ${taviaTheme.colors.text.primary};
+        font-size: 1rem;
+      }
+    `;
+  }}
 `;
 
 /**
@@ -100,26 +107,41 @@ const TitleWrapper = styled.div`
  * Title text for the upload zone
  */
 const Title = styled.h2`
-  color: ${cssVars.dark4};
-  font-size: 1rem;
-  line-height: 1.625rem;
+  ${({ theme }) => {
+    const taviaTheme = theme as TaviaTheme;
+    return `
+      color: ${taviaTheme.colors.border.default};
+      font-size: 1rem;
+      line-height: 1.625rem;
+    `;
+  }}
 `;
 
 /**
  * Highlighted text within the upload zone
  */
 const Highlight = styled.span`
-  font-weight: 700;
-  color: ${cssVars.mainColor};
+  ${({ theme }) => {
+    const taviaTheme = theme as TaviaTheme;
+    return `
+      font-weight: 700;
+      color: ${taviaTheme.colors.primary};
+    `;
+  }}
 `;
 
 /**
  * Description text for the upload zone
  */
 const Description = styled.p`
-  font-size: 1rem;
-  opacity: 0.5;
-  color: ${cssVars.dark};
+  ${({ theme }) => {
+    const taviaTheme = theme as TaviaTheme;
+    return `
+      font-size: 1rem;
+      opacity: 0.5;
+      color: ${taviaTheme.colors.text.primary};
+    `;
+  }}
 `;
 
 export const Styled = {

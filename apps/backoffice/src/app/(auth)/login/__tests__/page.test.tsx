@@ -4,6 +4,8 @@ import userEvent from '@testing-library/user-event';
 import LoginPage from '../page';
 import { ROUTES } from '@/lib/constants';
 
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 // Mock next-auth/react
 const mockSignIn = vi.fn();
 vi.mock('next-auth/react', () => ({

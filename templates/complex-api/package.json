@@ -33,6 +33,7 @@
     "docker:clean": "docker-compose down -v"
   },
   "dependencies": {
+    "@tavia/env": "workspace:*",
     "@nestjs/common": "catalog:",
     "@nestjs/config": "catalog:",
     "@nestjs/core": "catalog:",

@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { Card, InputText, Badge, Button } from '@tavia/taviad';
+import { InputText, Badge, Button } from '@tavia/taviad';
 
 export const HeroSection = styled.section`
   background: linear-gradient(135deg, #ff695c 0%, #f14c4b 100%);
@@ -59,57 +59,124 @@ export const SectionTitle = styled.h2`
 
 export const RestaurantGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-  gap: 2rem;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1.5rem;
 
   @media (max-width: 768px) {
     grid-template-columns: 1fr;
   }
 `;
 
-export const RestaurantCard = styled(Card)`
+export const RestaurantCard = styled.div`
+  background: white;
+  border-radius: 12px;
   overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
   transition:
     transform 0.2s,
     box-shadow 0.2s;
   cursor: pointer;
+  display: flex;
+  flex-direction: column;
 
   &:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
   }
 `;
 
-export const RestaurantImage = styled.img`
+export const RestaurantImage = styled.div<{ $src: string }>`
   width: 100%;
-  height: 200px;
-  object-fit: cover;
+  height: 180px;
+  background-image: url(${({ $src }) => $src});
+  background-size: cover;
+  background-position: center;
+  position: relative;
+`;
+
+export const EventBadge = styled.div`
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background: #00d9a3;
+  color: white;
+  padding: 4px 12px;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
 `;
 
 export const RestaurantContent = styled.div`
-  padding: 1.5rem;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+`;
+
+export const EventDate = styled.div`
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #ff695c;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+  letter-spacing: 0.5px;
+`;
+
+export const RestaurantName = styled.h3`
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin: 0 0 0.5rem 0;
+  color: #1a202c;
+  line-height: 1.3;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 `;
 
 export const RestaurantHeader = styled.div`
   display: flex;
-  justify-content: space-between;
-  align-items: start;
+  flex-direction: column;
+  gap: 0.25rem;
   margin-bottom: 0.75rem;
 `;
 
-export const RestaurantName = styled.h3`
-  font-size: 1.25rem;
+export const GroupInfo = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  color: #64748b;
+  margin-bottom: 0.5rem;
+`;
+
+export const GroupAvatar = styled.div`
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 0.65rem;
   font-weight: 600;
-  margin: 0;
-  color: #1a202c;
 `;
 
 export const RatingContainer = styled.div`
   display: flex;
   align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  color: #64748b;
+  font-weight: 500;
+`;
+
+export const AttendeeCount = styled.span`
+  display: flex;
+  align-items: center;
   gap: 0.25rem;
-  color: #f59e0b;
-  font-weight: 600;
 `;
 
 export const RestaurantMeta = styled.div`

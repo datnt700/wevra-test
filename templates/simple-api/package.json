@@ -21,6 +21,7 @@
     "db:seed": "tsx prisma/seed.ts"
   },
   "dependencies": {
+    "@tavia/env": "workspace:*",
     "@fastify/autoload": "catalog:",
     "@fastify/cors": "catalog:",
     "@fastify/helmet": "catalog:",

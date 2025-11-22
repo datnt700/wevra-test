@@ -1,7 +1,7 @@
 'use client';
 
 import styled from '@emotion/styled';
-import { cssVars } from '../../../theme/tokens/colors';
+import type { TaviaTheme } from '../../../theme/theme';
 
 type AlertVariant = 'success' | 'warning' | 'info' | 'danger' | 'error';
 
@@ -18,39 +18,39 @@ interface VariantColors {
 }
 
 /**
- * Get variant colors from theme tokens
+ * Get variant colors from theme
  */
-const getVariantColors = (variant: AlertVariant = 'info'): VariantColors => {
+const getVariantColors = (theme: TaviaTheme, variant: AlertVariant = 'info'): VariantColors => {
   const variantMap: Record<AlertVariant, VariantColors> = {
     success: {
-      base: cssVars.colorSuccess,
-      light: cssVars.colorSuccessLight,
-      dark: cssVars.colorGreenDark,
-      bg: cssVars.colorSuccessLight + '20', // 20 = 12% opacity
+      base: theme.colors.success,
+      light: theme.colors.successLight,
+      dark: theme.colors.gray.colorGreenDark,
+      bg: theme.colors.successLight + '20', // 20 = 12% opacity
     },
     warning: {
-      base: cssVars.colorWarning,
-      light: cssVars.colorWarningLight,
-      dark: cssVars.colorYellowDark,
-      bg: cssVars.colorWarningLight + '20',
+      base: theme.colors.warning,
+      light: theme.colors.warningLight,
+      dark: theme.colors.gray.colorYellowDark,
+      bg: theme.colors.warningLight + '20',
     },
     danger: {
-      base: cssVars.colorDanger,
-      light: cssVars.colorDangerLight,
-      dark: cssVars.colorRedDark,
-      bg: cssVars.colorDangerLight + '20',
+      base: theme.colors.danger,
+      light: theme.colors.dangerLight,
+      dark: theme.colors.gray.colorRedDark,
+      bg: theme.colors.dangerLight + '20',
     },
     error: {
-      base: cssVars.colorDanger,
-      light: cssVars.colorDangerLight,
-      dark: cssVars.colorRedDark,
-      bg: cssVars.colorDangerLight + '20',
+      base: theme.colors.danger,
+      light: theme.colors.dangerLight,
+      dark: theme.colors.gray.colorRedDark,
+      bg: theme.colors.dangerLight + '20',
     },
     info: {
-      base: cssVars.colorCyan,
-      light: cssVars.colorCyanLight,
-      dark: cssVars.colorCyanDark,
-      bg: cssVars.colorCyanLight + '20',
+      base: theme.colors.info,
+      light: theme.colors.infoLight,
+      dark: theme.colors.gray.colorCyanDark,
+      bg: theme.colors.infoLight + '20',
     },
   };
 
@@ -62,24 +62,28 @@ const getVariantColors = (variant: AlertVariant = 'info'): VariantColors => {
  */
 export const Styled: any = {
   Wrapper: styled.div<StyledWrapperProps>`
-    padding: 0.75rem 1rem;
-    border-radius: 0.5rem;
-    min-height: 3rem;
-    font-weight: 400;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.5rem;
-    transition:
-      background-color 0.3s ease,
-      border-color 0.3s ease,
-      box-shadow 0.3s ease;
+    ${({ theme, $variant = 'info', $isFilled = false }) => {
+      const taviaTheme = theme as TaviaTheme;
+      const colors = getVariantColors(taviaTheme, $variant);
 
-    ${({ $variant = 'info', $isFilled = false }) => {
-      const colors = getVariantColors($variant);
+      const baseStyles = `
+        padding: 0.75rem 1rem;
+        border-radius: 0.5rem;
+        min-height: 3rem;
+        font-weight: 400;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+        transition:
+          background-color 0.3s ease,
+          border-color 0.3s ease,
+          box-shadow 0.3s ease;
+      `;
 
       if ($isFilled) {
         return `
+          ${baseStyles}
           color: ${colors.dark};
           background-color: ${colors.bg};
           border: 1px solid ${colors.light};
@@ -93,6 +97,7 @@ export const Styled: any = {
       }
 
       return `
+        ${baseStyles}
         color: ${colors.base};
         background-color: transparent;
         border: 1px solid ${colors.base};

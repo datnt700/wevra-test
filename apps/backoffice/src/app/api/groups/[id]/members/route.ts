@@ -14,6 +14,10 @@ import { USER_ROLES } from '@/lib/constants';
 export const POST = withApiHandler(async (request, { session, params }) => {
   const groupId = params!.id;
 
+  if (!groupId) {
+    throw new BadRequestError('Group ID is required');
+  }
+
   // Check if user has permission to add members
   const group = await prisma.group.findUnique({
     where: { id: groupId },
@@ -47,10 +51,7 @@ export const POST = withApiHandler(async (request, { session, params }) => {
   }
 
   // Check member capacity
-  const atCapacity = isGroupAtCapacity({
-    subscriptionStatus: group.owner.subscriptionStatus,
-    memberCount: group._count.members,
-  });
+  const atCapacity = await isGroupAtCapacity(groupId);
 
   if (atCapacity) {
     throw new PlanLimitError(

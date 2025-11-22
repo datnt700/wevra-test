@@ -24,9 +24,6 @@ export default function NotFound() {
           <Link href="/">
             <Button variant="primary">{t('goHomepage')}</Button>
           </Link>
-          <Link href="/dashboard">
-            <Button variant="secondary">{t('goDashboard')}</Button>
-          </Link>
         </Styled.ButtonGroup>
       </Styled.Card>
     </Styled.Container>

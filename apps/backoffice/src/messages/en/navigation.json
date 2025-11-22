@@ -3,10 +3,10 @@
   "about": "About",
   "contact": "Contact",
   "dashboard": "Dashboard",
-  "bookings": "Bookings",
-  "restaurants": "Restaurants",
+  "events": "Events",
+  "groups": "Groups",
   "iam": "IAM",
   "users": "Users",
   "settings": "Settings",
-  "createRestaurant": "Create Restaurant"
+  "createGroup": "Create Group"
 }

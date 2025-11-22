@@ -5,13 +5,18 @@
  * Emotion-based styles for LoadingLogo component
  */
 import styled from '@emotion/styled';
-import { cssVars } from '../../../theme/tokens/colors';
+import type { TaviaTheme } from '../../../theme/theme';
 
 /**
  * Logo color path element
  */
 const LogoColor = styled.path`
-  fill: ${cssVars.dark};
+  ${({ theme }) => {
+    const taviaTheme = theme as TaviaTheme;
+    return `
+      fill: ${taviaTheme.colors.text.primary};
+    `;
+  }}
 `;
 
 /**

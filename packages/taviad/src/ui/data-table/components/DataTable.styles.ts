@@ -6,7 +6,7 @@
  */
 
 import styled from '@emotion/styled';
-import { cssVars } from '../../../theme/tokens/colors';
+import type { TaviaTheme } from '../../../theme/theme';
 
 /**
  * Wrapper container for the data table
@@ -33,47 +33,52 @@ export const Container = styled.div`
  * - Smooth transitions
  */
 export const Table = styled.table`
-  margin: 0;
-  padding: 0;
-  background-color: ${cssVars.light};
-  border-spacing: 0;
-  width: 100%;
-  max-width: 100%;
-  border-collapse: collapse;
+  ${({ theme }) => {
+    const taviaTheme = theme as TaviaTheme;
+    return `
+      margin: 0;
+      padding: 0;
+      background-color: ${taviaTheme.colors.surface};
+      border-spacing: 0;
+      width: 100%;
+      max-width: 100%;
+      border-collapse: collapse;
 
-  thead {
-    background-color: #f9fafb;
-    border-bottom: 1px solid #e5e7eb;
-  }
-
-  th {
-    padding: 0.75rem 1rem;
-    text-align: left;
-    font-size: 0.75rem;
-    font-weight: 600;
-    color: #6b7280;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-  }
-
-  tr {
-    text-align: left;
-    cursor: pointer;
-    transition: background-color 0.2s ease;
-  }
-
-  tbody {
-    tr {
-      &:hover {
+      thead {
         background-color: #f9fafb;
+        border-bottom: 1px solid #e5e7eb;
       }
-    }
-  }
 
-  td {
-    padding: 1rem;
-    vertical-align: middle;
-    color: ${cssVars.dark};
-    font-size: 0.875rem;
-  }
+      th {
+        padding: 0.75rem 1rem;
+        text-align: left;
+        font-size: 0.75rem;
+        font-weight: 600;
+        color: #6b7280;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+
+      tr {
+        text-align: left;
+        cursor: pointer;
+        transition: background-color 0.2s ease;
+      }
+
+      tbody {
+        tr {
+          &:hover {
+            background-color: #f9fafb;
+          }
+        }
+      }
+
+      td {
+        padding: 1rem;
+        vertical-align: middle;
+        color: ${taviaTheme.colors.text.primary};
+        font-size: 0.875rem;
+      }
+    `;
+  }}
 `;

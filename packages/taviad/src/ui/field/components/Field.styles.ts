@@ -6,8 +6,7 @@
  * @module Field.styles
  */
 import styled from '@emotion/styled';
-import { cssVars } from '../../../theme/tokens/colors';
-import { radii } from '../../../theme/tokens/radii';
+import type { TaviaTheme } from '../../../theme/theme';
 
 type FieldType = 'column' | 'row';
 
@@ -30,30 +29,40 @@ const Wrapper = styled.div<WrapperProps>`
  * Label element
  */
 const Label = styled.label`
-  width: 100%;
-  font-size: 0.875rem;
-  line-height: 1.25;
-  color: ${cssVars.dark};
-  font-weight: 500;
-  display: block;
+  ${({ theme }) => {
+    const taviaTheme = theme as TaviaTheme;
+    return `
+      width: 100%;
+      font-size: 0.875rem;
+      line-height: 1.25;
+      color: ${taviaTheme.colors.text.primary};
+      font-weight: 500;
+      display: block;
+    `;
+  }}
 `;
 
 /**
  * Input container
  */
 const Input = styled.div`
-  width: 100%;
-  border-radius: ${radii.sm};
-  color: ${cssVars.dark};
-  font-size: 1rem;
-  line-height: 1.5;
+  ${({ theme }) => {
+    const taviaTheme = theme as TaviaTheme;
+    return `
+      width: 100%;
+      border-radius: ${taviaTheme.radii.sm};
+      color: ${taviaTheme.colors.text.primary};
+      font-size: 1rem;
+      line-height: 1.5;
 
-  /* Ensure child inputs take full width */
-  & > input,
-  & > textarea,
-  & > select {
-    width: 100%;
-  }
+      /* Ensure child inputs take full width */
+      & > input,
+      & > textarea,
+      & > select {
+        width: 100%;
+      }
+    `;
+  }}
 `;
 
 export const Styled = {

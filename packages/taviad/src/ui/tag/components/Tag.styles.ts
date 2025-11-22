@@ -1,8 +1,7 @@
 'use client';
 
 import styled from '@emotion/styled';
-import { cssVars } from '../../../theme/tokens/colors';
-import { radii } from '../../../theme/tokens/radii';
+import type { TaviaTheme } from '../../../theme/theme';
 
 interface WrapperProps {
   $canClick?: boolean;
@@ -10,38 +9,47 @@ interface WrapperProps {
 }
 
 const StyledWrapper = styled.div<WrapperProps>`
-  position: relative;
-  display: flex;
-  max-width: 100%;
-  align-items: center;
-  padding: 0.125rem 0.375rem;
-  background-color: ${cssVars.light3};
-  border-radius: ${radii.md};
-  color: ${cssVars.dark};
-  width: max-content;
-  transition: background-color 0.3s ease;
+  ${({ theme, $canClick, $withUrl }) => {
+    const taviaTheme = theme as TaviaTheme;
+    return `
+      position: relative;
+      display: flex;
+      max-width: 100%;
+      align-items: center;
+      padding: 0.125rem 0.375rem;
+      background-color: ${taviaTheme.colors.surfaceHover};
+      border-radius: ${taviaTheme.radii.md};
+      color: ${taviaTheme.colors.text.primary};
+      width: max-content;
+      transition: background-color 0.3s ease;
 
-  ${({ $canClick, $withUrl }) =>
-    ($canClick || $withUrl) &&
-    `
-    cursor: pointer;
+      ${
+        $canClick || $withUrl
+          ? `
+        cursor: pointer;
 
-    &:hover {
-      background-color: ${cssVars.light4};
-    }
-  `}
+        &:hover {
+          background-color: ${taviaTheme.colors.gray.gray200};
+        }
+      `
+          : ''
+      }
 
-  ${({ $withUrl }) =>
-    $withUrl &&
-    `
-    .body {
-      color: inherit;
-    }
+      ${
+        $withUrl
+          ? `
+        .body {
+          color: inherit;
+        }
 
-    &:hover .body {
-      text-decoration: underline;
-    }
-  `}
+        &:hover .body {
+          text-decoration: underline;
+        }
+      `
+          : ''
+      }
+    `;
+  }}
 `;
 
 const StyledBody = styled.div`
@@ -54,15 +62,20 @@ const StyledBody = styled.div`
 `;
 
 const StyledCloseIcon = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: color 0.2s;
+  ${({ theme }) => {
+    const taviaTheme = theme as TaviaTheme;
+    return `
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: color 0.2s;
 
-  &:hover {
-    color: ${cssVars.dark5};
-  }
+      &:hover {
+        color: ${taviaTheme.colors.text.tertiary};
+      }
+    `;
+  }}
 `;
 
 export const Styled = {

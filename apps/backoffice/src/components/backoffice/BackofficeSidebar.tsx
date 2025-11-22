@@ -3,7 +3,14 @@
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
-import { LayoutDashboard, UtensilsCrossed, Calendar, Users, Settings, Shield } from 'lucide-react';
+import {
+  LayoutDashboard,
+  Users as GroupIcon,
+  Calendar,
+  Users,
+  Settings,
+  Shield,
+} from 'lucide-react';
 import { Styled } from './BackofficeSidebar.styles';
 
 interface BackofficeSidebarProps {
@@ -18,13 +25,13 @@ const menuItems = [
     icon: LayoutDashboard,
   },
   {
-    labelKey: 'restaurants',
-    href: '/restaurants',
-    icon: UtensilsCrossed,
+    labelKey: 'groups',
+    href: '/groups',
+    icon: GroupIcon,
   },
   {
-    labelKey: 'bookings',
-    href: '/bookings',
+    labelKey: 'events',
+    href: '/events',
     icon: Calendar,
   },
   {

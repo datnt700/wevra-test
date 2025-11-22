@@ -1,8 +1,8 @@
 import { headers } from 'next/headers';
 import { withApiHandler, apiSuccess, BadRequestError } from '@/lib/api';
 import { constructWebhookEvent } from '@/lib/stripe';
-import prisma from '@/lib/prisma';
-import { SUBSCRIPTION_STATUS } from '@/lib/constants';
+import { prisma } from '@/lib/prisma';
+import { SubscriptionStatus } from '@prisma/client';
 import Stripe from 'stripe';
 
 export const POST = withApiHandler(
@@ -27,7 +27,7 @@ export const POST = withApiHandler(
         await prisma.user.update({
           where: { id: session.metadata?.userId },
           data: {
-            subscriptionStatus: SUBSCRIPTION_STATUS.PREMIUM,
+            subscriptionStatus: SubscriptionStatus.PREMIUM,
             stripeCustomerId: session.customer as string,
             stripeSubscriptionId: session.subscription as string,
           },
@@ -53,12 +53,12 @@ export const POST = withApiHandler(
         if (user) {
           const status =
             subscription.status === 'active'
-              ? SUBSCRIPTION_STATUS.PREMIUM
+              ? SubscriptionStatus.PREMIUM
               : subscription.status === 'trialing'
-                ? SUBSCRIPTION_STATUS.TRIAL
+                ? SubscriptionStatus.TRIAL
                 : subscription.status === 'canceled'
-                  ? SUBSCRIPTION_STATUS.CANCELED
-                  : SUBSCRIPTION_STATUS.FREE;
+                  ? SubscriptionStatus.CANCELED
+                  : SubscriptionStatus.FREE;
 
           await prisma.user.update({
             where: { id: user.id },
@@ -71,7 +71,7 @@ export const POST = withApiHandler(
           // Update groups based on subscription status
           await prisma.group.updateMany({
             where: { ownerId: user.id },
-            data: { isPremium: status === SUBSCRIPTION_STATUS.PREMIUM },
+            data: { isPremium: status === SubscriptionStatus.PREMIUM },
           });
         }
 
@@ -89,7 +89,7 @@ export const POST = withApiHandler(
           await prisma.user.update({
             where: { id: user.id },
             data: {
-              subscriptionStatus: SUBSCRIPTION_STATUS.FREE,
+              subscriptionStatus: SubscriptionStatus.FREE,
               stripeSubscriptionId: null,
             },
           });

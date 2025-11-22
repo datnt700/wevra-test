@@ -1,8 +1,7 @@
 'use client';
 
 import styled from '@emotion/styled';
-import { cssVars } from '../../../theme/tokens/colors';
-import { radii } from '../../../theme/tokens/radii';
+import type { TaviaTheme } from '../../../theme/theme';
 import type { AvatarSize, AvatarColor } from '../types';
 
 interface AvatarStyledProps {
@@ -39,28 +38,29 @@ const getSizeStyles = (size: AvatarSize): SizeStyles => {
 };
 
 const StyledAvatar = styled.div<AvatarStyledProps>`
-  ${({ $size = 'md', $color = 'default' }) => {
+  ${({ theme, $size = 'md', $color = 'default' }) => {
+    const taviaTheme = theme as TaviaTheme;
     const styles = getSizeStyles($size);
     const getBackgroundColor = () => {
-      if ($color === 'primary') return cssVars.mainColorLight2;
-      if ($color === 'success') return cssVars.colorSuccessLight;
-      if ($color === 'warning') return cssVars.colorWarningLight;
-      if ($color === 'danger') return cssVars.colorDangerLight;
-      return cssVars.light4;
+      if ($color === 'primary') return taviaTheme.colors.gray.mainColorLight2;
+      if ($color === 'success') return taviaTheme.colors.successLight;
+      if ($color === 'warning') return taviaTheme.colors.warningLight;
+      if ($color === 'danger') return taviaTheme.colors.dangerLight;
+      return taviaTheme.colors.gray.light4;
     };
 
     const getColor = () => {
-      if ($color === 'primary') return cssVars.mainColor;
-      if ($color === 'success') return cssVars.colorSuccess;
-      if ($color === 'warning') return cssVars.colorWarning;
-      if ($color === 'danger') return cssVars.colorDanger;
-      return cssVars.dark3;
+      if ($color === 'primary') return taviaTheme.colors.primary;
+      if ($color === 'success') return taviaTheme.colors.success;
+      if ($color === 'warning') return taviaTheme.colors.warning;
+      if ($color === 'danger') return taviaTheme.colors.danger;
+      return taviaTheme.colors.gray.dark3;
     };
 
     return `
       width: ${styles.size};
       height: ${styles.size};
-      border-radius: ${radii.full};
+      border-radius: ${taviaTheme.radii.full};
       overflow: hidden;
       display: inline-flex;
       align-items: center;
@@ -75,17 +75,23 @@ const StyledAvatar = styled.div<AvatarStyledProps>`
 `;
 
 const StyledImage = styled.img`
-  width: 100%;
-  height: 100%;
-  border-radius: ${radii.full};
-  object-fit: cover;
+  ${({ theme }) => {
+    const taviaTheme = theme as TaviaTheme;
+    return `
+      width: 100%;
+      height: 100%;
+      border-radius: ${taviaTheme.radii.full};
+      object-fit: cover;
+    `;
+  }}
 `;
 
 const StyledLabel = styled.p<AvatarStyledProps>`
-  ${({ $size = 'md' }) => {
+  ${({ theme, $size = 'md' }) => {
+    const taviaTheme = theme as TaviaTheme;
     const styles = getSizeStyles($size);
     return `
-      color: ${cssVars.dark3};
+      color: ${taviaTheme.colors.gray.dark3};
       font-size: ${styles.fontSize};
       font-weight: 500;
       margin: 0;
@@ -96,7 +102,8 @@ const StyledLabel = styled.p<AvatarStyledProps>`
 `;
 
 const StyledFallback = styled.div<AvatarStyledProps>`
-  ${({ $size = 'md' }) => {
+  ${({ theme, $size = 'md' }) => {
+    const taviaTheme = theme as TaviaTheme;
     const styles = getSizeStyles($size);
     return `
       display: flex;
@@ -104,8 +111,8 @@ const StyledFallback = styled.div<AvatarStyledProps>`
       justify-content: center;
       width: 100%;
       height: 100%;
-      background-color: ${cssVars.light4};
-      color: ${cssVars.dark3};
+      background-color: ${taviaTheme.colors.gray.light4};
+      color: ${taviaTheme.colors.gray.dark3};
       font-size: ${styles.fontSize};
       font-weight: 500;
       text-transform: uppercase;

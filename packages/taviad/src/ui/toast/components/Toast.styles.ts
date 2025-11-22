@@ -6,8 +6,7 @@
  */
 import { Toast as RadixToast } from 'radix-ui';
 import styled from '@emotion/styled';
-import { cssVars } from '../../../theme/tokens/colors';
-import { radii } from '../../../theme/tokens/radii';
+import type { TaviaTheme } from '../../../theme/theme';
 
 /**
  * Toast position types
@@ -45,21 +44,24 @@ const getPositionStyles = (position: ToastPosition): string => {
 const ToastRoot = styled(RadixToast.Root, {
   shouldForwardProp: (prop) => prop !== '$position',
 })<ToastRootProps>`
-  ${({ $position }) => `
-    width: 20rem;
-    position: fixed;
-    border-radius: ${radii.lg};
-    padding: 1rem;
-    z-index: 5000;
-    background-color: ${cssVars.dark};
-    color: ${cssVars.light};
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    transition: all 0.35s cubic-bezier(0.25, 0.75, 0.6, 0.98);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    ${getPositionStyles($position)}
-  `}
+  ${({ theme, $position }) => {
+    const taviaTheme = theme as TaviaTheme;
+    return `
+      width: 20rem;
+      position: fixed;
+      border-radius: ${taviaTheme.radii.lg};
+      padding: 1rem;
+      z-index: 5000;
+      background-color: ${taviaTheme.colors.text.primary};
+      color: ${taviaTheme.colors.surface};
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: all 0.35s cubic-bezier(0.25, 0.75, 0.6, 0.98);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      ${getPositionStyles($position)}
+    `;
+  }}
 `;
 
 /**
@@ -91,20 +93,30 @@ const Viewport = styled(RadixToast.Viewport)`
  * Toast title
  */
 const Title = styled(RadixToast.Title)`
-  font-weight: 500;
-  color: ${cssVars.light};
-  font-size: 0.9375rem;
-  line-height: 1.4;
+  ${({ theme }) => {
+    const taviaTheme = theme as TaviaTheme;
+    return `
+      font-weight: 500;
+      color: ${taviaTheme.colors.surface};
+      font-size: 0.9375rem;
+      line-height: 1.4;
+    `;
+  }}
 `;
 
 /**
  * Toast description
  */
 const Description = styled(RadixToast.Description)`
-  color: ${cssVars.light};
-  font-size: 0.8125rem;
-  line-height: 1.4;
-  opacity: 0.9;
+  ${({ theme }) => {
+    const taviaTheme = theme as TaviaTheme;
+    return `
+      color: ${taviaTheme.colors.surface};
+      font-size: 0.8125rem;
+      line-height: 1.4;
+      opacity: 0.9;
+    `;
+  }}
 `;
 
 /**
@@ -118,24 +130,29 @@ const Action = styled(RadixToast.Action)`
  * Toast close button
  */
 const CloseBtn = styled(RadixToast.Close)`
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  padding: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: opacity 0.2s ease;
+  ${({ theme }) => {
+    const taviaTheme = theme as TaviaTheme;
+    return `
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.2s ease;
 
-  &:hover {
-    opacity: 0.7;
-  }
+      &:hover {
+        opacity: 0.7;
+      }
 
-  &:focus-visible {
-    outline: 2px solid ${cssVars.mainColor};
-    outline-offset: 2px;
-    border-radius: ${radii.sm};
-  }
+      &:focus-visible {
+        outline: 2px solid ${taviaTheme.colors.primary};
+        outline-offset: 2px;
+        border-radius: ${taviaTheme.radii.sm};
+      }
+    `;
+  }}
 `;
 
 /**

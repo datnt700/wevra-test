@@ -34,6 +34,7 @@
   },
   "dependencies": {
     "@tavia/analytics": "workspace:*",
+    "@tavia/env": "workspace:*",
     "@tavia/taviad": "workspace:*",
     "@tavia/module-generator": "workspace:*",
     "@emotion/react": "catalog:emotion",

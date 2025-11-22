@@ -7,8 +7,7 @@
  */
 import styled from '@emotion/styled';
 import { Checkbox as RadixCheckbox } from 'radix-ui';
-import { cssVars } from '../../../theme/tokens/colors';
-import { radii } from '../../../theme/tokens/radii';
+import type { TaviaTheme } from '../../../theme/theme';
 
 type CheckboxSize = 'sm' | 'default' | 'md' | 'lg';
 
@@ -56,19 +55,20 @@ const StyledCheckboxRoot = styled(RadixCheckbox.Root, {
   $isDisabled?: boolean;
   $size?: CheckboxSize;
 }>`
-  ${({ $isDisabled, $size = 'default' }) => {
+  ${({ theme, $isDisabled, $size = 'default' }) => {
+    const taviaTheme = theme as TaviaTheme;
     const styles = getSizeStyles($size);
 
     return `
-      background-color: ${cssVars.light};
+      background-color: ${taviaTheme.colors.surface};
       width: ${styles.size};
       height: ${styles.size};
-      border-radius: ${radii.sm};
+      border-radius: ${taviaTheme.radii.sm};
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: ${$isDisabled ? 'not-allowed' : 'pointer'};
-      border: 1px solid ${cssVars.dark};
+      border: 1px solid ${taviaTheme.colors.text.primary};
       transition: all 0.2s ease-in-out;
 
       ${
@@ -78,21 +78,21 @@ const StyledCheckboxRoot = styled(RadixCheckbox.Root, {
       `
           : `
         &:hover {
-          background-color: ${cssVars.mainColorLight6};
-          border-color: ${cssVars.mainColor};
+          background-color: ${taviaTheme.colors.gray.mainColorLight6};
+          border-color: ${taviaTheme.colors.primary};
         }
 
         &:focus {
           outline: none;
-          box-shadow: 0 0 0 2px ${cssVars.mainColor};
+          box-shadow: 0 0 0 2px ${taviaTheme.colors.primary};
         }
 
         &[data-state="checked"] {
-          background-color: ${cssVars.mainColor};
-          border-color: ${cssVars.mainColor};
+          background-color: ${taviaTheme.colors.primary};
+          border-color: ${taviaTheme.colors.primary};
 
           &:hover {
-            background-color: ${cssVars.mainColorDark};
+            background-color: ${taviaTheme.colors.gray.mainColorDark};
           }
         }
       `
@@ -104,20 +104,26 @@ const StyledCheckboxRoot = styled(RadixCheckbox.Root, {
 const StyledCheckboxIndicator = styled(RadixCheckbox.Indicator, {
   shouldForwardProp: (prop: string) => !prop.startsWith('$'),
 })<{ $size?: string }>`
-  color: ${cssVars.light};
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 100%;
+  ${({ theme }) => {
+    const taviaTheme = theme as TaviaTheme;
+    return `
+      color: ${taviaTheme.colors.surface};
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+    `;
+  }}
 `;
 
 const StyledCheckboxLabel = styled.label<{ $size?: CheckboxSize }>`
-  ${({ $size = 'default' }) => {
+  ${({ theme, $size = 'default' }) => {
+    const taviaTheme = theme as TaviaTheme;
     const styles = getSizeStyles($size);
 
     return `
-      color: ${cssVars.dark};
+      color: ${taviaTheme.colors.text.primary};
       font-size: ${styles.fontSize};
       line-height: 1.5;
       cursor: pointer;
@@ -125,7 +131,7 @@ const StyledCheckboxLabel = styled.label<{ $size?: CheckboxSize }>`
       transition: color 0.2s ease;
 
       &:hover {
-        color: ${cssVars.mainColor};
+        color: ${taviaTheme.colors.primary};
       }
     `;
   }}

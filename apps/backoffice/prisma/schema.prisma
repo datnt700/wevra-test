@@ -167,6 +167,9 @@ model Event {
     capacity      Int?
     isOnline      Boolean     @default(false) @map("is_online")
     meetingUrl    String?     @map("meeting_url")
+    isFree        Boolean     @default(true) @map("is_free")
+    price         Decimal?    @db.Decimal(10, 2)
+    currency      String?     @default("USD")
     status        EventStatus @default(DRAFT)
     rsvpCount     Int         @default(0) @map("rsvp_count")
     attendeeCount Int         @default(0) @map("attendee_count")

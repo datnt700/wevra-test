@@ -1,6 +1,9 @@
 import NextAuth, { type NextAuthResult } from 'next-auth';
 import { PrismaAdapter } from '@auth/prisma-adapter';
 import Credentials from 'next-auth/providers/credentials';
+import Google from 'next-auth/providers/google';
+import Apple from 'next-auth/providers/apple';
+import Facebook from 'next-auth/providers/facebook';
 import bcrypt from 'bcryptjs';
 import { z } from 'zod';
 import { prisma } from '@/lib/prisma';
@@ -22,6 +25,18 @@ const result = NextAuth({
     error: ROUTES.AUTH.LOGIN,
   },
   providers: [
+    Google({
+      clientId: process.env.GOOGLE_CLIENT_ID!,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+    }),
+    Apple({
+      clientId: process.env.APPLE_CLIENT_ID!,
+      clientSecret: process.env.APPLE_CLIENT_SECRET!,
+    }),
+    Facebook({
+      clientId: process.env.FACEBOOK_CLIENT_ID!,
+      clientSecret: process.env.FACEBOOK_CLIENT_SECRET!,
+    }),
     Credentials({
       name: 'credentials',
       credentials: {
@@ -72,12 +87,25 @@ const result = NextAuth({
     }),
   ],
   callbacks: {
-    async jwt({ token, user }) {
+    async jwt({ token, user, account }) {
       if (user) {
         token.id = user.id;
         token.role = user.role;
         token.subscriptionStatus = user.subscriptionStatus;
       }
+
+      // For OAuth users, fetch role and subscription from database
+      if (account?.provider !== 'credentials' && token.id) {
+        const dbUser = await prisma.user.findUnique({
+          where: { id: token.id as string },
+          select: { role: true, subscriptionStatus: true },
+        });
+        if (dbUser) {
+          token.role = dbUser.role;
+          token.subscriptionStatus = dbUser.subscriptionStatus;
+        }
+      }
+
       return token;
     },
     async session({ session, token }) {
@@ -88,7 +116,24 @@ const result = NextAuth({
       }
       return session;
     },
-    async signIn({ user }) {
+    async signIn({ user, account }) {
+      // For OAuth sign-ins, assign default ORGANIZER role if no role exists
+      if (account?.provider !== 'credentials' && user.id) {
+        const dbUser = await prisma.user.findUnique({
+          where: { id: user.id },
+          select: { role: true },
+        });
+
+        // If user exists but has no role, assign ORGANIZER
+        if (dbUser && !dbUser.role) {
+          await prisma.user.update({
+            where: { id: user.id },
+            data: { role: USER_ROLES.ORGANIZER },
+          });
+          user.role = USER_ROLES.ORGANIZER;
+        }
+      }
+
       // Only allow ADMIN, ORGANIZER, and MODERATOR to access the backoffice
       const allowedRoles: string[] = [USER_ROLES.ADMIN, USER_ROLES.ORGANIZER, USER_ROLES.MODERATOR];
       if (user.role && !allowedRoles.includes(user.role)) {

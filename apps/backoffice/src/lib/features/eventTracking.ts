@@ -3,7 +3,7 @@
  * Helper functions for tracking events per month for plan limits
  */
 
-import prisma from '../prisma';
+import { prisma } from '../prisma';
 
 /**
  * Get the number of events created this month for a specific group

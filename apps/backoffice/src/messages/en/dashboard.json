@@ -3,22 +3,23 @@
   "welcome": "Welcome back, {name}",
   "roles": {
     "admin": "Admin",
-    "restaurantOwner": "Restaurant Owner"
+    "organizer": "Organizer",
+    "moderator": "Moderator"
   },
   "stats": {
-    "totalRestaurants": "Total Restaurants",
-    "activeBookings": "Active Bookings",
-    "totalTables": "Total Tables"
+    "totalGroups": "Total Groups",
+    "totalEvents": "Total Events",
+    "totalMembers": "Total Members"
   },
   "quickActions": {
     "title": "Quick Actions",
-    "addRestaurant": "Add Restaurant",
-    "viewBookings": "View Bookings",
-    "manageTables": "Manage Tables",
+    "addGroup": "Add Group",
+    "addEvent": "Add Event",
+    "viewMembers": "View Members",
     "settings": "Settings"
   },
-  "restaurants": {
-    "title": "Your Restaurants",
+  "groups": {
+    "title": "Your Groups",
     "manage": "Manage",
     "status": {
       "active": "Active",
@@ -26,8 +27,8 @@
     }
   },
   "emptyState": {
-    "title": "No restaurants yet",
-    "description": "Get started by adding your first restaurant or café",
-    "button": "Add Your First Restaurant"
+    "title": "No groups yet",
+    "description": "Get started by creating your first community group",
+    "button": "Create Your First Group"
   }
 }
