@@ -1,0 +1,48 @@
+/**
+ * Taviax - Tavia Mobile UI
+ *
+ * A React Native design system for Tavia mobile applications.
+ * Shares design tokens with @tavia/taviad for cross-platform consistency.
+ *
+ * @example
+ * ```tsx
+ * import { Button, TextInput, Text } from '@tavia/taviax';
+ *
+ * export default function App() {
+ *   return (
+ *     <>
+ *       <Text variant="h1">Welcome</Text>
+ *       <TextInput label="Email" placeholder="Enter email" />
+ *       <Button variant="primary" onPress={() => console.log('Pressed!')}>
+ *         Press me
+ *       </Button>
+ *     </>
+ *   );
+ * }
+ * ```
+ */
+
+// Components
+export { Button } from './components/Button';
+export type { ButtonProps, ButtonVariant, ButtonShape, ButtonSize } from './components/Button';
+
+export { SocialButton } from './components/SocialButton';
+export type { SocialButtonProps } from './components/SocialButton';
+
+export { TextInput } from './components/TextInput';
+export type { TextInputProps } from './components/TextInput';
+
+export { Text } from './components/Text';
+export type { TaviaTextProps, TextVariant, TextColor } from './components/Text';
+
+// Theme
+export { theme, colors, spacing, radii, typography } from './theme';
+export type {
+  Theme,
+  ColorName,
+  SpacingSize,
+  RadiiSize,
+  FontSize,
+  FontWeight,
+  LineHeight,
+} from './theme';

@@ -8,6 +8,7 @@ export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> 
   value?: string;
   errorMessage?: string;
   hasClearButton?: boolean;
+  hasPasswordToggle?: boolean;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   variant?: InputVariant;
   isDisabled?: boolean;

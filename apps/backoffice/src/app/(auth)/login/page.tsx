@@ -80,17 +80,14 @@ export default function LoginPage() {
   return (
     <Styled.Container>
       <Styled.Wrapper>
-        {/* Logo and Header */}
+        {/* Header */}
         <Styled.Header>
-          <Styled.Logo>{t('common.appName')}</Styled.Logo>
+          <Styled.Title>{t('auth.login.title')}</Styled.Title>
+          <Styled.Subtitle>{t('auth.login.description')}</Styled.Subtitle>
         </Styled.Header>
 
         {/* Login Card */}
         <Card variant="elevated">
-          <Styled.CardHeader>
-            <Styled.Title>{t('auth.login.title')}</Styled.Title>
-          </Styled.CardHeader>
-
           {/* Error Alert */}
           {/* OAuth Buttons */}
           <Styled.OAuthButtons>
@@ -167,6 +164,7 @@ export default function LoginPage() {
                     errorMessage={errors.password?.message}
                     isDisabled={isLoading}
                     autoComplete="current-password"
+                    hasPasswordToggle
                     {...register('password')}
                   />
                 }

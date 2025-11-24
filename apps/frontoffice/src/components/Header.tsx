@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { useSession, signOut } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
-import { User, Calendar, MapPin, Search, LogOut } from 'lucide-react';
+import { User, Calendar, MapPin, Search, LogOut, Settings } from 'lucide-react';
 import { Avatar, DropdownMenu } from '@tavia/taviad';
 import { Styled } from './Header.styles';
 import { getInitials } from '@/lib/helpers';
@@ -13,6 +13,7 @@ export function Header() {
   const { data: session } = useSession();
   const t = useTranslations('navigation');
   const tHome = useTranslations('home');
+  const tCommon = useTranslations('common');
   const [searchQuery, setSearchQuery] = useState('');
   const [locationQuery, setLocationQuery] = useState('Orly');
 
@@ -83,6 +84,11 @@ export function Header() {
                 </div>
               }
               items={[
+                {
+                  label: tCommon('profile.editProfile'),
+                  icon: <Settings size={16} />,
+                  onSelect: () => (window.location.href = '/profile/edit'),
+                },
                 {
                   label: t('logout'),
                   icon: <LogOut size={16} />,

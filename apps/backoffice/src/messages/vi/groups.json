@@ -81,6 +81,96 @@
     "noEvents": "Chưa có sự kiện",
     "eventTitle": "Sự Kiện",
     "eventDate": "Ngày",
-    "attendees": "Người Tham Dự"
+    "attendees": "Người Tham Dự",
+    "organizedBy": "Tổ chức bởi",
+    "premium": "Cao Cấp",
+    "private": "Riêng Tư",
+    "public": "Công Khai",
+    "owner": "Chủ Sở Hữu",
+    "manageMembers": "Quản Lý Thành Viên",
+    "createEvent": "Tạo Sự Kiện",
+    "upcomingEvents": "Sự Kiện Sắp Tới"
+  },
+  "premium": {
+    "required": "Yêu cầu gói Premium",
+    "upgradeMessage": "Bạn cần gói Premium để tạo nhóm.",
+    "upgradeButton": "Nâng Cấp Premium",
+    "featureTitle": "Tính Năng Premium",
+    "limitReached": "Bạn đã đạt giới hạn tạo nhóm. Nâng cấp Premium để có nhóm không giới hạn!"
+  },
+  "members": {
+    "title": "Thành Viên Nhóm",
+    "backButton": "← Quay Lại Nhóm",
+    "activeMembers": "Thành Viên Hoạt Động",
+    "pendingRequests": "Yêu Cầu Chờ Duyệt",
+    "memberCount": "{count} / {max} thành viên",
+    "memberCountUnlimited": "{count} thành viên",
+    "approveButton": "Chấp Nhận",
+    "rejectButton": "Từ Chối",
+    "removeButton": "Xóa",
+    "noPendingRequests": "Không có yêu cầu thành viên chờ duyệt",
+    "noActiveMembers": "Chưa có thành viên hoạt động",
+    "confirmRemove": "Bạn có chắc chắn muốn xóa thành viên này?",
+    "membershipFull": "Không thể chấp nhận: Nhóm đã đạt số lượng tối đa",
+    "moderator": "Người Kiểm Duyệt",
+    "admin": "Quản Trị Viên",
+    "member": "Thành Viên",
+    "joined": "Tham gia {date}",
+    "errors": {
+      "approveFailed": "Chấp nhận thành viên thất bại",
+      "rejectFailed": "Từ chối thành viên thất bại",
+      "removeFailed": "Xóa thành viên thất bại",
+      "loadFailed": "Tải danh sách thành viên thất bại",
+      "capacityReached": "Không thể chấp nhận: Nhóm đã đạt số lượng tối đa ({max} thành viên)"
+    },
+    "success": {
+      "approved": "Chấp nhận thành viên thành công",
+      "rejected": "Từ chối yêu cầu thành viên",
+      "removed": "Xóa thành viên thành công"
+    }
+  },
+  "fields": {
+    "name": "Tên Nhóm",
+    "namePlaceholder": "Nhập tên nhóm",
+    "description": "Mô Tả",
+    "descriptionPlaceholder": "Mô tả nhóm của bạn...",
+    "category": "Danh Mục",
+    "categoryPlaceholder": "Chọn danh mục",
+    "location": "Địa Điểm",
+    "locationPlaceholder": "Nhập địa điểm",
+    "maxMembers": "Số Thành Viên Tối Đa",
+    "maxMembersPlaceholder": "Nhập số thành viên tối đa (để trống nếu không giới hạn)",
+    "isPrivate": "Nhóm Riêng Tư",
+    "isPublic": "Nhóm Công Khai",
+    "image": "URL Ảnh Bìa",
+    "imagePlaceholder": "https://example.com/image.jpg"
+  },
+  "edit": {
+    "title": "Chỉnh Sửa Nhóm",
+    "subtitle": "Cập nhật thông tin cho",
+    "deleteButton": "Xóa Nhóm",
+    "deleteConfirm": "Bạn có chắc chắn muốn xóa nhóm này? Hành động này không thể hoàn tác.",
+    "deleting": "Đang xóa...",
+    "updating": "Đang cập nhật...",
+    "success": "Cập nhật nhóm thành công! Đang chuyển hướng...",
+    "deleteSuccess": "Xóa nhóm thành công",
+    "errors": {
+      "updateFailed": "Cập nhật nhóm thất bại",
+      "deleteFailed": "Xóa nhóm thất bại",
+      "loadFailed": "Tải nhóm thất bại",
+      "unauthorized": "Bạn không có quyền chỉnh sửa nhóm này"
+    }
+  },
+  "categories": {
+    "Technology": "Công Nghệ",
+    "Business": "Kinh Doanh",
+    "Arts": "Nghệ Thuật & Văn Hóa",
+    "Sports": "Thể Thao & Sức Khỏe",
+    "Education": "Giáo Dục",
+    "Health": "Sức Khỏe & Tinh Thần",
+    "Social": "Xã Hội",
+    "Food": "Ẩm Thực",
+    "Travel": "Du Lịch & Phiêu Lưu",
+    "Other": "Khác"
   }
 }

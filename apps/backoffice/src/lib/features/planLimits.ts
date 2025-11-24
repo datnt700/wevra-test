@@ -49,13 +49,14 @@ export interface Group {
 
 /**
  * Check if user can create a new group
+ * MILESTONE 1.2: Only Premium users can create groups
  */
 export function canCreateGroup(user: UserWithSubscription): boolean {
-  if (user.subscriptionStatus === SUBSCRIPTION_STATUS.PREMIUM) return true;
-  if (user.subscriptionStatus === SUBSCRIPTION_STATUS.TRIAL) return true;
-
-  const groupCount = user.groupCount || 0;
-  return groupCount < PLAN_LIMITS.FREE.maxGroups;
+  // Only Premium and Trial users can create groups
+  return (
+    user.subscriptionStatus === SUBSCRIPTION_STATUS.PREMIUM ||
+    user.subscriptionStatus === SUBSCRIPTION_STATUS.TRIAL
+  );
 }
 
 /**

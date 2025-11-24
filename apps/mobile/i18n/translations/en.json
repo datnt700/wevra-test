@@ -1,0 +1,82 @@
+{
+  "common": {
+    "appName": "Tavia",
+    "loading": "Loading...",
+    "retry": "Try Again",
+    "cancel": "Cancel",
+    "save": "Save",
+    "delete": "Delete",
+    "edit": "Edit",
+    "done": "Done"
+  },
+  "auth": {
+    "login": {
+      "title": "Welcome back",
+      "description": "Sign in to continue to your account",
+      "email": "Email",
+      "emailPlaceholder": "Enter your email",
+      "password": "Password",
+      "passwordPlaceholder": "Enter your password",
+      "forgotPassword": "Forgot password?",
+      "submit": "Sign In",
+      "noAccount": "Don't have an account?",
+      "signupLink": "Sign up"
+    },
+    "signup": {
+      "title": "Create your account",
+      "description": "Join Tavia to discover amazing events",
+      "name": "Full Name",
+      "namePlaceholder": "Enter your full name",
+      "email": "Email",
+      "emailPlaceholder": "Enter your email",
+      "password": "Password",
+      "passwordPlaceholder": "Create a password",
+      "confirmPassword": "Confirm Password",
+      "confirmPasswordPlaceholder": "Confirm your password",
+      "submit": "Create Account",
+      "hasAccount": "Already have an account?",
+      "loginLink": "Sign in"
+    },
+    "social": {
+      "continueWith": "Continue with",
+      "signupWith": "Sign up with",
+      "google": "Google",
+      "apple": "Apple",
+      "facebook": "Facebook",
+      "comingSoon": "Coming Soon",
+      "comingSoonMessage": "%{provider} %{mode} will be available soon"
+    },
+    "divider": {
+      "or": "OR"
+    },
+    "validation": {
+      "required": "Please fill in all fields",
+      "emailInvalid": "Please enter a valid email",
+      "passwordMin": "Password must be at least 8 characters",
+      "passwordStrength": "Password must include uppercase, lowercase, and a number",
+      "passwordMismatch": "Passwords don't match",
+      "nameTooShort": "Name must be at least 2 characters"
+    },
+    "errors": {
+      "loginFailed": "Login Failed",
+      "loginFailedMessage": "Invalid email or password",
+      "signupFailed": "Signup Failed",
+      "signupFailedMessage": "An error occurred. Please try again.",
+      "generic": "Error"
+    },
+    "success": {
+      "signupTitle": "Welcome!",
+      "signupMessage": "Your account has been created"
+    }
+  },
+  "profile": {
+    "title": "Profile",
+    "editProfile": "Edit Profile",
+    "settings": "Settings",
+    "help": "Help & Support",
+    "about": "About",
+    "logout": "Logout",
+    "logoutConfirm": "Are you sure you want to logout?",
+    "cancel": "Cancel"
+  }
+}

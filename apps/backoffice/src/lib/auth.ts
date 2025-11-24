@@ -121,7 +121,7 @@ const result = NextAuth({
       if (account?.provider !== 'credentials' && user.id) {
         const dbUser = await prisma.user.findUnique({
           where: { id: user.id },
-          select: { role: true },
+          select: { role: true, subscriptionStatus: true },
         });
 
         // If user exists but has no role, assign ORGANIZER
@@ -132,6 +132,16 @@ const result = NextAuth({
           });
           user.role = USER_ROLES.ORGANIZER;
         }
+
+        // Check subscription status for backoffice access
+        if (dbUser) {
+          const allowedSubscriptions = ['PREMIUM', 'TRIAL'];
+          if (!allowedSubscriptions.includes(dbUser.subscriptionStatus)) {
+            throw new Error(
+              'Premium subscription required. Upgrade to Premium to access the backoffice and create groups.'
+            );
+          }
+        }
       }
 
       // Only allow ADMIN, ORGANIZER, and MODERATOR to access the backoffice
@@ -141,6 +151,24 @@ const result = NextAuth({
           'Access denied. Only organizers, moderators, and admins can access the backoffice.'
         );
       }
+
+      // For credentials sign-in, also check subscription status
+      if (account?.provider === 'credentials' && user.id) {
+        const dbUser = await prisma.user.findUnique({
+          where: { id: user.id },
+          select: { subscriptionStatus: true },
+        });
+
+        if (dbUser) {
+          const allowedSubscriptions = ['PREMIUM', 'TRIAL'];
+          if (!allowedSubscriptions.includes(dbUser.subscriptionStatus)) {
+            throw new Error(
+              'Premium subscription required. Upgrade to Premium to access the backoffice and create groups.'
+            );
+          }
+        }
+      }
+
       return true;
     },
   },

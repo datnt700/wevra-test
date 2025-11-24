@@ -546,7 +546,210 @@ import { useSession } from 'next-auth/react';
 const { data: session } = useSession();
 ```
 
-### Pattern 4: Centralized Constants
+### Pattern 4: API Error Handling & Response Format (Backoffice)
+
+**All API routes MUST use standardized error handling and response format:**
+
+**Location:** `apps/backoffice/src/lib/api/`
+
+- `errors.ts` - Custom error classes
+- `response.ts` - Response builders and ApiErrors helpers
+- `handler.ts` - withApiHandler wrapper with automatic error handling
+
+**Standard Response Format:**
+
+```typescript
+// Success response
+{
+  "success": true,
+  "data": { /* endpoint data */ },
+  "meta": {  // Optional - for pagination
+    "page": 1,
+    "limit": 20,
+    "total": 100,
+    "totalPages": 5
+  }
+}
+
+// Error response
+{
+  "success": false,
+  "error": {
+    "message": "Human-readable error message",
+    "code": "ERROR_CODE",  // UNAUTHORIZED, BAD_REQUEST, etc.
+    "details": { /* optional context */ }
+  }
+}
+```
+
+**Using Response Builders:**
+
+```typescript
+import { apiSuccess, apiError, ApiErrors } from '@/lib/api/response';
+
+// Success
+return apiSuccess({ token, user });
+
+// Generic error
+return apiError('Invalid credentials', 401, 'UNAUTHORIZED');
+
+// Pre-built errors
+return ApiErrors.unauthorized(); // 401
+return ApiErrors.forbidden(); // 403
+return ApiErrors.notFound('Event'); // 404
+return ApiErrors.badRequest('Validation error', details); // 400
+return ApiErrors.conflict('Email already exists'); // 409
+return ApiErrors.planLimitReached('Limit exceeded', { needsUpgrade: true }); // 403
+return ApiErrors.internalError(); // 500
+```
+
+**Using Error Classes:**
+
+```typescript
+import { UnauthorizedError, ForbiddenError, ConflictError, NotFoundError, BadRequestError } from '@/lib/api/errors';
+
+// Throw custom errors (caught by error handler)
+if (!user) throw new UnauthorizedError('Invalid email or password');
+if (user.role !== 'ATTENDEE') throw new ForbiddenError('Access denied');
+if (existingUser) throw new ConflictError('User already exists');
+if (!event) throw new NotFoundError('Event');
+
+// In catch block
+catch (error) {
+  if (error instanceof UnauthorizedError) {
+    return apiError(error.message, error.statusCode, error.code);
+  }
+  if (error instanceof z.ZodError) {
+    const details = error.errors.map(e => ({ field: e.path.join('.'), message: e.message }));
+    return ApiErrors.badRequest('Validation error', details);
+  }
+  return ApiErrors.internalError();
+}
+```
+
+**Using withApiHandler (Advanced):**
+
+```typescript
+import { withApiHandler } from '@/lib/api/handler';
+
+export const GET = withApiHandler<EventResponse>(
+  async (request, { session, params }) => {
+    const event = await prisma.event.findUnique({ where: { id: params.id } });
+    return apiSuccess(event);
+  },
+  {
+    requireAuth: true, // Requires authenticated session
+    allowedRoles: ['ADMIN', 'ORGANIZER'], // Role-based access
+  }
+);
+```
+
+**Critical Rules:**
+
+1. ✅ Always use `apiSuccess()` for successful responses
+2. ✅ Always use `ApiErrors.*` or `apiError()` for errors
+3. ✅ Throw custom error classes (`UnauthorizedError`, etc.) - they're caught
+   automatically
+4. ✅ Handle Zod validation errors with field details
+5. ✅ Use `withApiHandler` for routes that need auth/role checks
+6. ❌ Never return raw `NextResponse.json()` - breaks standardization
+7. ❌ Never hardcode error messages - use error classes
+
+**CORS Configuration for Mobile API:**
+
+The backoffice has CORS enabled for `/api/mobile/*` routes to allow mobile app
+requests:
+
+```typescript
+// src/middleware.ts - Handles CORS for mobile API routes
+export function middleware(request: NextRequest) {
+  if (pathname.startsWith('/api/mobile')) {
+    // Preflight requests
+    if (request.method === 'OPTIONS') {
+      return new NextResponse(null, {
+        status: 200,
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+          'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+        },
+      });
+    }
+    // Add CORS headers to responses
+    response.headers.set('Access-Control-Allow-Origin', '*');
+  }
+}
+```
+
+**Production CORS:** Replace `'*'` with specific origins (e.g.,
+`'exp://192.168.1.16:8081'`)
+
+### Pattern 5: Environment Variables (@tavia/env)
+
+**All apps use `@tavia/env` for type-safe, validated environment variables:**
+
+**Location:** `apps/{app}/src/lib/env/index.ts`
+
+```typescript
+import { createEnv, envHelpers } from '@tavia/env';
+import { z } from 'zod';
+
+export const env = createEnv({
+  server: {
+    DATABASE_URL: z.string().url(),
+    NEXTAUTH_SECRET: z.string().min(32),
+    JWT_SECRET: z.string().min(32).optional(), // Mobile auth
+    STRIPE_SECRET_KEY: z.string().startsWith('sk_').optional(),
+  },
+  client: {
+    NEXT_PUBLIC_APP_URL: envHelpers.url('http://localhost:3000'),
+    NEXT_PUBLIC_ENABLE_ANALYTICS: envHelpers.boolean(false),
+  },
+  runtimeEnv: {
+    DATABASE_URL: process.env.DATABASE_URL,
+    NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET,
+    JWT_SECRET: process.env.JWT_SECRET,
+    NEXT_PUBLIC_APP_URL: process.env.NEXT_PUBLIC_APP_URL,
+    // ... map all variables
+  },
+});
+```
+
+**Usage:**
+
+```typescript
+import { env } from '@/lib/env';
+
+// Server-only (throws error on client)
+const dbUrl = env.DATABASE_URL;
+const secret = env.JWT_SECRET || env.NEXTAUTH_SECRET; // Fallback pattern
+
+// Client-safe (available everywhere)
+const appUrl = env.NEXT_PUBLIC_APP_URL;
+```
+
+**Available Helpers:**
+
+```typescript
+envHelpers.port(3000); // Port with default
+envHelpers.boolean(false); // Boolean flag
+envHelpers.url('http://...'); // URL with default
+envHelpers.nodeEnv(); // 'development' | 'production' | 'test'
+envHelpers.optionalString(); // Optional string
+envHelpers.email(); // Email validation
+```
+
+**Critical Rules:**
+
+1. ✅ Always import from `@/lib/env`, never `process.env` directly
+2. ✅ Client variables MUST start with `NEXT_PUBLIC_`
+3. ✅ Use fallback pattern for optional env:
+   `env.JWT_SECRET || env.NEXTAUTH_SECRET`
+4. ✅ Add defaults with Zod `.default(value)` for local development
+5. ❌ Never access server env on client (throws error by design)
+6. ❌ Never hardcode secrets - always use env variables
+
+### Pattern 6: Centralized Constants
 
 **All apps use centralized constants** - NEVER hardcode routes or roles:
 
@@ -662,7 +865,7 @@ apps/{app}/src/app/{route}/_components/
 - Use for co-located components, utils, constants
 - Examples: `_components/`, `_types/`, `_hooks/`, `_constants/`
 
-### Pattern 6: @tavia/taviad Component Usage (MOST IMPORTANT)
+### Pattern 8: @tavia/taviad Component Usage (MOST IMPORTANT)
 
 **NEVER hardcode versions in package.json.** Always use `catalog:` references
 from `pnpm-workspace.yaml`.
@@ -696,7 +899,7 @@ from `pnpm-workspace.yaml`.
   with versions
 - These should be rare - prefer adding to catalog for reusability
 
-### Pattern 7: @tavia/taviad Component Structure
+### Pattern 9: @tavia/taviad Component Structure
 
 **Flat structure** - All 60+ components in
 `packages/taviad/src/ui/<component-name>/` (lowercase-with-dashes).
@@ -747,7 +950,7 @@ import { Button } from '@tavia/taviad/components/form/Button';
 - **State** (5): EmptyState, ErrorState, LoadingLogo, LoadingState, Progress
 - **Table** (2): DataTable, Table
 
-### Pattern 8: Emotion Styling (NO SCSS)
+### Pattern 10: Emotion Styling (NO SCSS)
 
 **ALL components use Emotion.** No CSS modules, no SCSS.
 
@@ -932,7 +1135,7 @@ app/
 6. ❌ Never render Emotion styled components in server layouts
 7. ❌ Don't use CacheProvider unless you have a custom server
 
-### Pattern 9: Generator Scripts
+### Pattern 11: Generator Scripts
 
 **ALWAYS use generators** - never copy existing apps. Ensures correct ports,
 dependencies, configs.
@@ -1208,6 +1411,22 @@ services:
 
 ```env
 DATABASE_URL="postgresql://postgres:postgres@localhost:5432/web"
+
+# Generate secure JWT secret (32+ characters)
+# Run: node -e "console.log(require('crypto').randomBytes(32).toString('base64'))"
+# Example output: YCOCS7wRIczdIfSbIaDf7vkx5r6R7vQvRNItJAV/OOM=
+JWT_SECRET="YCOCS7wRIczdIfSbIaDf7vkx5r6R7vQvRNItJAV/OOM="
+NEXTAUTH_SECRET="YCOCS7wRIczdIfSbIaDf7vkx5r6R7vQvRNItJAV/OOM="
+```
+
+**Generating Secure Secrets:**
+
+```bash
+# Generate a secure 32-byte random key
+node -e "console.log(require('crypto').randomBytes(32).toString('base64'))"
+
+# Output example: YCOCS7wRIczdIfSbIaDf7vkx5r6R7vQvRNItJAV/OOM=
+# Copy this to JWT_SECRET and NEXTAUTH_SECRET in .env
 ```
 
 ## CI/CD Pipeline

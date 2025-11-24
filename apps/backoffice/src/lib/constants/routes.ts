@@ -19,6 +19,7 @@ export const AUTH_ROUTES = {
 export const DASHBOARD_ROUTES = {
   HOME: '/dashboard',
   ANALYTICS: '/dashboard/analytics',
+  UPGRADE: '/billing/plans',
 } as const;
 
 /**

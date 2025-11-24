@@ -1,9 +1,9 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Styled } from './InputStyles.styles';
 import { Icon } from '../../icon';
-import { X } from 'lucide-react';
+import { X, Eye, EyeOff } from 'lucide-react';
 import { InputProps } from '../types';
 
 export const InputText = React.forwardRef<HTMLInputElement, InputProps>(
@@ -17,20 +17,25 @@ export const InputText = React.forwardRef<HTMLInputElement, InputProps>(
       onChange,
       errorMessage,
       hasClearButton,
+      hasPasswordToggle,
       variant = 'default',
       isDisabled,
       isReadOnly,
+      type = 'text',
       ...other
     },
     ref
   ) => {
+    const [showPassword, setShowPassword] = useState(false);
     const finalVariant = errorMessage ? 'danger' : isDisabled ? 'disabled' : variant;
+    const isPasswordField = type === 'password';
+    const inputType = isPasswordField && showPassword ? 'text' : type;
 
     return (
       <Styled.Wrapper className={className}>
         <Styled.InputWrapper $variant={finalVariant}>
           <Styled.Input
-            type="text"
+            type={inputType}
             id={id}
             name={name}
             placeholder={placeholder}
@@ -47,6 +52,25 @@ export const InputText = React.forwardRef<HTMLInputElement, InputProps>(
               variant="tertiary"
               shape="square"
               icon={<Icon source={<X width={16} height={16} stroke={undefined} />} />}
+            />
+          )}
+          {hasPasswordToggle && isPasswordField && (
+            <Styled.ClearBtn
+              variant="tertiary"
+              shape="square"
+              onClick={() => setShowPassword(!showPassword)}
+              type="button"
+              icon={
+                <Icon
+                  source={
+                    showPassword ? (
+                      <EyeOff width={16} height={16} stroke={undefined} />
+                    ) : (
+                      <Eye width={16} height={16} stroke={undefined} />
+                    )
+                  }
+                />
+              }
             />
           )}
         </Styled.InputWrapper>

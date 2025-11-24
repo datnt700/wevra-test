@@ -1,5 +1,11 @@
 {
   "appName": "Tavia",
   "welcome": "Welcome to Tavia",
-  "description": "Your community networking platform"
+  "description": "Your community networking platform",
+  "profile": {
+    "title": "Profile",
+    "editProfile": "Edit Profile",
+    "viewProfile": "View Profile",
+    "myProfile": "My Profile"
+  }
 }

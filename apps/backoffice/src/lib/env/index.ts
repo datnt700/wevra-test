@@ -47,6 +47,9 @@ export const env = createEnv({
       .min(32)
       .default('development-secret-change-in-production-min-32-chars'),
 
+    // JWT for Mobile Auth (uses NEXTAUTH_SECRET as fallback)
+    JWT_SECRET: z.string().min(32).optional(),
+
     // OAuth Providers (all optional - enable as needed)
     GOOGLE_CLIENT_ID: envHelpers.optionalString(),
     GOOGLE_CLIENT_SECRET: envHelpers.optionalString(),
@@ -138,6 +141,7 @@ export const env = createEnv({
     // NextAuth
     NEXTAUTH_URL: process.env.NEXTAUTH_URL,
     NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET,
+    JWT_SECRET: process.env.JWT_SECRET,
 
     // OAuth
     GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,

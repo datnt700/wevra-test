@@ -49,5 +49,11 @@
   "engines": {
     "node": ">=22.17.1",
     "pnpm": ">=10.19.0"
+  },
+  "pnpm": {
+    "overrides": {
+      "react": "19.1.0",
+      "react-dom": "19.1.0"
+    }
   }
 }

@@ -25,11 +25,11 @@ export const Styled = {
     text-align: center;
   `,
 
-  Logo: styled.h1`
+  Title: styled.h1`
     margin-bottom: 0.5rem;
-    font-size: 2.5rem;
+    font-size: 2rem;
     font-weight: 700;
-    color: ${cssVars.mainColor};
+    color: ${cssVars.gray900};
     letter-spacing: -0.02em;
   `,
 
@@ -48,7 +48,7 @@ export const Styled = {
     }
   `,
 
-  Title: styled.h2`
+  CardTitle: styled.h2`
     margin-bottom: 0.5rem;
     font-size: 1.5rem;
     font-weight: 700;

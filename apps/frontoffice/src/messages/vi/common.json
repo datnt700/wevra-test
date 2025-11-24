@@ -1,5 +1,11 @@
 {
   "appName": "Tavia",
   "welcome": "Chào mừng đến với Tavia",
-  "description": "Nền tảng kết nối cộng đồng của bạn"
+  "description": "Nền tảng kết nối cộng đồng của bạn",
+  "profile": {
+    "title": "Hồ sơ",
+    "editProfile": "Chỉnh sửa hồ sơ",
+    "viewProfile": "Xem hồ sơ",
+    "myProfile": "Hồ sơ của tôi"
+  }
 }

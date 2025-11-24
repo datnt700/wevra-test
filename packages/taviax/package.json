@@ -1,0 +1,45 @@
+{
+  "name": "@tavia/taviax",
+  "private": false,
+  "version": "0.0.1",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts",
+    "./components/*": "./src/components/*/index.ts",
+    "./theme/*": "./src/theme/*.ts",
+    "./hooks/*": "./src/hooks/*.ts",
+    "./types/*": "./src/types/*.ts"
+  },
+  "scripts": {
+    "lint": "eslint . --max-warnings 0",
+    "type-check": "tsc --noEmit",
+    "format": "prettier --write \"src/**/*.{ts,tsx,js,jsx,json,md}\"",
+    "format:check": "prettier --check \"src/**/*.{ts,tsx,js,jsx,json,md}\"",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage"
+  },
+  "peerDependencies": {
+    "@emotion/native": "catalog:emotion",
+    "react": "*",
+    "react-native": "*"
+  },
+  "dependencies": {
+    "@tavia/taviad": "workspace:*"
+  },
+  "devDependencies": {
+    "@babel/preset-flow": "^7.27.1",
+    "@repo/eslint-config": "workspace:*",
+    "@repo/typescript-config": "workspace:*",
+    "@testing-library/react-native": "catalog:expo",
+    "@types/react": "catalog:expo",
+    "@vitejs/plugin-react": "catalog:",
+    "@vitest/coverage-istanbul": "catalog:",
+    "babel-preset-expo": "^54.0.6",
+    "eslint": "catalog:",
+    "jsdom": "catalog:",
+    "typescript": "catalog:",
+    "vitest": "catalog:"
+  }
+}

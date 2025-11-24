@@ -81,6 +81,96 @@
     "noEvents": "No events yet",
     "eventTitle": "Event",
     "eventDate": "Date",
-    "attendees": "Attendees"
+    "attendees": "Attendees",
+    "organizedBy": "Organized by",
+    "premium": "Premium",
+    "private": "Private",
+    "public": "Public",
+    "owner": "Owner",
+    "manageMembers": "Manage Members",
+    "createEvent": "Create Event",
+    "upcomingEvents": "Upcoming Events"
+  },
+  "premium": {
+    "required": "Premium subscription required",
+    "upgradeMessage": "You need a Premium subscription to create groups.",
+    "upgradeButton": "Upgrade to Premium",
+    "featureTitle": "Premium Feature",
+    "limitReached": "You've reached your group creation limit. Upgrade to Premium for unlimited groups!"
+  },
+  "members": {
+    "title": "Group Members",
+    "backButton": "← Back to Group",
+    "activeMembers": "Active Members",
+    "pendingRequests": "Pending Requests",
+    "memberCount": "{count} of {max} members",
+    "memberCountUnlimited": "{count} members",
+    "approveButton": "Approve",
+    "rejectButton": "Reject",
+    "removeButton": "Remove",
+    "noPendingRequests": "No pending membership requests",
+    "noActiveMembers": "No active members yet",
+    "confirmRemove": "Are you sure you want to remove this member?",
+    "membershipFull": "Cannot approve: Group has reached maximum capacity",
+    "moderator": "Moderator",
+    "admin": "Admin",
+    "member": "Member",
+    "joined": "Joined {date}",
+    "errors": {
+      "approveFailed": "Failed to approve member",
+      "rejectFailed": "Failed to reject member",
+      "removeFailed": "Failed to remove member",
+      "loadFailed": "Failed to load members",
+      "capacityReached": "Cannot approve: Group has reached maximum capacity ({max} members)"
+    },
+    "success": {
+      "approved": "Member approved successfully",
+      "rejected": "Membership request rejected",
+      "removed": "Member removed successfully"
+    }
+  },
+  "fields": {
+    "name": "Group Name",
+    "namePlaceholder": "Enter group name",
+    "description": "Description",
+    "descriptionPlaceholder": "Describe your group...",
+    "category": "Category",
+    "categoryPlaceholder": "Select a category",
+    "location": "Location",
+    "locationPlaceholder": "Enter location",
+    "maxMembers": "Maximum Members",
+    "maxMembersPlaceholder": "Enter max members (leave empty for unlimited)",
+    "isPrivate": "Private Group",
+    "isPublic": "Public Group",
+    "image": "Cover Image URL",
+    "imagePlaceholder": "https://example.com/image.jpg"
+  },
+  "edit": {
+    "title": "Edit Group",
+    "subtitle": "Update information for",
+    "deleteButton": "Delete Group",
+    "deleteConfirm": "Are you sure you want to delete this group? This action cannot be undone.",
+    "deleting": "Deleting...",
+    "updating": "Updating...",
+    "success": "Group updated successfully! Redirecting...",
+    "deleteSuccess": "Group deleted successfully",
+    "errors": {
+      "updateFailed": "Failed to update group",
+      "deleteFailed": "Failed to delete group",
+      "loadFailed": "Failed to load group",
+      "unauthorized": "You don't have permission to edit this group"
+    }
+  },
+  "categories": {
+    "Technology": "Technology",
+    "Business": "Business",
+    "Arts": "Arts & Culture",
+    "Sports": "Sports & Fitness",
+    "Education": "Education",
+    "Health": "Health & Wellness",
+    "Social": "Social",
+    "Food": "Food & Drink",
+    "Travel": "Travel & Adventure",
+    "Other": "Other"
   }
 }
