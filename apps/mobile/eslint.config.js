@@ -3,14 +3,7 @@ import { config } from '@repo/eslint-config/base';
 export default [
   ...config,
   {
-    ignores: [
-      'node_modules/**',
-      '.expo/**',
-      'android/**',
-      'ios/**',
-      'dist/**',
-      '.cache/**',
-    ],
+    ignores: ['node_modules/**', '.expo/**', 'android/**', 'ios/**', 'dist/**', '.cache/**'],
   },
   {
     rules: {

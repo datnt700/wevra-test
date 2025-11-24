@@ -1,9 +1,4 @@
-import {
-  withApiHandler,
-  apiSuccess,
-  NotFoundError,
-  ForbiddenError,
-} from '@/lib/api';
+import { withApiHandler, apiSuccess, NotFoundError, ForbiddenError } from '@/lib/api';
 import { prisma } from '@/lib/prisma';
 import { USER_ROLES } from '@/lib/constants';
 

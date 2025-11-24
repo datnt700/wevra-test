@@ -4,7 +4,7 @@
  */
 import { View, StyleSheet, Alert } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { SocialButton, spacing } from '@tavia/taviax';
+import { Button, spacing } from '@tavia/taviax';
 import i18n from '@/i18n';
 
 interface SocialAuthButtonsProps {
@@ -36,32 +36,32 @@ export const SocialAuthButtons = ({
 
   return (
     <View style={styles.container}>
-      <SocialButton
+      <Button
         variant="tertiary"
         onPress={() => handleSocialAuth('Google')}
         disabled={isLoading}
         icon={<Ionicons name="logo-google" size={20} color={BRAND_COLORS.google} />}
       >
         {`${actionText} ${i18n.t('auth.social.google')}`}
-      </SocialButton>
+      </Button>
 
-      <SocialButton
+      <Button
         variant="tertiary"
         onPress={() => handleSocialAuth('Apple')}
         disabled={isLoading}
         icon={<Ionicons name="logo-apple" size={20} color={BRAND_COLORS.apple} />}
       >
         {`${actionText} ${i18n.t('auth.social.apple')}`}
-      </SocialButton>
+      </Button>
 
-      <SocialButton
+      <Button
         variant="tertiary"
         onPress={() => handleSocialAuth('Facebook')}
         disabled={isLoading}
         icon={<Ionicons name="logo-facebook" size={20} color={BRAND_COLORS.facebook} />}
       >
         {`${actionText} ${i18n.t('auth.social.facebook')}`}
-      </SocialButton>
+      </Button>
     </View>
   );
 };
