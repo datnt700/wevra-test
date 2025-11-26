@@ -1,10 +1,129 @@
 # Tavia - AI Agent Instructions
 
-Tavia is a **community networking platform** using a **Freemium model**, built
-as a **microservices-first monorepo** with Next.js 15 and a production-ready
-component library.
+> **Note:** This file contains a high-level overview. Detailed instructions are
+> in `.github/instructions/*.instructions.md` and are automatically loaded by
+> GitHub Copilot based on the files you're working on.
 
-## 🎯 Product Vision
+Tavia is a **community networking platform** using a **Freemium model**, built
+as a **microservices-first monorepo** with Next.js 15 and production-ready
+component libraries.
+
+## 🎯 Critical Rules: Always Use Internal Packages
+
+**Component Libraries:**
+
+- ✅ **Web Apps**: ALWAYS use `@tavia/taviad` (60+ components)
+- ✅ **Mobile Apps**: ALWAYS use `@tavia/taviax` (React Native components)
+- ❌ NEVER use native HTML elements (`<button>`, `<input>`, `<a>`)
+
+**Environment Variables:**
+
+- ✅ **ALWAYS use `@tavia/env`** - Type-safe, validated environment variables
+- ❌ NEVER access `process.env` directly in application code
+
+**Other Internal Packages:**
+
+- `@tavia/analytics` - Event tracking SDK
+- `@tavia/logger` - Structured logging
+- `@tavia/module-generator` - Feature scaffolding
+
+```tsx
+// ✅ CORRECT - Web
+import { Button, Link, InputText } from '@tavia/taviad';
+import { env } from '@/lib/env';
+<Button variant="primary" onClick={handleClick}>Save</Button>
+const apiKey = env.STRIPE_SECRET_KEY;
+
+// ✅ CORRECT - Mobile
+import { Button, Text, TextInput } from '@tavia/taviax';
+<Button variant="primary" onPress={handlePress}>Save</Button>
+
+// ❌ WRONG - Native HTML
+<button onClick={handleClick}>Click me</button>
+
+// ❌ WRONG - Direct env access
+const apiKey = process.env.STRIPE_SECRET_KEY;
+
+// ❌ WRONG - Wrong library
+import { Button } from '@tavia/taviad'; // In mobile app!
+```
+
+## 📚 Detailed Instructions
+
+Path-specific instructions are in `.github/instructions/`:
+
+1. **01-architecture.instructions.md** - Freemium model, shared database,
+   microservices
+2. **02-web-apps.instructions.md** - Next.js 15, server actions, Auth.js, API
+   patterns
+3. **03-mobile.instructions.md** - React Native, Expo, platform-specific storage
+4. **04-components-web.instructions.md** - @tavia/taviad (60+ components, 80%
+   coverage)
+5. **05-components-mobile.instructions.md** - @tavia/taviax (React Native, 70%
+   coverage)
+6. **06-styling.instructions.md** - Emotion patterns, theme tokens, SSR
+   configuration
+7. **07-api.instructions.md** - Error handling, response format, CORS
+8. **08-database.instructions.md** - Docker PostgreSQL, Prisma, migrations
+9. **09-testing.instructions.md** - Vitest, Playwright, coverage thresholds
+10. **10-dev-workflow.instructions.md** - Generators, catalog dependencies, Git
+    workflow
+
+These files are **automatically loaded by GitHub Copilot** based on the files
+you're editing. You don't need to reference them manually.
+
+## 🚀 Quick Start
+
+```bash
+# Development
+pnpm dev                    # All apps
+pnpm dev:backoffice         # Port 3000
+pnpm dev:frontoffice        # Port 3003
+
+# Mobile
+cd apps/mobile
+set EXPO_OFFLINE=1
+pnpm start
+
+# Database
+cd apps/backoffice
+pnpm db:setup               # Docker + migrate + seed
+
+# Generators (ALWAYS USE)
+pnpm create:app <name>      # New Next.js app
+pnpm create:api <name>      # New API (Fastify/NestJS)
+pnpm create:mobile <name>   # New Expo app
+
+# Git
+pnpm commit                 # Commitizen (conventional commits)
+```
+
+## 🏗️ Monorepo Structure
+
+- **apps/backoffice** (3000): Admin/Organizer management (Auth.js, Prisma,
+  Stripe)
+- **apps/frontoffice** (3003): Attendee event discovery (shared database)
+- **apps/mobile**: Expo 54 mobile for Attendees
+- **packages/taviad**: 60+ web components (Emotion + Radix UI)
+- **packages/taviax**: React Native components (Emotion Native)
+- **packages/env**: Type-safe environment variables
+- **packages/analytics**: Event tracking SDK
+
+## 📖 Key Documentation
+
+- `pnpm-workspace.yaml` - Catalog dependencies (read first!)
+- `turbo.json` - Build pipeline
+- `apps/backoffice/DATABASE.md` - Database setup
+- `docs/AUTHENTICATION.md` - Auth patterns
+- `.github/workflows/ci.yml` - CI/CD pipeline
+
+---
+
+## For detailed patterns and best practices, see `.github/instructions/*.instructions.md` (automatically loaded by GitHub Copilot).
+
+For detailed patterns and best practices, see
+`.github/instructions/*.instructions.md` (automatically loaded by GitHub
+Copilot).
 
 Build a **two-sided platform** (broker model) connecting:
 
@@ -60,14 +179,17 @@ Build a **two-sided platform** (broker model) connecting:
 apps/
   ├── backoffice/           # Next.js 15 organizer (port 3000) - ADMIN/ORGANIZER/MODERATOR roles
   ├── frontoffice/          # Next.js 15 attendee app (port 3003) - ATTENDEE role, unlimited access
+  ├── mobile/               # Expo 54 mobile app for ATTENDEE users (React Native)
   ├── analytics/            # Fastify API (port 3001)
   ├── event-service/        # NestJS (port 3002)
   └── docs/                 # Storybook (port 6006)
 packages/
   ├── taviad/               # @tavia/taviad - 60+ web components (Emotion + Radix) ⭐
-  ├── mobile-ui/            # @tavia/mobile-ui - React Native components
+  ├── taviax/               # @tavia/taviax - React Native components (Emotion Native) 📱
   ├── analytics/            # @tavia/analytics SDK
   ├── module-generator/     # @tavia/module-generator - Feature module scaffolding
+  ├── env/                  # @tavia/env - Type-safe environment variables
+  ├── logger/               # @tavia/logger - Structured logging
   ├── eslint-config/        # Shared ESLint 9 configs
   └── typescript-config/    # Shared tsconfig
 templates/                  # For generators (webapp, simple-api, complex-api, mobile-app)
@@ -76,62 +198,86 @@ pnpm-workspace.yaml         # ⚠️ CRITICAL - Catalog dependencies
 turbo.json                  # Build pipeline config
 ```
 
-## ⚠️ CRITICAL RULE: Always Use @tavia/taviad First
+## ⚠️ CRITICAL RULE: Component Library Selection
 
-**BEFORE creating ANY UI component or using HTML elements, ALWAYS:**
+**Web Apps** (backoffice, frontoffice, any Next.js app):
 
-1. ✅ **Check if @tavia/taviad has the component** - See "Available Components"
-   section below
-2. ✅ **Read the component's Props file** in
-   `packages/taviad/src/ui/{component}/types/`
-3. ✅ **Use ONLY the documented props** - Never add props that don't exist in
-   the type definition
-4. ❌ **DO NOT create custom styled components** if taviad has it
-5. ❌ **DO NOT use native HTML** (`<button>`, `<input>`, `<a>`) - use taviad
-   equivalents
+- ✅ **ALWAYS use @tavia/taviad** - 60+ components with Emotion + Radix UI
+- ✅ Check `packages/taviad/src/ui/{component}/types/` for available props
+- ❌ NEVER use native HTML elements (`<button>`, `<input>`, `<a>`)
+
+**Mobile Apps** (apps/mobile, any Expo app):
+
+- ✅ **ALWAYS use @tavia/taviax** - React Native components with Emotion Native
+- ✅ Shares design tokens with @tavia/taviad (colors, spacing, radii,
+  typography)
+- ✅ Same API design as @tavia/taviad for developer familiarity
+- ❌ NEVER use @tavia/taviad in mobile (web-only)
+
+**Available Components:**
+
+**@tavia/taviad** (Web - 60+ components):
+
+- **Base** (9): Avatar, Badge, Button, ButtonGroup, Code, Icon, Image, Spinner,
+  Tag
+- **Radix** (8): Accordion, Checkbox, DropdownMenu, Modal, Popover, Radio, Tabs,
+  Tooltip
+- **Form** (19): Calendar, Field, Form, Input, InputNumber, InputSearch,
+  InputTags, Label, Select, Combobox, Switch, Slider, TextArea, FileUpload,
+  ImageUpload, RichTextEditor, Text
+- **Dialog** (4): Alert, Drawer, MenuBar, Toast
+- **Layout** (10): Card, Divider, GoogleMap, LeafletMap, MapboxMap,
+  LoadingScreen, ScrollBox, Skeleton, Stack, ThemeProvider
+- **Navigation** (4): Breadcrumb, Link, Pagination, Sidebar
+- **State** (5): EmptyState, ErrorState, LoadingLogo, LoadingState, Progress
+- **Table** (2): DataTable, Table
+
+**@tavia/taviax** (Mobile - Growing):
+
+- Button (7 variants, 5 shapes, 3 sizes, loading state)
+- Text (customizable typography with design tokens)
+- TextInput (with icons, error states, validation)
+- SocialButton (OAuth providers: Google, Apple, Facebook)
+- _More components coming_ (Card, Modal, Toast, Avatar, Badge, Switch, Checkbox,
+  Radio, Select/Picker)
 
 **Examples:**
 
 ```tsx
-// ❌ WRONG - Using native HTML
-<button onClick={handleClick}>Click me</button>
-<a href="/home">Home</a>
-<input type="text" placeholder="Search" />
-
-// ✅ CORRECT - Using @tavia/taviad
+// ✅ CORRECT - Web app (Next.js)
 import { Button, Link, InputText } from '@tavia/taviad';
 
-<Button onClick={handleClick}>Click me</Button>
+<Button variant="primary" onClick={handleClick}>Save</Button>
 <Link href="/home">Home</Link>
 <InputText placeholder="Search" />
+
+// ✅ CORRECT - Mobile app (Expo)
+import { Button, Text, TextInput } from '@tavia/taviax';
+import { View } from 'react-native';
+
+<Button variant="primary" onPress={handlePress}>Save</Button>
+<Text size="lg" weight="bold">Welcome</Text>
+<TextInput placeholder="Search" />
+
+// ❌ WRONG - Native HTML in web
+<button onClick={handleClick}>Click me</button>
+
+// ❌ WRONG - @tavia/taviad in mobile
+import { Button } from '@tavia/taviad'; // Web-only!
 ```
 
 **Props Validation Workflow:**
 
 ```tsx
-// 1. BEFORE using a component, read its props file:
-// packages/taviad/src/ui/button/types/ButtonProps.ts
+// BEFORE using a component, read its props file:
+// Web: packages/taviad/src/ui/button/types/ButtonProps.ts
+// Mobile: packages/taviax/src/components/Button/types/ButtonProps.ts
 
-// 2. Check valid prop names and types
-export interface ButtonProps {
-  variant?: 'primary' | 'secondary' | 'danger' | 'dark' | 'link' | 'tertiary' | 'info';
-  shape?: 'default' | 'rounded' | 'circle';
-  onClick?: () => void;
-  children?: React.ReactNode;
-  // ... etc
-}
-
-// 3. Use ONLY these props
+// Use ONLY the documented props
 <Button variant="primary" onClick={handleClick}>Save</Button>
 
 // ❌ WRONG - "outline" is NOT a valid variant
 <Button variant="outline">Save</Button>
-
-// ❌ WRONG - "label" prop doesn't exist
-<ErrorState action={{ label: 'Retry', onClick: handleRetry }} />
-
-// ✅ CORRECT - action expects React.ReactNode
-<ErrorState action={<Button onClick={handleRetry}>Retry</Button>} />
 ```
 
 ## 🔥 Critical Patterns
@@ -1245,13 +1391,153 @@ return {
 - ✅ Comprehensive metadata in layout.tsx
 - ✅ `forwardRef` pattern for component refs (see Button.tsx)
 
+### Pattern 12: Mobile Development (@tavia/taviax)
+
+**React Native apps use @tavia/taviax** - NOT @tavia/taviad (web-only).
+
+**Architecture:**
+
+```
+apps/mobile/
+├── app/
+│   ├── (auth)/              # Authentication flow (login, signup)
+│   ├── (tabs)/              # Main app with tab navigation
+│   ├── _layout.tsx          # Root layout with providers
+│   └── +not-found.tsx       # 404 page
+├── components/              # App-specific components
+├── utils/
+│   └── secureStorage.ts     # Platform-specific storage wrapper
+├── hooks/                   # Custom React hooks
+├── theme/                   # Extends @tavia/taviax tokens
+├── .env                     # API URL (⚠️ use local IP for physical devices)
+└── app.json                 # Expo configuration
+```
+
+**Platform-Specific Storage:**
+
+```typescript
+// utils/secureStorage.ts - Abstraction for platform differences
+import * as SecureStore from 'expo-secure-store';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Platform } from 'react-native';
+
+export const secureStorage = {
+  // Web: Uses localStorage (AsyncStorage)
+  // iOS/Android: Uses encrypted keychain (SecureStore)
+  async setItem(key: string, value: string) {
+    if (Platform.OS === 'web') {
+      return AsyncStorage.setItem(key, value);
+    }
+    return SecureStore.setItemAsync(key, value);
+  },
+
+  async getItem(key: string) {
+    if (Platform.OS === 'web') {
+      return AsyncStorage.getItem(key);
+    }
+    return SecureStore.getItemAsync(key);
+  },
+
+  async removeItem(key: string) {
+    if (Platform.OS === 'web') {
+      return AsyncStorage.removeItem(key);
+    }
+    return SecureStore.deleteItemAsync(key);
+  },
+};
+```
+
+**Emotion Native Styling:**
+
+```typescript
+// ✅ CORRECT - Use styled from @emotion/native
+import styled from '@emotion/native';
+import { colors, spacing, radii } from '@tavia/taviax';
+
+const Container = styled.View`
+  background-color: ${colors.mainColor};
+  padding: ${spacing.base}px;
+  border-radius: ${radii.md}px;
+`;
+
+const Title = styled.Text`
+  font-size: 18px;
+  font-weight: bold;
+  color: ${colors.light};
+`;
+
+// ❌ WRONG - Don't use @emotion/styled (web-only)
+import styled from '@emotion/styled'; // Web-only!
+```
+
+**API Configuration (.env):**
+
+```env
+# Physical devices (Expo Go on phone)
+EXPO_PUBLIC_API_URL=http://192.168.1.16:3000  # Your computer's local IP
+
+# Web browser / iOS Simulator / Android Emulator
+EXPO_PUBLIC_API_URL=http://localhost:3000
+
+# Android Emulator (alternative)
+EXPO_PUBLIC_API_URL=http://10.0.2.2:3000
+```
+
+**Critical Mobile Rules:**
+
+1. ✅ Use `@tavia/taviax` components, NOT `@tavia/taviad`
+2. ✅ Import from `@emotion/native`, NOT `@emotion/styled`
+3. ✅ Use `secureStorage` abstraction for auth tokens
+4. ✅ Test on physical devices requires local IP (same WiFi network)
+5. ✅ Use `react-native-web` alias in vitest.config.ts for testing
+6. ✅ Coverage threshold: 70% (lower than @tavia/taviad's 80%)
+7. ❌ Never use `@tavia/taviad` in mobile apps
+8. ❌ Don't hardcode localhost - use `.env` with `EXPO_PUBLIC_` prefix
+
+**Running Mobile App:**
+
+```bash
+cd apps/mobile
+
+# 1. Set offline mode (skip Expo login)
+set EXPO_OFFLINE=1  # Windows
+# export EXPO_OFFLINE=1  # Mac/Linux
+
+# 2. Start Metro bundler
+pnpm start
+
+# 3. Choose platform
+# - Press 'w' for web browser (localhost:8081)
+# - Press 'i' for iOS simulator (Mac only)
+# - Press 'a' for Android emulator
+# - Scan QR code with Expo Go app (physical device)
+```
+
+**Test Accounts:**
+
+- **Attendees**: `attendee1@tavia.io`, `attendee2@tavia.io` (password:
+  `attendee123`)
+- **Organizer (Free)**: `organizer.free@tavia.io` (password: `organizer123`)
+- **Organizer (Premium)**: `organizer.pro@tavia.io` (password: `organizer123`)
+- **Admin**: `admin@tavia.io` (password: `admin123`)
+
+**Mobile uses backoffice API** (`/api/mobile/*` routes with CORS enabled).
+
 ## Development Commands
 
 ```bash
 # Development
 pnpm dev                    # All apps (backoffice + docs)
 pnpm dev:backoffice         # Backoffice app only (localhost:3000)
+pnpm dev:frontoffice        # Frontoffice app only (localhost:3003)
 pnpm dev:storybook          # Storybook (localhost:6006)
+
+# Mobile (from apps/mobile)
+cd apps/mobile
+set EXPO_OFFLINE=1          # Windows - skip Expo login
+# export EXPO_OFFLINE=1     # Mac/Linux
+pnpm start                  # Start Metro bundler
+# Press 'w' for web, 'i' for iOS simulator, 'a' for Android emulator
 
 # Building & Quality
 pnpm build                  # Build all with Turborepo
@@ -1261,10 +1547,16 @@ pnpm lint:fix               # Auto-fix
 pnpm format                 # Prettier format
 pnpm type-check             # TypeScript
 
-# Testing (packages/taviad)
+# Testing (packages/taviad - 80% coverage threshold)
 cd packages/taviad
 pnpm test                   # Run tests
-pnpm test:coverage          # Coverage (80% threshold)
+pnpm test:coverage          # Coverage report
+pnpm test:watch             # Watch mode
+
+# Testing (packages/taviax - 70% coverage threshold)
+cd packages/taviax
+pnpm test                   # Run tests
+pnpm test:coverage          # Coverage report
 pnpm test:watch             # Watch mode
 
 # Module Generation (apps/backoffice)

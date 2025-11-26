@@ -1,0 +1,33 @@
+version: 1
+applications:
+  - appRoot: apps/frontoffice
+    frontend:
+      phases:
+        preBuild:
+          commands:
+            - npm install -g pnpm@10.19.0
+            - pnpm install --frozen-lockfile
+        build:
+          commands:
+            - cd apps/frontoffice
+            - pnpm build
+      artifacts:
+        baseDirectory: apps/frontoffice/.next
+        files:
+          - '**/*'
+      cache:
+        paths:
+          - node_modules/**/*
+          - apps/frontoffice/node_modules/**/*
+          - packages/*/node_modules/**/*
+    customHeaders:
+      - pattern: '**/*'
+        headers:
+          - key: 'Strict-Transport-Security'
+            value: 'max-age=31536000; includeSubDomains'
+          - key: 'X-Frame-Options'
+            value: 'DENY'
+          - key: 'X-Content-Type-Options'
+            value: 'nosniff'
+          - key: 'Referrer-Policy'
+            value: 'strict-origin-when-cross-origin'

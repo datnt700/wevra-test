@@ -85,6 +85,9 @@ export const env = createEnv({
       })
       .optional()
       .or(z.literal('')),
+
+    // Generic Webhook Secret (for custom webhooks)
+    WEBHOOK_SECRET: z.string().min(32).default('dev-webhook-secret-change-in-production'),
     STRIPE_MONTHLY_PRICE_ID: z
       .string()
       .refine((id) => !id || id.startsWith('price_'), {
@@ -168,6 +171,9 @@ export const env = createEnv({
     STRIPE_WEBHOOK_SECRET: process.env.STRIPE_WEBHOOK_SECRET,
     STRIPE_MONTHLY_PRICE_ID: process.env.STRIPE_MONTHLY_PRICE_ID,
     STRIPE_ANNUAL_PRICE_ID: process.env.STRIPE_ANNUAL_PRICE_ID,
+
+    // Generic Webhook
+    WEBHOOK_SECRET: process.env.WEBHOOK_SECRET,
 
     // Client
     NEXT_PUBLIC_APP_URL: process.env.NEXT_PUBLIC_APP_URL,

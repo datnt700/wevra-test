@@ -667,59 +667,153 @@ GitHub Actions (`.github/workflows/ci.yml`):
 
 ## 🚀 Deployment
 
-### Vercel (Recommended)
+### AWS Amplify (Recommended for Now)
+
+Simple deployment for backoffice and frontoffice:
+
+**1. Deploy Backoffice:**
+
+1. Go to [AWS Amplify Console](https://console.aws.amazon.com/amplify)
+2. **New app → Host web app → GitHub** → Select `tavia` repo
+3. App name: `tavia-backoffice`
+4. Build settings: Auto-detected from `amplify.yml`
+5. Add environment variables (see below)
+6. **Save and deploy**
+
+**2. Deploy Frontoffice:**
+
+1. Create second Amplify app: `tavia-frontoffice`
+2. Same repo/branch
+3. Build settings: Use `amplify-frontoffice.yml`
+4. Add environment variables
+5. **Save and deploy**
+
+**Environment Variables (Both Apps):**
 
 ```bash
-# Install Vercel CLI
-pnpm add -g vercel
+# Database (shared between both apps)
+DATABASE_URL=postgresql://user:password@host:5432/tavia
 
-# Deploy frontoffice
-cd apps/frontoffice
-vercel --prod
+# Backoffice additional vars:
+NEXTAUTH_URL=https://admin.tavia.io
+NEXTAUTH_SECRET=<generate-32-char-secret>
+JWT_SECRET=<generate-32-char-secret>
+WEBHOOK_SECRET=<generate-32-char-secret>
+NEXT_PUBLIC_APP_URL=https://admin.tavia.io
 
-# Deploy backoffice
-cd apps/backoffice
-vercel --prod
+# Frontoffice additional vars:
+NEXT_PUBLIC_APP_URL=https://app.tavia.io
 ```
 
-### Environment Variables
+**Generate Secrets:**
 
-Set in Vercel project settings:
+```bash
+# Run 3 times for NEXTAUTH_SECRET, JWT_SECRET, WEBHOOK_SECRET
+node -e "console.log(require('crypto').randomBytes(32).toString('base64'))"
+```
 
-- `DATABASE_URL` - Production PostgreSQL (Neon, Supabase, etc.)
-- `NEXTAUTH_URL` - Production URL
-- `NEXTAUTH_SECRET` - Generate with `openssl rand -base64 32`
+**Database Options:**
+
+- **Neon PostgreSQL** (Serverless, FREE tier) - Recommended for MVP
+- **AWS RDS** (Managed, $13-26/month)
+- **Supabase** (Includes Realtime features)
+
+**Custom Domains:**
+
+- Add `admin.tavia.io` → backoffice
+- Add `app.tavia.io` → frontoffice
+- SSL certificates provisioned automatically
+
+**Cost:** ~$20-30/month (with free database tier)
+
+### Terraform (Production Infrastructure)
+
+For production-grade deployment with auto-scaling, see `terraform/README.md`:
+
+- ECS Fargate for containerized apps
+- RDS PostgreSQL with Multi-AZ
+- Application Load Balancer with HTTPS
+- Auto-scaling (2-10 tasks)
+- CloudWatch monitoring
+- **Cost:** ~$170-220/month
+
+```bash
+cd terraform
+terraform init
+terraform plan
+terraform apply
+```
 
 ### Database Migrations
 
 ```bash
-# Production migrations (run before deploy)
-cd apps/backoffice
-npx prisma migrate deploy
+# Run migrations before deploy
+DATABASE_URL="postgresql://..." pnpm --filter=backoffice db:migrate:deploy
 ```
-
-### Production Database
-
-Use managed PostgreSQL:
-
-- **Neon** (recommended, serverless)
-- **Supabase** (includes Realtime)
-- **AWS RDS**
-- **Digital Ocean Managed Databases**
-
-**Important:**
-
-- Enable SSL connections
-- Set up connection pooling (Prisma Data Proxy or PgBouncer)
-- Regular automated backups
-- Use strong passwords
 
 ## 📖 Documentation
 
-- **Project Architecture**: See `.github/copilot-instructions.md`
+### Project Documentation
+
+- **Project Architecture**: `.github/copilot-instructions.md`
 - **Component Library**: `pnpm dev:storybook` → http://localhost:6006
 - **Database Schema**: `apps/backoffice/prisma/schema.prisma`
 - **Generator Templates**: `templates/` directory
+
+### App-Specific READMEs
+
+- **Backoffice**: `apps/backoffice/README.md`
+  - Authentication setup
+  - API routes documentation
+  - Webhook integration
+  - Role-based access control
+  - Feature flags and Freemium model
+
+- **Frontoffice**: `apps/frontoffice/README.md`
+  - Server actions pattern
+  - React Query setup
+  - Event discovery flow
+  - RSVP system
+
+- **Mobile**: `apps/mobile/README.md`
+  - Expo setup
+  - Platform-specific storage
+  - API configuration
+  - Testing on physical devices
+
+### Package Documentation
+
+- **@tavia/taviad**: `packages/taviad/README.md` - 60+ web components
+- **@tavia/taviax**: `packages/taviax/README.md` - React Native components
+- **@tavia/analytics**: `packages/analytics/README.md` - Event tracking SDK
+- **@tavia/env**: `packages/env/README.md` - Type-safe environment variables
+- **@tavia/logger**: `packages/logger/README.md` - Structured logging
+- **@tavia/module-generator**: `packages/module-generator/README.md` - Feature
+  scaffolding
+
+### Deployment & Infrastructure
+
+- **AWS Amplify**: See "Deployment" section above
+- **Terraform**: `terraform/README.md` - Production infrastructure as code
+- **Database Setup**: `apps/backoffice/DATABASE.md`
+- **Docker**: `apps/backoffice/DOCKER.md`
+
+### API Documentation
+
+**Interactive API Docs** (when backoffice is running):
+
+- **Swagger UI**: http://localhost:3000/api/docs/swagger (Try requests directly)
+- **Redoc**: http://localhost:3000/api/docs/redoc (Clean documentation)
+- **OpenAPI JSON**: http://localhost:3000/api/docs
+
+**Available API Routes:**
+
+- `/api/mobile/*` - Mobile app endpoints (CORS enabled)
+- `/api/webhooks` - Generic webhook with HMAC verification
+- `/api/health` - Health check endpoint
+- `/api/auth/[...nextauth]` - Auth.js authentication
+
+See backoffice README for detailed API documentation.
 
 ## 🤝 Contributing
 

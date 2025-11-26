@@ -386,6 +386,126 @@ Key dependencies:
 - ⏳ Email notifications
 - ⏳ Audit logs
 
+## API Documentation
+
+When the backoffice is running, access interactive API documentation:
+
+### Interactive Docs (Development)
+
+- **Swagger UI** (Try requests): http://localhost:3000/api/docs/swagger
+- **Redoc** (Clean docs): http://localhost:3000/api/docs/redoc
+- **OpenAPI JSON**: http://localhost:3000/api/docs
+
+### Production URLs
+
+- **Swagger UI**: https://admin.tavia.io/api/docs/swagger
+- **Redoc**: https://admin.tavia.io/api/docs/redoc
+- **OpenAPI JSON**: https://admin.tavia.io/api/docs
+
+### When to Use What
+
+**Swagger UI** (`/api/docs/swagger`):
+
+- ✅ Interactive API testing
+- ✅ Try requests directly in browser
+- ✅ Test authentication flows
+- ✅ See request/response examples
+- ✅ Best for development and QA
+
+**Redoc** (`/api/docs/redoc`):
+
+- ✅ Clean, professional documentation
+- ✅ Better for reading and understanding
+- ✅ Mobile-optimized
+- ✅ Three-panel layout (nav, content, code)
+- ✅ Best for production documentation
+
+### Available API Routes
+
+**Mobile App Endpoints** (`/api/mobile/*`):
+
+- `POST /api/mobile/auth/login` - Login (email/password)
+- `POST /api/mobile/auth/signup` - Register new user
+- `GET /api/mobile/auth/me` - Get current user (JWT auth)
+- `GET /api/mobile/events` - Search events
+- `GET /api/mobile/events/:id` - Event details
+- `POST /api/mobile/events/:id/join` - Join event (RSVP)
+
+**Webhooks**:
+
+- `POST /api/webhooks` - Generic webhook (HMAC verification)
+- `GET /api/webhooks` - Webhook documentation
+
+**Health Check**:
+
+- `GET /api/health` - Service health status
+
+**Authentication** (Auth.js):
+
+- `POST /api/auth/signin` - Sign in
+- `POST /api/auth/signout` - Sign out
+- `GET /api/auth/session` - Get session
+- `GET /api/auth/csrf` - CSRF token
+
+### Authentication Methods
+
+**Web (Auth.js):**
+
+- Email/Password credentials
+- Session-based (cookies)
+- Roles: ADMIN, ORGANIZER, MODERATOR
+
+**Mobile (JWT):**
+
+- Email/Password credentials
+- Token-based (Bearer tokens)
+- Role: ATTENDEE
+
+### Testing APIs
+
+**Using Swagger UI:**
+
+1. Go to http://localhost:3000/api/docs/swagger
+2. Click "Authorize" button (top right)
+3. For JWT endpoints: Enter `Bearer <your-token>`
+4. Click endpoint → "Try it out" → Fill parameters → "Execute"
+
+**Using cURL:**
+
+```bash
+# Login
+curl -X POST http://localhost:3000/api/mobile/auth/login \
+  -H "Content-Type: application/json" \
+  -d '{"email":"attendee1@tavia.io","password":"attendee123"}'
+
+# Get current user (JWT auth)
+curl http://localhost:3000/api/mobile/auth/me \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN"
+
+# Search events
+curl "http://localhost:3000/api/mobile/events?location=Paris&category=TECH"
+```
+
+**Using PowerShell:**
+
+```powershell
+# Login
+$body = @{
+    email = "attendee1@tavia.io"
+    password = "attendee123"
+} | ConvertTo-Json
+
+Invoke-RestMethod -Uri "http://localhost:3000/api/mobile/auth/login" `
+    -Method POST `
+    -ContentType "application/json" `
+    -Body $body
+
+# Get current user
+$token = "YOUR_JWT_TOKEN"
+Invoke-RestMethod -Uri "http://localhost:3000/api/mobile/auth/me" `
+    -Headers @{ Authorization = "Bearer $token" }
+```
+
 ## Learn More
 
 - [Next.js Documentation](https://nextjs.org/docs)
@@ -395,9 +515,14 @@ Key dependencies:
 - [Vitest Documentation](https://vitest.dev/)
 - [Turborepo Documentation](https://turbo.build/repo/docs)
 - [@tavia/taviad Component Library](../../packages/core/README.md)
+- [Swagger UI](https://swagger.io/tools/swagger-ui/)
+- [Redoc](https://redocly.com/redoc/)
+- [OpenAPI Specification](https://swagger.io/specification/)
 
 ## Additional Documentation
 
 - [`DATABASE.md`](./DATABASE.md) - Complete database and authentication setup
   guide
 - [`DOCKER.md`](./DOCKER.md) - Docker setup and commands
+- [`src/app/api/webhooks/README.md`](./src/app/api/webhooks/README.md) - Webhook
+  integration guide
