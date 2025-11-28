@@ -78,7 +78,7 @@ export const PATCH = withApiHandler(async (request, { session, params }) => {
   }
 
   const body = await request.json();
-  const { name, description, location, category } = body;
+  const { name, description, location, category, image, isPublic } = body;
 
   const updatedGroup = await prisma.group.update({
     where: { id: params!.id },
@@ -87,6 +87,8 @@ export const PATCH = withApiHandler(async (request, { session, params }) => {
       ...(description !== undefined && { description }),
       ...(location !== undefined && { location }),
       ...(category !== undefined && { category }),
+      ...(image !== undefined && { image }),
+      ...(isPublic !== undefined && { isPublic }),
     },
   });
 

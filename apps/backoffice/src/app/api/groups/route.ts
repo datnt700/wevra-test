@@ -64,7 +64,7 @@ export const POST = withApiHandler(
     }
 
     const body = await request.json();
-    const { name, description, location, category } = body;
+    const { name, description, location, category, image, isPublic } = body;
 
     if (!name) {
       throw new BadRequestError('Group name is required');
@@ -84,7 +84,9 @@ export const POST = withApiHandler(
         slug,
         description,
         location,
+        image,
         category: category || 'General',
+        isPublic: isPublic !== undefined ? isPublic : true,
         ownerId: session!.user!.id,
         isPremium: user.subscriptionStatus === SubscriptionStatus.PREMIUM,
       },

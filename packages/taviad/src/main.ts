@@ -127,6 +127,8 @@ export { Breadcrumb, type BreadcrumbProps } from './ui/breadcrumb';
 export { Link, type LinkProps } from './ui/link';
 export { Pagination, type PaginationProps } from './ui/pagination';
 export { Sidebar } from './ui/sidebar';
+export { WizardStepper } from './ui/stepper';
+export type { Step, WizardStepperProps } from './ui/stepper';
 
 // State Components
 export { EmptyState, type EmptyStateProps } from './ui/empty-state';

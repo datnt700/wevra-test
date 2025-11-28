@@ -5,25 +5,125 @@ import { type TaviaTheme } from '@tavia/taviad';
  * Styled components for GroupDetailClient
  */
 export const Styled = {
-  Container: styled.div`
-    max-width: 80rem;
-    margin: 0 auto;
-    padding: 2rem 1rem;
+  HeroSection: styled.div`
+    position: relative;
+    width: 100%;
+    height: 28rem;
+    overflow: hidden;
+    margin-bottom: 2rem;
 
     @media (max-width: 768px) {
-      padding: 1rem;
+      height: 24rem;
     }
   `,
 
-  CoverImage: styled.div<{ theme?: TaviaTheme }>`
-    margin-bottom: 2rem;
-    overflow: hidden;
-    border-radius: ${({ theme }) => theme.radii.lg};
+  CoverImage: styled.img`
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  `,
 
-    img {
+  HeroOverlay: styled.div`
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.6) 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 2rem;
+
+    @media (max-width: 768px) {
+      padding: 1.5rem;
+    }
+  `,
+
+  HeroContent: styled.div`
+    color: #ffffff;
+    margin-bottom: 1rem;
+  `,
+
+  HeroHeader: styled.div`
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    margin-bottom: 0.75rem;
+  `,
+
+  HeroTitle: styled.h1`
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin: 0;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+
+    @media (max-width: 768px) {
+      font-size: 1.875rem;
+    }
+  `,
+
+  BadgeGroup: styled.div`
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  `,
+
+  HeroMeta: styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    margin-bottom: 0.75rem;
+  `,
+
+  HeroCategory: styled.p`
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.9);
+    margin: 0;
+  `,
+
+  HeroLocation: styled.p`
+    font-size: 0.875rem;
+    color: rgba(255, 255, 255, 0.8);
+    margin: 0;
+  `,
+
+  HeroStats: styled.div`
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.875rem;
+    color: rgba(255, 255, 255, 0.9);
+  `,
+
+  HeroStatItem: styled.span`
+    strong {
+      font-weight: 600;
+      margin-right: 0.25rem;
+    }
+  `,
+
+  HeroStatDivider: styled.span`
+    color: rgba(255, 255, 255, 0.5);
+  `,
+
+  HeroActions: styled.div`
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+
+    @media (max-width: 768px) {
       width: 100%;
-      height: 16rem;
-      object-fit: cover;
+    }
+  `,
+
+  Container: styled.div`
+    max-width: 80rem;
+    margin: 0 auto;
+    padding: 0 1rem 2rem;
+
+    @media (max-width: 768px) {
+      padding: 0 1rem 1rem;
     }
   `,
 
