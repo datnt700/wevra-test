@@ -1,7 +1,33 @@
 import styled from '@emotion/styled';
-import { cssVars } from '@tavia/taviad';
+import { theme } from '@tavia/taviad';
 
 export const Styled = {
+  PageContainer: styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    padding: 2rem 1rem;
+    max-width: 64rem;
+    margin: 0 auto;
+  `,
+
+  PageHeader: styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  `,
+
+  PageTitle: styled.h1`
+    font-size: 2rem;
+    font-weight: 700;
+    color: ${theme.colors.text.primary};
+  `,
+
+  PageSubtitle: styled.p`
+    font-size: 1rem;
+    color: ${theme.colors.text.secondary};
+  `,
+
   Form: styled.form`
     display: flex;
     flex-direction: column;
@@ -36,7 +62,7 @@ export const Styled = {
     width: 2.5rem;
     align-items: center;
     justify-content: center;
-    border-radius: 50%;
+    border-radius: ${theme.radii.full};
     border: 2px solid;
     font-weight: 600;
     transition: all 0.2s;
@@ -44,14 +70,14 @@ export const Styled = {
     ${({ $isActive }) =>
       $isActive
         ? `
-          border-color: ${cssVars.colorCyan};
-          background-color: ${cssVars.colorCyan};
+          border-color: ${theme.colors.primary};
+          background-color: ${theme.colors.primary};
           color: white;
         `
         : `
-          border-color: ${cssVars.gray300};
+          border-color: ${theme.colors.border.default};
           background-color: white;
-          color: ${cssVars.gray400};
+          color: ${theme.colors.text.tertiary};
         `}
   `,
 
@@ -62,7 +88,7 @@ export const Styled = {
     transition: color 0.2s;
 
     ${({ $isActive }) =>
-      $isActive ? `color: ${cssVars.colorCyan};` : `color: ${cssVars.gray400};`}
+      $isActive ? `color: ${theme.colors.primary};` : `color: ${theme.colors.text.tertiary};`}
   `,
 
   StepConnector: styled.div<{ $isActive: boolean }>`
@@ -73,8 +99,8 @@ export const Styled = {
 
     ${({ $isActive }) =>
       $isActive
-        ? `background-color: ${cssVars.colorCyan};`
-        : `background-color: ${cssVars.gray300};`}
+        ? `background-color: ${theme.colors.primary};`
+        : `background-color: ${theme.colors.border.default};`}
   `,
 
   StepFields: styled.div`
@@ -84,9 +110,9 @@ export const Styled = {
   `,
 
   SummaryCard: styled.div`
-    border-radius: 0.5rem;
-    border: 1px solid ${cssVars.gray200};
-    background-color: ${cssVars.gray50};
+    border-radius: ${theme.radii.lg};
+    border: 1px solid ${theme.colors.border.default};
+    background-color: ${theme.colors.surface};
     padding: 1.5rem;
   `,
 
@@ -94,6 +120,7 @@ export const Styled = {
     margin-bottom: 1rem;
     font-size: 1.125rem;
     font-weight: 600;
+    color: ${theme.colors.text.primary};
   `,
 
   SummaryList: styled.dl`
@@ -107,17 +134,17 @@ export const Styled = {
 
   SummaryLabel: styled.dt`
     font-weight: 500;
-    color: ${cssVars.gray700};
+    color: ${theme.colors.text.secondary};
   `,
 
   SummaryValue: styled.dd`
-    color: ${cssVars.gray600};
+    color: ${theme.colors.text.tertiary};
   `,
 
   ButtonGroup: styled.div`
     display: flex;
     gap: 1rem;
-    border-top: 1px solid ${cssVars.gray200};
+    border-top: 1px solid ${theme.colors.border.default};
     padding-top: 1.5rem;
   `,
 };

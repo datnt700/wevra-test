@@ -61,12 +61,9 @@ export function BackofficeLayoutClient({ children }: { children: React.ReactNode
   // Initialize as false to match server-rendered state and avoid hydration mismatch
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(true);
-  const [mounted, setMounted] = useState(false);
 
   // Detect screen size and adjust sidebar default state
   useEffect(() => {
-    setMounted(true);
-
     const checkMobile = () => {
       const mobile = window.innerWidth < 1024;
       setIsMobile(mobile);
@@ -92,19 +89,12 @@ export function BackofficeLayoutClient({ children }: { children: React.ReactNode
   };
 
   return (
-    <LayoutWrapper key={mounted ? 'mounted' : 'unmounted'}>
-      <BackofficeHeader
-        onToggleSidebar={toggleSidebar}
-        isMobile={mounted ? isMobile : true}
-        sidebarOpen={mounted ? sidebarOpen : false}
-      />
+    <LayoutWrapper>
+      <BackofficeHeader onToggleSidebar={toggleSidebar} isMobile={isMobile} />
       <MainContainer>
-        <BackofficeSidebar
-          isOpen={mounted ? sidebarOpen : false}
-          isMobile={mounted ? isMobile : true}
-        />
-        <Backdrop $isVisible={mounted && sidebarOpen && isMobile} onClick={closeSidebar} />
-        <ContentArea $sidebarOpen={mounted ? sidebarOpen : false}>{children}</ContentArea>
+        <BackofficeSidebar isOpen={sidebarOpen} isMobile={isMobile} />
+        <Backdrop $isVisible={sidebarOpen && isMobile} onClick={closeSidebar} />
+        <ContentArea $sidebarOpen={sidebarOpen}>{children}</ContentArea>
       </MainContainer>
     </LayoutWrapper>
   );

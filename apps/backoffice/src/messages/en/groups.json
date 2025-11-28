@@ -150,6 +150,8 @@
     "subtitle": "Update information for",
     "deleteButton": "Delete Group",
     "deleteConfirm": "Are you sure you want to delete this group? This action cannot be undone.",
+    "deleteModalTitle": "Delete Group",
+    "deleteConfirmMessage": "Are you sure you want to delete this group? This action cannot be undone and all group data will be permanently removed.",
     "deleting": "Deleting...",
     "updating": "Updating...",
     "success": "Group updated successfully! Redirecting...",
@@ -162,15 +164,20 @@
     }
   },
   "categories": {
-    "Technology": "Technology",
-    "Business": "Business",
-    "Arts": "Arts & Culture",
-    "Sports": "Sports & Fitness",
-    "Education": "Education",
-    "Health": "Health & Wellness",
-    "Social": "Social",
     "Food": "Food & Drink",
-    "Travel": "Travel & Adventure",
-    "Other": "Other"
+    "Sports": "Sports & Fitness",
+    "Arts": "Arts & Culture"
+  },
+  "create": {
+    "reviewTitle": "Review Your Group",
+    "summaryLocation": "Location",
+    "summaryCategory": "Category",
+    "summaryName": "Name",
+    "summaryVisibility": "Visibility",
+    "notSpecified": "Not specified",
+    "visibilityPublic": "Public",
+    "visibilityPrivate": "Private",
+    "previousButton": "Previous",
+    "nextButton": "Next"
   }
 }

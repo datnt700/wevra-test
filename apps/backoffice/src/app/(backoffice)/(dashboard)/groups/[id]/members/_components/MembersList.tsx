@@ -4,24 +4,13 @@ import { useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { Button, Alert } from '@tavia/taviad';
 import { useApproveMember, useRemoveMember } from '../../../_hooks/useGroups';
-
-interface Member {
-  id: string;
-  status: string;
-  role: string;
-  joinedAt: Date;
-  user: {
-    id: string;
-    name: string | null;
-    email: string;
-    image: string | null;
-  };
-}
+import { Styled } from './MembersList.styles';
+import type { GroupMemberWithUser } from '@tavia/database';
 
 interface MembersListProps {
   groupId: string;
-  activeMembers: Member[];
-  pendingMembers: Member[];
+  activeMembers: GroupMemberWithUser[];
+  pendingMembers: GroupMemberWithUser[];
   maxMembers: number;
 }
 
@@ -94,48 +83,40 @@ export function MembersList({
   };
 
   return (
-    <div className="space-y-6">
+    <Styled.Container>
       {error && <Alert variant="danger" title={error} />}
 
       {success && <Alert variant="success" title={success} />}
 
       {/* Pending Requests */}
       {pendingMembers.length > 0 && (
-        <div className="rounded-lg bg-white p-6 shadow-md">
-          <h2 className="mb-4 text-xl font-semibold">
+        <Styled.Section>
+          <Styled.SectionTitle>
             {t('members.pendingRequests')} ({pendingMembers.length})
-          </h2>
-          <div className="space-y-4">
+          </Styled.SectionTitle>
+          <Styled.MembersList>
             {pendingMembers.map((member) => (
-              <div
-                key={member.id}
-                className="flex items-center justify-between rounded-lg border p-4"
-              >
-                <div className="flex items-center gap-3">
-                  {member.user.image ? (
-                    <img
-                      src={member.user.image}
-                      alt={member.user.name || 'Member'}
-                      className="h-12 w-12 rounded-full"
-                    />
-                  ) : (
-                    <div className="flex h-12 w-12 items-center justify-center rounded-full bg-gray-300">
-                      <span className="font-medium text-gray-600">
+              <Styled.MemberCard key={member.id}>
+                <Styled.MemberInfo>
+                  <Styled.Avatar $hasImage={!!member.user.image}>
+                    {member.user.image ? (
+                      <img src={member.user.image} alt={member.user.name || 'Member'} />
+                    ) : (
+                      <span>
                         {member.user.name?.[0] || member.user.email?.[0]?.toUpperCase() || 'U'}
                       </span>
-                    </div>
-                  )}
-                  <div>
-                    <p className="font-medium">{member.user.name || 'Unknown'}</p>
-                    <p className="text-sm text-gray-500">{member.user.email}</p>
-                  </div>
-                </div>
-                <div className="flex gap-2">
+                    )}
+                  </Styled.Avatar>
+                  <Styled.MemberDetails>
+                    <Styled.MemberName>{member.user.name || 'Unknown'}</Styled.MemberName>
+                    <Styled.MemberEmail>{member.user.email}</Styled.MemberEmail>
+                  </Styled.MemberDetails>
+                </Styled.MemberInfo>
+                <Styled.ActionButtons>
                   <Button
                     variant="primary"
                     onClick={() => handleApprove(member.id)}
                     disabled={approveMemberMutation.isPending || removeMemberMutation.isPending}
-                    className="px-3 py-1 text-sm"
                   >
                     {t('members.approveButton')}
                   </Button>
@@ -143,80 +124,69 @@ export function MembersList({
                     variant="danger"
                     onClick={() => handleReject(member.id)}
                     disabled={approveMemberMutation.isPending || removeMemberMutation.isPending}
-                    className="px-3 py-1 text-sm"
                   >
                     {t('members.rejectButton')}
                   </Button>
-                </div>
-              </div>
+                </Styled.ActionButtons>
+              </Styled.MemberCard>
             ))}
-          </div>
-        </div>
+          </Styled.MembersList>
+        </Styled.Section>
       )}
 
       {/* Active Members */}
-      <div className="rounded-lg bg-white p-6 shadow-md">
-        <h2 className="mb-4 text-xl font-semibold">
+      <Styled.Section>
+        <Styled.SectionTitle>
           {t('members.activeMembers')} ({activeMembers.length})
-        </h2>
+        </Styled.SectionTitle>
         {activeMembers.length === 0 ? (
-          <p className="text-gray-600">{t('members.noActiveMembers')}</p>
+          <Styled.EmptyState>{t('members.noActiveMembers')}</Styled.EmptyState>
         ) : (
-          <div className="space-y-4">
+          <Styled.MembersList>
             {activeMembers.map((member) => (
-              <div
-                key={member.id}
-                className="flex items-center justify-between rounded-lg border p-4"
-              >
-                <div className="flex items-center gap-3">
-                  {member.user.image ? (
-                    <img
-                      src={member.user.image}
-                      alt={member.user.name || 'Member'}
-                      className="h-12 w-12 rounded-full"
-                    />
-                  ) : (
-                    <div className="flex h-12 w-12 items-center justify-center rounded-full bg-gray-300">
-                      <span className="font-medium text-gray-600">
+              <Styled.MemberCard key={member.id}>
+                <Styled.MemberInfo>
+                  <Styled.Avatar $hasImage={!!member.user.image}>
+                    {member.user.image ? (
+                      <img src={member.user.image} alt={member.user.name || 'Member'} />
+                    ) : (
+                      <span>
                         {member.user.name?.[0] || member.user.email?.[0]?.toUpperCase() || 'U'}
                       </span>
-                    </div>
-                  )}
-                  <div>
-                    <div className="flex items-center gap-2">
-                      <p className="font-medium">{member.user.name || 'Unknown'}</p>
+                    )}
+                  </Styled.Avatar>
+                  <Styled.MemberDetails>
+                    <Styled.MemberNameWithRoles>
+                      <Styled.MemberName>{member.user.name || 'Unknown'}</Styled.MemberName>
                       {member.role === 'MODERATOR' && (
-                        <span className="rounded-full bg-blue-100 px-2 py-1 text-xs text-blue-800">
+                        <Styled.RoleBadge $role="moderator">
                           {t('members.moderator')}
-                        </span>
+                        </Styled.RoleBadge>
                       )}
                       {member.role === 'ADMIN' && (
-                        <span className="rounded-full bg-green-100 px-2 py-1 text-xs text-green-800">
-                          {t('members.admin')}
-                        </span>
+                        <Styled.RoleBadge $role="admin">{t('members.admin')}</Styled.RoleBadge>
                       )}
-                    </div>
-                    <p className="text-sm text-gray-500">{member.user.email}</p>
-                    <p className="text-xs text-gray-400">
+                    </Styled.MemberNameWithRoles>
+                    <Styled.MemberEmail>{member.user.email}</Styled.MemberEmail>
+                    <Styled.MemberMeta>
                       {t('members.joined', {
                         date: new Date(member.joinedAt).toLocaleDateString(),
                       })}
-                    </p>
-                  </div>
-                </div>
+                    </Styled.MemberMeta>
+                  </Styled.MemberDetails>
+                </Styled.MemberInfo>
                 <Button
                   variant="danger"
                   onClick={() => handleRemove(member.id)}
                   disabled={approveMemberMutation.isPending || removeMemberMutation.isPending}
-                  className="px-3 py-1 text-sm"
                 >
                   {t('members.removeButton')}
                 </Button>
-              </div>
+              </Styled.MemberCard>
             ))}
-          </div>
+          </Styled.MembersList>
         )}
-      </div>
-    </div>
+      </Styled.Section>
+    </Styled.Container>
   );
 }

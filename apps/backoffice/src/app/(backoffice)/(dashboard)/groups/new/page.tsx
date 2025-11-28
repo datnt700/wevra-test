@@ -16,7 +16,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function CreateGroupPage() {
   const session = await auth();
-  const t = await getTranslations('groups');
+  const _t = await getTranslations('groups');
 
   if (!session?.user) {
     redirect(ROUTES.AUTH.LOGIN);
@@ -33,14 +33,5 @@ export default async function CreateGroupPage() {
     redirect(ROUTES.DASHBOARD.UPGRADE);
   }
 
-  return (
-    <div className="container mx-auto max-w-4xl px-4 py-8">
-      <div className="mb-8">
-        <h1 className="mb-2 text-3xl font-bold">{t('title')}</h1>
-        <p className="text-gray-600">{t('subtitle')}</p>
-      </div>
-
-      <CreateGroupForm userId={session.user.id} />
-    </div>
-  );
+  return <CreateGroupForm userId={session.user.id} />;
 }

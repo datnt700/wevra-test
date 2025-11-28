@@ -1,9 +1,20 @@
+'use client';
+
+import styled from '@emotion/styled';
+import { theme } from '@tavia/taviad';
+
 interface FieldErrorProps {
   message?: string;
 }
 
+const ErrorText = styled.p`
+  margin-top: 0.25rem;
+  font-size: 0.875rem;
+  color: ${theme.colors.danger};
+`;
+
 export function FieldError({ message }: FieldErrorProps) {
   if (!message) return null;
 
-  return <p className="mt-1 text-sm text-red-600">{message}</p>;
+  return <ErrorText>{message}</ErrorText>;
 }

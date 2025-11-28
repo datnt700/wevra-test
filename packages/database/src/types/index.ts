@@ -7,3 +7,6 @@
 
 // Export common types
 export * from './common';
+
+// Export group types
+export * from './group';

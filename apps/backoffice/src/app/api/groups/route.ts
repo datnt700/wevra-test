@@ -70,11 +70,12 @@ export const POST = withApiHandler(
       throw new BadRequestError('Group name is required');
     }
 
-    // Generate slug from name
-    const slug = name
+    // Generate slug from name (add timestamp to ensure uniqueness)
+    const baseSlug = name
       .toLowerCase()
       .replace(/[^a-z0-9]+/g, '-')
       .replace(/^-|-$/g, '');
+    const slug = `${baseSlug}-${Date.now()}`;
 
     // Create the group
     const group = await prisma.group.create({

@@ -150,6 +150,8 @@
     "subtitle": "Cập nhật thông tin cho",
     "deleteButton": "Xóa Nhóm",
     "deleteConfirm": "Bạn có chắc chắn muốn xóa nhóm này? Hành động này không thể hoàn tác.",
+    "deleteModalTitle": "Xóa Nhóm",
+    "deleteConfirmMessage": "Bạn có chắc chắn muốn xóa nhóm này? Hành động này không thể hoàn tác và tất cả dữ liệu nhóm sẽ bị xóa vĩnh viễn.",
     "deleting": "Đang xóa...",
     "updating": "Đang cập nhật...",
     "success": "Cập nhật nhóm thành công! Đang chuyển hướng...",
@@ -162,15 +164,20 @@
     }
   },
   "categories": {
-    "Technology": "Công Nghệ",
-    "Business": "Kinh Doanh",
-    "Arts": "Nghệ Thuật & Văn Hóa",
-    "Sports": "Thể Thao & Sức Khỏe",
-    "Education": "Giáo Dục",
-    "Health": "Sức Khỏe & Tinh Thần",
-    "Social": "Xã Hội",
     "Food": "Ẩm Thực",
-    "Travel": "Du Lịch & Phiêu Lưu",
-    "Other": "Khác"
+    "Sports": "Thể Thao & Sức Khỏe",
+    "Arts": "Nghệ Thuật & Văn Hóa"
+  },
+  "create": {
+    "reviewTitle": "Xem Lại Nhóm",
+    "summaryLocation": "Địa Điểm",
+    "summaryCategory": "Danh Mục",
+    "summaryName": "Tên",
+    "summaryVisibility": "Hiển Thị",
+    "notSpecified": "Chưa xác định",
+    "visibilityPublic": "Công Khai",
+    "visibilityPrivate": "Riêng Tư",
+    "previousButton": "Quay Lại",
+    "nextButton": "Tiếp Theo"
   }
 }

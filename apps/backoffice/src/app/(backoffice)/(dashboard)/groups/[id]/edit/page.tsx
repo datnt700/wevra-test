@@ -31,7 +31,7 @@ export async function generateMetadata({ params }: EditGroupPageProps): Promise<
 export default async function EditGroupPage({ params }: EditGroupPageProps) {
   const session = await auth();
   const { id } = await params;
-  const t = await getTranslations('groups');
+  const _t = await getTranslations('groups');
 
   if (!session?.user) {
     redirect(ROUTES.AUTH.LOGIN);
@@ -50,14 +50,5 @@ export default async function EditGroupPage({ params }: EditGroupPageProps) {
     redirect(ROUTES.GROUP.DETAIL(id));
   }
 
-  return (
-    <div className="container mx-auto max-w-4xl px-4 py-8">
-      <div className="mb-8">
-        <h1 className="mb-2 text-3xl font-bold">{t('edit.title')}</h1>
-        <p className="text-gray-600">{t('edit.subtitle')}</p>
-      </div>
-
-      <EditGroupForm group={group} />
-    </div>
-  );
+  return <EditGroupForm group={group} />;
 }
