@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import { motion } from 'framer-motion';
+import { theme } from '@tavia/taviad';
 
 /**
  * Styled components for BackofficeSidebar
@@ -9,22 +10,21 @@ import { motion } from 'framer-motion';
  */
 export const Styled = {
   Wrapper: styled(motion.aside)<{ $isOpen: boolean; $isMobile: boolean }>`
-    position: fixed;
-    left: 0;
-    top: 46px; /* Reduced header height (20% reduction from 57px) */
-    bottom: 0;
-    background: white;
-    border-right: 1px solid #e5e7eb;
+    position: relative;
+    background: ${theme.colors.background};
+    border-right: 1px solid ${theme.colors.border.default};
     overflow-x: hidden;
     overflow-y: auto;
+    height: 100%;
     /* Remove CSS transition - let Framer Motion handle width animation */
     transition: box-shadow 0.3s ease; /* Smooth shadow transition */
 
-    /* Desktop: lower z-index, part of layout */
-    z-index: 90;
-
-    /* Mobile/Tablet: overlay with shadow, hide when closed */
+    /* Mobile/Tablet: overlay with shadow */
     @media (max-width: 1023px) {
+      position: fixed;
+      left: 0;
+      top: 0;
+      bottom: 0;
       z-index: 90;
       box-shadow: ${({ $isOpen }) => ($isOpen ? '2px 0 8px rgba(0, 0, 0, 0.15)' : 'none')};
     }
@@ -35,7 +35,7 @@ export const Styled = {
     height: 100%;
     display: flex;
     flex-direction: column;
-    padding: 1.5rem 0;
+    padding: 1rem 0 0 0; /* Add top padding */
   `,
 
   Nav: styled.nav`
@@ -48,13 +48,15 @@ export const Styled = {
 
   NavItemWrapper: styled.div<{ $isActive?: boolean; $isOpen?: boolean }>`
     border-radius: 0.5rem;
-    background-color: ${({ $isActive }) => ($isActive ? '#fff5f5' : 'transparent')};
+    background-color: ${({ $isActive }) =>
+      $isActive ? theme.colors.primaryActive + '15' : 'transparent'}; /* 15 = ~8% opacity */
     transition: all 0.2s;
     white-space: nowrap;
     position: relative;
 
     &:hover {
-      background-color: ${({ $isActive }) => ($isActive ? '#fff5f5' : '#f9fafb')};
+      background-color: ${({ $isActive }) =>
+        $isActive ? theme.colors.primaryActive + '15' : theme.colors.surfaceHover};
     }
 
     a {
@@ -62,14 +64,14 @@ export const Styled = {
       align-items: center;
       padding: 0.75rem;
       text-decoration: none;
-      color: ${({ $isActive }) => ($isActive ? '#ff695c' : '#6b7280')};
+      color: ${({ $isActive }) => ($isActive ? theme.colors.primary : theme.colors.text.secondary)};
       font-weight: ${({ $isActive }) => ($isActive ? '600' : '500')};
       font-size: 0.875rem;
       cursor: pointer;
       transition: color 0.2s;
 
       &:hover {
-        color: ${({ $isActive }) => ($isActive ? '#ff695c' : '#374151')};
+        color: ${({ $isActive }) => ($isActive ? theme.colors.primary : theme.colors.text.primary)};
       }
 
       svg {
@@ -101,8 +103,9 @@ export const Styled = {
     padding: 0.75rem 1rem;
     border-radius: 0.5rem;
     text-decoration: none;
-    color: ${({ $isActive }) => ($isActive ? '#ff695c' : '#6b7280')};
-    background-color: ${({ $isActive }) => ($isActive ? '#fff5f5' : 'transparent')};
+    color: ${({ $isActive }) => ($isActive ? theme.colors.primary : theme.colors.text.secondary)};
+    background-color: ${({ $isActive }) =>
+      $isActive ? theme.colors.primaryActive + '15' : 'transparent'}; /* 15 = ~8% opacity */
     font-weight: ${({ $isActive }) => ($isActive ? '600' : '500')};
     font-size: 0.875rem;
     transition: all 0.2s;
@@ -110,8 +113,9 @@ export const Styled = {
     white-space: nowrap;
 
     &:hover {
-      background-color: ${({ $isActive }) => ($isActive ? '#fff5f5' : '#f9fafb')};
-      color: ${({ $isActive }) => ($isActive ? '#ff695c' : '#374151')};
+      background-color: ${({ $isActive }) =>
+        $isActive ? theme.colors.primaryActive + '15' : theme.colors.surfaceHover};
+      color: ${({ $isActive }) => ($isActive ? theme.colors.primary : theme.colors.text.primary)};
     }
 
     svg {
@@ -134,7 +138,7 @@ export const Styled = {
   SectionTitle: styled.h3`
     font-size: 0.75rem;
     font-weight: 600;
-    color: #9ca3af;
+    color: ${theme.colors.text.tertiary};
     text-transform: uppercase;
     letter-spacing: 0.05em;
     margin: 0 0 0.75rem 0;

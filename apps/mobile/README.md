@@ -41,26 +41,100 @@ pnpm install
 
 ### 2. Configure Environment
 
-The `.env` file is already configured with your local IP. **Update if your IP
-changes:**
+**Create `.env` file:**
 
-```env
-# For physical devices (current setup):
-EXPO_PUBLIC_API_URL=http://192.168.1.16:3000
-
-# For web/simulator testing, change to:
-EXPO_PUBLIC_API_URL=http://localhost:3000
+```bash
+cp .env.example .env
 ```
 
-**Finding your IP:**
+**Update API URL** based on your testing platform:
+
+```env
+# For physical devices (Expo Go on phone):
+EXPO_PUBLIC_API_URL=http://192.168.1.16:3000  # Your computer's local IP
+
+# For web browser / iOS Simulator:
+EXPO_PUBLIC_API_URL=http://localhost:3000
+
+# For Android Emulator:
+EXPO_PUBLIC_API_URL=http://10.0.2.2:3000
+```
+
+**Finding your local IP:**
 
 ```bash
 # Windows
 ipconfig  # Look for IPv4 Address under Wi-Fi adapter
 
 # Mac/Linux
-ifconfig  # or: ip addr
+ifconfig  # Look for inet under en0 (WiFi)
 ```
+
+**Environment Files:**
+
+Expo supports multiple environment files (see `ENV_GUIDE.md` for details):
+
+- `.env.example` - Template with all variables (committed)
+- `.env` - Your local environment (gitignored)
+- `.env.local` - Local overrides (gitignored)
+- `.env.development` - Development config (committed)
+- `.env.production` - Production config (committed)
+
+**Available Variables:**
+
+```env
+# API Configuration
+EXPO_PUBLIC_API_URL=http://192.168.1.16:3000
+EXPO_PUBLIC_ANALYTICS_API_URL=http://192.168.1.16:3001
+
+# OAuth Providers
+EXPO_PUBLIC_GOOGLE_CLIENT_ID=your_google_client_id
+EXPO_PUBLIC_FACEBOOK_CLIENT_ID=your_facebook_app_id
+# Apple Sign In configured in app.json (no env var needed)
+
+# Analytics
+EXPO_PUBLIC_ANALYTICS_API_KEY=your-api-key
+EXPO_PUBLIC_ENABLE_ANALYTICS=true
+
+# App Configuration
+EXPO_PUBLIC_APP_NAME=Tavia Mobile
+EXPO_PUBLIC_APP_VERSION=0.1.0
+EXPO_PUBLIC_ENVIRONMENT=development
+
+# Feature Flags
+EXPO_PUBLIC_ENABLE_DEBUG=true
+EXPO_PUBLIC_ENABLE_PERFORMANCE_MONITORING=false
+
+# Build-Time Variables (app.config.js only - NOT exposed to client)
+APP_VARIANT=development
+SENTRY_AUTH_TOKEN=secret-token
+```
+
+**Security Notes:**
+
+- ✅ **EXPO*PUBLIC*** prefix: Variables exposed to client code
+- ❌ **No prefix**: Build-time only (app.config.js), not exposed to client
+- ⚠️ Never store secrets in `EXPO_PUBLIC_` variables (visible in compiled app)
+
+**EAS Environment System:**
+
+For CI/CD with EAS Build/Update:
+
+```bash
+# Pull EAS environment variables to local .env
+eas env:pull --environment development
+
+# Create EAS environment variable
+eas env:create --name EXPO_PUBLIC_API_URL --value https://api.tavia.io --environment production
+
+# Build with EAS environment
+eas build --profile production  # Uses EAS production environment
+
+# Publish update with EAS environment
+eas update --environment production
+```
+
+📖 **See `ENV_GUIDE.md` for complete environment variables documentation**
 
 ### 3. Start Backend API
 

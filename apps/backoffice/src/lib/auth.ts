@@ -8,6 +8,7 @@ import bcrypt from 'bcryptjs';
 import { z } from 'zod';
 import { prisma } from '@/lib/prisma';
 import { USER_ROLES, ROUTES } from '@/lib/constants';
+import { env, envUtils } from '@/lib/env';
 
 const loginSchema = z.object({
   email: z.string().email(),
@@ -25,18 +26,43 @@ const result = NextAuth({
     error: ROUTES.AUTH.LOGIN,
   },
   providers: [
-    Google({
-      clientId: process.env.GOOGLE_CLIENT_ID!,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
-    }),
-    Apple({
-      clientId: process.env.APPLE_CLIENT_ID!,
-      clientSecret: process.env.APPLE_CLIENT_SECRET!,
-    }),
-    Facebook({
-      clientId: process.env.FACEBOOK_CLIENT_ID!,
-      clientSecret: process.env.FACEBOOK_CLIENT_SECRET!,
-    }),
+    // OAuth Providers (conditionally enabled based on env)
+    ...(envUtils.hasGoogleOAuth
+      ? [
+          Google({
+            clientId: env.GOOGLE_CLIENT_ID!,
+            clientSecret: env.GOOGLE_CLIENT_SECRET!,
+            authorization: {
+              params: {
+                prompt: 'consent',
+                access_type: 'offline',
+                response_type: 'code',
+              },
+            },
+          }),
+        ]
+      : []),
+    ...(envUtils.hasAppleOAuth
+      ? [
+          Apple({
+            clientId: env.APPLE_CLIENT_ID!,
+            clientSecret: env.APPLE_CLIENT_SECRET!,
+            authorization: {
+              params: {
+                response_mode: 'form_post',
+              },
+            },
+          }),
+        ]
+      : []),
+    ...(envUtils.hasFacebookOAuth
+      ? [
+          Facebook({
+            clientId: env.FACEBOOK_CLIENT_ID!,
+            clientSecret: env.FACEBOOK_CLIENT_SECRET!,
+          }),
+        ]
+      : []),
     Credentials({
       name: 'credentials',
       credentials: {

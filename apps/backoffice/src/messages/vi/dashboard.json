@@ -1,24 +1,44 @@
 {
   "title": "Bảng điều khiển",
-  "welcome": "Chào mừng trở lại, {name}",
+  "welcome": "Chào mừng trở lại",
+  "premiumAccount": "Tài khoản Premium",
+  "freePlan": "Gói miễn phí",
+  "createGroup": "Tạo nhóm",
+  "createEvent": "Tạo sự kiện",
+  "totalGroups": "Tổng số nhóm",
+  "totalEvents": "Tổng số sự kiện",
+  "totalMembers": "Tổng số thành viên",
+  "avgMembersPerGroup": "TB thành viên/nhóm",
+  "quickActions": "Hành động nhanh",
+  "manageGroups": "Quản lý nhóm",
+  "viewAndManageAllGroups": "Xem và quản lý tất cả nhóm của bạn",
+  "manageEvents": "Quản lý sự kiện",
+  "viewAndManageAllEvents": "Xem và quản lý tất cả sự kiện của bạn",
+  "settings": "Cài đặt",
+  "configureAccount": "Cấu hình cài đặt tài khoản",
+  "apiDocs": "Tài liệu API",
+  "viewApiDocumentation": "Xem tài liệu API (Swagger)",
+  "recentGroups": "Nhóm gần đây",
+  "recentEvents": "Sự kiện gần đây",
+  "noGroupsYet": "Chưa có nhóm nào",
+  "createFirstGroup": "Tạo nhóm đầu tiên",
+  "noEventsYet": "Chưa có sự kiện nào",
+  "createFirstEvent": "Tạo sự kiện đầu tiên",
+  "upgradeToPremium": "Nâng cấp lên Premium",
+  "unlockAllFeatures": "Mở khóa nhóm, sự kiện, phân tích không giới hạn và nhiều hơn nữa!",
+  "viewPlans": "Xem gói",
   "roles": {
     "admin": "Quản trị viên",
-    "restaurantOwner": "Chủ nhà hàng"
+    "organizer": "Người tổ chức",
+    "moderator": "Người điều hành"
   },
   "stats": {
-    "totalRestaurants": "Tổng số nhà hàng",
-    "activeBookings": "Đặt chỗ đang hoạt động",
-    "totalTables": "Tổng số bàn"
+    "totalGroups": "Tổng số nhóm",
+    "totalEvents": "Tổng số sự kiện",
+    "totalMembers": "Tổng số thành viên"
   },
-  "quickActions": {
-    "title": "Hành động nhanh",
-    "addRestaurant": "Thêm nhà hàng",
-    "viewBookings": "Xem đặt chỗ",
-    "manageTables": "Quản lý bàn",
-    "settings": "Cài đặt"
-  },
-  "restaurants": {
-    "title": "Nhà hàng của bạn",
+  "groups": {
+    "title": "Nhóm của bạn",
     "manage": "Quản lý",
     "status": {
       "active": "Hoạt động",
@@ -26,8 +46,8 @@
     }
   },
   "emptyState": {
-    "title": "Chưa có nhà hàng nào",
-    "description": "Bắt đầu bằng cách thêm nhà hàng hoặc quán cà phê đầu tiên của bạn",
-    "button": "Thêm nhà hàng đầu tiên"
+    "title": "Chưa có nhóm nào",
+    "description": "Bắt đầu bằng cách tạo nhóm cộng đồng đầu tiên của bạn",
+    "button": "Tạo nhóm đầu tiên"
   }
 }

@@ -316,34 +316,135 @@ pnpm type-check
 
 ## Environment Variables
 
-Create a `.env.local` file for local development:
+### Quick Setup
 
-```env
-# Database
-DATABASE_URL="postgresql://postgres:postgres@localhost:5432/web"
-
-# Auth.js
-AUTH_SECRET="your-secret-key-here"  # Generate with: openssl rand -base64 32
-AUTH_URL="http://localhost:3000"
-
-# App
-NODE_ENV=development
-NEXT_PUBLIC_APP_URL=http://localhost:3000
-
-# OAuth (optional, currently disabled)
-# GOOGLE_CLIENT_ID=
-# GOOGLE_CLIENT_SECRET=
-# GITHUB_CLIENT_ID=
-# GITHUB_CLIENT_SECRET=
-```
-
-**Generate AUTH_SECRET:**
+Create `.env` file from the example:
 
 ```bash
-openssl rand -base64 32
+cp .env.example .env
 ```
 
-See `.env.example` for all available variables and `DATABASE.md` for setup
+### Required Variables
+
+```env
+# Database (shared with frontoffice)
+DATABASE_URL="postgresql://postgres:postgres@localhost:5432/tavia?schema=public"
+
+# PostgreSQL Docker Container Settings
+POSTGRES_USER=postgres
+POSTGRES_PASSWORD=postgres
+POSTGRES_DB=tavia
+
+# NextAuth.js
+NEXTAUTH_URL=http://localhost:3000
+NEXTAUTH_SECRET=<generate-32-char-secret>
+
+# JWT for Mobile Auth (Optional - uses NEXTAUTH_SECRET as fallback)
+JWT_SECRET=<generate-32-char-secret>
+
+# App Configuration
+NODE_ENV=development
+NEXT_PUBLIC_APP_URL=http://localhost:3000
+NEXT_PUBLIC_APP_NAME=Tavia
+```
+
+### OAuth Providers (Optional)
+
+For social login functionality:
+
+```env
+# Google OAuth
+GOOGLE_CLIENT_ID=your-google-client-id
+GOOGLE_CLIENT_SECRET=your-google-client-secret
+
+# Apple OAuth
+APPLE_CLIENT_ID=your-apple-client-id
+APPLE_CLIENT_SECRET=your-apple-client-secret
+
+# Facebook OAuth
+FACEBOOK_CLIENT_ID=your-facebook-client-id
+FACEBOOK_CLIENT_SECRET=your-facebook-client-secret
+```
+
+📖 **See `docs/OAUTH_QUICKSTART.md` for step-by-step OAuth setup guide**
+
+### Stripe Configuration (Required for Premium Features)
+
+```env
+# Stripe Subscription Billing
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=pk_test_xxx
+STRIPE_SECRET_KEY=sk_test_xxx
+STRIPE_WEBHOOK_SECRET=whsec_xxx
+STRIPE_MONTHLY_PRICE_ID=price_xxx  # $29/month plan
+STRIPE_ANNUAL_PRICE_ID=price_xxx   # $290/year plan
+```
+
+### Analytics (Optional)
+
+```env
+# Analytics API
+ANALYTICS_API_KEY=your-api-key
+
+# Feature Flags
+NEXT_PUBLIC_ENABLE_ANALYTICS=false
+NEXT_PUBLIC_ENABLE_STRIPE=true
+```
+
+### Email Configuration (Optional)
+
+For magic links and notifications:
+
+```env
+EMAIL_SERVER_HOST=smtp.gmail.com
+EMAIL_SERVER_PORT=587
+EMAIL_SERVER_USER=your-email@gmail.com
+EMAIL_SERVER_PASSWORD=your-email-password
+EMAIL_FROM=noreply@tavia.com
+```
+
+### Generate Secrets
+
+**For NEXTAUTH_SECRET and JWT_SECRET:**
+
+```bash
+# Method 1: OpenSSL
+openssl rand -base64 32
+
+# Method 2: Node.js
+node -e "console.log(require('crypto').randomBytes(32).toString('base64'))"
+
+# Output example: YCOCS7wRIczdIfSbIaDf7vkx5r6R7vQvRNItJAV/OOM=
+```
+
+### Environment Types
+
+Next.js supports multiple environment files:
+
+- `.env` - Default for all environments
+- `.env.local` - Local overrides (gitignored, highest priority)
+- `.env.development` - Development mode (`npm run dev`)
+- `.env.production` - Production builds (`npm run build`)
+- `.env.test` - Test environment
+
+**Priority:** `.env.local` > `.env.{NODE_ENV}` > `.env`
+
+### Security Best Practices
+
+✅ **DO:**
+
+- Use `NEXT_PUBLIC_` prefix for client-accessible variables
+- Store secrets in `.env.local` (gitignored)
+- Rotate secrets regularly
+- Use environment-specific values
+
+❌ **DON'T:**
+
+- Commit `.env.local` or `.env` files
+- Store sensitive data in `NEXT_PUBLIC_` variables
+- Use production credentials in development
+- Hardcode secrets in source code
+
+See `.env.example` for complete variable list and `DATABASE.md` for setup
 details.
 
 ## Dependencies

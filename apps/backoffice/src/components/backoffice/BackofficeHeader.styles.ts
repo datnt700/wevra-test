@@ -1,12 +1,13 @@
 import styled from '@emotion/styled';
+import { theme } from '@tavia/taviad';
 
 /**
  * Styled components for BackofficeHeader
  */
 export const Styled = {
   Wrapper: styled.header`
-    background: white;
-    border-bottom: 1px solid #e5e7eb;
+    background: ${theme.colors.surface};
+    border-bottom: 1px solid ${theme.colors.border.default};
     width: 100%;
     z-index: 100;
   `,
@@ -46,13 +47,13 @@ export const Styled = {
     margin: 0;
 
     &:hover {
-      background-color: #f3f4f6;
+      background-color: ${theme.colors.surfaceHover};
     }
 
     svg {
       width: 20px; /* Match sidebar icon size */
       height: 20px;
-      color: #374151;
+      color: ${theme.colors.text.secondary};
     }
   `,
 
@@ -62,13 +63,17 @@ export const Styled = {
     gap: 0.5rem;
     font-size: 1.25rem;
     font-weight: bold;
-    color: #1f2937;
+    color: ${theme.colors.text.primary};
   `,
 
   LogoIcon: styled.div`
     width: 32px;
     height: 32px;
-    background: linear-gradient(135deg, #ff695c 0%, #f14c4b 100%);
+    background: linear-gradient(
+      135deg,
+      ${theme.colors.primary} 0%,
+      ${theme.colors.primaryHover} 100%
+    );
     border-radius: 6px;
     display: flex;
     align-items: center;
@@ -80,7 +85,11 @@ export const Styled = {
     font-size: 1.25rem;
     font-weight: 700;
     margin: 0;
-    background: linear-gradient(135deg, #ff695c 0%, #f14c4b 100%);
+    background: linear-gradient(
+      135deg,
+      ${theme.colors.primary} 0%,
+      ${theme.colors.primaryHover} 100%
+    );
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -108,7 +117,7 @@ export const Styled = {
     gap: 0.75rem;
     padding: 0.5rem 1rem;
     border-radius: 0.5rem;
-    background-color: #f9fafb;
+    background-color: ${theme.colors.surface};
   `,
 
   Avatar: styled.div`
@@ -127,7 +136,7 @@ export const Styled = {
   UserName: styled.span<{ $isMobile?: boolean }>`
     font-size: 0.875rem;
     font-weight: 500;
-    color: #374151;
+    color: ${theme.colors.text.secondary};
 
     /* Hide username on small screens */
     @media (max-width: 640px) {
@@ -145,11 +154,11 @@ export const Styled = {
     justify-content: center;
     border-radius: 0.375rem;
     transition: all 0.2s;
-    color: #6b7280;
+    color: ${theme.colors.text.secondary};
 
     &:hover {
-      background-color: #fee2e2;
-      color: #dc2626;
+      background-color: ${theme.colors.dangerLight};
+      color: ${theme.colors.danger};
     }
 
     svg {

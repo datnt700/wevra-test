@@ -7,6 +7,34 @@ import Facebook from 'next-auth/providers/facebook';
 import bcrypt from 'bcryptjs';
 import { z } from 'zod';
 import prisma from '@/lib/prisma';
+import { createEnv, envHelpers } from '@tavia/env';
+
+// Environment variables for frontoffice
+const env = createEnv({
+  server: {
+    DATABASE_URL: z.string().url(),
+    GOOGLE_CLIENT_ID: envHelpers.optionalString(),
+    GOOGLE_CLIENT_SECRET: envHelpers.optionalString(),
+    APPLE_CLIENT_ID: envHelpers.optionalString(),
+    APPLE_CLIENT_SECRET: envHelpers.optionalString(),
+    FACEBOOK_CLIENT_ID: envHelpers.optionalString(),
+    FACEBOOK_CLIENT_SECRET: envHelpers.optionalString(),
+  },
+  client: {},
+  runtimeEnv: {
+    DATABASE_URL: process.env.DATABASE_URL,
+    GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
+    GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET,
+    APPLE_CLIENT_ID: process.env.APPLE_CLIENT_ID,
+    APPLE_CLIENT_SECRET: process.env.APPLE_CLIENT_SECRET,
+    FACEBOOK_CLIENT_ID: process.env.FACEBOOK_CLIENT_ID,
+    FACEBOOK_CLIENT_SECRET: process.env.FACEBOOK_CLIENT_SECRET,
+  },
+});
+
+const hasGoogleOAuth = !!env.GOOGLE_CLIENT_ID && !!env.GOOGLE_CLIENT_SECRET;
+const hasAppleOAuth = !!env.APPLE_CLIENT_ID && !!env.APPLE_CLIENT_SECRET;
+const hasFacebookOAuth = !!env.FACEBOOK_CLIENT_ID && !!env.FACEBOOK_CLIENT_SECRET;
 
 const loginSchema = z.object({
   email: z.string().email(),
@@ -24,18 +52,43 @@ const result = NextAuth({
     error: '/login',
   },
   providers: [
-    Google({
-      clientId: process.env.GOOGLE_CLIENT_ID!,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
-    }),
-    Apple({
-      clientId: process.env.APPLE_CLIENT_ID!,
-      clientSecret: process.env.APPLE_CLIENT_SECRET!,
-    }),
-    Facebook({
-      clientId: process.env.FACEBOOK_CLIENT_ID!,
-      clientSecret: process.env.FACEBOOK_CLIENT_SECRET!,
-    }),
+    // OAuth Providers (conditionally enabled based on env)
+    ...(hasGoogleOAuth
+      ? [
+          Google({
+            clientId: env.GOOGLE_CLIENT_ID!,
+            clientSecret: env.GOOGLE_CLIENT_SECRET!,
+            authorization: {
+              params: {
+                prompt: 'consent',
+                access_type: 'offline',
+                response_type: 'code',
+              },
+            },
+          }),
+        ]
+      : []),
+    ...(hasAppleOAuth
+      ? [
+          Apple({
+            clientId: env.APPLE_CLIENT_ID!,
+            clientSecret: env.APPLE_CLIENT_SECRET!,
+            authorization: {
+              params: {
+                response_mode: 'form_post',
+              },
+            },
+          }),
+        ]
+      : []),
+    ...(hasFacebookOAuth
+      ? [
+          Facebook({
+            clientId: env.FACEBOOK_CLIENT_ID!,
+            clientSecret: env.FACEBOOK_CLIENT_SECRET!,
+          }),
+        ]
+      : []),
     Credentials({
       name: 'credentials',
       credentials: {

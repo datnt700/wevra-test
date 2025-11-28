@@ -15,4 +15,20 @@ export default [
       'next-env.d.ts',
     ],
   },
+  {
+    files: ['scripts/**/*.js'],
+    languageOptions: {
+      globals: {
+        require: 'readonly',
+        process: 'readonly',
+        __dirname: 'readonly',
+        __filename: 'readonly',
+        module: 'readonly',
+        exports: 'readonly',
+      },
+    },
+    rules: {
+      '@typescript-eslint/no-require-imports': 'off',
+    },
+  },
 ];

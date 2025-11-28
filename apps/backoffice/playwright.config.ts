@@ -1,79 +1,129 @@
 import { defineConfig, devices } from '@playwright/test';
 
 /**
- * Read environment variables from file.
- * https://github.com/motdotla/dotenv
- */
-// import dotenv from 'dotenv';
-// import path from 'path';
-// dotenv.config({ path: path.resolve(__dirname, '.env') });
-
-/**
- * See https://playwright.dev/docs/test-configuration.
+ * Playwright configuration for Backoffice E2E tests
+ * Following best practices:
+ * - Trace viewer on CI failures
+ * - HTML reporter with attachments
+ * - Parallel execution for speed
+ * - Screenshot/video on failure
+ * - Authentication state storage
+ *
+ * See https://playwright.dev/docs/test-configuration
+ * See https://playwright.dev/docs/best-practices
  */
 export default defineConfig({
   testDir: './e2e',
+
   /* Run tests in files in parallel */
   fullyParallel: true,
+
   /* Fail the build on CI if you accidentally left test.only in the source code. */
   forbidOnly: !!process.env.CI,
-  /* Retry on CI only */
+
+  /* Retry on CI only (2 retries for flaky tests) */
   retries: process.env.CI ? 2 : 0,
-  /* Opt out of parallel tests on CI. */
+
+  /* Opt out of parallel tests on CI for stability */
   workers: process.env.CI ? 1 : undefined,
-  /* Reporter to use. See https://playwright.dev/docs/test-reporters */
-  reporter: 'html',
-  /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
+
+  /* Global timeout for each test */
+  timeout: 30 * 1000,
+
+  /* Expect timeout for assertions */
+  expect: {
+    timeout: 5000,
+  },
+
+  /* Reporter configuration - HTML report with detailed information */
+  reporter: [
+    ['html', { open: 'never', outputFolder: 'playwright-report' }],
+    ['list'], // Console output
+    process.env.CI ? ['github'] : ['list'], // GitHub Actions integration
+  ],
+
+  /* Shared settings for all projects below */
   use: {
     /* Base URL to use in actions like `await page.goto('/')`. */
     baseURL: 'http://localhost:3000',
-    /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
-    trace: 'on-first-retry',
+
+    /* Collect trace when retrying failed tests (best practice for debugging CI) */
+    trace: process.env.CI ? 'on-first-retry' : 'retain-on-failure',
+
+    /* Screenshot on failure */
+    screenshot: 'only-on-failure',
+
+    /* Video on failure (disabled by default for speed, enable if needed) */
+    video: process.env.CI ? 'retain-on-failure' : 'off',
+
+    /* Maximum time each action can take */
+    actionTimeout: 10 * 1000,
+
+    /* Navigation timeout */
+    navigationTimeout: 15 * 1000,
   },
+
+  /* Folder for test artifacts such as screenshots, videos, traces, etc. */
+  outputDir: 'test-results/',
 
   /* Configure projects for major browsers */
   projects: [
+    /* Setup project to prepare authentication state */
+    {
+      name: 'setup',
+      testMatch: /.*\.setup\.ts/,
+    },
+
+    /* Desktop browsers */
     {
       name: 'chromium',
       use: { ...devices['Desktop Chrome'] },
+      dependencies: ['setup'],
     },
-
     {
       name: 'firefox',
       use: { ...devices['Desktop Firefox'] },
+      dependencies: ['setup'],
     },
-
     {
       name: 'webkit',
       use: { ...devices['Desktop Safari'] },
+      dependencies: ['setup'],
     },
 
-    /* Test against mobile viewports. */
+    /* Mobile viewports */
     {
       name: 'Mobile Chrome',
       use: { ...devices['Pixel 5'] },
+      dependencies: ['setup'],
     },
     {
       name: 'Mobile Safari',
       use: { ...devices['iPhone 12'] },
+      dependencies: ['setup'],
     },
 
-    /* Test against branded browsers. */
+    /* Branded browsers (uncomment if needed) */
     // {
     //   name: 'Microsoft Edge',
     //   use: { ...devices['Desktop Edge'], channel: 'msedge' },
+    //   dependencies: ['setup'],
     // },
     // {
     //   name: 'Google Chrome',
     //   use: { ...devices['Desktop Chrome'], channel: 'chrome' },
+    //   dependencies: ['setup'],
     // },
   ],
 
   /* Run your local dev server before starting the tests */
   webServer: {
-    command: 'pnpm dev',
+    // Use production build in CI for faster, more stable tests
+    command: process.env.CI ? 'pnpm build && pnpm start' : 'pnpm dev',
     url: 'http://localhost:3000',
     reuseExistingServer: !process.env.CI,
     timeout: 120 * 1000,
+    stdout: 'ignore',
+    stderr: 'pipe',
   },
 });

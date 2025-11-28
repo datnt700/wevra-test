@@ -1,5 +1,9 @@
 {
   "appName": "Tavia",
   "welcome": "Welcome to Tavia",
-  "description": "Your community networking platform"
+  "description": "Your community networking platform",
+  "viewAll": "View All",
+  "members": "members",
+  "attendees": "attendees",
+  "free": "Free"
 }

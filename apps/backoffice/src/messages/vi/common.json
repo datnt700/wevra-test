@@ -1,5 +1,9 @@
 {
   "appName": "Tavia",
   "welcome": "Chào mừng đến với Tavia",
-  "description": "Nền tảng kết nối cộng đồng của bạn"
+  "description": "Nền tảng kết nối cộng đồng của bạn",
+  "viewAll": "Xem tất cả",
+  "members": "thành viên",
+  "attendees": "người tham dự",
+  "free": "Miễn phí"
 }

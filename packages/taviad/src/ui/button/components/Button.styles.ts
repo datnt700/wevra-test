@@ -8,8 +8,18 @@
 import styled from '@emotion/styled';
 import type { TaviaTheme } from '../../../theme/theme';
 
-type ButtonVariant = 'primary' | 'secondary' | 'dark' | 'link' | 'tertiary' | 'danger' | 'info';
+type ButtonVariant =
+  | 'primary'
+  | 'secondary'
+  | 'dark'
+  | 'link'
+  | 'tertiary'
+  | 'danger'
+  | 'info'
+  | 'success'
+  | 'warning';
 type ButtonShape = 'default' | 'round' | 'rounded' | 'square' | 'pill' | 'circle';
+type ButtonSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 
 interface VariantColors {
   bg: string;
@@ -75,6 +85,20 @@ const getVariantColors = (theme: TaviaTheme, variant: ButtonVariant = 'primary')
       activeBg: theme.colors.info,
       border: theme.colors.info,
     },
+    success: {
+      bg: theme.colors.success,
+      color: '#ffffff',
+      hoverBg: theme.colors.success,
+      activeBg: theme.colors.success,
+      border: theme.colors.success,
+    },
+    warning: {
+      bg: theme.colors.warning,
+      color: '#ffffff',
+      hoverBg: theme.colors.warning,
+      activeBg: theme.colors.warning,
+      border: theme.colors.warning,
+    },
   };
 
   return variantMap[variant] || variantMap.primary;
@@ -86,20 +110,50 @@ const getVariantColors = (theme: TaviaTheme, variant: ButtonVariant = 'primary')
 const StyledButton = styled.button<{
   $variant?: ButtonVariant;
   $shape?: ButtonShape;
+  $size?: ButtonSize;
   $isLoading?: boolean;
 }>`
-  ${({ theme, $variant = 'primary', $shape = 'default', $isLoading = false }) => {
+  ${({ theme, $variant = 'primary', $shape = 'default', $size = 'md', $isLoading = false }) => {
     const taviaTheme = theme as TaviaTheme;
     const colors = getVariantColors(taviaTheme, $variant);
 
+    // Size-specific styles
+    const sizeStyles: Record<
+      ButtonSize,
+      { height: string; padding: string; fontSize: string; iconSize: string }
+    > = {
+      xs: {
+        height: '1.75rem',
+        padding: '0.25rem 0.5rem',
+        fontSize: '0.75rem',
+        iconSize: '0.875rem',
+      },
+      sm: {
+        height: '2.25rem',
+        padding: '0.375rem 0.75rem',
+        fontSize: '0.875rem',
+        iconSize: '1rem',
+      },
+      md: { height: '3rem', padding: '0.5rem 1rem', fontSize: '1rem', iconSize: '1.25rem' },
+      lg: {
+        height: '3.5rem',
+        padding: '0.625rem 1.5rem',
+        fontSize: '1.125rem',
+        iconSize: '1.5rem',
+      },
+      xl: { height: '4rem', padding: '0.75rem 2rem', fontSize: '1.25rem', iconSize: '1.75rem' },
+    };
+
+    const size = sizeStyles[$size];
+
     // Shape-specific styles
     const shapeStyles: Record<ButtonShape, string> = {
-      default: 'border-radius: 6px; padding: 0.5rem 1rem;',
-      pill: 'border-radius: 2.25rem; padding: 0.5rem 1.5rem;',
-      round: 'border-radius: 12px; padding: 0.5rem 1rem;',
-      rounded: 'border-radius: 1rem; padding: 1.125rem 2rem;', // Gaming/Duolingo style
-      square: 'border-radius: 6px; padding: 0.5rem 1rem;',
-      circle: 'border-radius: 50%; padding: 0.5rem; width: 3rem; height: 3rem;',
+      default: `border-radius: 6px; padding: ${size.padding};`,
+      pill: `border-radius: 2.25rem; padding: ${size.padding};`,
+      round: `border-radius: 12px; padding: ${size.padding};`,
+      rounded: 'border-radius: 1rem; padding: 1.125rem 2rem;', // Gaming/Duolingo style (fixed size)
+      square: `border-radius: 6px; padding: ${size.padding};`,
+      circle: `border-radius: 50%; padding: ${size.padding}; width: ${size.height}; height: ${size.height};`,
     };
 
     // Variant-specific enhancements
@@ -112,10 +166,10 @@ const StyledButton = styled.button<{
       align-items: center;
       justify-content: center;
       gap: 0.5rem;
-      ${$shape === 'rounded' ? 'height: auto;' : 'height: 3rem;'}
+      ${$shape === 'rounded' ? 'height: auto;' : `height: ${size.height};`}
       width: ${$shape === 'rounded' ? '100%' : 'max-content'};
       font-weight: ${$shape === 'rounded' ? '700' : '500'};
-      font-size: ${$shape === 'rounded' ? '1.125rem' : '1rem'};
+      font-size: ${$shape === 'rounded' ? '1.125rem' : size.fontSize};
       ${$shape === 'rounded' ? 'text-transform: uppercase;' : ''}
       cursor: ${$isLoading ? 'not-allowed' : 'pointer'};
       border: ${isSecondary && $shape === 'rounded' ? '3px' : '1px'} solid ${colors.border};
@@ -166,8 +220,8 @@ const StyledButton = styled.button<{
         gap: 0.5rem;
 
         svg {
-          width: 1.25rem;
-          height: 1.25rem;
+          width: ${size.iconSize};
+          height: ${size.iconSize};
         }
       }
     `;

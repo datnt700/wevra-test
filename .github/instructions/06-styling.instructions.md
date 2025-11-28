@@ -12,17 +12,9 @@ applyTo: '**/*.styles.{ts,tsx}'
 
 ```typescript
 import styled from '@emotion/styled';
-import { cssVars } from '../../../theme/tokens/colors';
-import { radii } from '../../../theme/tokens/radii';
+import { theme } from '@tavia/taviad';
 
 type Variant = 'success' | 'warning' | 'danger';
-
-const getVariantColors = (variant: Variant = 'success') =>
-  ({
-    success: { base: cssVars.colorSuccess, light: cssVars.colorSuccessLight },
-    warning: { base: cssVars.colorWarning, light: cssVars.colorWarningLight },
-    danger: { base: cssVars.colorDanger, light: cssVars.colorDangerLight },
-  })[variant];
 
 /**
  * MUST use this export pattern
@@ -30,80 +22,124 @@ const getVariantColors = (variant: Variant = 'success') =>
 export const Styled = {
   Wrapper: styled.div<{ $variant?: Variant; $isFilled?: boolean }>`
     padding: 0.75rem 1rem;
-    border-radius: ${radii.md}; // ⚠️ Use tokens, NOT px
-
-    ${({ $variant = 'success', $isFilled }) => {
-      const colors = getVariantColors($variant);
-      return `
-        color: ${colors.base};
-        background-color: ${colors.light}20;  // 20 = 12% opacity
-      `;
-    }}
+    border-radius: ${theme.radii.md}; // ⚠️ Use theme.radii, NOT px
+    background-color: ${({ $variant = 'success' }) => {
+      const colors = {
+        success: theme.colors.successLight,
+        warning: theme.colors.warningLight,
+        danger: theme.colors.dangerLight,
+      };
+      return colors[$variant];
+    }};
+    color: ${({ $variant = 'success' }) => {
+      const colors = {
+        success: theme.colors.success,
+        warning: theme.colors.warning,
+        danger: theme.colors.danger,
+      };
+      return colors[$variant];
+    }};
   `,
 };
 ```
 
-## Theme Tokens
+## Theme Object (MANDATORY)
+
+**⚠️ CRITICAL: NEVER use `cssVars` or raw tokens directly. ALWAYS use `theme`
+object.**
+
+```typescript
+import { theme } from '@tavia/taviad';
+
+// ✅ CORRECT - Use theme object
+theme.colors.primary;
+theme.colors.text.primary;
+theme.colors.border.default;
+theme.radii.md;
+theme.spacing.md;
+
+// ❌ WRONG - Never use cssVars directly
+import { cssVars } from '@tavia/taviad/theme/tokens/colors';
+cssVars.mainColor; // ❌ FORBIDDEN
+cssVars.gray600; // ❌ FORBIDDEN
+
+// ❌ WRONG - Never use raw values
+color: '#ff695c'; // ❌ FORBIDDEN
+border-radius: 8px; // ❌ FORBIDDEN
+```
+
+## Available Theme Properties
 
 **Colors:**
 
 ```typescript
-import { cssVars } from '../../../theme/tokens/colors';
-
 // Brand
-cssVars.mainColor
-cssVars.mainColorLight
-cssVars.mainColorDark
+theme.colors.primary;
+theme.colors.primaryHover;
+theme.colors.primaryActive;
 
-// Signals
-cssVars.colorSuccess
-cssVars.colorWarning
-cssVars.colorDanger
-cssVars.colorInfo
+// Semantic
+theme.colors.success;
+theme.colors.successLight;
+theme.colors.warning;
+theme.colors.warningLight;
+theme.colors.danger;
+theme.colors.dangerLight;
+theme.colors.info;
+theme.colors.infoLight;
 
-// Grays
-gray0, gray100, gray200, ..., gray1000
+// Text
+theme.colors.text.primary;
+theme.colors.text.secondary;
+theme.colors.text.tertiary;
+theme.colors.text.disabled;
+theme.colors.text.inverse;
 
-// Light/Dark
-light, light2, light3, ..., light6
-dark, dark2, dark3
+// Borders
+theme.colors.border.default;
+theme.colors.border.hover;
+theme.colors.border.focus;
+
+// Backgrounds
+theme.colors.background;
+theme.colors.surface;
+theme.colors.surfaceHover;
+theme.colors.overlay;
 ```
 
 **Border Radii:**
 
 ```typescript
-import { radii } from '../../../theme/tokens/radii';
-
-radii.none; // 0px
-radii.sm; // 4px
-radii.md; // 6px
-radii.lg; // 8px
-radii.xl; // 12px
-radii.full; // 9999px
+theme.radii.none; // 0px
+theme.radii.sm; // 4px
+theme.radii.md; // 6px
+theme.radii.lg; // 8px
+theme.radii.xl; // 12px
+theme.radii.full; // 9999px
 ```
 
 **Spacing:**
 
 ```typescript
-// Use rem, NOT px
-0.25rem  // 4px
-0.5rem   // 8px
-0.75rem  // 12px
-1rem     // 16px
-1.5rem   // 24px
-2rem     // 32px
+theme.spacing.xs; // 0.25rem (4px)
+theme.spacing.sm; // 0.5rem (8px)
+theme.spacing.md; // 0.75rem (12px)
+theme.spacing.lg; // 1rem (16px)
+theme.spacing.xl; // 1.5rem (24px)
+theme.spacing['2xl']; // 2rem (32px)
 ```
 
 ## Critical Emotion Rules
 
-1. ✅ Import tokens: `import { cssVars } from '../../../theme/tokens/colors'`
+1. ✅ Import theme: `import { theme } from '@tavia/taviad'`
 2. ✅ Export as `Styled` object:
    `export const Styled = { Wrapper: styled.div`...` }`
 3. ✅ Transient props use `$` prefix: `$variant`, `$isActive`
-4. ✅ Use `radii` tokens: `${radii.md}` NOT `8px`
-5. ✅ Hex opacity: `${colors.light}20` (20 = 12%)
-6. ❌ Don't hardcode colors/radii
-7. ❌ Don't use props without `$` in styled components
+4. ✅ Use theme properties: `${theme.radii.md}`, `${theme.colors.primary}`
+5. ❌ **NEVER** import or use `cssVars` from `@tavia/taviad/theme/tokens/colors`
+6. ❌ **NEVER** hardcode colors: `#ff695c`, `rgb()`, `rgba()`
+7. ❌ **NEVER** hardcode radii: `8px`, `border-radius: 0.5rem`
+8. ❌ Don't use props without `$` in styled components
 
 ## Emotion SSR (Server-Side Rendering)
 

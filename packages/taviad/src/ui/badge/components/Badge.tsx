@@ -20,6 +20,8 @@ import { BadgeProps } from '..';
  */
 export const Badge = ({
   children,
+  variant = 'default',
+  size = 'md',
   onClick,
   url,
   className,
@@ -29,6 +31,8 @@ export const Badge = ({
   return (
     <WrapperStyled
       onClick={() => onClick?.()}
+      $variant={variant}
+      $size={size}
       $isClickable={!!onClick}
       $hasUrl={!!url}
       className={wrapperClassName}

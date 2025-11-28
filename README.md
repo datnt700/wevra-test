@@ -196,26 +196,118 @@ pnpm db:studio          # Open Prisma Studio GUI
 
 ### Environment Variables
 
+Each app has its own `.env.example` file. Copy to `.env` and configure:
+
 **Backoffice** (`apps/backoffice/.env`):
+
+```bash
+cd apps/backoffice
+cp .env.example .env
+```
 
 ```env
 # Database (shared with frontoffice)
 DATABASE_URL="postgresql://postgres:postgres@localhost:5432/tavia?schema=public"
+
+# NextAuth.js
+NEXTAUTH_URL=http://localhost:3000
+NEXTAUTH_SECRET=<generate-32-char-secret>
+JWT_SECRET=<generate-32-char-secret>
+
+# OAuth Providers (Optional)
+GOOGLE_CLIENT_ID=your-google-client-id
+GOOGLE_CLIENT_SECRET=your-google-client-secret
+APPLE_CLIENT_ID=your-apple-client-id
+APPLE_CLIENT_SECRET=your-apple-client-secret
+FACEBOOK_CLIENT_ID=your-facebook-client-id
+FACEBOOK_CLIENT_SECRET=your-facebook-client-secret
+
+# Stripe (Required for Premium features)
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=pk_test_xxx
+STRIPE_SECRET_KEY=sk_test_xxx
+STRIPE_WEBHOOK_SECRET=whsec_xxx
+STRIPE_MONTHLY_PRICE_ID=price_xxx
+STRIPE_ANNUAL_PRICE_ID=price_xxx
 ```
 
 **Frontoffice** (`apps/frontoffice/.env`):
+
+```bash
+cd apps/frontoffice
+cp .env.example .env
+```
 
 ```env
 # Database (shared with backoffice)
 DATABASE_URL="postgresql://postgres:postgres@localhost:5432/tavia?schema=public"
 
-# Auth
-NEXTAUTH_URL="http://localhost:3003"
-NEXTAUTH_SECRET="your-secret-key-change-in-production"
+# NextAuth.js
+NEXTAUTH_URL=http://localhost:3003
+NEXTAUTH_SECRET=<same-as-backoffice>
+JWT_SECRET=<same-as-backoffice>
 
-# Analytics Service
-NEXT_PUBLIC_ANALYTICS_URL="http://localhost:3001"
+# OAuth Providers (Optional)
+GOOGLE_CLIENT_ID=<same-as-backoffice>
+GOOGLE_CLIENT_SECRET=<same-as-backoffice>
+APPLE_CLIENT_ID=<same-as-backoffice>
+APPLE_CLIENT_SECRET=<same-as-backoffice>
+FACEBOOK_CLIENT_ID=<same-as-backoffice>
+FACEBOOK_CLIENT_SECRET=<same-as-backoffice>
 ```
+
+**Mobile** (`apps/mobile/.env`):
+
+```bash
+cd apps/mobile
+cp .env.example .env
+```
+
+```env
+# API Configuration (use your local IP for physical devices)
+EXPO_PUBLIC_API_URL=http://192.168.1.16:3000  # Backoffice API
+EXPO_PUBLIC_ANALYTICS_API_URL=http://192.168.1.16:3001
+
+# OAuth Providers
+EXPO_PUBLIC_GOOGLE_CLIENT_ID=your_google_client_id
+EXPO_PUBLIC_FACEBOOK_CLIENT_ID=your_facebook_app_id
+# Apple configured in app.json
+
+# Analytics
+EXPO_PUBLIC_ANALYTICS_API_KEY=your-api-key
+EXPO_PUBLIC_ENABLE_ANALYTICS=true
+
+# Feature Flags
+EXPO_PUBLIC_ENABLE_DEBUG=true
+```
+
+**Generate Secrets:**
+
+```bash
+# For NEXTAUTH_SECRET, JWT_SECRET, WEBHOOK_SECRET
+node -e "console.log(require('crypto').randomBytes(32).toString('base64'))"
+# Output: YCOCS7wRIczdIfSbIaDf7vkx5r6R7vQvRNItJAV/OOM=
+```
+
+**Environment System:**
+
+| Platform                             | Prefix         | Environments                     | Files                                                  |
+| ------------------------------------ | -------------- | -------------------------------- | ------------------------------------------------------ |
+| **Next.js** (backoffice/frontoffice) | `NEXT_PUBLIC_` | development, production, test    | `.env`, `.env.local`, `.env.{NODE_ENV}`                |
+| **Expo** (mobile)                    | `EXPO_PUBLIC_` | development, preview, production | `.env`, `.env.local`, `.env.{development\|production}` |
+
+**Key Differences:**
+
+- Next.js: Uses `NODE_ENV` for environment switching
+- Expo: Uses `.env.development`/`.env.production` files, NOT `NODE_ENV`
+- Expo: EAS environments for CI/CD (`eas env:pull`,
+  `eas build --profile production`)
+
+📖 **Detailed Guides:**
+
+- Next.js apps: See app-specific `.env.example` files
+- Mobile: See `apps/mobile/ENV_GUIDE.md` for comprehensive environment
+  documentation
+- OAuth: See `docs/OAUTH_QUICKSTART.md` for credential setup
 
 ## 🚦 Development Commands
 

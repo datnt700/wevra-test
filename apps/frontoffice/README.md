@@ -49,19 +49,119 @@ Both apps point to the same database for real-time data synchronization.
 
 ## 🔑 Environment Variables
 
-See `.env` file (already configured):
+### Quick Setup
+
+Create `.env` file from the example:
+
+```bash
+cp .env.example .env
+```
+
+### Required Variables
 
 ```env
-# Shared database with backoffice
+# Database (SHARED with backoffice - same database "tavia")
 DATABASE_URL="postgresql://postgres:postgres@localhost:5432/tavia?schema=public"
 
-# App settings
-NEXTAUTH_URL="http://localhost:3003"
-NEXTAUTH_SECRET="your-secret-key-change-in-production"
+# PostgreSQL Docker Container Settings (not used - backoffice manages DB)
+POSTGRES_USER=postgres
+POSTGRES_PASSWORD=postgres
+POSTGRES_DB=tavia
 
-# Analytics Service
-NEXT_PUBLIC_ANALYTICS_URL="http://localhost:3001"
+# NextAuth.js (for attendee authentication)
+NEXTAUTH_URL=http://localhost:3003
+NEXTAUTH_SECRET=<generate-32-char-secret>
+
+# JWT for Mobile Auth (Optional - uses NEXTAUTH_SECRET as fallback)
+JWT_SECRET=<generate-32-char-secret>
+
+# App Configuration
+NODE_ENV=development
+NEXT_PUBLIC_APP_URL=http://localhost:3003
+NEXT_PUBLIC_APP_NAME=Tavia Frontoffice
 ```
+
+### OAuth Providers (Optional)
+
+For social login functionality:
+
+```env
+# Google OAuth
+GOOGLE_CLIENT_ID=your-google-client-id
+GOOGLE_CLIENT_SECRET=your-google-client-secret
+
+# Apple OAuth
+APPLE_CLIENT_ID=your-apple-client-id
+APPLE_CLIENT_SECRET=your-apple-client-secret
+
+# Facebook OAuth
+FACEBOOK_CLIENT_ID=your-facebook-client-id
+FACEBOOK_CLIENT_SECRET=your-facebook-client-secret
+```
+
+📖 **See `docs/OAUTH_QUICKSTART.md` for step-by-step OAuth setup guide**
+
+### Analytics (Optional)
+
+```env
+# Analytics API
+ANALYTICS_API_KEY=your-api-key
+
+# Feature Flags
+NEXT_PUBLIC_ENABLE_ANALYTICS=false
+```
+
+### Generate Secrets
+
+```bash
+# Method 1: OpenSSL
+openssl rand -base64 32
+
+# Method 2: Node.js
+node -e "console.log(require('crypto').randomBytes(32).toString('base64'))"
+
+# Output example: YCOCS7wRIczdIfSbIaDf7vkx5r6R7vQvRNItJAV/OOM=
+```
+
+### Environment Types
+
+Next.js supports multiple environment files:
+
+- `.env` - Default for all environments
+- `.env.local` - Local overrides (gitignored, highest priority)
+- `.env.development` - Development mode (`npm run dev`)
+- `.env.production` - Production builds (`npm run build`)
+- `.env.test` - Test environment
+
+**Priority:** `.env.local` > `.env.{NODE_ENV}` > `.env`
+
+### Shared Database Architecture
+
+⚠️ **CRITICAL:** Frontoffice and backoffice use the **SAME** PostgreSQL database
+(`tavia`).
+
+- Database managed by backoffice (run `pnpm docker:up` from backoffice)
+- Event data created in backoffice appears instantly in frontoffice
+- No data synchronization needed
+- Both apps use identical `DATABASE_URL`
+
+### Security Best Practices
+
+✅ **DO:**
+
+- Use `NEXT_PUBLIC_` prefix for client-accessible variables
+- Store secrets in `.env.local` (gitignored)
+- Use same secrets as backoffice for JWT validation
+- Rotate secrets regularly
+
+❌ **DON'T:**
+
+- Commit `.env.local` or `.env` files
+- Store sensitive data in `NEXT_PUBLIC_` variables
+- Use different `JWT_SECRET` than backoffice
+- Run `docker:up` in frontoffice (backoffice manages DB)
+
+See `.env.example` for complete variable list.
 
 ## 📊 Features
 

@@ -18,6 +18,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       children,
       type = 'button',
       variant = 'primary',
+      size = 'md',
       isLoading,
       accessibilityLabel,
       icon,
@@ -50,6 +51,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         type={type}
         $variant={variant}
         $shape={shape}
+        $size={size}
         $isLoading={isLoading}
         disabled={isLoading}
         aria-label={accessibilityLabel || children?.toString()}

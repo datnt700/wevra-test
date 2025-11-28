@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import styled from '@emotion/styled';
+import { theme } from '@tavia/taviad';
 import { BackofficeHeader } from './BackofficeHeader';
 import { BackofficeSidebar } from './BackofficeSidebar';
 
@@ -17,18 +18,13 @@ const MainContainer = styled.div`
   flex: 1;
   overflow: hidden;
   position: relative;
+  margin-top: 0; /* No top margin since sidebar is full height */
 `;
 
 const ContentArea = styled.main<{ $sidebarOpen: boolean }>`
   flex: 1;
   overflow-y: auto;
-  transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1); /* Match Framer Motion easeInOut */
-  background-color: #f9fafb;
-
-  /* Desktop: push content based on sidebar state */
-  @media (min-width: 1024px) {
-    margin-left: ${({ $sidebarOpen }) => ($sidebarOpen ? '260px' : '64px')};
-  }
+  background-color: ${theme.colors.surface};
 
   /* Mobile/Tablet: no margin, sidebar overlays */
   @media (max-width: 1023px) {
@@ -65,9 +61,12 @@ export function BackofficeLayoutClient({ children }: { children: React.ReactNode
   // Initialize as false to match server-rendered state and avoid hydration mismatch
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(true);
+  const [mounted, setMounted] = useState(false);
 
   // Detect screen size and adjust sidebar default state
   useEffect(() => {
+    setMounted(true);
+
     const checkMobile = () => {
       const mobile = window.innerWidth < 1024;
       setIsMobile(mobile);
@@ -93,14 +92,19 @@ export function BackofficeLayoutClient({ children }: { children: React.ReactNode
   };
 
   return (
-    <LayoutWrapper suppressHydrationWarning>
-      <BackofficeHeader onToggleSidebar={toggleSidebar} isMobile={isMobile} />
-      <MainContainer suppressHydrationWarning>
-        <BackofficeSidebar isOpen={sidebarOpen} isMobile={isMobile} />
-        <Backdrop $isVisible={sidebarOpen && isMobile} onClick={closeSidebar} />
-        <ContentArea $sidebarOpen={sidebarOpen} suppressHydrationWarning>
-          {children}
-        </ContentArea>
+    <LayoutWrapper key={mounted ? 'mounted' : 'unmounted'}>
+      <BackofficeHeader
+        onToggleSidebar={toggleSidebar}
+        isMobile={mounted ? isMobile : true}
+        sidebarOpen={mounted ? sidebarOpen : false}
+      />
+      <MainContainer>
+        <BackofficeSidebar
+          isOpen={mounted ? sidebarOpen : false}
+          isMobile={mounted ? isMobile : true}
+        />
+        <Backdrop $isVisible={mounted && sidebarOpen && isMobile} onClick={closeSidebar} />
+        <ContentArea $sidebarOpen={mounted ? sidebarOpen : false}>{children}</ContentArea>
       </MainContainer>
     </LayoutWrapper>
   );

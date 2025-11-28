@@ -6,6 +6,7 @@
     "dev": "turbo run dev",
     "dev:backoffice": "pnpm --filter=backoffice dev",
     "dev:frontoffice": "pnpm --filter=frontoffice dev",
+    "dev:mobile": "pnpm --filter=mobile start",
     "dev:storybook": "pnpm --filter=@tavia/docs storybook:dev",
     "test": "turbo run test",
     "test:taviad": "pnpm --filter=@tavia/taviad test --run",
@@ -21,7 +22,6 @@
     "create:app": "node scripts/create-app.js",
     "create:api": "node scripts/create-api.js",
     "create:mobile": "node scripts/create-mobile.js",
-    "db:setup": "node scripts/setup-database.js",
     "db:studio": "pnpm --filter=@tavia/frontoffice db:studio",
     "prepare": "husky",
     "commit": "cz"
@@ -53,7 +53,8 @@
   "pnpm": {
     "overrides": {
       "react": "19.1.0",
-      "react-dom": "19.1.0"
+      "react-dom": "19.1.0",
+      "@playwright/test": "1.56.1"
     }
   }
 }

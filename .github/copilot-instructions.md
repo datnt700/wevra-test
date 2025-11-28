@@ -1,78 +1,139 @@
-# Tavia - AI Agent Instructions
+# Tavia - AI Coding Agent Instructions
 
-> **Note:** This file contains a high-level overview. Detailed instructions are
-> in `.github/instructions/*.instructions.md` and are automatically loaded by
-> GitHub Copilot based on the files you're working on.
+Tavia is a **Freemium community networking platform** built as a
+**microservices-first monorepo**. This is a two-sided platform connecting
+Organizers (B2B) who create groups/events with Attendees (B2C) who discover and
+join activities.
 
-Tavia is a **community networking platform** using a **Freemium model**, built
-as a **microservices-first monorepo** with Next.js 15 and production-ready
-component libraries.
+> **Note:** Detailed patterns are in `.github/instructions/*.instructions.md`
+> (auto-loaded by GitHub Copilot based on files you're editing).
 
-## 🎯 Critical Rules: Always Use Internal Packages
+## 🎯 Critical Rules
 
-**Component Libraries:**
-
-- ✅ **Web Apps**: ALWAYS use `@tavia/taviad` (60+ components)
-- ✅ **Mobile Apps**: ALWAYS use `@tavia/taviax` (React Native components)
-- ❌ NEVER use native HTML elements (`<button>`, `<input>`, `<a>`)
-
-**Environment Variables:**
-
-- ✅ **ALWAYS use `@tavia/env`** - Type-safe, validated environment variables
-- ❌ NEVER access `process.env` directly in application code
-
-**Other Internal Packages:**
-
-- `@tavia/analytics` - Event tracking SDK
-- `@tavia/logger` - Structured logging
-- `@tavia/module-generator` - Feature scaffolding
+### 1. ALWAYS Use Internal Packages (NEVER Bypass)
 
 ```tsx
-// ✅ CORRECT - Web
-import { Button, Link, InputText } from '@tavia/taviad';
-import { env } from '@/lib/env';
-<Button variant="primary" onClick={handleClick}>Save</Button>
-const apiKey = env.STRIPE_SECRET_KEY;
+// ✅ CORRECT - Web apps
+import { Button, Modal, Input } from '@tavia/taviad';  // 60+ components
+import { env } from '@/lib/env';  // Type-safe env vars
+const apiUrl = env.NEXT_PUBLIC_API_URL;
 
-// ✅ CORRECT - Mobile
-import { Button, Text, TextInput } from '@tavia/taviax';
-<Button variant="primary" onPress={handlePress}>Save</Button>
+// ✅ CORRECT - Mobile apps
+import { Button, Text, TextInput } from '@tavia/taviax';  // React Native
+import styled from '@emotion/native';  // NOT @emotion/styled
 
-// ❌ WRONG - Native HTML
-<button onClick={handleClick}>Click me</button>
-
-// ❌ WRONG - Direct env access
-const apiKey = process.env.STRIPE_SECRET_KEY;
-
-// ❌ WRONG - Wrong library
-import { Button } from '@tavia/taviad'; // In mobile app!
+// ❌ WRONG - Native HTML/React Native primitives
+<button onClick={...}>Submit</button>  // Use <Button> from @tavia/taviad
+<View><Text>...</Text></View>  // Use components from @tavia/taviax
+const url = process.env.API_URL;  // Use env from @tavia/env
 ```
 
-## 📚 Detailed Instructions
+### 2. Shared Database Architecture (Critical!)
 
-Path-specific instructions are in `.github/instructions/`:
+**Backoffice (port 3000) and Frontoffice (port 3003) share the SAME PostgreSQL
+database `tavia`**:
 
-1. **01-architecture.instructions.md** - Freemium model, shared database,
-   microservices
-2. **02-web-apps.instructions.md** - Next.js 15, server actions, Auth.js, API
-   patterns
-3. **03-mobile.instructions.md** - React Native, Expo, platform-specific storage
-4. **04-components-web.instructions.md** - @tavia/taviad (60+ components, 80%
-   coverage)
-5. **05-components-mobile.instructions.md** - @tavia/taviax (React Native, 70%
-   coverage)
-6. **06-styling.instructions.md** - Emotion patterns, theme tokens, SSR
-   configuration
-7. **07-api.instructions.md** - Error handling, response format, CORS
-8. **08-database.instructions.md** - Docker PostgreSQL, Prisma, migrations
-9. **09-testing.instructions.md** - Vitest, Playwright, coverage thresholds
-10. **10-dev-workflow.instructions.md** - Generators, catalog dependencies, Git
-    workflow
+- Schema changes in `apps/backoffice/prisma/` MUST be copied to
+  `apps/frontoffice/prisma/`
+- Only run migrations from backoffice: `cd apps/backoffice && pnpm db:migrate`
+- Frontoffice just generates client: `cd apps/frontoffice && pnpm db:generate`
+- ONE Docker container serves both apps
 
-These files are **automatically loaded by GitHub Copilot** based on the files
-you're editing. You don't need to reference them manually.
+### 3. Use Generators (NEVER Copy Existing Apps)
 
-## 🚀 Quick Start
+```bash
+pnpm create:app <name>      # Next.js app (deterministic port 3000-3099)
+pnpm create:api <name>      # Fastify/NestJS (port 4000-4099)
+pnpm create:mobile <name>   # Expo mobile app
+cd apps/backoffice && pnpm generate:module  # Feature module scaffolding
+```
+
+### 4. Catalog Dependencies (NEVER Hardcode Versions)
+
+```json
+// ✅ CORRECT in package.json
+{"dependencies": {"next": "catalog:", "@emotion/react": "catalog:emotion"}}
+
+// ❌ WRONG
+{"dependencies": {"next": "^15.5.5"}}
+```
+
+Add to `pnpm-workspace.yaml` catalog first, then reference with `catalog:` or
+`catalog:emotion`.
+
+## 🏗️ Architecture Essentials
+
+### Monorepo Structure
+
+```
+apps/
+  ├── backoffice/      # Next.js 15 (port 3000) - Auth.js, Prisma, Stripe
+  │                    # Roles: ADMIN, ORGANIZER, MODERATOR
+  ├── frontoffice/     # Next.js 15 (port 3003) - Server Actions, React Query
+  │                    # Role: ATTENDEE only, shared DB with backoffice
+  ├── mobile/          # Expo 54 - ATTENDEE role, JWT auth
+  ├── analytics/       # Fastify 5 API (port 3001)
+  └── event-service/   # NestJS 11 microservice (port 3002)
+packages/
+  ├── taviad/          # 60+ web components (Emotion + Radix UI) - 80% coverage
+  ├── taviax/          # React Native components - 70% coverage
+  ├── env/             # Type-safe environment variables (MANDATORY)
+  ├── analytics/       # Event tracking SDK
+  └── module-generator/# Feature scaffolding
+```
+
+### Freemium Model
+
+- **Free Plan**: 1 group (50 members max), 2 events/month, no analytics
+- **Premium Plan**: Unlimited everything, analytics, custom branding, moderators
+- **Attendees**: Always free with unlimited access
+- Feature flags in `apps/backoffice/src/lib/features/planLimits.ts`
+
+### Auth & Roles
+
+- **Backoffice**: Auth.js (NextAuth v5) session-based -
+  ADMIN/ORGANIZER/MODERATOR only
+- **Frontoffice**: JWT tokens via server actions - ATTENDEE only
+- **Mobile**: JWT + `expo-secure-store` (iOS/Android) / AsyncStorage (web) -
+  ATTENDEE only
+- See `docs/AUTHENTICATION.md` for complete flow
+
+### Emotion Styling (NO SCSS!)
+
+```typescript
+// ComponentName.styles.ts - MUST export as Styled object
+export const Styled = {
+  Wrapper: styled.div<{ $variant?: Variant }>`  // Transient props use $
+    padding: 0.75rem 1rem;
+    border-radius: ${radii.md};  // Use tokens, NOT "8px"
+    color: ${cssVars.colorSuccess};
+  `,
+};
+
+// Root layout MUST have suppressHydrationWarning
+<html suppressHydrationWarning>  // Prevents Emotion hydration errors
+```
+
+**Hydration Error Prevention**: NEVER put Emotion styled components (Header,
+Sidebar) in root `layout.tsx`. Use route groups `(dashboard)/layout.tsx` with
+`'use client'` directive.
+
+### API Response Format (Backoffice)
+
+```typescript
+import { apiSuccess, ApiErrors } from '@/lib/api/response';
+import { UnauthorizedError } from '@/lib/api/errors';
+
+// ✅ CORRECT
+return apiSuccess({ token, user });
+return ApiErrors.notFound('Event');
+throw new UnauthorizedError('Invalid credentials');
+
+// ❌ WRONG - Never use raw NextResponse
+return NextResponse.json({ error: 'Not found' }, { status: 404 });
+```
+
+## 🚀 Essential Commands
 
 ```bash
 # Development
@@ -80,50 +141,55 @@ pnpm dev                    # All apps
 pnpm dev:backoffice         # Port 3000
 pnpm dev:frontoffice        # Port 3003
 
-# Mobile
-cd apps/mobile
-set EXPO_OFFLINE=1
-pnpm start
+# Mobile (Windows)
+cd apps/mobile; set EXPO_OFFLINE=1; pnpm start
 
-# Database
-cd apps/backoffice
-pnpm db:setup               # Docker + migrate + seed
+# Database (from backoffice)
+pnpm db:setup               # Docker + migrate + seed (first time)
+pnpm docker:up              # Start PostgreSQL
+pnpm db:migrate             # Create migration after schema changes
+pnpm db:studio              # Prisma Studio GUI
 
-# Generators (ALWAYS USE)
-pnpm create:app <name>      # New Next.js app
-pnpm create:api <name>      # New API (Fastify/NestJS)
-pnpm create:mobile <name>   # New Expo app
+# Testing
+cd packages/taviad && pnpm test:coverage  # 80% threshold
+cd packages/taviax && pnpm test:coverage  # 70% threshold
 
-# Git
-pnpm commit                 # Commitizen (conventional commits)
+# Git (ALWAYS use Commitizen)
+pnpm commit                 # Conventional commits (feat, fix, docs, etc.)
 ```
 
-## 🏗️ Monorepo Structure
+## 📖 Key Files to Read First
 
-- **apps/backoffice** (3000): Admin/Organizer management (Auth.js, Prisma,
-  Stripe)
-- **apps/frontoffice** (3003): Attendee event discovery (shared database)
-- **apps/mobile**: Expo 54 mobile for Attendees
-- **packages/taviad**: 60+ web components (Emotion + Radix UI)
-- **packages/taviax**: React Native components (Emotion Native)
-- **packages/env**: Type-safe environment variables
-- **packages/analytics**: Event tracking SDK
+1. **`pnpm-workspace.yaml`** - Catalog dependencies (READ BEFORE adding deps)
+2. **`turbo.json`** - Build pipeline and task dependencies
+3. **`apps/backoffice/DATABASE.md`** - Database setup and shared DB architecture
+4. **`docs/AUTHENTICATION.md`** - Complete auth flow for all apps
+5. **`.github/instructions/*.instructions.md`** - Path-specific patterns
+   (auto-loaded)
 
-## 📖 Key Documentation
+## ⚠️ Common Gotchas
 
-- `pnpm-workspace.yaml` - Catalog dependencies (read first!)
-- `turbo.json` - Build pipeline
-- `apps/backoffice/DATABASE.md` - Database setup
-- `docs/AUTHENTICATION.md` - Auth patterns
-- `.github/workflows/ci.yml` - CI/CD pipeline
+1. **Prefix unused variables with `_`**:
+   `const Component = ({ value, variant: _variant }) => ...`
+2. **Transient props need `$` prefix**: `styled.div<{ $isActive: boolean }>` NOT
+   `isActive`
+3. **Import ESLint configs without `.js`**: `@repo/eslint-config/react-internal`
+4. **Add JSX pragma for css prop**: `/** @jsxImportSource @emotion/react */`
+5. **Use `suppressHydrationWarning` on `<html>` tag** for Emotion SSR
+6. **Windows line endings**: Run `git config --global core.autocrlf input`
+   (Prettier enforces LF)
+7. **Radix UI uses `data-*` attributes**: Check `data-state`, `data-disabled` in
+   tests
+8. **Mobile API URL**: Use local IP (e.g., `192.168.1.16:3000`) for physical
+   devices, NOT `localhost`
 
 ---
 
-## For detailed patterns and best practices, see `.github/instructions/*.instructions.md` (automatically loaded by GitHub Copilot).
+**Stack**: Next.js 15 + React 19 | pnpm 10.19.0 | Node 22.17.1+ | Turbo | Vitest | 
+Playwright | ESLint 9 (flat config) | Emotion (NO SCSS) | Prisma | Docker PostgreSQL 16
 
-For detailed patterns and best practices, see
-`.github/instructions/*.instructions.md` (automatically loaded by GitHub
-Copilot).
+For detailed patterns and best practices, see `.github/instructions/*.instructions.md` 
+(automatically loaded by GitHub Copilot).
 
 Build a **two-sided platform** (broker model) connecting:
 
