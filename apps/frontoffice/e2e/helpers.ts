@@ -25,6 +25,9 @@ export async function fillInput(page: Page, label: string | RegExp, value: strin
 /**
  * Click and wait for navigation
  */
-export async function clickAndWaitForNavigation(page: Page, locator: any): Promise<void> {
+export async function clickAndWaitForNavigation(
+  page: Page,
+  locator: { click: () => Promise<void> }
+): Promise<void> {
   await Promise.all([page.waitForURL('**/*', { timeout: 10000 }), locator.click()]);
 }

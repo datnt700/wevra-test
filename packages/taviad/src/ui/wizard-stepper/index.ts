@@ -1,5 +1,5 @@
 /**
- * Stepper - Multi-step wizard indicator
+ * WizardStepper - Multi-step wizard indicator
  */
 
 export { WizardStepper } from './components';

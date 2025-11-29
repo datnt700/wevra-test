@@ -1,5 +1,5 @@
 /**
- * Stepper component props
+ * WizardStepper component props
  * Multi-step wizard/form indicator
  */
 

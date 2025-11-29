@@ -8,4 +8,8 @@ export interface ImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {
   fit?: string;
   fallbackSrc?: string;
   className?: string;
+  /** Enable image preview on click */
+  preview?: boolean;
+  /** Custom preview actions (download, zoom, etc.) */
+  previewActions?: React.ReactNode;
 }

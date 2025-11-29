@@ -51,6 +51,7 @@ export { createEmotionCache, createClientCache, createServerCache } from './lib/
 export { Avatar, type AvatarProps } from './ui/avatar';
 export { Badge, type BadgeProps } from './ui/badge';
 export { Button } from './ui/button';
+export { Carousel, type CarouselProps } from './ui/carousel';
 export { Code } from './ui/code';
 export { Icon } from './ui/icon';
 export { Image, type ImageProps } from './ui/image';
@@ -127,8 +128,8 @@ export { Breadcrumb, type BreadcrumbProps } from './ui/breadcrumb';
 export { Link, type LinkProps } from './ui/link';
 export { Pagination, type PaginationProps } from './ui/pagination';
 export { Sidebar } from './ui/sidebar';
-export { WizardStepper } from './ui/stepper';
-export type { Step, WizardStepperProps } from './ui/stepper';
+export { WizardStepper } from './ui/wizard-stepper';
+export type { Step, WizardStepperProps } from './ui/wizard-stepper';
 
 // State Components
 export { EmptyState, type EmptyStateProps } from './ui/empty-state';

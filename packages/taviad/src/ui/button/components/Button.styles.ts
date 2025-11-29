@@ -52,11 +52,11 @@ const getVariantColors = (theme: TaviaTheme, variant: ButtonVariant = 'primary')
       border: theme.colors.border.default,
     },
     tertiary: {
-      bg: theme.mode === 'dark' ? theme.colors.surface : theme.colors.gray.gray100,
+      bg: 'transparent',
       color: theme.colors.text.primary,
-      hoverBg: theme.mode === 'dark' ? theme.colors.surfaceHover : theme.colors.gray.gray200,
+      hoverBg: theme.mode === 'dark' ? theme.colors.surfaceHover : theme.colors.gray.gray100,
       activeBg: theme.mode === 'dark' ? theme.colors.surfaceHover : theme.colors.gray.gray200,
-      border: theme.colors.border.default,
+      border: 'transparent',
     },
     dark: {
       bg: theme.colors.gray.gray900,

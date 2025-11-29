@@ -1,9 +1,9 @@
 /**
- * Stepper Component
+ * WizardStepper Component
  * Visual indicator for multi-step processes/forms
  */
 
-import { Styled } from './Stepper.styles';
+import { Styled } from './WizardStepper.styles';
 import type { WizardStepperProps } from '../types';
 
 export const WizardStepper = ({

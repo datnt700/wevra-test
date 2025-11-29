@@ -15,12 +15,17 @@ export function PageLoadingBar() {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    setIsLoading(true);
+    // Set loading to true after a microtask to avoid setState in effect warning
+    Promise.resolve().then(() => setIsLoading(true));
+
     const timer = setTimeout(() => {
       setIsLoading(false);
     }, 1040);
 
-    return () => clearTimeout(timer);
+    return () => {
+      clearTimeout(timer);
+      setIsLoading(false);
+    };
   }, [pathname, searchParams]);
 
   return (
