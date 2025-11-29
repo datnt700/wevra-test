@@ -65,7 +65,9 @@ export function shouldLog(level: LogLevel): boolean {
  * Filter sensitive data from metadata
  */
 export function filterSensitiveData(
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   metadata?: Record<string, any>
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
 ): Record<string, any> | undefined {
   if (!metadata) return undefined;
 

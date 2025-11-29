@@ -3,7 +3,6 @@
  */
 
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { useRouter } from 'next/navigation';
 import {
   createGroup,
   updateGroup,
@@ -18,7 +17,6 @@ import {
  * Hook for creating a group
  */
 export function useCreateGroup() {
-  const router = useRouter();
   const queryClient = useQueryClient();
 
   return useMutation({
@@ -35,7 +33,6 @@ export function useCreateGroup() {
  * Hook for updating a group
  */
 export function useUpdateGroup(groupId: string) {
-  const router = useRouter();
   const queryClient = useQueryClient();
 
   return useMutation({
@@ -52,7 +49,6 @@ export function useUpdateGroup(groupId: string) {
  * Hook for deleting a group
  */
 export function useDeleteGroup() {
-  const router = useRouter();
   const queryClient = useQueryClient();
 
   return useMutation({

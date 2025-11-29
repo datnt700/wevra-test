@@ -61,7 +61,9 @@ test.describe('Backoffice Login Page', () => {
 
       // Check for toggle button (implementation-specific)
       // This test assumes a toggle icon/button exists
-      const toggleButton = page.locator('[aria-label*="password" i], [data-testid*="toggle" i]').first();
+      const toggleButton = page
+        .locator('[aria-label*="password" i], [data-testid*="toggle" i]')
+        .first();
       if (await toggleButton.isVisible()) {
         await toggleButton.click();
         // Password should now be visible

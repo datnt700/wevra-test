@@ -31,11 +31,11 @@ const styles = StyleSheet.create({
   line: {
     flex: 1,
     height: 1,
-    backgroundColor: colors.border,
+    backgroundColor: colors.gray300,
   },
   text: {
     marginHorizontal: spacing.md,
     fontSize: 14,
-    color: colors.textSecondary,
+    color: colors.gray600,
   },
 });

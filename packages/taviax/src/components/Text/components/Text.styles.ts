@@ -73,7 +73,7 @@ export const getWeightStyles = (weight?: 'normal' | 'medium' | 'semibold' | 'bol
     bold: '700',
   };
 
-  return { fontWeight: weightMap[weight] as const };
+  return { fontWeight: weightMap[weight] as '400' | '500' | '600' | '700' };
 };
 
 export const getAlignStyles = (align?: 'left' | 'center' | 'right') => {

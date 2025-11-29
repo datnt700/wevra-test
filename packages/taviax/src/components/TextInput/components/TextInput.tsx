@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { TextInput as RNTextInput } from 'react-native';
+import { TextInput as RNTextInput, ViewStyle } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import type { TextInputProps } from '../types';
 import { Styled } from './TextInput.styles';
@@ -27,7 +27,7 @@ export const TextInput = React.forwardRef<RNTextInput, TextInputProps>(
     const shouldShowToggle = isPasswordField && hasPasswordToggle;
 
     return (
-      <Styled.Container style={containerStyle}>
+      <Styled.Container style={containerStyle as ViewStyle}>
         {label && (
           <Styled.Label style={labelStyle}>
             {label}

@@ -26,16 +26,8 @@ export function GroupDetailClient({ group, isOwner }: GroupDetailClientProps) {
               <Styled.HeroHeader>
                 <Styled.HeroTitle>{group.name}</Styled.HeroTitle>
                 <Styled.BadgeGroup>
-                  {group.isPremium && (
-                    <Badge variant="success" shape="rounded">
-                      {t('detail.premium')}
-                    </Badge>
-                  )}
-                  {!group.isPublic && (
-                    <Badge variant="info" shape="rounded">
-                      {t('detail.private')}
-                    </Badge>
-                  )}
+                  {group.isPremium && <Badge variant="success">{t('detail.premium')}</Badge>}
+                  {!group.isPublic && <Badge variant="info">{t('detail.private')}</Badge>}
                 </Styled.BadgeGroup>
               </Styled.HeroHeader>
               <Styled.HeroMeta>
@@ -81,16 +73,8 @@ export function GroupDetailClient({ group, isOwner }: GroupDetailClientProps) {
               <Styled.HeaderContent>
                 <Styled.HeaderTop>
                   <Styled.Title>{group.name}</Styled.Title>
-                  {group.isPremium && (
-                    <Badge variant="success" shape="rounded">
-                      {t('detail.premium')}
-                    </Badge>
-                  )}
-                  {!group.isPublic && (
-                    <Badge variant="info" shape="rounded">
-                      {t('detail.private')}
-                    </Badge>
-                  )}
+                  {group.isPremium && <Badge variant="success">{t('detail.premium')}</Badge>}
+                  {!group.isPublic && <Badge variant="info">{t('detail.private')}</Badge>}
                 </Styled.HeaderTop>
                 <Styled.Category>{group.category}</Styled.Category>
                 {group.location && <Styled.Location>📍 {group.location}</Styled.Location>}
@@ -124,6 +108,7 @@ export function GroupDetailClient({ group, isOwner }: GroupDetailClientProps) {
           <Styled.OrganizerInfo>
             <Styled.Avatar $hasImage={!!group.owner.image}>
               {group.owner.image ? (
+                // eslint-disable-next-line @next/next/no-img-element
                 <img src={group.owner.image} alt={group.owner.name || 'Organizer'} />
               ) : (
                 <span>{group.owner.name?.[0] || 'O'}</span>

@@ -1,4 +1,4 @@
-import { test as base } from '@playwright/test';
+import { test as base, Page, BrowserContext } from '@playwright/test';
 
 /**
  * Custom fixtures for backoffice E2E tests
@@ -10,7 +10,7 @@ import { test as base } from '@playwright/test';
  */
 
 type BackofficeFixtures = {
-  authenticatedPage: any;
+  authenticatedPage: Page;
 };
 
 /**
@@ -21,7 +21,7 @@ export const test = base.extend<BackofficeFixtures>({
    * Authenticated page fixture
    * Automatically loads the admin authentication state
    */
-  authenticatedPage: async ({ page, context }, use) => {
+  authenticatedPage: async ({ page, context }: { page: Page; context: BrowserContext }, use) => {
     // Load authentication state if available
     const authFile = '.auth/admin.json';
     try {

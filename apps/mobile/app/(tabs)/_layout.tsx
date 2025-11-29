@@ -26,21 +26,27 @@ export default function TabLayout() {
         name="index"
         options={{
           title: 'Events',
-          tabBarIcon: ({ color }) => <TabBarIcon name="calendar-outline" color={color} />,
+          tabBarIcon: ({ color }: { color: string }) => (
+            <TabBarIcon name="calendar-outline" color={color} />
+          ),
         }}
       />
       <Tabs.Screen
         name="two"
         options={{
           title: 'Explore',
-          tabBarIcon: ({ color }) => <TabBarIcon name="search-outline" color={color} />,
+          tabBarIcon: ({ color }: { color: string }) => (
+            <TabBarIcon name="search-outline" color={color} />
+          ),
         }}
       />
       <Tabs.Screen
         name="profile"
         options={{
           title: 'Profile',
-          tabBarIcon: ({ color }) => <TabBarIcon name="person-outline" color={color} />,
+          tabBarIcon: ({ color }: { color: string }) => (
+            <TabBarIcon name="person-outline" color={color} />
+          ),
         }}
       />
     </Tabs>

@@ -31,7 +31,6 @@ export async function generateMetadata({ params }: EditGroupPageProps): Promise<
 export default async function EditGroupPage({ params }: EditGroupPageProps) {
   const session = await auth();
   const { id } = await params;
-  const _t = await getTranslations('groups');
 
   if (!session?.user) {
     redirect(ROUTES.AUTH.LOGIN);

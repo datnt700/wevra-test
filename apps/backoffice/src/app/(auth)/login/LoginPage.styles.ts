@@ -25,6 +25,13 @@ export const Styled = {
     text-align: center;
   `,
 
+  Logo: styled.h1`
+    font-size: 2rem;
+    font-weight: 700;
+    color: ${cssVars.gray900};
+    margin: 0;
+  `,
+
   Title: styled.h1`
     margin-bottom: 0.5rem;
     font-size: 2rem;

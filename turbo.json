@@ -25,12 +25,21 @@
     "EMAIL_SERVER_PASSWORD",
     "EMAIL_FROM",
     "ANALYTICS_API_KEY",
+    "ANALYTICS_API_URL",
+    "JWT_SECRET",
+    "WEBHOOK_SECRET",
     "STRIPE_SECRET_KEY",
     "STRIPE_WEBHOOK_SECRET",
     "STRIPE_MONTHLY_PRICE_ID",
     "STRIPE_ANNUAL_PRICE_ID",
     "NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY",
-    "SKIP_ENV_VALIDATION"
+    "SKIP_ENV_VALIDATION",
+    "PORT",
+    "HOST",
+    "LOG_LEVEL",
+    "CORS_ORIGIN",
+    "RATE_LIMIT_MAX",
+    "RATE_LIMIT_WINDOW"
   ],
   "tasks": {
     "build": {
@@ -47,7 +56,8 @@
     "lint": {
       "dependsOn": ["^lint"],
       "inputs": ["$TURBO_DEFAULT$", ".eslintrc*", "eslint.config.*"],
-      "outputs": []
+      "outputs": [],
+      "env": ["ANALYTICS_API_URL"]
     },
     "type-check": {
       "dependsOn": ["^type-check"],

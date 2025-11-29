@@ -7,6 +7,7 @@ afterEach(() => {
 });
 
 // Mock React Native modules
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 (global as any).__DEV__ = true;
 
 // Mock AsyncStorage

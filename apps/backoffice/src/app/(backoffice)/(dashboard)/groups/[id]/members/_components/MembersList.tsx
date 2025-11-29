@@ -100,6 +100,7 @@ export function MembersList({
                 <Styled.MemberInfo>
                   <Styled.Avatar $hasImage={!!member.user.image}>
                     {member.user.image ? (
+                      // eslint-disable-next-line @next/next/no-img-element
                       <img src={member.user.image} alt={member.user.name || 'Member'} />
                     ) : (
                       <span>
@@ -148,6 +149,7 @@ export function MembersList({
                 <Styled.MemberInfo>
                   <Styled.Avatar $hasImage={!!member.user.image}>
                     {member.user.image ? (
+                      // eslint-disable-next-line @next/next/no-img-element
                       <img src={member.user.image} alt={member.user.name || 'Member'} />
                     ) : (
                       <span>

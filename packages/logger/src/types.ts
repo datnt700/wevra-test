@@ -7,6 +7,7 @@ export type LogLevel = 'debug' | 'info' | 'warn' | 'error';
  * Metadata attached to log entries
  */
 export interface LogMetadata {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [key: string]: any;
 }
 

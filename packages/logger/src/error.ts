@@ -15,6 +15,7 @@ export function logError(error: unknown, context?: LogMetadata): void {
     errorDetails.stack = error.stack;
 
     // Extract additional error properties
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const errorObj = error as any;
     if (errorObj.code) errorDetails.code = errorObj.code;
     if (errorObj.statusCode) errorDetails.statusCode = errorObj.statusCode;

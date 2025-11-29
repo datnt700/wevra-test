@@ -16,7 +16,6 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function CreateGroupPage() {
   const session = await auth();
-  const _t = await getTranslations('groups');
 
   if (!session?.user) {
     redirect(ROUTES.AUTH.LOGIN);

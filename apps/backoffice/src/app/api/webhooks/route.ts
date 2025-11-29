@@ -50,7 +50,11 @@ export const POST = withApiHandler(
 
     // Verify signature (optional in development, required in production)
     if (env.NODE_ENV === 'production' && signature) {
-      const isValid = await verifyWebhookSignature(body, signature, env.WEBHOOK_SECRET);
+      const isValid = await verifyWebhookSignature(
+        body,
+        signature,
+        env.STRIPE_WEBHOOK_SECRET || ''
+      );
 
       if (!isValid) {
         throw new BadRequestError('Invalid webhook signature');

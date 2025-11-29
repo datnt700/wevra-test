@@ -222,7 +222,7 @@ export function EditGroupForm({ group }: EditGroupFormProps) {
       <Modal
         isOpen={showDeleteModal}
         onClose={() => setShowDeleteModal(false)}
-        title={t('edit.deleteModalTitle')}
+        header={<h2>{t('edit.deleteModalTitle')}</h2>}
         footer={
           <>
             <Button

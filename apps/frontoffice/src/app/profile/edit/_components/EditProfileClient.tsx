@@ -2,13 +2,16 @@
 
 /**
  * Edit Profile Client Component
- * Allows users to update their name, email, and password
+ * Modern implementation with React Hook Form, Zod validation, React Query, and i18n
  */
-import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
+import { useForm, useWatch } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { toast } from 'sonner';
 import { Button, InputText, Field, Card } from '@tavia/taviad';
-import { updateProfileAction } from '@/actions/profile.actions';
+import { useUpdateProfile } from '../_hooks/useUpdateProfile';
+import { createProfileSchema, type ProfileFormData } from '../_schemas/profileSchema';
 import { Styled } from './EditProfileClient.styles';
 
 interface EditProfileClientProps {
@@ -23,148 +26,94 @@ interface EditProfileClientProps {
 export function EditProfileClient({ user }: EditProfileClientProps) {
   const router = useRouter();
   const t = useTranslations('profile');
-  const [loading, setLoading] = useState(false);
-  const [formData, setFormData] = useState({
-    name: user.name || '',
-    email: user.email || '',
-    currentPassword: '',
-    newPassword: '',
-    confirmPassword: '',
+
+  // React Hook Form with Zod validation
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isDirty },
+    control,
+  } = useForm<ProfileFormData>({
+    resolver: zodResolver(createProfileSchema(t)),
+    defaultValues: {
+      name: user.name || '',
+      email: user.email || '',
+      currentPassword: '',
+      newPassword: '',
+      confirmPassword: '',
+    },
   });
-  const [errors, setErrors] = useState<{ [key: string]: string }>({});
 
-  const validateForm = (): boolean => {
-    const newErrors: { [key: string]: string } = {};
+  // Watch for password fields to determine if user is changing password
+  // Use useWatch hook (React Compiler compatible)
+  const newPassword = useWatch({ control, name: 'newPassword' });
+  const currentPassword = useWatch({ control, name: 'currentPassword' });
+  const confirmPassword = useWatch({ control, name: 'confirmPassword' });
+  const isChangingPassword = !!(newPassword || currentPassword || confirmPassword);
 
-    // Validate name
-    if (!formData.name.trim()) {
-      newErrors.name = 'Name is required';
-    } else if (formData.name.trim().length < 2) {
-      newErrors.name = 'Name must be at least 2 characters';
+  // React Query mutation for profile update
+  const mutation = useUpdateProfile();
+
+  const onSubmit = (data: ProfileFormData) => {
+    // Build update payload (only include changed fields)
+    const updatePayload: {
+      userId: string;
+      name?: string;
+      email?: string;
+      currentPassword?: string;
+      newPassword?: string;
+    } = {
+      userId: user.id,
+    };
+
+    if (data.name !== user.name) {
+      updatePayload.name = data.name;
     }
 
-    // Validate email
-    if (!formData.email.trim()) {
-      newErrors.email = 'Email is required';
-    } else {
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailRegex.test(formData.email)) {
-        newErrors.email = 'Please enter a valid email';
-      }
+    if (data.email !== user.email) {
+      updatePayload.email = data.email;
     }
 
-    // Validate password if changing
-    if (formData.newPassword || formData.currentPassword || formData.confirmPassword) {
-      if (!formData.currentPassword) {
-        newErrors.currentPassword = 'Current password is required to change password';
-      }
-
-      if (!formData.newPassword) {
-        newErrors.newPassword = 'New password is required';
-      } else if (formData.newPassword.length < 8) {
-        newErrors.newPassword = 'Password must be at least 8 characters';
-      } else {
-        const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/;
-        if (!passwordRegex.test(formData.newPassword)) {
-          newErrors.newPassword = 'Password must include uppercase, lowercase, and a number';
-        }
-      }
-
-      if (formData.newPassword !== formData.confirmPassword) {
-        newErrors.confirmPassword = "Passwords don't match";
-      }
+    if (data.newPassword) {
+      updatePayload.currentPassword = data.currentPassword;
+      updatePayload.newPassword = data.newPassword;
     }
 
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-
-    if (!validateForm()) {
+    // If no changes, show info toast and navigate back
+    if (Object.keys(updatePayload).length === 1) {
+      toast.info(t('errors.noChanges'));
+      router.back();
       return;
     }
 
-    setLoading(true);
-
-    try {
-      // Build update payload (only include changed fields)
-      const updatePayload: {
-        userId: string;
-        name?: string;
-        email?: string;
-        currentPassword?: string;
-        newPassword?: string;
-      } = {
-        userId: user.id,
-      };
-
-      if (formData.name !== user.name) {
-        updatePayload.name = formData.name;
-      }
-
-      if (formData.email !== user.email) {
-        updatePayload.email = formData.email;
-      }
-
-      if (formData.newPassword) {
-        updatePayload.currentPassword = formData.currentPassword;
-        updatePayload.newPassword = formData.newPassword;
-      }
-
-      // If no changes, just go back
-      if (Object.keys(updatePayload).length === 1) {
-        // Only userId
-        alert('No changes were made to your profile.');
-        router.back();
-        return;
-      }
-
-      const result = await updateProfileAction(updatePayload);
-
-      if (!result.success) {
-        setErrors({ submit: result.error || 'Failed to update profile' });
-        return;
-      }
-
-      alert('Profile updated successfully!');
-      router.back();
-      router.refresh();
-    } catch (error) {
-      console.error('Update profile error:', error);
-      setErrors({ submit: 'An error occurred. Please try again.' });
-    } finally {
-      setLoading(false);
-    }
+    mutation.mutate(updatePayload);
   };
 
   return (
     <Styled.Container>
       <Styled.Header>
         <Styled.Title>{t('editProfile')}</Styled.Title>
-        <Button variant="tertiary" onClick={() => router.back()} disabled={loading}>
-          Cancel
+        <Button variant="tertiary" onClick={() => router.back()} disabled={mutation.isPending}>
+          {t('actions.cancel')}
         </Button>
       </Styled.Header>
 
       <Styled.Content>
         <Card>
-          <Styled.Form onSubmit={handleSubmit}>
+          <Styled.Form onSubmit={handleSubmit(onSubmit)}>
             {/* Basic Information */}
             <Styled.Section>
-              <Styled.SectionTitle>Basic Information</Styled.SectionTitle>
+              <Styled.SectionTitle>{t('basicInformation.title')}</Styled.SectionTitle>
 
               <Styled.InputGroup>
                 <Field
-                  label="Name"
+                  label={t('labels.name')}
                   input={
                     <InputText
-                      value={formData.name}
-                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                      errorMessage={errors.name}
-                      isDisabled={loading}
-                      placeholder="Enter your name"
+                      {...register('name')}
+                      errorMessage={errors.name?.message}
+                      isDisabled={mutation.isPending}
+                      placeholder={t('placeholders.name')}
                     />
                   }
                 />
@@ -172,15 +121,14 @@ export function EditProfileClient({ user }: EditProfileClientProps) {
 
               <Styled.InputGroup>
                 <Field
-                  label="Email"
+                  label={t('labels.email')}
                   input={
                     <InputText
                       type="email"
-                      value={formData.email}
-                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      errorMessage={errors.email}
-                      isDisabled={loading}
-                      placeholder="Enter your email"
+                      {...register('email')}
+                      errorMessage={errors.email?.message}
+                      isDisabled={mutation.isPending}
+                      placeholder={t('placeholders.email')}
                     />
                   }
                 />
@@ -189,24 +137,21 @@ export function EditProfileClient({ user }: EditProfileClientProps) {
 
             {/* Change Password */}
             <Styled.Section>
-              <Styled.SectionTitle>Change Password</Styled.SectionTitle>
+              <Styled.SectionTitle>{t('changePassword.title')}</Styled.SectionTitle>
               <Styled.SectionDescription>
-                Leave password fields empty if you don't want to change your password
+                {t('changePassword.description')}
               </Styled.SectionDescription>
 
               <Styled.InputGroup>
                 <Field
-                  label="Current Password"
+                  label={t('labels.currentPassword')}
                   input={
                     <InputText
                       type="password"
-                      value={formData.currentPassword}
-                      onChange={(e) =>
-                        setFormData({ ...formData, currentPassword: e.target.value })
-                      }
-                      errorMessage={errors.currentPassword}
-                      isDisabled={loading}
-                      placeholder="Enter current password"
+                      {...register('currentPassword')}
+                      errorMessage={errors.currentPassword?.message}
+                      isDisabled={mutation.isPending}
+                      placeholder={t('placeholders.currentPassword')}
                       hasPasswordToggle
                     />
                   }
@@ -215,15 +160,14 @@ export function EditProfileClient({ user }: EditProfileClientProps) {
 
               <Styled.InputGroup>
                 <Field
-                  label="New Password"
+                  label={t('labels.newPassword')}
                   input={
                     <InputText
                       type="password"
-                      value={formData.newPassword}
-                      onChange={(e) => setFormData({ ...formData, newPassword: e.target.value })}
-                      errorMessage={errors.newPassword}
-                      isDisabled={loading}
-                      placeholder="Enter new password"
+                      {...register('newPassword')}
+                      errorMessage={errors.newPassword?.message}
+                      isDisabled={mutation.isPending}
+                      placeholder={t('placeholders.newPassword')}
                       hasPasswordToggle
                     />
                   }
@@ -232,17 +176,14 @@ export function EditProfileClient({ user }: EditProfileClientProps) {
 
               <Styled.InputGroup>
                 <Field
-                  label="Confirm New Password"
+                  label={t('labels.confirmPassword')}
                   input={
                     <InputText
                       type="password"
-                      value={formData.confirmPassword}
-                      onChange={(e) =>
-                        setFormData({ ...formData, confirmPassword: e.target.value })
-                      }
-                      errorMessage={errors.confirmPassword}
-                      isDisabled={loading}
-                      placeholder="Confirm new password"
+                      {...register('confirmPassword')}
+                      errorMessage={errors.confirmPassword?.message}
+                      isDisabled={mutation.isPending}
+                      placeholder={t('placeholders.confirmPassword')}
                       hasPasswordToggle
                     />
                   }
@@ -250,16 +191,21 @@ export function EditProfileClient({ user }: EditProfileClientProps) {
               </Styled.InputGroup>
             </Styled.Section>
 
-            {/* Error Message */}
-            {errors.submit && <Styled.ErrorText>{errors.submit}</Styled.ErrorText>}
-
             {/* Actions */}
             <Styled.Actions>
-              <Button variant="tertiary" onClick={() => router.back()} disabled={loading}>
-                Cancel
+              <Button
+                variant="tertiary"
+                onClick={() => router.back()}
+                disabled={mutation.isPending}
+              >
+                {t('actions.cancel')}
               </Button>
-              <Button type="submit" variant="primary" disabled={loading}>
-                {loading ? 'Saving...' : 'Save Changes'}
+              <Button
+                type="submit"
+                variant="primary"
+                disabled={mutation.isPending || (!isDirty && !isChangingPassword)}
+              >
+                {mutation.isPending ? t('actions.saving') : t('actions.saveChanges')}
               </Button>
             </Styled.Actions>
           </Styled.Form>

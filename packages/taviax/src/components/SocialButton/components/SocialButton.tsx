@@ -78,7 +78,7 @@ export const SocialButton = ({
         <Styled.TextContainer>
           {!isLoading &&
             (typeof children === 'string' ? (
-              <Text style={[Styled.Text, textStyles]}>{children}</Text>
+              <Text style={[Styled.Text as any, textStyles]}>{children}</Text>
             ) : (
               children
             ))}

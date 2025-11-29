@@ -1,0 +1,49 @@
+{
+  "editProfile": "Edit Profile",
+  "viewProfile": "View Profile",
+  "basicInformation": {
+    "title": "Basic Information"
+  },
+  "changePassword": {
+    "title": "Change Password",
+    "description": "Leave password fields empty if you don't want to change your password"
+  },
+  "labels": {
+    "name": "Name",
+    "email": "Email",
+    "currentPassword": "Current Password",
+    "newPassword": "New Password",
+    "confirmPassword": "Confirm New Password"
+  },
+  "placeholders": {
+    "name": "Enter your name",
+    "email": "Enter your email",
+    "currentPassword": "Enter current password",
+    "newPassword": "Enter new password",
+    "confirmPassword": "Confirm new password"
+  },
+  "validation": {
+    "nameRequired": "Name is required",
+    "nameMin": "Name must be at least 2 characters",
+    "emailRequired": "Email is required",
+    "emailInvalid": "Please enter a valid email",
+    "currentPasswordRequired": "Current password is required to change password",
+    "newPasswordRequired": "New password is required",
+    "passwordMin": "Password must be at least 8 characters",
+    "passwordStrength": "Password must include uppercase, lowercase, and a number",
+    "passwordMatch": "Passwords don't match"
+  },
+  "actions": {
+    "cancel": "Cancel",
+    "saveChanges": "Save Changes",
+    "saving": "Saving..."
+  },
+  "success": {
+    "profileUpdated": "Profile updated successfully!"
+  },
+  "errors": {
+    "updateFailed": "Failed to update profile",
+    "noChanges": "No changes were made to your profile",
+    "unexpectedError": "An error occurred. Please try again"
+  }
+}

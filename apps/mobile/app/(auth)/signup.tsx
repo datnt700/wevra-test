@@ -69,7 +69,10 @@ export default function SignupScreen() {
         const errorMessage = result.error?.message || 'Registration failed';
         // Show validation details if available
         const errorDetails = result.error?.details
-          ? '\n' + result.error.details.map((d: any) => `${d.field}: ${d.message}`).join('\n')
+          ? '\n' +
+            result.error.details
+              .map((d: { field?: string; message: string }) => `${d.field}: ${d.message}`)
+              .join('\n')
           : '';
         throw new Error(errorMessage + errorDetails);
       }
@@ -83,11 +86,10 @@ export default function SignupScreen() {
 
       // Navigate to tabs immediately after successful registration
       router.replace('/(tabs)');
-    } catch (error: any) {
-      Alert.alert(
-        i18n.t('auth.errors.signupFailed'),
-        error.message || i18n.t('auth.errors.signupFailedMessage')
-      );
+    } catch (error) {
+      const message =
+        error instanceof Error ? error.message : i18n.t('auth.errors.signupFailedMessage');
+      Alert.alert(i18n.t('auth.errors.signupFailed'), message);
       console.error('Signup error:', error);
     } finally {
       setIsLoading(false);

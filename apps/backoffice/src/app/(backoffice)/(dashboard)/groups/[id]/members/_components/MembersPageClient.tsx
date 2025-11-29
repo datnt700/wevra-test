@@ -35,7 +35,7 @@ export function MembersPageClient({
               : t('members.memberCount', { count: activeMembers.length, max: maxMembers })}
           </Styled.StatText>
           {pendingMembers.length > 0 && (
-            <Badge variant="warning" shape="rounded">
+            <Badge variant="warning">
               {pendingMembers.length} {t('members.pendingRequests').toLowerCase()}
             </Badge>
           )}

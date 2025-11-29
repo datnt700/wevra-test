@@ -1,7 +1,10 @@
-import { config as base } from '@repo/eslint-config/base';
+import base from '@repo/eslint-config/base';
 
 export default [
   ...base,
+  {
+    ignores: ['babel.config.js'],
+  },
   {
     rules: {
       '@typescript-eslint/no-unused-vars': [

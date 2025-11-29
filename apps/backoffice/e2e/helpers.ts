@@ -24,8 +24,10 @@ export async function fillInput(page: Page, label: string | RegExp, value: strin
 /**
  * Click and wait for navigation
  */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export async function clickAndWaitForNavigation(
   page: Page,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   selector: string | { role: string; name: string } | any
 ): Promise<void> {
   if (typeof selector === 'string') {

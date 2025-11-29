@@ -103,7 +103,7 @@ export async function analyticsRoutes(app: FastifyInstance) {
             screenHeight: event.screen?.height,
             viewportWidth: event.viewport?.width,
             viewportHeight: event.viewport?.height,
-            metadata: event.metadata ? (event.metadata as Record<string, unknown>) : undefined,
+            metadata: event.metadata || undefined,
           };
 
           // Add type-specific fields
@@ -128,9 +128,7 @@ export async function analyticsRoutes(app: FastifyInstance) {
             return {
               ...baseEvent,
               customName: event.name,
-              customProperties: event.properties
-                ? (event.properties as Record<string, unknown>)
-                : undefined,
+              customProperties: event.properties || undefined,
             };
           }
 
@@ -138,7 +136,6 @@ export async function analyticsRoutes(app: FastifyInstance) {
         });
 
         // Save to database
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         await app.prisma.analyticsEvent.createMany({
           data: dbEvents as any,
         });

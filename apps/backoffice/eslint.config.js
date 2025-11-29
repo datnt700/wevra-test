@@ -1,4 +1,4 @@
-import { nextJsConfig } from '@repo/eslint-config/next-js';
+import nextJsConfig from '@repo/eslint-config/next-js';
 
 /** @type {import("eslint").Linter.Config[]} */
 export default [
@@ -11,6 +11,9 @@ export default [
       'node_modules/**',
       'build/**',
       'coverage/**',
+      'playwright-report/**',
+      'test-results/**',
+      'e2e/**',
       '*.log',
       'next-env.d.ts',
     ],
