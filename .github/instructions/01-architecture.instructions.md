@@ -93,6 +93,16 @@ pnpm db:generate  # NOT migrate
 - **apps/analytics** (3001): Fastify event tracking API
 - **apps/event-service** (3002): NestJS microservice
 
+**Shared Packages:**
+
+- **@tavia/database**: Prisma types, enums, query selectors (ALWAYS use for
+  types)
+- **@tavia/taviad**: 60+ web UI components
+- **@tavia/taviax**: React Native mobile components
+- **@tavia/env**: Type-safe environment variables (MANDATORY)
+- **@tavia/analytics**: Event tracking SDK
+- **@tavia/logger**: Structured logging
+
 **Port Allocation:**
 
 - Web apps: 3000-3099 (deterministic hash)

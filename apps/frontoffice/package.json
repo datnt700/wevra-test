@@ -38,6 +38,7 @@
   },
   "dependencies": {
     "@tavia/analytics": "workspace:*",
+    "@tavia/database": "workspace:*",
     "@tavia/logger": "workspace:*",
     "@tavia/taviad": "workspace:*",
     "@tavia/module-generator": "workspace:*",

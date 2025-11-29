@@ -78,5 +78,34 @@
     "logout": "Đăng xuất",
     "logoutConfirm": "Bạn có chắc muốn đăng xuất?",
     "cancel": "Hủy"
+  },
+  "groups": {
+    "detail": {
+      "backButton": "Quay lại",
+      "premium": "Cao cấp",
+      "private": "Riêng tư",
+      "members": "thành viên",
+      "totalEvents": "tổng sự kiện",
+      "organizedBy": "Tổ chức bởi",
+      "owner": "Chủ nhóm",
+      "upcomingEvents": "Sự kiện sắp tới",
+      "noEvents": "Không có sự kiện sắp tới",
+      "pendingApproval": "Đang chờ phê duyệt",
+      "pendingMessage": "Yêu cầu tham gia đang chờ phê duyệt"
+    },
+    "join": {
+      "button": "Tham gia nhóm",
+      "success": "Đã tham gia nhóm thành công!",
+      "successPending": "Yêu cầu của bạn đã được gửi",
+      "errorFull": "Nhóm đã đầy",
+      "errorAlreadyMember": "Bạn đã là thành viên",
+      "error": "Không thể tham gia nhóm"
+    },
+    "leave": {
+      "button": "Rời nhóm",
+      "confirm": "Bạn có chắc muốn rời khỏi nhóm này?",
+      "success": "Đã rời nhóm thành công",
+      "error": "Không thể rời nhóm"
+    }
   }
 }

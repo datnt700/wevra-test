@@ -65,6 +65,33 @@ export const groupMemberWithUserSelect = Prisma.validator<Prisma.GroupMemberSele
   },
 });
 
+// Group detail with owner and membership info (for attendee views)
+export const groupDetailSelect = Prisma.validator<Prisma.GroupSelect>()({
+  id: true,
+  name: true,
+  slug: true,
+  description: true,
+  image: true,
+  category: true,
+  isPublic: true,
+  isPremium: true,
+  memberCount: true,
+  maxMembers: true,
+  location: true,
+  owner: {
+    select: {
+      id: true,
+      name: true,
+      image: true,
+    },
+  },
+  _count: {
+    select: {
+      events: true,
+    },
+  },
+});
+
 /**
  * Derived types from Prisma queries
  * These types automatically update when the schema changes
@@ -83,4 +110,9 @@ export type GroupWithOwner = Prisma.GroupGetPayload<{
 // Group member with user data
 export type GroupMemberWithUser = Prisma.GroupMemberGetPayload<{
   select: typeof groupMemberWithUserSelect;
+}>;
+
+// Group detail for attendee views (includes owner and counts)
+export type GroupDetail = Prisma.GroupGetPayload<{
+  select: typeof groupDetailSelect;
 }>;

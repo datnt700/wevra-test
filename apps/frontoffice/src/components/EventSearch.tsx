@@ -39,14 +39,7 @@ export function EventSearch() {
     logger.error('Failed to load events', { error });
     return (
       <MainContent style={{ paddingTop: '5rem' }}>
-        <CenteredMessage
-          style={{
-            minHeight: '60vh',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
-        >
+        <CenteredMessage>
           <ErrorState
             icon={<AlertCircle size={80} color="#e21822" />}
             title={tErrors('loadingEvents')}

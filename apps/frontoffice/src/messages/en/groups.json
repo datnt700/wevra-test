@@ -1,0 +1,32 @@
+{
+  "detail": {
+    "backButton": "Back",
+    "premium": "Premium",
+    "private": "Private",
+    "members": "Members",
+    "events": "events",
+    "totalEvents": "total events",
+    "pendingApproval": "Pending Approval",
+    "pendingMessage": "Your membership request is pending approval from the organizer.",
+    "organizedBy": "Organized by",
+    "owner": "Owner",
+    "upcomingEvents": "Upcoming Events",
+    "noEvents": "No upcoming events"
+  },
+  "join": {
+    "button": "Join Group",
+    "loading": "Joining...",
+    "success": "Successfully joined the group!",
+    "successPending": "Your request to join has been sent and is pending approval.",
+    "errorFull": "Group is full",
+    "errorAlreadyMember": "You are already a member",
+    "errorGeneric": "Failed to join group"
+  },
+  "leave": {
+    "button": "Leave Group",
+    "loading": "Leaving...",
+    "confirm": "Are you sure you want to leave this group?",
+    "success": "Successfully left the group",
+    "error": "Failed to leave group"
+  }
+}

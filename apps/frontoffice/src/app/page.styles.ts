@@ -244,6 +244,17 @@ export const SmallButton = styled(Button)`
 `;
 
 export const CenteredMessage = styled.div`
-  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
   padding: 3rem;
+  width: 100%;
+
+  > * {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+  }
 `;

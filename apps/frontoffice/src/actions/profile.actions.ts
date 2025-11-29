@@ -4,7 +4,7 @@
  * Profile Server Actions for Frontoffice
  * Handles profile updates for attendees
  */
-import prisma from '@/lib/prisma';
+import { prisma } from '@/lib/prisma';
 import { hash, compare } from 'bcryptjs';
 import { revalidatePath } from 'next/cache';
 

@@ -1,6 +1,6 @@
 'use server';
 
-import prisma from '@/lib/prisma';
+import { prisma } from '@/lib/prisma';
 import { createLogger } from '@tavia/logger';
 
 const logger = createLogger('event-actions');

@@ -128,6 +128,99 @@ pnpm db:generate  # NOT migrate - just generate client
 - ⚠️ Schema changes? Copy to frontoffice `prisma/schema.prisma`
 - ⚠️ Frontoffice uses `pnpm db:generate` only
 
+## Shared Types (@tavia/database)
+
+**ALWAYS use shared types from `@tavia/database` package** - NEVER define local
+interfaces
+
+**Available Types:**
+
+```typescript
+// Group types
+import type {
+  GroupDetail,
+  GroupWithOwner,
+  GroupWithCounts,
+  GroupMemberWithUser,
+} from '@tavia/database';
+
+// Common types
+import type { ActionResponse } from '@tavia/database';
+
+// Enums
+import {
+  MembershipStatus,
+  UserRole,
+  SubscriptionStatus,
+} from '@tavia/database';
+
+// Prisma selects (for queries)
+import { groupDetailSelect, groupWithOwnerSelect } from '@tavia/database';
+```
+
+**Usage Pattern:**
+
+```typescript
+// ✅ CORRECT - Use shared types and enums
+import type { GroupDetail } from '@tavia/database';
+import { MembershipStatus, groupDetailSelect } from '@tavia/database';
+
+const group = await prisma.group.findUnique({
+  where: { id },
+  select: groupDetailSelect,
+});
+
+// Use enum values, not string literals
+if (membershipStatus === MembershipStatus.ACTIVE) {
+  // Member logic
+}
+
+// ❌ WRONG - Don't use string literals for enums
+if (membershipStatus === 'ACTIVE') {
+  // ❌ Don't do this
+  // ...
+}
+
+// ❌ WRONG - Don't define local interfaces
+interface GroupData {
+  id: string;
+  name: string;
+  // ...
+}
+```
+
+**Rules:**
+
+1. ✅ **ALWAYS** import types from `@tavia/database`
+2. ✅ **ALWAYS** use enum values (e.g., `MembershipStatus.ACTIVE`) instead of
+   strings
+3. ✅ Import enums without `type` keyword:
+   `import { MembershipStatus } from '@tavia/database'`
+4. ✅ Use Prisma select validators (`groupDetailSelect`) for consistent queries
+5. ✅ Define new shared types in `packages/database/src/types/`
+6. ✅ Use `ActionResponse<T>` for server actions and API routes
+7. ❌ **NEVER** define duplicate interfaces in app code
+8. ❌ **NEVER** use string literals for enum values (`'ACTIVE'` ❌, use
+   `MembershipStatus.ACTIVE` ✅)
+9. ❌ **NEVER** import types directly from `@prisma/client` (use database
+   package)
+10. ✅ Use `ActionResponse<T>` for server actions and API routes
+11. ❌ **NEVER** define duplicate interfaces in app code
+12. ❌ **NEVER** use `@prisma/client` directly for types (use database package)
+
+**Adding New Types:**
+
+```typescript
+// packages/database/src/types/group.ts
+export const newGroupSelect = Prisma.validator<Prisma.GroupSelect>()({
+  // Define select fields
+});
+
+export type NewGroupType = Prisma.GroupGetPayload<{
+  select: typeof newGroupSelect;
+}>;
+```
+
 ## Seed Data
 
 - 10 events (Tech, Music, Sports, Arts)

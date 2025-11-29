@@ -78,5 +78,34 @@
     "logout": "Logout",
     "logoutConfirm": "Are you sure you want to logout?",
     "cancel": "Cancel"
+  },
+  "groups": {
+    "detail": {
+      "backButton": "Back",
+      "premium": "Premium",
+      "private": "Private",
+      "members": "members",
+      "totalEvents": "total events",
+      "organizedBy": "Organized by",
+      "owner": "Owner",
+      "upcomingEvents": "Upcoming Events",
+      "noEvents": "No upcoming events",
+      "pendingApproval": "Pending Approval",
+      "pendingMessage": "Your membership request is pending approval"
+    },
+    "join": {
+      "button": "Join Group",
+      "success": "Successfully joined the group!",
+      "successPending": "Your request has been sent",
+      "errorFull": "Group is full",
+      "errorAlreadyMember": "You are already a member",
+      "error": "Failed to join group"
+    },
+    "leave": {
+      "button": "Leave Group",
+      "confirm": "Are you sure you want to leave this group?",
+      "success": "Successfully left the group",
+      "error": "Failed to leave group"
+    }
   }
 }

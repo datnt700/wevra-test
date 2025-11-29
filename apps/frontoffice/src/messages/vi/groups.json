@@ -1,0 +1,32 @@
+{
+  "detail": {
+    "backButton": "Quay lại",
+    "premium": "Cao cấp",
+    "private": "Riêng tư",
+    "members": "Thành viên",
+    "events": "sự kiện",
+    "totalEvents": "tổng sự kiện",
+    "pendingApproval": "Đang chờ phê duyệt",
+    "pendingMessage": "Yêu cầu tham gia của bạn đang chờ người tổ chức phê duyệt.",
+    "organizedBy": "Tổ chức bởi",
+    "owner": "Chủ nhóm",
+    "upcomingEvents": "Sự kiện sắp tới",
+    "noEvents": "Không có sự kiện sắp tới"
+  },
+  "join": {
+    "button": "Tham gia nhóm",
+    "loading": "Đang tham gia...",
+    "success": "Đã tham gia nhóm thành công!",
+    "successPending": "Yêu cầu tham gia của bạn đã được gửi và đang chờ phê duyệt.",
+    "errorFull": "Nhóm đã đầy",
+    "errorAlreadyMember": "Bạn đã là thành viên",
+    "errorGeneric": "Không thể tham gia nhóm"
+  },
+  "leave": {
+    "button": "Rời nhóm",
+    "loading": "Đang rời...",
+    "confirm": "Bạn có chắc chắn muốn rời khỏi nhóm này?",
+    "success": "Đã rời nhóm thành công",
+    "error": "Không thể rời nhóm"
+  }
+}

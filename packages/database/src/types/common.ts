@@ -37,3 +37,13 @@ export interface EventSummary {
   price: number | null;
   currency: string | null;
 }
+
+/**
+ * Common action response type for server actions and API routes
+ */
+export interface ActionResponse<T = void> {
+  success: boolean;
+  error?: string;
+  message?: string;
+  data?: T;
+}

@@ -30,6 +30,7 @@
     "db:migrate:deploy": "prisma migrate deploy",
     "db:seed": "tsx prisma/seed.ts",
     "db:studio": "prisma studio",
+    "db:create-user": "node scripts/create-user.js",
     "db:delete-user": "node scripts/delete-user.js",
     "generate:module": "generate-module"
   },
