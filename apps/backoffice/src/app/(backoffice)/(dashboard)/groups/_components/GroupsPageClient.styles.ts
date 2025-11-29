@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { theme } from '@tavia/taviad';
+import { type TaviaTheme } from '@tavia/taviad';
 
 export const Styled = {
   Container: styled.div`
@@ -25,15 +25,15 @@ export const Styled = {
     gap: 0.5rem;
   `,
 
-  Title: styled.h1`
+  Title: styled.h1<{ theme?: TaviaTheme }>`
     font-size: 2rem;
     font-weight: 700;
-    color: ${theme.colors.text.primary};
+    color: ${({ theme }) => theme.colors.text.primary};
   `,
 
-  Subtitle: styled.p`
+  Subtitle: styled.p<{ theme?: TaviaTheme }>`
     font-size: 1rem;
-    color: ${theme.colors.text.secondary};
+    color: ${({ theme }) => theme.colors.text.secondary};
   `,
 
   EmptyState: styled.div`
@@ -45,15 +45,15 @@ export const Styled = {
     text-align: center;
   `,
 
-  EmptyTitle: styled.h3`
+  EmptyTitle: styled.h3<{ theme?: TaviaTheme }>`
     font-size: 1.25rem;
     font-weight: 600;
-    color: ${theme.colors.text.primary};
+    color: ${({ theme }) => theme.colors.text.primary};
   `,
 
-  EmptyDesc: styled.p`
+  EmptyDesc: styled.p<{ theme?: TaviaTheme }>`
     font-size: 1rem;
-    color: ${theme.colors.text.secondary};
+    color: ${({ theme }) => theme.colors.text.secondary};
   `,
 
   GroupsGrid: styled.div`
@@ -70,20 +70,31 @@ export const Styled = {
     }
   `,
 
-  GroupCard: styled.div`
+  GroupCard: styled.div<{ theme?: TaviaTheme }>`
     cursor: pointer;
     transition: transform 0.2s;
+    background-color: ${({ theme }) => theme.colors.surface};
+    border-radius: ${({ theme }) => theme.radii.lg};
+    overflow: hidden;
 
     &:hover {
       transform: translateY(-4px);
     }
   `,
 
-  GroupImage: styled.img`
+  GroupImage: styled.img<{ theme?: TaviaTheme }>`
     width: 100%;
     height: 12rem;
     object-fit: cover;
-    border-radius: ${theme.radii.lg} ${theme.radii.lg} 0 0;
+    border-radius: ${({ theme }) => theme.radii.lg} ${({ theme }) => theme.radii.lg} 0 0;
+  `,
+
+  HeroPlaceholder: styled.div<{ theme?: TaviaTheme }>`
+    width: 100%;
+    height: 12rem;
+    background: ${({ theme }) =>
+      theme.mode === 'dark' ? theme.colors.gray.gray800 : theme.colors.gray.gray200};
+    border-radius: ${({ theme }) => theme.radii.lg} ${({ theme }) => theme.radii.lg} 0 0;
   `,
 
   GroupContent: styled.div`
@@ -100,16 +111,16 @@ export const Styled = {
     gap: 0.5rem;
   `,
 
-  GroupName: styled.h3`
+  GroupName: styled.h3<{ theme?: TaviaTheme }>`
     font-size: 1.25rem;
     font-weight: 600;
-    color: ${theme.colors.text.primary};
+    color: ${({ theme }) => theme.colors.text.primary};
     flex: 1;
   `,
 
-  GroupDesc: styled.p`
+  GroupDesc: styled.p<{ theme?: TaviaTheme }>`
     font-size: 0.875rem;
-    color: ${theme.colors.text.secondary};
+    color: ${({ theme }) => theme.colors.text.secondary};
     line-height: 1.5;
     display: -webkit-box;
     -webkit-line-clamp: 2;
@@ -117,12 +128,12 @@ export const Styled = {
     overflow: hidden;
   `,
 
-  GroupStats: styled.div`
+  GroupStats: styled.div<{ theme?: TaviaTheme }>`
     display: flex;
     align-items: center;
     gap: 1rem;
     font-size: 0.875rem;
-    color: ${theme.colors.text.tertiary};
+    color: ${({ theme }) => theme.colors.text.tertiary};
   `,
 
   GroupStat: styled.span`
@@ -131,11 +142,11 @@ export const Styled = {
     gap: 0.375rem;
   `,
 
-  GroupLocation: styled.p`
+  GroupLocation: styled.p<{ theme?: TaviaTheme }>`
     display: flex;
     align-items: center;
     gap: 0.375rem;
     font-size: 0.875rem;
-    color: ${theme.colors.text.tertiary};
+    color: ${({ theme }) => theme.colors.text.tertiary};
   `,
 };

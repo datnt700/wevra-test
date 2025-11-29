@@ -1,7 +1,8 @@
 'use client';
 
-import { Menu, UtensilsCrossed, User, LogOut } from 'lucide-react';
+import { Menu, UtensilsCrossed, User, LogOut, Moon, Sun } from 'lucide-react';
 import { signOut } from 'next-auth/react';
+import { useTheme } from '@tavia/taviad';
 import { Styled } from './BackofficeHeader.styles';
 import { ROUTES } from '@/lib/constants';
 
@@ -11,6 +12,8 @@ interface BackofficeHeaderProps {
 }
 
 export function BackofficeHeader({ onToggleSidebar, isMobile = false }: BackofficeHeaderProps) {
+  const { mode, toggleMode } = useTheme();
+
   const handleSignOut = () => {
     signOut({ callbackUrl: ROUTES.AUTH.LOGIN });
   };
@@ -32,6 +35,10 @@ export function BackofficeHeader({ onToggleSidebar, isMobile = false }: Backoffi
         </Styled.LeftSection>
 
         <Styled.RightSection>
+          <Styled.SignOutButton onClick={toggleMode} aria-label="Toggle theme">
+            {mode === 'light' ? <Moon size={18} /> : <Sun size={18} />}
+          </Styled.SignOutButton>
+
           <Styled.UserInfo>
             <Styled.Avatar>
               <User size={16} />

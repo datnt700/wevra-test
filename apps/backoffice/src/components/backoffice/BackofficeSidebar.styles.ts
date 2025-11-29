@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { motion } from 'framer-motion';
-import { theme } from '@tavia/taviad';
+import { type TaviaTheme } from '@tavia/taviad';
 
 /**
  * Styled components for BackofficeSidebar
@@ -9,10 +9,10 @@ import { theme } from '@tavia/taviad';
  * - Mobile/Tablet (<1024px): Overlay sidebar with higher z-index
  */
 export const Styled = {
-  Wrapper: styled(motion.aside)<{ $isOpen: boolean; $isMobile: boolean }>`
+  Wrapper: styled(motion.aside)<{ $isOpen: boolean; $isMobile: boolean; theme?: TaviaTheme }>`
     position: relative;
-    background: ${theme.colors.background};
-    border-right: 1px solid ${theme.colors.border.default};
+    background: ${({ theme }) => theme.colors.surface};
+    border-right: 1px solid ${({ theme }) => theme.colors.border.default};
     overflow-x: hidden;
     overflow-y: auto;
     height: 100%;
@@ -46,16 +46,16 @@ export const Styled = {
     padding: 0 0.5rem;
   `,
 
-  NavItemWrapper: styled.div<{ $isActive?: boolean; $isOpen?: boolean }>`
+  NavItemWrapper: styled.div<{ $isActive?: boolean; $isOpen?: boolean; theme?: TaviaTheme }>`
     border-radius: 0.5rem;
-    background-color: ${({ $isActive }) =>
+    background-color: ${({ $isActive, theme }) =>
       $isActive ? theme.colors.primaryActive + '15' : 'transparent'}; /* 15 = ~8% opacity */
     transition: all 0.2s;
     white-space: nowrap;
     position: relative;
 
     &:hover {
-      background-color: ${({ $isActive }) =>
+      background-color: ${({ $isActive, theme }) =>
         $isActive ? theme.colors.primaryActive + '15' : theme.colors.surfaceHover};
     }
 
@@ -64,14 +64,16 @@ export const Styled = {
       align-items: center;
       padding: 0.75rem;
       text-decoration: none;
-      color: ${({ $isActive }) => ($isActive ? theme.colors.primary : theme.colors.text.secondary)};
+      color: ${({ $isActive, theme }) =>
+        $isActive ? theme.colors.primary : theme.colors.text.secondary};
       font-weight: ${({ $isActive }) => ($isActive ? '600' : '500')};
       font-size: 0.875rem;
       cursor: pointer;
       transition: color 0.2s;
 
       &:hover {
-        color: ${({ $isActive }) => ($isActive ? theme.colors.primary : theme.colors.text.primary)};
+        color: ${({ $isActive, theme }) =>
+          $isActive ? theme.colors.primary : theme.colors.text.primary};
       }
 
       svg {
@@ -96,15 +98,16 @@ export const Styled = {
     }
   `,
 
-  NavItem: styled.a<{ $isActive?: boolean }>`
+  NavItem: styled.a<{ $isActive?: boolean; theme?: TaviaTheme }>`
     display: flex;
     align-items: center;
     gap: 0.75rem;
     padding: 0.75rem 1rem;
     border-radius: 0.5rem;
     text-decoration: none;
-    color: ${({ $isActive }) => ($isActive ? theme.colors.primary : theme.colors.text.secondary)};
-    background-color: ${({ $isActive }) =>
+    color: ${({ $isActive, theme }) =>
+      $isActive ? theme.colors.primary : theme.colors.text.secondary};
+    background-color: ${({ $isActive, theme }) =>
       $isActive ? theme.colors.primaryActive + '15' : 'transparent'}; /* 15 = ~8% opacity */
     font-weight: ${({ $isActive }) => ($isActive ? '600' : '500')};
     font-size: 0.875rem;
@@ -113,9 +116,10 @@ export const Styled = {
     white-space: nowrap;
 
     &:hover {
-      background-color: ${({ $isActive }) =>
+      background-color: ${({ $isActive, theme }) =>
         $isActive ? theme.colors.primaryActive + '15' : theme.colors.surfaceHover};
-      color: ${({ $isActive }) => ($isActive ? theme.colors.primary : theme.colors.text.primary)};
+      color: ${({ $isActive, theme }) =>
+        $isActive ? theme.colors.primary : theme.colors.text.primary};
     }
 
     svg {
@@ -135,10 +139,10 @@ export const Styled = {
     margin-top: 1.5rem;
   `,
 
-  SectionTitle: styled.h3`
+  SectionTitle: styled.h3<{ theme?: TaviaTheme }>`
     font-size: 0.75rem;
     font-weight: 600;
-    color: ${theme.colors.text.tertiary};
+    color: ${({ theme }) => theme.colors.text.tertiary};
     text-transform: uppercase;
     letter-spacing: 0.05em;
     margin: 0 0 0.75rem 0;

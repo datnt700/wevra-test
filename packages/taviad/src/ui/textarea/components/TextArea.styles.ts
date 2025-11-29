@@ -8,27 +8,14 @@
 import styled from '@emotion/styled';
 import type { TaviaTheme } from '../../../theme/theme';
 
-const StyledWrapper = styled.div<{ $hasError?: boolean }>`
-  ${({ theme, $hasError = false }) => {
-    const taviaTheme = theme as TaviaTheme;
-    return `
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-      width: 100%;
-      border: 1px solid ${$hasError ? taviaTheme.colors.danger : taviaTheme.colors.border.default};
-      border-radius: ${taviaTheme.radii.md};
-      transition: all 0.2s ease-in-out;
-
-      &:focus-within {
-        border-color: ${$hasError ? taviaTheme.colors.danger : taviaTheme.colors.primary};
-        box-shadow: 0 0 3px ${$hasError ? taviaTheme.colors.danger : taviaTheme.colors.primary};
-      }
-    `;
-  }}
+const StyledWrapper = styled.div<{ theme?: TaviaTheme; $hasError?: boolean }>`
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 100%;
 `;
 
-const StyledTextArea = styled.textarea<{ $hasError?: boolean }>`
+const StyledTextArea = styled.textarea<{ theme?: TaviaTheme; $hasError?: boolean }>`
   ${({ theme, $hasError = false }) => {
     const taviaTheme = theme as TaviaTheme;
     return `
@@ -67,7 +54,7 @@ const StyledTextArea = styled.textarea<{ $hasError?: boolean }>`
   }}
 `;
 
-const StyledErrorMessage = styled.span`
+const StyledErrorMessage = styled.span<{ theme?: TaviaTheme }>`
   ${({ theme }) => {
     const taviaTheme = theme as TaviaTheme;
     return `

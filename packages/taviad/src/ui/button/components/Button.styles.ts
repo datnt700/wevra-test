@@ -44,18 +44,19 @@ const getVariantColors = (theme: TaviaTheme, variant: ButtonVariant = 'primary')
       shadow: theme.colors.primary,
     },
     secondary: {
-      bg: '#ffffff',
+      bg: theme.mode === 'dark' ? theme.colors.surface : '#ffffff',
       color: theme.colors.primary,
-      hoverBg: `${theme.colors.gray.mainColorLight}05`,
-      activeBg: '#ffffff',
-      border: theme.colors.gray.gray300,
+      hoverBg:
+        theme.mode === 'dark' ? theme.colors.surfaceHover : `${theme.colors.gray.mainColorLight}05`,
+      activeBg: theme.mode === 'dark' ? theme.colors.surface : '#ffffff',
+      border: theme.colors.border.default,
     },
     tertiary: {
-      bg: theme.colors.gray.gray100,
-      color: theme.colors.gray.gray900,
-      hoverBg: theme.colors.gray.gray200,
-      activeBg: theme.colors.gray.gray200,
-      border: theme.colors.gray.gray200,
+      bg: theme.mode === 'dark' ? theme.colors.surface : theme.colors.gray.gray100,
+      color: theme.colors.text.primary,
+      hoverBg: theme.mode === 'dark' ? theme.colors.surfaceHover : theme.colors.gray.gray200,
+      activeBg: theme.mode === 'dark' ? theme.colors.surfaceHover : theme.colors.gray.gray200,
+      border: theme.colors.border.default,
     },
     dark: {
       bg: theme.colors.gray.gray900,

@@ -39,25 +39,25 @@ export function CreateGroupForm({ userId }: CreateGroupFormProps) {
     formState: { errors, isSubmitting },
   } = useForm<GroupFormData>({
     resolver: zodResolver(groupSchema),
-    mode: 'onBlur',
+    mode: 'onChange',
     defaultValues: {
       name: '',
       description: '',
-      category: 'Food',
+      category: 'FOOD',
       location: '',
       image: '',
       isPublic: true,
     },
   });
 
-  const category = useWatch({ control, name: 'category', defaultValue: 'Food' });
+  const category = useWatch({ control, name: 'category', defaultValue: 'FOOD' });
   const isPublic = useWatch({ control, name: 'isPublic', defaultValue: true });
 
   const handleNext = async () => {
     let fieldsToValidate: (keyof GroupFormData)[] = [];
 
     if (currentStep === 1) {
-      fieldsToValidate = ['location', 'category'];
+      fieldsToValidate = ['category']; // location is optional
     } else if (currentStep === 2) {
       fieldsToValidate = ['name', 'description'];
     }

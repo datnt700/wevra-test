@@ -51,44 +51,47 @@ export function GroupsPageClient({ groups }: GroupsPageClientProps) {
       ) : (
         <Styled.GroupsGrid>
           {groups.map((group) => (
-            <Card key={group.id}>
-              <Styled.GroupCard
-                onClick={() => (window.location.href = ROUTES.GROUP.DETAIL(group.id))}
-              >
-                {group.image && <Styled.GroupImage src={group.image} alt={group.name} />}
-                <Styled.GroupContent>
-                  <Styled.GroupHeader>
-                    <Styled.GroupName>{group.name}</Styled.GroupName>
-                    {group.isPremium && (
-                      <Badge variant="success" size="sm">
-                        <Crown size={12} />
-                        {t('detail.premium')}
-                      </Badge>
-                    )}
-                  </Styled.GroupHeader>
-
-                  {group.description && <Styled.GroupDesc>{group.description}</Styled.GroupDesc>}
-
-                  <Styled.GroupStats>
-                    <Styled.GroupStat>
-                      <Users size={14} />
-                      {group._count.members} {t('detail.members').toLowerCase()}
-                    </Styled.GroupStat>
-                    <Styled.GroupStat>
-                      <Calendar size={14} />
-                      {group._count.events} {t('detail.totalEvents').toLowerCase()}
-                    </Styled.GroupStat>
-                  </Styled.GroupStats>
-
-                  {group.location && (
-                    <Styled.GroupLocation>
-                      <MapPin size={14} />
-                      {group.location}
-                    </Styled.GroupLocation>
+            <Styled.GroupCard
+              key={group.id}
+              onClick={() => (window.location.href = ROUTES.GROUP.DETAIL(group.id))}
+            >
+              {group.image ? (
+                <Styled.GroupImage src={group.image} alt={group.name} />
+              ) : (
+                <Styled.HeroPlaceholder />
+              )}
+              <Styled.GroupContent>
+                <Styled.GroupHeader>
+                  <Styled.GroupName>{group.name}</Styled.GroupName>
+                  {group.isPremium && (
+                    <Badge variant="success" size="sm">
+                      <Crown size={12} />
+                      {t('detail.premium')}
+                    </Badge>
                   )}
-                </Styled.GroupContent>
-              </Styled.GroupCard>
-            </Card>
+                </Styled.GroupHeader>
+
+                {group.description && <Styled.GroupDesc>{group.description}</Styled.GroupDesc>}
+
+                <Styled.GroupStats>
+                  <Styled.GroupStat>
+                    <Users size={14} />
+                    {group._count.members} {t('detail.members').toLowerCase()}
+                  </Styled.GroupStat>
+                  <Styled.GroupStat>
+                    <Calendar size={14} />
+                    {group._count.events} {t('detail.totalEvents').toLowerCase()}
+                  </Styled.GroupStat>
+                </Styled.GroupStats>
+
+                {group.location && (
+                  <Styled.GroupLocation>
+                    <MapPin size={14} />
+                    {group.location}
+                  </Styled.GroupLocation>
+                )}
+              </Styled.GroupContent>
+            </Styled.GroupCard>
           ))}
         </Styled.GroupsGrid>
       )}

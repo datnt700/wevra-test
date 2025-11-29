@@ -12,7 +12,7 @@ import {
   MapPin,
   Clock,
 } from 'lucide-react';
-import { Card, Button, Badge } from '@tavia/taviad';
+import { Card, Button, Badge, useTheme } from '@tavia/taviad';
 import { UserRole, SubscriptionStatus } from '@tavia/database/enums';
 import { ROUTES } from '@/lib/constants';
 import { Styled } from './DashboardClient.styles';
@@ -25,6 +25,7 @@ interface DashboardClientProps {
 export function DashboardClient({ data }: DashboardClientProps) {
   const t = useTranslations('dashboard');
   const tCommon = useTranslations('common');
+  const { theme } = useTheme();
 
   const { stats, recentGroups, recentEvents, user } = data;
 

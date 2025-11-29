@@ -1,8 +1,10 @@
 'use client';
 
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
 import { Button, Badge } from '@tavia/taviad';
+import { ArrowLeft } from 'lucide-react';
 import { ROUTES } from '@/lib/constants';
 import { Styled } from './GroupDetailClient.styles';
 import type { GroupWithOwner } from '@tavia/database';
@@ -14,91 +16,70 @@ interface GroupDetailClientProps {
 
 export function GroupDetailClient({ group, isOwner }: GroupDetailClientProps) {
   const t = useTranslations('groups');
+  const router = useRouter();
 
   return (
     <>
-      {/* Hero Cover Image */}
-      {group.image && (
-        <Styled.HeroSection>
+      {/* Hero Cover Image or Placeholder */}
+      <Styled.HeroSection>
+        {group.image ? (
           <Styled.CoverImage src={group.image} alt={group.name} />
-          <Styled.HeroOverlay>
-            <Styled.HeroContent>
-              <Styled.HeroHeader>
-                <Styled.HeroTitle>{group.name}</Styled.HeroTitle>
-                <Styled.BadgeGroup>
-                  {group.isPremium && <Badge variant="success">{t('detail.premium')}</Badge>}
-                  {!group.isPublic && <Badge variant="info">{t('detail.private')}</Badge>}
-                </Styled.BadgeGroup>
-              </Styled.HeroHeader>
-              <Styled.HeroMeta>
-                <Styled.HeroCategory>{group.category}</Styled.HeroCategory>
-                {group.location && <Styled.HeroLocation>📍 {group.location}</Styled.HeroLocation>}
-              </Styled.HeroMeta>
-              <Styled.HeroStats>
-                <Styled.HeroStatItem>
-                  <strong>{group._count.members}</strong> {t('detail.members').toLowerCase()}
-                </Styled.HeroStatItem>
-                <Styled.HeroStatDivider>•</Styled.HeroStatDivider>
-                <Styled.HeroStatItem>
-                  <strong>{group._count.events}</strong> {t('detail.totalEvents').toLowerCase()}
-                </Styled.HeroStatItem>
-              </Styled.HeroStats>
-            </Styled.HeroContent>
-            {isOwner && (
-              <Styled.HeroActions>
-                <Link href={ROUTES.GROUP.EDIT(group.id)}>
-                  <Button variant="primary">{t('detail.editGroup')}</Button>
-                </Link>
-                <Link href={ROUTES.GROUP.MEMBERS(group.id)}>
-                  <Button variant="secondary">{t('detail.manageMembers')}</Button>
-                </Link>
-              </Styled.HeroActions>
-            )}
-          </Styled.HeroOverlay>
-        </Styled.HeroSection>
-      )}
+        ) : (
+          <Styled.HeroPlaceholder />
+        )}
+        <Styled.HeroOverlay>
+          {/* Back Button */}
+          <div style={{ marginBottom: '1rem' }}>
+            <Button
+              variant="link"
+              size="sm"
+              onClick={() => router.back()}
+              icon={<ArrowLeft size={16} />}
+            >
+              {t('detail.backButton')}
+            </Button>
+          </div>
+
+          <Styled.HeroContent>
+            <Styled.HeroHeader>
+              <Styled.HeroTitle>{group.name}</Styled.HeroTitle>
+              <Styled.BadgeGroup>
+                {group.isPremium && <Badge variant="success">{t('detail.premium')}</Badge>}
+                {!group.isPublic && <Badge variant="info">{t('detail.private')}</Badge>}
+              </Styled.BadgeGroup>
+            </Styled.HeroHeader>
+            <Styled.HeroMeta>
+              <Styled.HeroCategory>{group.category}</Styled.HeroCategory>
+              {group.location && <Styled.HeroLocation>📍 {group.location}</Styled.HeroLocation>}
+            </Styled.HeroMeta>
+            <Styled.HeroStats>
+              <Styled.HeroStatItem>
+                <strong>{group._count.members}</strong> {t('detail.members').toLowerCase()}
+              </Styled.HeroStatItem>
+              <Styled.HeroStatDivider>•</Styled.HeroStatDivider>
+              <Styled.HeroStatItem>
+                <strong>{group._count.events}</strong> {t('detail.totalEvents').toLowerCase()}
+              </Styled.HeroStatItem>
+            </Styled.HeroStats>
+          </Styled.HeroContent>
+          {isOwner && (
+            <Styled.HeroActions>
+              <Link href={ROUTES.GROUP.EDIT(group.id)}>
+                <Button variant="primary">{t('detail.editGroup')}</Button>
+              </Link>
+              <Link href={ROUTES.GROUP.MEMBERS(group.id)}>
+                <Button variant="secondary">{t('detail.manageMembers')}</Button>
+              </Link>
+            </Styled.HeroActions>
+          )}
+        </Styled.HeroOverlay>
+      </Styled.HeroSection>
 
       <Styled.Container>
         {/* Group Description Section */}
         {group.description && (
           <Styled.Section>
             <Styled.Description>{group.description}</Styled.Description>
-          </Styled.Section>
-        )}
-
-        {/* If no cover image, show header in regular section */}
-        {!group.image && (
-          <Styled.Section>
-            <Styled.Header>
-              <Styled.HeaderContent>
-                <Styled.HeaderTop>
-                  <Styled.Title>{group.name}</Styled.Title>
-                  {group.isPremium && <Badge variant="success">{t('detail.premium')}</Badge>}
-                  {!group.isPublic && <Badge variant="info">{t('detail.private')}</Badge>}
-                </Styled.HeaderTop>
-                <Styled.Category>{group.category}</Styled.Category>
-                {group.location && <Styled.Location>📍 {group.location}</Styled.Location>}
-              </Styled.HeaderContent>
-              {isOwner && (
-                <Styled.Actions>
-                  <Link href={ROUTES.GROUP.EDIT(group.id)}>
-                    <Button variant="primary">{t('detail.editGroup')}</Button>
-                  </Link>
-                  <Link href={ROUTES.GROUP.MEMBERS(group.id)}>
-                    <Button variant="secondary">{t('detail.manageMembers')}</Button>
-                  </Link>
-                </Styled.Actions>
-              )}
-            </Styled.Header>
-
-            <Styled.Stats>
-              <Styled.StatItem>
-                {group._count.members} {t('detail.members').toLowerCase()}
-              </Styled.StatItem>
-              <Styled.StatItem>
-                {group._count.events} {t('detail.totalEvents').toLowerCase()}
-              </Styled.StatItem>
-            </Styled.Stats>
           </Styled.Section>
         )}
 

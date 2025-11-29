@@ -1,13 +1,13 @@
 import styled from '@emotion/styled';
-import { theme } from '@tavia/taviad';
+import { type TaviaTheme } from '@tavia/taviad';
 
 /**
  * Styled components for BackofficeHeader
  */
 export const Styled = {
-  Wrapper: styled.header`
-    background: ${theme.colors.surface};
-    border-bottom: 1px solid ${theme.colors.border.default};
+  Wrapper: styled.header<{ theme?: TaviaTheme }>`
+    background: ${({ theme }) => theme.colors.surface};
+    border-bottom: 1px solid ${({ theme }) => theme.colors.border.default};
     width: 100%;
     z-index: 100;
   `,
@@ -32,7 +32,7 @@ export const Styled = {
     min-width: 64px; /* Match collapsed sidebar width */
   `,
 
-  MenuButton: styled.button`
+  MenuButton: styled.button<{ theme?: TaviaTheme }>`
     background: none;
     border: none;
     cursor: pointer;
@@ -47,32 +47,32 @@ export const Styled = {
     margin: 0;
 
     &:hover {
-      background-color: ${theme.colors.surfaceHover};
+      background-color: ${({ theme }) => theme.colors.surfaceHover};
     }
 
     svg {
       width: 20px; /* Match sidebar icon size */
       height: 20px;
-      color: ${theme.colors.text.secondary};
+      color: ${({ theme }) => theme.colors.text.secondary};
     }
   `,
 
-  Logo: styled.div`
+  Logo: styled.div<{ theme?: TaviaTheme }>`
     display: flex;
     align-items: center;
     gap: 0.5rem;
     font-size: 1.25rem;
     font-weight: bold;
-    color: ${theme.colors.text.primary};
+    color: ${({ theme }) => theme.colors.text.primary};
   `,
 
-  LogoIcon: styled.div`
+  LogoIcon: styled.div<{ theme?: TaviaTheme }>`
     width: 32px;
     height: 32px;
     background: linear-gradient(
       135deg,
-      ${theme.colors.primary} 0%,
-      ${theme.colors.primaryHover} 100%
+      ${({ theme }) => theme.colors.primary} 0%,
+      ${({ theme }) => theme.colors.primaryHover} 100%
     );
     border-radius: 6px;
     display: flex;
@@ -81,14 +81,14 @@ export const Styled = {
     color: white;
   `,
 
-  LogoText: styled.h1<{ $isMobile?: boolean }>`
+  LogoText: styled.h1<{ $isMobile?: boolean; theme?: TaviaTheme }>`
     font-size: 1.25rem;
     font-weight: 700;
     margin: 0;
     background: linear-gradient(
       135deg,
-      ${theme.colors.primary} 0%,
-      ${theme.colors.primaryHover} 100%
+      ${({ theme }) => theme.colors.primary} 0%,
+      ${({ theme }) => theme.colors.primaryHover} 100%
     );
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -111,13 +111,13 @@ export const Styled = {
     gap: 1rem;
   `,
 
-  UserInfo: styled.div`
+  UserInfo: styled.div<{ theme?: TaviaTheme }>`
     display: flex;
     align-items: center;
     gap: 0.75rem;
     padding: 0.5rem 1rem;
     border-radius: 0.5rem;
-    background-color: ${theme.colors.surface};
+    background-color: ${({ theme }) => theme.colors.surfaceHover};
   `,
 
   Avatar: styled.div`
@@ -133,10 +133,10 @@ export const Styled = {
     font-size: 0.875rem;
   `,
 
-  UserName: styled.span<{ $isMobile?: boolean }>`
+  UserName: styled.span<{ $isMobile?: boolean; theme?: TaviaTheme }>`
     font-size: 0.875rem;
     font-weight: 500;
-    color: ${theme.colors.text.secondary};
+    color: ${({ theme }) => theme.colors.text.primary};
 
     /* Hide username on small screens */
     @media (max-width: 640px) {
@@ -144,7 +144,7 @@ export const Styled = {
     }
   `,
 
-  SignOutButton: styled.button`
+  SignOutButton: styled.button<{ theme?: TaviaTheme }>`
     background: none;
     border: none;
     cursor: pointer;
@@ -154,11 +154,11 @@ export const Styled = {
     justify-content: center;
     border-radius: 0.375rem;
     transition: all 0.2s;
-    color: ${theme.colors.text.secondary};
+    color: ${({ theme }) => theme.colors.text.secondary};
 
     &:hover {
-      background-color: ${theme.colors.dangerLight};
-      color: ${theme.colors.danger};
+      background-color: ${({ theme }) => theme.colors.surfaceHover};
+      color: ${({ theme }) => theme.colors.text.primary};
     }
 
     svg {

@@ -15,21 +15,6 @@
   "backButton": "Quay Lại Nhóm",
   "cancelButton": "Hủy",
   "saveButton": "Lưu Thay Đổi",
-  "fields": {
-    "name": "Tên Nhóm",
-    "namePlaceholder": "Nhập tên nhóm",
-    "description": "Mô Tả",
-    "descriptionPlaceholder": "Mô tả nhóm của bạn...",
-    "category": "Danh Mục",
-    "categoryPlaceholder": "Chọn danh mục",
-    "location": "Địa Điểm",
-    "locationPlaceholder": "Nhập địa điểm",
-    "maxMembers": "Số Thành Viên Tối Đa",
-    "maxMembersPlaceholder": "Nhập số thành viên tối đa (để trống nếu không giới hạn)",
-    "isPrivate": "Nhóm Riêng Tư",
-    "image": "URL Ảnh Bìa",
-    "imagePlaceholder": "https://example.com/image.jpg"
-  },
   "categories": {
     "TECHNOLOGY": "Công Nghệ",
     "BUSINESS": "Kinh Doanh",
@@ -58,7 +43,7 @@
     "updated": "Cập nhật nhóm thành công"
   },
   "detail": {
-    "backButton": "← Quay Lại Nhóm",
+    "backButton": "Quay lại Nhóm",
     "editGroup": "Chỉnh Sửa Nhóm",
     "description": "Mô Tả",
     "groupInfo": "Thông Tin Nhóm",
@@ -162,11 +147,6 @@
       "loadFailed": "Tải nhóm thất bại",
       "unauthorized": "Bạn không có quyền chỉnh sửa nhóm này"
     }
-  },
-  "categories": {
-    "Food": "Ẩm Thực",
-    "Sports": "Thể Thao & Sức Khỏe",
-    "Arts": "Nghệ Thuật & Văn Hóa"
   },
   "create": {
     "reviewTitle": "Xem Lại Nhóm",

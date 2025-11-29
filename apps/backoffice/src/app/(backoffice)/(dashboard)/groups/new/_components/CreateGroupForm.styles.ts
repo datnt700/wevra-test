@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { theme } from '@tavia/taviad';
+import { type TaviaTheme } from '@tavia/taviad';
 
 export const Styled = {
   PageContainer: styled.div`
@@ -17,15 +17,15 @@ export const Styled = {
     gap: 0.5rem;
   `,
 
-  PageTitle: styled.h1`
+  PageTitle: styled.h1<{ theme?: TaviaTheme }>`
     font-size: 2rem;
     font-weight: 700;
-    color: ${theme.colors.text.primary};
+    color: ${({ theme }) => theme.colors.text.primary};
   `,
 
-  PageSubtitle: styled.p`
+  PageSubtitle: styled.p<{ theme?: TaviaTheme }>`
     font-size: 1rem;
-    color: ${theme.colors.text.secondary};
+    color: ${({ theme }) => theme.colors.text.secondary};
   `,
 
   Form: styled.form`
@@ -56,18 +56,18 @@ export const Styled = {
     align-items: center;
   `,
 
-  StepCircle: styled.div<{ $isActive: boolean }>`
+  StepCircle: styled.div<{ theme?: TaviaTheme; $isActive: boolean }>`
     display: flex;
     height: 2.5rem;
     width: 2.5rem;
     align-items: center;
     justify-content: center;
-    border-radius: ${theme.radii.full};
+    border-radius: ${({ theme }) => theme.radii.full};
     border: 2px solid;
     font-weight: 600;
     transition: all 0.2s;
 
-    ${({ $isActive }) =>
+    ${({ theme, $isActive }) =>
       $isActive
         ? `
           border-color: ${theme.colors.primary};
@@ -76,28 +76,28 @@ export const Styled = {
         `
         : `
           border-color: ${theme.colors.border.default};
-          background-color: white;
+          background-color: ${theme.colors.surface};
           color: ${theme.colors.text.tertiary};
         `}
   `,
 
-  StepTitle: styled.p<{ $isActive: boolean }>`
+  StepTitle: styled.p<{ theme?: TaviaTheme; $isActive: boolean }>`
     margin-top: 0.5rem;
     font-size: 0.875rem;
     font-weight: 500;
     transition: color 0.2s;
 
-    ${({ $isActive }) =>
+    ${({ theme, $isActive }) =>
       $isActive ? `color: ${theme.colors.primary};` : `color: ${theme.colors.text.tertiary};`}
   `,
 
-  StepConnector: styled.div<{ $isActive: boolean }>`
+  StepConnector: styled.div<{ theme?: TaviaTheme; $isActive: boolean }>`
     margin: 0 1rem;
     height: 2px;
     flex: 1;
     transition: background-color 0.2s;
 
-    ${({ $isActive }) =>
+    ${({ theme, $isActive }) =>
       $isActive
         ? `background-color: ${theme.colors.primary};`
         : `background-color: ${theme.colors.border.default};`}
@@ -109,18 +109,18 @@ export const Styled = {
     gap: 1.5rem;
   `,
 
-  SummaryCard: styled.div`
-    border-radius: ${theme.radii.lg};
-    border: 1px solid ${theme.colors.border.default};
-    background-color: ${theme.colors.surface};
+  SummaryCard: styled.div<{ theme?: TaviaTheme }>`
+    border-radius: ${({ theme }) => theme.radii.lg};
+    border: 1px solid ${({ theme }) => theme.colors.border.default};
+    background-color: ${({ theme }) => theme.colors.surface};
     padding: 1.5rem;
   `,
 
-  SummaryTitle: styled.h3`
+  SummaryTitle: styled.h3<{ theme?: TaviaTheme }>`
     margin-bottom: 1rem;
     font-size: 1.125rem;
     font-weight: 600;
-    color: ${theme.colors.text.primary};
+    color: ${({ theme }) => theme.colors.text.primary};
   `,
 
   SummaryList: styled.dl`
@@ -132,19 +132,19 @@ export const Styled = {
 
   SummaryItem: styled.div``,
 
-  SummaryLabel: styled.dt`
+  SummaryLabel: styled.dt<{ theme?: TaviaTheme }>`
     font-weight: 500;
-    color: ${theme.colors.text.secondary};
+    color: ${({ theme }) => theme.colors.text.secondary};
   `,
 
-  SummaryValue: styled.dd`
-    color: ${theme.colors.text.tertiary};
+  SummaryValue: styled.dd<{ theme?: TaviaTheme }>`
+    color: ${({ theme }) => theme.colors.text.tertiary};
   `,
 
-  ButtonGroup: styled.div`
+  ButtonGroup: styled.div<{ theme?: TaviaTheme }>`
     display: flex;
     gap: 1rem;
-    border-top: 1px solid ${theme.colors.border.default};
+    border-top: 1px solid ${({ theme }) => theme.colors.border.default};
     padding-top: 1.5rem;
   `,
 };

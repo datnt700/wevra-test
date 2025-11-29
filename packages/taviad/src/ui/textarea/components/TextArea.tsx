@@ -40,7 +40,8 @@ export const TextArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(
     },
     ref
   ) => {
-    const hasError = validate === 'error';
+    // Automatically set error state if errorMessage is provided
+    const hasError = validate === 'error' || !!errorMessage;
 
     return (
       <Styled.Wrapper $hasError={hasError} className={className}>

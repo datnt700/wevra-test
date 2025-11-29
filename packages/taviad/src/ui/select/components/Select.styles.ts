@@ -15,7 +15,7 @@ const StyledRoot = styled(Select.Root)`
 
 const StyledTrigger = styled(Select.Trigger, {
   shouldForwardProp: (prop: string) => !prop.startsWith('$'),
-})<{ $isDisabled?: boolean; $isInvalid?: boolean }>`
+})<{ theme?: TaviaTheme; $isDisabled?: boolean; $isInvalid?: boolean }>`
   ${({ theme, $isDisabled = false, $isInvalid = false }) => {
     const taviaTheme = theme as TaviaTheme;
     return `
@@ -57,7 +57,7 @@ const StyledTrigger = styled(Select.Trigger, {
   }}
 `;
 
-const StyledValue = styled(Select.Value)`
+const StyledValue = styled(Select.Value)<{ theme?: TaviaTheme }>`
   ${({ theme }) => {
     const taviaTheme = theme as TaviaTheme;
     return `
@@ -70,7 +70,7 @@ const StyledValue = styled(Select.Value)`
   }}
 `;
 
-const StyledIcon = styled(Select.Icon)`
+const StyledIcon = styled(Select.Icon)<{ theme?: TaviaTheme }>`
   ${({ theme }) => {
     const taviaTheme = theme as TaviaTheme;
     return `
@@ -88,7 +88,7 @@ const StyledPortal = styled(Select.Portal)`
   /* Portal container for the dropdown content */
 `;
 
-const StyledContent = styled(Select.Content)`
+const StyledContent = styled(Select.Content)<{ theme?: TaviaTheme }>`
   ${({ theme }) => {
     const taviaTheme = theme as TaviaTheme;
     return `
@@ -107,7 +107,7 @@ const StyledViewport = styled(Select.Viewport)`
   padding: 0.3125rem;
 `;
 
-const StyledSeparator = styled(Select.Separator)`
+const StyledSeparator = styled(Select.Separator)<{ theme?: TaviaTheme }>`
   ${({ theme }) => {
     const taviaTheme = theme as TaviaTheme;
     return `
@@ -118,7 +118,7 @@ const StyledSeparator = styled(Select.Separator)`
   }}
 `;
 
-const StyledScrollUpButton = styled(Select.ScrollUpButton)`
+const StyledScrollUpButton = styled(Select.ScrollUpButton)<{ theme?: TaviaTheme }>`
   ${({ theme }) => {
     const taviaTheme = theme as TaviaTheme;
     return `
@@ -138,7 +138,7 @@ const StyledScrollUpButton = styled(Select.ScrollUpButton)`
   }}
 `;
 
-const StyledScrollDownButton = styled(Select.ScrollDownButton)`
+const StyledScrollDownButton = styled(Select.ScrollDownButton)<{ theme?: TaviaTheme }>`
   ${({ theme }) => {
     const taviaTheme = theme as TaviaTheme;
     return `
@@ -158,12 +158,13 @@ const StyledScrollDownButton = styled(Select.ScrollDownButton)`
   }}
 `;
 
-const StyledItem = styled(Select.Item)`
+const StyledItem = styled(Select.Item)<{ theme?: TaviaTheme }>`
   ${({ theme }) => {
     const taviaTheme = theme as TaviaTheme;
     return `
       font-size: 0.875rem;
       line-height: 1;
+      color: ${taviaTheme.colors.text.primary};
       border-radius: ${taviaTheme.radii.sm};
       display: flex;
       align-items: center;
@@ -197,7 +198,7 @@ const StyledItem = styled(Select.Item)`
   }}
 `;
 
-const StyledItemText = styled(Select.ItemText)`
+const StyledItemText = styled(Select.ItemText)<{ theme?: TaviaTheme }>`
   ${({ theme }) => {
     const taviaTheme = theme as TaviaTheme;
     return `
@@ -210,7 +211,7 @@ const StyledItemText = styled(Select.ItemText)`
   }}
 `;
 
-const StyledIndicator = styled(Select.SelectItemIndicator)`
+const StyledIndicator = styled(Select.SelectItemIndicator)<{ theme?: TaviaTheme }>`
   ${({ theme }) => {
     const taviaTheme = theme as TaviaTheme;
     return `

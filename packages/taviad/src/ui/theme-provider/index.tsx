@@ -1,15 +1,21 @@
 'use client';
 
-import { ThemeProvider } from '@emotion/react';
 import { ReactNode } from 'react';
-import { theme } from '@tavia/taviad';
+import { ThemeProvider } from '../../providers/ThemeContext';
+import type { ColorMode } from '../../theme/theme';
 
 export interface ThemeWrapperProps {
   children: ReactNode;
+  defaultMode?: ColorMode;
+  storageKey?: string;
 }
 
-export const ThemeWrapper = ({ children }: ThemeWrapperProps) => {
-  return <ThemeProvider theme={theme}>{children}</ThemeProvider>;
+export const ThemeWrapper = ({ children, defaultMode, storageKey }: ThemeWrapperProps) => {
+  return (
+    <ThemeProvider defaultMode={defaultMode} storageKey={storageKey}>
+      {children}
+    </ThemeProvider>
+  );
 };
 
 ThemeWrapper.displayName = 'ThemeWrapper';

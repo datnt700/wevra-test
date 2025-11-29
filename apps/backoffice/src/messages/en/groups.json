@@ -15,21 +15,6 @@
   "backButton": "Back to Groups",
   "cancelButton": "Cancel",
   "saveButton": "Save Changes",
-  "fields": {
-    "name": "Group Name",
-    "namePlaceholder": "Enter group name",
-    "description": "Description",
-    "descriptionPlaceholder": "Describe your group...",
-    "category": "Category",
-    "categoryPlaceholder": "Select a category",
-    "location": "Location",
-    "locationPlaceholder": "Enter location",
-    "maxMembers": "Maximum Members",
-    "maxMembersPlaceholder": "Enter max members (leave empty for unlimited)",
-    "isPrivate": "Private Group",
-    "image": "Cover Image URL",
-    "imagePlaceholder": "https://example.com/image.jpg"
-  },
   "categories": {
     "TECHNOLOGY": "Technology",
     "BUSINESS": "Business",
@@ -58,7 +43,7 @@
     "updated": "Group updated successfully"
   },
   "detail": {
-    "backButton": "← Back to Groups",
+    "backButton": "Back to Groups",
     "editGroup": "Edit Group",
     "description": "Description",
     "groupInfo": "Group Information",
@@ -162,11 +147,6 @@
       "loadFailed": "Failed to load group",
       "unauthorized": "You don't have permission to edit this group"
     }
-  },
-  "categories": {
-    "Food": "Food & Drink",
-    "Sports": "Sports & Fitness",
-    "Arts": "Arts & Culture"
   },
   "create": {
     "reviewTitle": "Review Your Group",

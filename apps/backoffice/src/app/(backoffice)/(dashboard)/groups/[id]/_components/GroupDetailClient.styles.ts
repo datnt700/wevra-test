@@ -17,6 +17,13 @@ export const Styled = {
     }
   `,
 
+  HeroPlaceholder: styled.div<{ theme?: TaviaTheme }>`
+    width: 100%;
+    height: 100%;
+    background: ${({ theme }) =>
+      theme.mode === 'dark' ? theme.colors.gray.gray800 : theme.colors.gray.gray200};
+  `,
+
   CoverImage: styled.img`
     width: 100%;
     height: 100%;
@@ -129,12 +136,10 @@ export const Styled = {
 
   Section: styled.div<{ theme?: TaviaTheme }>`
     margin-bottom: 1.5rem;
-    background-color: #ffffff;
+    background-color: ${({ theme }) => theme.colors.surface};
     padding: 2rem;
     border-radius: ${({ theme }) => theme.radii.lg};
-    box-shadow:
-      0 1px 3px 0 rgba(0, 0, 0, 0.1),
-      0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    box-shadow: ${({ theme }) => theme.shadows.sm};
 
     @media (max-width: 768px) {
       padding: 1.5rem;

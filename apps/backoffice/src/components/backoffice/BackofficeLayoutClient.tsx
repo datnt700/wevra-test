@@ -4,15 +4,16 @@ import { useState, useEffect } from 'react';
 import styled from '@emotion/styled';
 import { motion, AnimatePresence } from 'framer-motion';
 import { usePathname } from 'next/navigation';
-import { theme } from '@tavia/taviad';
+import { type TaviaTheme } from '@tavia/taviad';
 import { BackofficeHeader } from './BackofficeHeader';
 import { BackofficeSidebar } from './BackofficeSidebar';
 
-const LayoutWrapper = styled.div`
+const LayoutWrapper = styled.div<{ theme?: TaviaTheme }>`
   display: flex;
   flex-direction: column;
   height: 100vh;
   overflow: hidden;
+  background-color: ${({ theme }) => theme.colors.background};
 `;
 
 const MainContainer = styled.div`
@@ -23,10 +24,10 @@ const MainContainer = styled.div`
   margin-top: 0; /* No top margin since sidebar is full height */
 `;
 
-const ContentArea = styled.main<{ $sidebarOpen: boolean }>`
+const ContentArea = styled.main<{ $sidebarOpen: boolean; theme?: TaviaTheme }>`
   flex: 1;
   overflow-y: auto;
-  background-color: ${theme.colors.surface};
+  background-color: ${({ theme }) => theme.colors.background};
 
   /* Mobile/Tablet: no margin, sidebar overlays */
   @media (max-width: 1023px) {
