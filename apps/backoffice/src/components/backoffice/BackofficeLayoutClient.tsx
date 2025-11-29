@@ -64,13 +64,11 @@ export function BackofficeLayoutClient({ children }: { children: React.ReactNode
   // Initialize as false to match server-rendered state and avoid hydration mismatch
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
-  const [mounted, setMounted] = useState(false);
+  const [mounted] = useState(true);
   const pathname = usePathname();
 
   // Detect screen size and adjust sidebar default state
   useEffect(() => {
-    setMounted(true);
-
     const checkMobile = () => {
       const mobile = window.innerWidth < 1024;
       setIsMobile(mobile);

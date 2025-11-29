@@ -503,6 +503,37 @@ When the backoffice is running, access interactive API documentation:
 - **Redoc**: https://admin.tavia.io/api/docs/redoc
 - **OpenAPI JSON**: https://admin.tavia.io/api/docs
 
+### Authentication
+
+The Tavia API uses **API keys** to authenticate requests. You can create and
+manage your API keys using the CLI tool.
+
+📖 **[Full Authentication Guide →](../../docs/API_AUTHENTICATION.md)**
+
+**Quick Start:**
+
+```bash
+# Create an API key
+cd apps/backoffice
+pnpm db:create-api-key user@tavia.io "Production" 5000 365
+
+# Use in requests
+curl http://localhost:3000/api/v1/groups \
+  -H "X-API-Key: tav_your_key_here"
+```
+
+**Key Features:**
+
+- ✅ Bcrypt-hashed keys with `tav_` prefix
+- ✅ Per-key rate limiting (default: 1000 req/hour)
+- ✅ Automatic response caching (1 minute for GET)
+- ✅ Optional expiration dates
+- ✅ Detailed usage tracking
+
+For complete documentation including authentication vs authorization, best
+practices, rate limiting, caching, and production setup, see
+**[API Authentication Guide](../../docs/API_AUTHENTICATION.md)**.
+
 ### When to Use What
 
 **Swagger UI** (`/api/docs/swagger`):
@@ -622,6 +653,8 @@ Invoke-RestMethod -Uri "http://localhost:3000/api/mobile/auth/me" `
 
 ## Additional Documentation
 
+- **[API Authentication](../../docs/API_AUTHENTICATION.md)** - Complete API key
+  authentication guide with best practices
 - [`DATABASE.md`](./DATABASE.md) - Complete database and authentication setup
   guide
 - [`DOCKER.md`](./DOCKER.md) - Docker setup and commands

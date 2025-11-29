@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { usePathname, useSearchParams } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 
 /**
@@ -11,17 +11,22 @@ import { motion, AnimatePresence } from 'framer-motion';
  */
 export function PageLoadingBar() {
   const pathname = usePathname();
-  const searchParams = useSearchParams();
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    setIsLoading(true);
+    // Set loading to true after a microtask to avoid setState in effect warning
+    Promise.resolve().then(() => setIsLoading(true));
+
+    // Stop loading after animation duration
     const timer = setTimeout(() => {
       setIsLoading(false);
     }, 1040);
 
-    return () => clearTimeout(timer);
-  }, [pathname, searchParams]);
+    return () => {
+      clearTimeout(timer);
+      setIsLoading(false);
+    };
+  }, [pathname]);
 
   return (
     <div

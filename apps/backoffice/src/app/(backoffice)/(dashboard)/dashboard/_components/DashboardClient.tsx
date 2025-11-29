@@ -25,7 +25,7 @@ interface DashboardClientProps {
 export function DashboardClient({ data }: DashboardClientProps) {
   const t = useTranslations('dashboard');
   const tCommon = useTranslations('common');
-  const { theme } = useTheme();
+  useTheme();
 
   const { stats, recentGroups, recentEvents, user } = data;
 

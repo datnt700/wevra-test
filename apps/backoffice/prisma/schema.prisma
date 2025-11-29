@@ -64,6 +64,7 @@ model User {
     eventRSVPs       EventRSVP[]
     moderatedGroups  GroupModerator[]
     createdEvents    Event[]          @relation("EventCreator")
+    apiKeys          ApiKey[]
 
     @@map("users")
 }
@@ -301,4 +302,51 @@ model AnalyticsEvent {
     @@index([eventName])
     @@index([pagePath])
     @@map("analytics_events")
+}
+
+// API Key Management
+enum ApiKeyStatus {
+    ACTIVE
+    REVOKED
+    EXPIRED
+}
+
+model ApiKey {
+    id         String       @id @default(cuid())
+    userId     String       @map("user_id")
+    name       String
+    keyHash    String       @unique @map("key_hash")
+    keyPrefix  String       @map("key_prefix")
+    status     ApiKeyStatus @default(ACTIVE)
+    rateLimit  Int          @default(1000) @map("rate_limit")
+    expiresAt  DateTime?    @map("expires_at")
+    lastUsedAt DateTime?    @map("last_used_at")
+    createdAt  DateTime     @default(now()) @map("created_at")
+    updatedAt  DateTime     @updatedAt @map("updated_at")
+
+    user  User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+    usage ApiKeyUsage[]
+
+    @@index([userId])
+    @@index([keyPrefix])
+    @@index([status])
+    @@map("api_keys")
+}
+
+model ApiKeyUsage {
+    id             String   @id @default(cuid())
+    apiKeyId       String   @map("api_key_id")
+    endpoint       String
+    method         String
+    statusCode     Int      @map("status_code")
+    responseTimeMs Int      @map("response_time_ms")
+    ipAddress      String?  @map("ip_address")
+    userAgent      String?  @map("user_agent")
+    timestamp      DateTime @default(now())
+
+    apiKey ApiKey @relation(fields: [apiKeyId], references: [id], onDelete: Cascade)
+
+    @@index([apiKeyId])
+    @@index([timestamp])
+    @@map("api_key_usage")
 }

@@ -32,6 +32,7 @@
     "db:studio": "prisma studio",
     "db:create-user": "node scripts/create-user.js",
     "db:delete-user": "node scripts/delete-user.js",
+    "db:create-api-key": "tsx scripts/create-api-key.ts",
     "generate:module": "generate-module"
   },
   "dependencies": {
