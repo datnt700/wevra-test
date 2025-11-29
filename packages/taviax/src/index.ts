@@ -35,6 +35,12 @@ export type { TextInputProps } from './components/TextInput';
 export { Text } from './components/Text';
 export type { TaviaTextProps, TextVariant, TextColor } from './components/Text';
 
+export { AuthContainer } from './components/AuthContainer';
+export type { AuthContainerProps } from './components/AuthContainer';
+
+export { AuthDivider } from './components/AuthDivider';
+export type { AuthDividerProps } from './components/AuthDivider';
+
 // Theme
 export { theme, colors, spacing, radii, typography } from './theme';
 export type {

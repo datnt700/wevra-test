@@ -114,7 +114,7 @@ export const Styled = {
   `,
 
   Section: styled.section`
-    background: ${theme.colors.light};
+    background: ${theme.colors.background};
     border-radius: ${theme.radii.lg};
     padding: ${theme.spacing.xl};
     margin-bottom: ${theme.spacing.lg};
@@ -144,7 +144,7 @@ export const Styled = {
     font-size: 2rem;
     font-weight: 700;
     margin: 0;
-    color: ${theme.colors.dark};
+    color: ${theme.colors.text.primary};
   `,
 
   Category: styled.p`
@@ -194,7 +194,7 @@ export const Styled = {
     font-size: 1.5rem;
     font-weight: 600;
     margin: 0 0 ${theme.spacing.lg} 0;
-    color: ${theme.colors.dark};
+    color: ${theme.colors.text.primary};
   `,
 
   OrganizerInfo: styled.div`
@@ -233,7 +233,7 @@ export const Styled = {
 
   OrganizerName: styled.p`
     font-weight: 500;
-    color: ${theme.colors.dark};
+    color: ${theme.colors.text.primary};
     margin: 0;
   `,
 

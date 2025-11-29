@@ -7,7 +7,7 @@ catalog:
   '@chromatic-com/storybook': 3.2.2
   '@commitlint/cli': ^19.8.1
   '@commitlint/config-conventional': ^19.8.1
-  '@emotion/cache': ^11.14.0
+  '@emotion/cache': 11.14.0
   '@eslint/js': ^9.37.0
   '@fastify/cors': ^10.0.2
   '@fastify/helmet': ^12.0.1
@@ -110,9 +110,9 @@ catalog:
 
 catalogs:
   emotion:
+    '@emotion/native': ^11.11.0
     '@emotion/react': ^11.11.0
     '@emotion/styled': ^11.11.0
-    '@emotion/native': ^11.11.0
   expo:
     '@react-native-async-storage/async-storage': ^2.1.0
     '@react-navigation/native': ^7.0.13

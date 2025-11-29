@@ -135,8 +135,9 @@ export async function analyticsRoutes(app: FastifyInstance) {
           return baseEvent;
         });
 
-        // Save to database
+        // Save to database - types are correct but Prisma union types need casting
         await app.prisma.analyticsEvent.createMany({
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           data: dbEvents as any,
         });
 

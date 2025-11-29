@@ -5,10 +5,12 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { Toaster } from 'sonner';
 import { GlobalStyles, ThemeWrapper } from '@tavia/taviad';
+import { EmotionRegistry } from '@/lib/EmotionRegistry';
 
 /**
  * Client-side providers wrapper
  * Includes:
+ * - Emotion Cache Registry (prevents hydration mismatches)
  * - Emotion ThemeProvider with taviad theme
  * - Emotion GlobalStyles
  * - React Query with devtools
@@ -28,21 +30,23 @@ export function ClientProviders({ children }: { children: React.ReactNode }) {
   );
 
   return (
-    <ThemeWrapper>
-      <QueryClientProvider client={queryClient}>
-        <GlobalStyles />
-        <Toaster
-          position="top-right"
-          richColors
-          closeButton
-          expand={false}
-          toastOptions={{
-            duration: 4000,
-          }}
-        />
-        {children}
-        <ReactQueryDevtools initialIsOpen={false} />
-      </QueryClientProvider>
-    </ThemeWrapper>
+    <EmotionRegistry>
+      <ThemeWrapper>
+        <QueryClientProvider client={queryClient}>
+          <GlobalStyles />
+          <Toaster
+            position="top-right"
+            richColors
+            closeButton
+            expand={false}
+            toastOptions={{
+              duration: 4000,
+            }}
+          />
+          {children}
+          <ReactQueryDevtools initialIsOpen={false} />
+        </QueryClientProvider>
+      </ThemeWrapper>
+    </EmotionRegistry>
   );
 }

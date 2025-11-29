@@ -6,7 +6,7 @@
  * - Centered text
  * - Grid-like alignment across multiple buttons
  */
-import { ActivityIndicator, Text } from 'react-native';
+import { ActivityIndicator } from 'react-native';
 import type { SocialButtonProps } from '../types/SocialButtonProps';
 import { Styled } from './SocialButton.styles';
 import {
@@ -78,7 +78,7 @@ export const SocialButton = ({
         <Styled.TextContainer>
           {!isLoading &&
             (typeof children === 'string' ? (
-              <Text style={[Styled.Text as any, textStyles]}>{children}</Text>
+              <Styled.Text style={textStyles}>{children}</Styled.Text>
             ) : (
               children
             ))}

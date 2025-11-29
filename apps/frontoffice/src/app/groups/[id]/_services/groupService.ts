@@ -6,6 +6,7 @@ import {
   joinGroup as joinGroupAction,
   leaveGroup as leaveGroupAction,
 } from '../_actions/groupActions';
+import type { ActionResponse } from '@/types/api';
 
 export interface JoinGroupResponse {
   success: boolean;

@@ -45,7 +45,7 @@ export default async function GroupDetailPage({ params }: GroupDetailPageProps) 
   }
 
   // Check if user is the owner
-  const isOwner = group.ownerId === session.user.id;
+  const isOwner = group.owner.id === session.user.id;
 
   // Check user's membership status
   let membershipStatus: MembershipStatus | null = null;

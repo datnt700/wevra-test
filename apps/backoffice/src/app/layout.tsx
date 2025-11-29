@@ -3,9 +3,7 @@ import { NextIntlClientProvider } from 'next-intl';
 import { getMessages, getLocale } from 'next-intl/server';
 import { AnalyticsProvider } from '@/components/AnalyticsProvider';
 import { ClientProviders } from '@/components/ClientProviders';
-
-// Force dynamic rendering for all pages due to client-side dependencies
-export const dynamic = 'force-dynamic';
+import { PageLoadingBar } from '@/components/PageLoadingBar';
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'),
@@ -80,6 +78,7 @@ export default async function RootLayout({
         />
       </head>
       <body>
+        <PageLoadingBar />
         <ClientProviders>
           <NextIntlClientProvider messages={messages}>
             <AnalyticsProvider>{children}</AnalyticsProvider>

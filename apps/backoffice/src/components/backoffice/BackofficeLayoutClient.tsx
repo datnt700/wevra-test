@@ -2,6 +2,8 @@
 
 import { useState, useEffect } from 'react';
 import styled from '@emotion/styled';
+import { motion, AnimatePresence } from 'framer-motion';
+import { usePathname } from 'next/navigation';
 import { theme } from '@tavia/taviad';
 import { BackofficeHeader } from './BackofficeHeader';
 import { BackofficeSidebar } from './BackofficeSidebar';
@@ -60,10 +62,14 @@ const Backdrop = styled.div<{ $isVisible: boolean }>`
 export function BackofficeLayoutClient({ children }: { children: React.ReactNode }) {
   // Initialize as false to match server-rendered state and avoid hydration mismatch
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [isMobile, setIsMobile] = useState(true);
+  const [isMobile, setIsMobile] = useState(false);
+  const [mounted, setMounted] = useState(false);
+  const pathname = usePathname();
 
   // Detect screen size and adjust sidebar default state
   useEffect(() => {
+    setMounted(true);
+
     const checkMobile = () => {
       const mobile = window.innerWidth < 1024;
       setIsMobile(mobile);
@@ -88,13 +94,34 @@ export function BackofficeLayoutClient({ children }: { children: React.ReactNode
     setSidebarOpen(false);
   };
 
+  // Prevent hydration mismatch by not rendering until mounted
+  if (!mounted) {
+    return null;
+  }
+
   return (
     <LayoutWrapper>
       <BackofficeHeader onToggleSidebar={toggleSidebar} isMobile={isMobile} />
       <MainContainer>
         <BackofficeSidebar isOpen={sidebarOpen} isMobile={isMobile} />
         <Backdrop $isVisible={sidebarOpen && isMobile} onClick={closeSidebar} />
-        <ContentArea $sidebarOpen={sidebarOpen}>{children}</ContentArea>
+        <ContentArea $sidebarOpen={sidebarOpen}>
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={pathname}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{
+                duration: 0.2,
+                ease: 'easeInOut',
+              }}
+              style={{ height: '100%' }}
+            >
+              {children}
+            </motion.div>
+          </AnimatePresence>
+        </ContentArea>
       </MainContainer>
     </LayoutWrapper>
   );
