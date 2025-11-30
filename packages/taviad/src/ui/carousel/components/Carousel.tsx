@@ -74,17 +74,17 @@ export const Carousel: React.FC<CarouselProps> = ({
 
   // Touch/swipe handling
   const handleTouchStart = (e: React.TouchEvent) => {
-    if (!swipeable) return;
+    if (!swipeable || !e.targetTouches[0]) return;
     setTouchStart(e.targetTouches[0].clientX);
   };
 
   const handleTouchMove = (e: React.TouchEvent) => {
-    if (!swipeable) return;
+    if (!swipeable || !e.targetTouches[0]) return;
     setTouchEnd(e.targetTouches[0].clientX);
   };
 
   const handleTouchEnd = () => {
-    if (!swipeable || !touchStart || !touchEnd) return;
+    if (!swipeable || touchStart === null || touchEnd === null) return;
     const distance = touchStart - touchEnd;
     const isLeftSwipe = distance > 50;
     const isRightSwipe = distance < -50;

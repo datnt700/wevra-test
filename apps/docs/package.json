@@ -20,20 +20,22 @@
     "chromatic": "npx chromatic --project-token=chpt_09e7d5fec3ce56f",
     "clean": "rm -rf .next .turbo node_modules storybook-static"
   },
-  "peerDependencies": {},
   "dependencies": {
-    "next": "catalog:",
-    "react": "catalog:",
-    "react-dom": "catalog:",
     "@emotion/react": "catalog:emotion",
     "@emotion/styled": "catalog:emotion",
+    "@radix-ui/react-icons": "catalog:",
+    "@tanstack/react-table": "catalog:",
     "@tavia/taviad": "workspace:*",
     "lucide-react": "catalog:",
-    "@radix-ui/react-icons": "catalog:",
-    "@tanstack/react-table": "catalog:"
+    "next": "catalog:",
+    "react": "catalog:",
+    "react-dom": "catalog:"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.11.0",
     "@chromatic-com/storybook": "catalog:",
+    "@repo/eslint-config": "workspace:*",
+    "@storybook/addon-a11y": "8.4.2",
     "@storybook/addon-essentials": "catalog:",
     "@storybook/addon-interactions": "catalog:",
     "@storybook/addon-onboarding": "catalog:",
@@ -44,12 +46,11 @@
     "@types/node": "catalog:",
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",
-    "@repo/eslint-config": "workspace:*",
+    "chromatic": "catalog:",
     "eslint": "catalog:",
     "eslint-config-next": "catalog:",
     "eslint-plugin-storybook": "catalog:",
     "storybook": "catalog:",
-    "typescript": "catalog:",
-    "chromatic": "catalog:"
+    "typescript": "catalog:"
   }
 }

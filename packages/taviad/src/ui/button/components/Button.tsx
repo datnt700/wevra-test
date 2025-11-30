@@ -22,6 +22,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       isLoading,
       accessibilityLabel,
       icon,
+      iconPosition = 'left',
       shape = 'default',
       className,
       ...other
@@ -58,13 +59,14 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         className={`${className || ''}`.trim()}
         {...other}
       >
-        {icon ? <>{icon}</> : null}
+        {icon && iconPosition === 'left' ? <>{icon}</> : null}
         {isLoading ? <Spinner /> : null}
         {children ? (
           <span className="content" ref={contentRef}>
             {children}
           </span>
         ) : null}
+        {icon && iconPosition === 'right' ? <>{icon}</> : null}
       </Styled.Button>
     );
   }

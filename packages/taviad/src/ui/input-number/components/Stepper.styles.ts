@@ -80,6 +80,7 @@ const StyledInput = styled.input<InputProps>`
       padding: 0;
       font-size: 1rem;
       color: ${taviaTheme.colors.text.primary};
+      text-align: center;
       ${$hasError ? `background: ${taviaTheme.colors.border.default};` : ''}
 
       &::placeholder {

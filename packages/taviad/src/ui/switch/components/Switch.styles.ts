@@ -40,7 +40,7 @@ const getVariantStyles = (
 const StyledWrapper = styled.div`
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 0.5rem;
 `;
 
 const StyledLabel = styled.label`
@@ -85,6 +85,8 @@ const StyledSwitchRoot = styled(RadixSwitch.Root)<{
       position: relative;
       cursor: pointer;
       transition: background-color 0.2s ease;
+      padding: 0;
+      border: none;
       ${$hasShadow ? `box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);` : ''}
 
       &[data-state='checked'] {
@@ -125,7 +127,7 @@ const StyledSwitchThumb = styled(RadixSwitch.Thumb)`
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 
       &[data-state='checked'] {
-        transform: translateX(1.5rem);
+        transform: translateX(1.625rem);
 
         svg {
           color: ${taviaTheme.colors.primary};

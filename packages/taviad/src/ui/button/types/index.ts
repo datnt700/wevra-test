@@ -20,5 +20,6 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
   isLoading?: boolean;
   accessibilityLabel?: string;
   icon?: React.ReactNode;
+  iconPosition?: 'left' | 'right';
   shape?: ButtonShape;
 }
