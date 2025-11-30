@@ -1,6 +1,6 @@
 {
   "common": {
-    "appName": "Tavia",
+    "appName": "Eventure",
     "loading": "Đang tải...",
     "retry": "Thử lại",
     "cancel": "Hủy",
@@ -24,7 +24,7 @@
     },
     "signup": {
       "title": "Tạo tài khoản",
-      "description": "Tham gia Tavia để khám phá sự kiện tuyệt vời",
+      "description": "Tham gia Eventure để khám phá sự kiện tuyệt vời",
       "name": "Họ và tên",
       "namePlaceholder": "Nhập họ và tên",
       "email": "Email",

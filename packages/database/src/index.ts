@@ -1,7 +1,7 @@
 /**
- * @tavia/database
+ * @eventure/database
  *
- * Shared database types, enums, and utilities for Tavia monorepo
+ * Shared database types, enums, and utilities for Eventure monorepo
  */
 
 // Export enums

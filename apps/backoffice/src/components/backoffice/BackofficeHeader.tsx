@@ -2,7 +2,7 @@
 
 import { Menu, UtensilsCrossed, User, LogOut, Moon, Sun } from 'lucide-react';
 import { signOut } from 'next-auth/react';
-import { useTheme } from '@tavia/taviad';
+import { useTheme } from '@eventure/eventured';
 import { Styled } from './BackofficeHeader.styles';
 import { ROUTES } from '@/lib/constants';
 
@@ -30,7 +30,7 @@ export function BackofficeHeader({ onToggleSidebar, isMobile = false }: Backoffi
             <Styled.LogoIcon>
               <UtensilsCrossed size={20} />
             </Styled.LogoIcon>
-            <Styled.LogoText $isMobile={isMobile}>TaviaO</Styled.LogoText>
+            <Styled.LogoText $isMobile={isMobile}>EventureO</Styled.LogoText>
           </Styled.Logo>
         </Styled.LeftSection>
 

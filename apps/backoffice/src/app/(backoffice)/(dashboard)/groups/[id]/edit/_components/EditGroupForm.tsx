@@ -15,7 +15,7 @@ import {
   Checkbox,
   Select,
   Modal,
-} from '@tavia/taviad';
+} from '@eventure/eventured';
 import { ROUTES } from '@/lib/constants';
 import { useUpdateGroup, useDeleteGroup } from '../../../_hooks/useGroups';
 import { groupSchema, type GroupFormData } from '../../../_schemas/groupSchema';

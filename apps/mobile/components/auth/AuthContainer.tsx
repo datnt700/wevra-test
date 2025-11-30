@@ -1,7 +1,7 @@
 /**
  * Auth Container Component
- * Re-export from @tavia/taviax
- * @deprecated Import directly from '@tavia/taviax' instead
+ * Re-export from @eventure/eventurex
+ * @deprecated Import directly from '@eventure/eventurex' instead
  */
-export { AuthContainer } from '@tavia/taviax';
-export type { AuthContainerProps } from '@tavia/taviax';
+export { AuthContainer } from '@eventure/eventurex';
+export type { AuthContainerProps } from '@eventure/eventurex';

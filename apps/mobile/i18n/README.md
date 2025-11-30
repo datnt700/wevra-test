@@ -1,8 +1,8 @@
-# Internationalization (i18n) in Tavia Mobile
+# Internationalization (i18n) in Eventure Mobile
 
 ## Overview
 
-Tavia Mobile uses **expo-localization** and **i18n-js** to provide automatic
+Eventure Mobile uses **expo-localization** and **i18n-js** to provide automatic
 language detection based on the user's system language.
 
 ## Supported Languages
@@ -47,7 +47,7 @@ Translations are organized by feature area:
 ```json
 {
   "common": {
-    "appName": "Tavia",
+    "appName": "Eventure",
     "loading": "Loading...",
     "retry": "Try Again",
     ...

@@ -1,7 +1,7 @@
 {
   "name": "analytics",
   "version": "0.1.0",
-  "description": "Tavia Analytics API - Event tracking and analytics service",
+  "description": "Eventure Analytics API - Event tracking and analytics service",
   "type": "module",
   "private": true,
   "main": "dist/server.js",

@@ -1,8 +1,8 @@
 ---
-applyTo: 'packages/taviax/**/*.{ts,tsx}'
+applyTo: 'packages/eventurex/**/*.{ts,tsx}'
 ---
 
-# @tavia/taviax Mobile Components
+# @eventure/eventurex Mobile Components
 
 ## Component Structure
 
@@ -37,7 +37,7 @@ Select/Picker
 ```typescript
 import styled from '@emotion/native';
 import { ActivityIndicator } from 'react-native';
-import { colors, spacing, radii } from '@tavia/taviax';
+import { colors, spacing, radii } from '@eventure/eventurex';
 
 const StyledButton = styled.TouchableOpacity<{ $variant?: ButtonVariant }>`
   background-color: ${({ $variant }) =>
@@ -75,10 +75,10 @@ Button.displayName = 'Button';
 
 ## Design Tokens
 
-**Shared with @tavia/taviad:**
+**Shared with @eventure/eventured:**
 
 ```typescript
-import { colors, spacing, radii, typography } from '@tavia/taviax';
+import { colors, spacing, radii, typography } from '@eventure/eventurex';
 
 const styles = StyleSheet.create({
   container: {
@@ -108,7 +108,7 @@ const styles = StyleSheet.create({
 
 ```typescript
 import { render, fireEvent } from '@testing-library/react-native';
-import { Button } from '@tavia/taviax';
+import { Button } from '@eventure/eventurex';
 
 it('should call onPress when pressed', () => {
   const handlePress = jest.fn();
@@ -145,8 +145,8 @@ export default defineConfig({
 
 1. ✅ Import from `@emotion/native`, NOT `@emotion/styled`
 2. ✅ Use React Native components (`View`, `Text`, `TouchableOpacity`)
-3. ✅ Share design tokens with @tavia/taviad
-4. ✅ Same API design as @tavia/taviad (developer familiarity)
+3. ✅ Share design tokens with @eventure/eventured
+4. ✅ Same API design as @eventure/eventured (developer familiarity)
 5. ✅ Use `react-native-web` alias for testing
 6. ✅ Coverage threshold: 70%
 7. ❌ Never use web-specific components
@@ -155,7 +155,7 @@ export default defineConfig({
 ## Commands
 
 ```bash
-cd packages/taviax
+cd packages/eventurex
 pnpm test                   # Run tests
 pnpm test:coverage          # Coverage report
 pnpm test:watch             # Watch mode

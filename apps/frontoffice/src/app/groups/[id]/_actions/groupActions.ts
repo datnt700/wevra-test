@@ -7,7 +7,7 @@
 import { auth } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
 import { revalidatePath } from 'next/cache';
-import { type ActionResponse, MembershipStatus } from '@tavia/database';
+import { type ActionResponse, MembershipStatus } from '@eventure/database';
 
 /**
  * Join a group

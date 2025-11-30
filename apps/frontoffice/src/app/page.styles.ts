@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { InputText, Badge, Button } from '@tavia/taviad';
+import { InputText, Badge, Button } from '@eventure/eventured';
 
 export const HeroSection = styled.section`
   background: linear-gradient(135deg, #ff695c 0%, #f14c4b 100%);

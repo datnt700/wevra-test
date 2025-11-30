@@ -8,7 +8,7 @@ import { toPascalCase, toCamelCase, toKebabCase } from './utils.js';
 const MODULE_FOLDERS = ['_components', '_types', '_hooks', '_utils', '_api', '_constants'];
 
 export async function generateModule() {
-  console.log(chalk.cyan.bold('\n🏗️  Tavia Module Generator\n'));
+  console.log(chalk.cyan.bold('\n🏗️  Eventure Module Generator\n'));
 
   // Get current working directory (should be app root like apps/backoffice)
   const cwd = process.cwd();

@@ -1,9 +1,9 @@
-# Tavia - AI Coding Agent Instructions
+# Eventure - AI Coding Agent Instructions
 
 ## 👤 Your Role
 
-You are a **Senior Software Engineer** at Tavia, an early-stage startup building
-a freemium community networking platform. Your responsibilities:
+You are a **Senior Software Engineer** at Eventure, an early-stage startup
+building a freemium community networking platform. Your responsibilities:
 
 - **Ownership mindset**: You own features end-to-end, from database to UI
 - **Move fast, but maintain quality**: Ship quickly while keeping code
@@ -13,7 +13,7 @@ a freemium community networking platform. Your responsibilities:
 - **Knowledge sharing**: Document patterns as you go, help the team scale
 - **User-first**: Prioritize features that unblock users and generate revenue
 
-**Context**: Tavia is a **Freemium community networking platform** built as a
+**Context**: Eventure is a **Freemium community networking platform** built as a
 **microservices-first monorepo**. Two-sided platform: Organizers (B2B) create
 groups/events, Attendees (B2C) discover and join activities.
 
@@ -25,18 +25,18 @@ groups/events, Attendees (B2C) discover and join activities.
 ### 1. ALWAYS Use Internal Packages
 
 ```tsx
-// ✅ Web:     import { Button, Input } from '@tavia/taviad';
-// ✅ Mobile:  import { Button, Text } from '@tavia/taviax'; import styled from '@emotion/native';
+// ✅ Web:     import { Button, Input } from '@eventure/eventured';
+// ✅ Mobile:  import { Button, Text } from '@eventure/eventurex'; import styled from '@emotion/native';
 // ✅ Env:     import { env } from '@/lib/env'; // NEVER process.env directly
-// ✅ Types:   import type { GroupDetail, MembershipStatus } from '@tavia/database';
-// ✅ Styling: import { theme } from '@tavia/taviad'; // theme.colors.primary, theme.radii.md
+// ✅ Types:   import type { GroupDetail, MembershipStatus } from '@eventure/database';
+// ✅ Styling: import { theme } from '@eventure/eventureured'; // theme.colors.primary, theme.radii.md
 // ❌ NEVER:   <button>, process.env.*, @emotion/styled in mobile, local type definitions
 ```
 
 ### 2. Shared Database Architecture
 
 **CRITICAL:** Backoffice and frontoffice share the SAME PostgreSQL database
-`tavia`.
+`eventure`.
 
 ```bash
 # Workflow: ALWAYS from backoffice
@@ -53,7 +53,7 @@ pnpm db:generate      # Update Prisma Client only
 
 - ✅ Migrations run from backoffice ONLY
 - ✅ Schema changes in backoffice? Copy `schema.prisma` to frontoffice
-- ✅ Use `@tavia/database` types (NEVER define local types)
+- ✅ Use `@eventure/database` types (NEVER define local types)
 - ✅ Use enum values: `MembershipStatus.ACTIVE` (NOT `'ACTIVE'`)
 
 ### 3. Use Generators (Never Copy Apps)
@@ -89,14 +89,14 @@ app/{feature}/
 
 ```typescript
 // ✅ CORRECT - Use theme object (preferred)
-import { theme } from '@tavia/taviad';
+import { theme } from '@eventure/eventureured';
 styled.div`
   color: ${theme.colors.primary};
   border-radius: ${theme.radii.md};
 `;
 
 // ✅ ALSO VALID - Direct cssVars (for edge cases)
-import { cssVars } from '@tavia/taviad';
+import { cssVars } from '@eventure/eventureured';
 styled.div`
   color: ${cssVars.mainColor};
 `;
@@ -120,13 +120,14 @@ styled.div`
 
 **Packages:**
 
-- **@tavia/taviad**: 60+ web UI components (MANDATORY for web)
-- **@tavia/taviax**: React Native components (MANDATORY for mobile)
-- **@tavia/env**: Type-safe environment variables (MANDATORY for all env access)
-- **@tavia/database**: Shared Prisma types, enums, query selectors (MANDATORY
+- **@eventure/eventureured**: 60+ web UI components (MANDATORY for web)
+- **@eventure/eventurex**: React Native components (MANDATORY for mobile)
+- **@eventure/env**: Type-safe environment variables (MANDATORY for all env
+  access)
+- **@eventure/database**: Shared Prisma types, enums, query selectors (MANDATORY
   for types)
-- **@tavia/analytics**: Event tracking SDK
-- **@tavia/logger**: Structured logging
+- **@eventure/analytics**: Event tracking SDK
+- **@eventure/logger**: Structured logging
 
 **Freemium Logic:**
 
@@ -159,8 +160,8 @@ pnpm start              # Metro bundler
    files)
 3. **`apps/backoffice/DATABASE.md`** - Shared DB setup
 4. **`apps/backoffice/src/lib/features/planLimits.ts`** - Freemium feature flags
-5. **`packages/taviad/src/theme/theme.ts`** - Theme tokens (colors, spacing,
-   radii)
+5. **`packages/eventureured/src/theme/theme.ts`** - Theme tokens (colors,
+   spacing, radii)
 
 ### Directory Structure Conventions
 
@@ -179,7 +180,7 @@ apps/{app}/src/
 │   └── api/             # API routes
 ├── lib/
 │   ├── auth.ts          # Auth.js config (backoffice only)
-│   ├── env/index.ts     # Environment variables (@tavia/env)
+│   ├── env/index.ts     # Environment variables (@eventure/env)
 │   ├── constants/       # Routes, roles, magic strings
 │   └── features/        # Business logic (planLimits, etc.)
 └── middleware.ts        # Auth middleware (backoffice only)
@@ -187,14 +188,14 @@ apps/{app}/src/
 
 ### Common Pitfalls & Solutions
 
-| Problem               | ❌ Wrong                        | ✅ Correct                                                                                                    |
-| --------------------- | ------------------------------- | ------------------------------------------------------------------------------------------------------------- |
-| Environment variables | `process.env.DATABASE_URL`      | `import { env } from '@/lib/env'; env.DATABASE_URL`                                                           |
-| Types                 | `interface GroupDetail { ... }` | `import type { GroupDetail } from '@tavia/database'`                                                          |
-| Enums                 | `if (status === 'ACTIVE')`      | `import { MembershipStatus } from '@tavia/database'; if (status === MembershipStatus.ACTIVE)`                 |
-| Styling               | `color: #ff695c`                | `color: ${theme.colors.danger}`                                                                               |
-| Components            | `<button onClick={...}>`        | `import { Button } from '@tavia/taviad'; <Button onClick={...}>`                                              |
-| Database operations   | Define custom queries           | `import { groupDetailSelect } from '@tavia/database'; prisma.group.findUnique({ select: groupDetailSelect })` |
+| Problem               | ❌ Wrong                        | ✅ Correct                                                                                                       |
+| --------------------- | ------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
+| Environment variables | `process.env.DATABASE_URL`      | `import { env } from '@/lib/env'; env.DATABASE_URL`                                                              |
+| Types                 | `interface GroupDetail { ... }` | `import type { GroupDetail } from '@eventure/database'`                                                          |
+| Enums                 | `if (status === 'ACTIVE')`      | `import { MembershipStatus } from '@eventure/database'; if (status === MembershipStatus.ACTIVE)`                 |
+| Styling               | `color: #ff695c`                | `color: ${theme.colors.danger}`                                                                                  |
+| Components            | `<button onClick={...}>`        | `import { Button } from '@eventure/eventureured'; <Button onClick={...}>`                                        |
+| Database operations   | Define custom queries           | `import { groupDetailSelect } from '@eventure/database'; prisma.group.findUnique({ select: groupDetailSelect })` |
 
 **Stack:** Next.js 15, React 19, pnpm 10.19.0, Emotion (NO SCSS/Tailwind),
 Prisma, Docker PostgreSQL 16
@@ -210,8 +211,8 @@ Context-specific patterns auto-load based on file paths:
 | `01-architecture.instructions.md`      | `**/*`                                                                       | Freemium model, shared database, microservices  |
 | `02-web-apps.instructions.md`          | `apps/{backoffice,frontoffice}/**/*.{ts,tsx}`                                | Server Actions, Auth.js, API errors, env vars   |
 | `03-mobile.instructions.md`            | `apps/mobile/**/*.{ts,tsx}`                                                  | Expo, platform storage, API config              |
-| `04-components-web.instructions.md`    | `packages/taviad/**/*.{ts,tsx}`                                              | Component structure, testing (80% coverage)     |
-| `05-components-mobile.instructions.md` | `packages/taviax/**/*.{ts,tsx}`                                              | React Native components (70% coverage)          |
+| `04-components-web.instructions.md`    | `packages/eventureured/**/*.{ts,tsx}`                                        | Component structure, testing (80% coverage)     |
+| `05-components-mobile.instructions.md` | `packages/eventurex/**/*.{ts,tsx}`                                           | React Native components (70% coverage)          |
 | `06-styling.instructions.md`           | `**/*.styles.{ts,tsx}`                                                       | Emotion patterns, theme object, SSR             |
 | `07-api.instructions.md`               | `apps/{analytics,event-service}/**/*.ts,apps/backoffice/src/app/api/**/*.ts` | Response format, error handling, CORS           |
 | `08-database.instructions.md`          | `apps/*/prisma/**/*`                                                         | Migrations, Docker, shared schema               |

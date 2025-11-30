@@ -1,27 +1,27 @@
-# Code Owners for Tavia
+# Code Owners for Eventure
 # These owners will be automatically requested for review when someone opens a pull request.
 
 # Default owners for everything in the repo
-* @tavia-io/maintainers
+* @eventure-io/maintainers
 
 # Apps
-/apps/web/ @tavia-io/web-team
-/apps/docs/ @tavia-io/docs-team
+/apps/web/ @eventure-io/web-team
+/apps/docs/ @eventure-io/docs-team
 
 # Packages
-/packages/core/ @tavia-io/ui-team
-/packages/eslint-config/ @tavia-io/maintainers
-/packages/typescript-config/ @tavia-io/maintainers
+/packages/core/ @eventure-io/ui-team
+/packages/eslint-config/ @eventure-io/maintainers
+/packages/typescript-config/ @eventure-io/maintainers
 
 # Infrastructure & Configuration
-/.github/ @tavia-io/maintainers
-/turbo.json @tavia-io/maintainers
-/pnpm-workspace.yaml @tavia-io/maintainers
-/package.json @tavia-io/maintainers
+/.github/ @eventure-io/maintainers
+/turbo.json @eventure-io/maintainers
+/pnpm-workspace.yaml @eventure-io/maintainers
+/package.json @eventure-io/maintainers
 
 # Documentation
-/README.md @tavia-io/maintainers
-/.github/copilot-instructions.md @tavia-io/maintainers
+/README.md @eventure-io/maintainers
+/.github/copilot-instructions.md @eventure-io/maintainers
 
 # Database
-/prisma/ @tavia-io/backend-team
+/prisma/ @eventure-io/backend-team

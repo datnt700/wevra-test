@@ -13,13 +13,13 @@ variable "environment" {
 variable "project_name" {
   description = "Project name"
   type        = string
-  default     = "tavia"
+  default     = "Eventure"
 }
 
 variable "domain_name" {
   description = "Root domain name"
   type        = string
-  default     = "tavia.io"
+  default     = "eventure.so"
 }
 
 variable "backoffice_subdomain" {
@@ -38,13 +38,13 @@ variable "frontoffice_subdomain" {
 variable "db_name" {
   description = "Database name"
   type        = string
-  default     = "tavia"
+  default     = "Eventure"
 }
 
 variable "db_username" {
   description = "Database username"
   type        = string
-  default     = "tavia_admin"
+  default     = "eventure_admin"
 }
 
 variable "db_instance_class" {

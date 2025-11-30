@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 /**
- * Create a new API service in the Tavia monorepo
+ * Create a new API service in the Eventure monorepo
  * Supports both simple Fastify APIs and complex NestJS microservices
  * Usage: pnpm create:api [api-name]
  */
@@ -30,7 +30,7 @@ let _apiType = null;
 
 // Main function to handle interactive prompts
 async function main() {
-  console.log('\n🚀 Tavia API Generator\n');
+  console.log('\n🚀 Eventure API Generator\n');
 
   // Step 1: Get API name
   if (!apiName) {
@@ -112,7 +112,7 @@ async function createFastifyAPI(apiName, apiDir, templatesDir) {
   const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf-8'));
 
   packageJson.name = apiName;
-  packageJson.description = `Tavia ${capitalize(apiName)} API - ${capitalize(apiName)} service`;
+  packageJson.description = `Eventure ${capitalize(apiName)} API - ${capitalize(apiName)} service`;
   packageJson.version = '0.1.0';
 
   fs.writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2) + '\n');
@@ -136,7 +136,7 @@ async function createFastifyAPI(apiName, apiDir, templatesDir) {
 
     // Update database name
     envExample = envExample.replace(
-      /postgresql:\/\/postgres:postgres@localhost:5432\/tavia/g,
+      /postgresql:\/\/postgres:postgres@localhost:5432\/eventure/g,
       `postgresql://postgres:postgres@localhost:5432/${apiName}`
     );
 
@@ -157,7 +157,7 @@ async function createFastifyAPI(apiName, apiDir, templatesDir) {
 
     // Update database name
     env = env.replace(
-      /postgresql:\/\/postgres:postgres@localhost:5432\/tavia/g,
+      /postgresql:\/\/postgres:postgres@localhost:5432\/eventure/g,
       `postgresql://postgres:postgres@localhost:5432/${apiName}`
     );
 
@@ -174,10 +174,10 @@ async function createFastifyAPI(apiName, apiDir, templatesDir) {
     readme = readme.replace(/Generic Fastify 5 API Template/g, `${capitalize(apiName)} API`);
     readme = readme.replace(/Simple API Template/g, `${capitalize(apiName)} API`);
     readme = readme.replace(
-      /Generic Fastify 5 API template for Tavia monorepo/g,
-      `${capitalize(apiName)} API service for Tavia monorepo`
+      /Generic Fastify 5 API template for Eventure monorepo/g,
+      `${capitalize(apiName)} API service for Eventure monorepo`
     );
-    readme = readme.replace(/@tavia\/simple-api-template/g, `@tavia/${apiName}`);
+    readme = readme.replace(/@eventure\/simple-api-template/g, `@eventure/${apiName}`);
     readme = readme.replace(/simple-api-template/g, apiName);
     readme = readme.replace(/localhost:4000/g, `localhost:${newPort}`);
 
@@ -607,7 +607,7 @@ ${transportType === 'rest' ? '- [Swagger Documentation](https://swagger.io/docs/
 
 ---
 
-Generated with Tavia API Generator
+Generated with Eventure API Generator
 `;
 
     fs.writeFileSync(path.join(apiDir, 'README.md'), readmeContent);

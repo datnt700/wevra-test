@@ -18,7 +18,7 @@ version: '3.8'
 #     environment:
 #       POSTGRES_USER: ${POSTGRES_USER:-postgres}
 #       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
-#       POSTGRES_DB: ${POSTGRES_DB:-tavia}  # Same database name
+#       POSTGRES_DB: ${POSTGRES_DB:-eventure}  # Same database name
 #     volumes:
 #       - frontoffice_postgres_data:/var/lib/postgresql/data
 #     healthcheck:

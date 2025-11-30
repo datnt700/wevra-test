@@ -2,8 +2,8 @@
 
 import { useTranslations } from 'next-intl';
 import { Users, AlertCircle } from 'lucide-react';
-import { ErrorState, Button } from '@tavia/taviad';
-import { useLogger } from '@tavia/logger';
+import { ErrorState, Button } from '@eventure/eventured';
+import { useLogger } from '@eventure/logger';
 import { useEvents } from '@/hooks/useEvents';
 import { EventCardSkeleton } from './EventCardSkeleton';
 import {

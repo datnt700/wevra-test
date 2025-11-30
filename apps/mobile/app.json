@@ -1,11 +1,11 @@
 {
   "expo": {
     "name": "mobile",
-    "slug": "tavia-mobile",
+    "slug": "Eventure-mobile",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "tavia",
+    "scheme": "Eventure",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "splash": {
@@ -15,16 +15,16 @@
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.tavia.app",
+      "bundleIdentifier": "com.Eventure.app",
       "usesAppleSignIn": true,
-      "associatedDomains": ["applinks:tavia.io"]
+      "associatedDomains": ["applinks:eventure.so"]
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.tavia.app",
+      "package": "com.Eventure.app",
       "edgeToEdgeEnabled": true,
       "predictiveBackGestureEnabled": false,
       "intentFilters": [
@@ -32,7 +32,7 @@
           "action": "VIEW",
           "data": [
             {
-              "scheme": "tavia",
+              "scheme": "Eventure",
               "host": "auth",
               "pathPrefix": "/callback"
             }

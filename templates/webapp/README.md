@@ -1,7 +1,8 @@
 # Generic Next.js 15 Webapp Template# Webapp Template# Generic Next.js 15 Webapp Template
 
-A production-ready Next.js 15 webapp template for the Tavia monorepo, featuringA
-production-ready Next.js 15 webapp template for the Tavia monorepo, featuring
+A production-ready Next.js 15 webapp template for the Eventure monorepo,
+featuringA production-ready Next.js 15 webapp template for the Eventure
+monorepo, featuring
 
 modern best practices, internationalization, and complete testing setup.modern
 best practices, internationalization, and complete testing setup.This is
@@ -10,8 +11,9 @@ a **generic template** for creating new Next.js 15 web applications in
 
 This is a **generic template** for creating new Next.js 15 web applications in
 
-the Tavia monorepo. It contains minimal structure without business-specificthe
-Tavia monorepo. It contains minimal structure without business-specific
+the Eventure monorepo. It contains minimal structure without
+business-specificthe Eventure monorepo. It contains minimal structure without
+business-specific
 
 logic.
 
@@ -39,12 +41,12 @@ This template provides a clean starting point with:
 
 - ✅ ESLint configuration
 - ✅ Example pages and components
-- ✅ **@tavia/taviad** UI component library with Emotion styling
+- ✅ **@Eventure/eventured** UI component library with Emotion styling
 - ✅ Next.js 15 App Router setup
 
 - ❌ **NO business logic** (no booking, restaurant, or domain-specific features)
 
-## 📁 Structure- ✅ **@tavia/analytics** SDK for event tracking- ✅ TypeScript configuration
+## 📁 Structure- ✅ **@Eventure/analytics** SDK for event tracking- ✅ TypeScript configuration
 
 ```- ✅ **Vitest** with Testing Library and Istanbul coverage- ✅ Basic
 
@@ -80,7 +82,7 @@ webapp-template/  internationalization (i18n) with next-intl
 
 src/
 
-This template is designed to work with **@tavia/module-generator** for creating
+This template is designed to work with **@Eventure/module-generator** for creating
 
 feature modules with a standardized architecture.├── app/                     # Next.js App Router pages```
 
@@ -158,7 +160,7 @@ src/app/(route-group)/module-name/
 
 │   ├── moduleName.constants.ts
 
-│   └── index.ts    │   └── errors.json1. **Package name**: Update `name` in `package.json` to `@tavia/your-app-name`
+│   └── index.ts    │   └── errors.json1. **Package name**: Update `name` in `package.json` to `@Eventure/your-app-name`
 
 ├── layout.tsx          # Module layout (if needed)
 
@@ -216,7 +218,7 @@ When creating a new app from this template, customize:
 
 # Run development server
 
-1. **Package name**: Update `name` in `package.json` to `@tavia/your-app-name`
+1. **Package name**: Update `name` in `package.json` to `@Eventure/your-app-name`
 
 2. **Port**: Update port in `package.json` dev script if needed```bashpnpm dev
 
@@ -256,7 +258,7 @@ pnpm build
 
 ## 📝 Notes
 
-- This template uses `@tavia/taviad` for UI components
+- This template uses `@Eventure/eventured` for UI components
 - Prisma schema is minimal - add models as needed
 
 This template uses PostgreSQL via Docker Compose.
@@ -511,7 +513,7 @@ pnpm test:watch       # Test watch mode
 
 pnpm test:coverage    # Coverage report```bash
 
-pnpm generate:module  # Generate new module with @tavia/module-generatorpnpm dev              # Start dev server (Turbopack)
+pnpm generate:module  # Generate new module with @Eventure/module-generatorpnpm dev              # Start dev server (Turbopack)
 
 ```pnpm build            # Production build
 
@@ -530,7 +532,7 @@ export default function Example() {pnpm test:watch       # Test watch mode
 
   return (pnpm test:coverage    # Coverage report
 
-    <Card>pnpm generate:module  # Generate new module with @tavia/module-generator
+    <Card>pnpm generate:module  # Generate new module with @Eventure/module-generator
 
       <Input label="Email" type="email" />```
 
@@ -541,9 +543,9 @@ export default function Example() {pnpm test:watch       # Test watch mode
   );
 
 <<<<<<< HEAD
-}This template uses **@tavia/taviad** component library with Emotion styling.
+}This template uses **@Eventure/eventured** component library with Emotion styling.
 =======
-}This template uses **@tavia/core** component library with Emotion styling.
+}This template uses **@Eventure/core** component library with Emotion styling.
 >>>>>>> 847c9c936c0993d2b0547f5f64e0318fe90e9833
 
 ```
@@ -551,9 +553,9 @@ export default function Example() {pnpm test:watch       # Test watch mode
 ```tsx
 
 <<<<<<< HEAD
-See [@tavia/taviad documentation](../../packages/core/README.md) for all availableimport { Button, Card, Input } from '@tavia/taviad';
+See [@Eventure/eventured documentation](../../packages/core/README.md) for all availableimport { Button, Card, Input } from '@Eventure/eventured';
 =======
-See [@tavia/core documentation](../../packages/core/README.md) for all availableimport { Button, Card, Input } from '@tavia/core';
+See [@Eventure/core documentation](../../packages/core/README.md) for all availableimport { Button, Card, Input } from '@Eventure/core';
 >>>>>>> 847c9c936c0993d2b0547f5f64e0318fe90e9833
 
 components.
@@ -564,7 +566,7 @@ export default function Example() {
 
     <Card>
 
-Integrated with **@tavia/analytics** SDK:      <Input label="Email" type="email" />
+Integrated with **@Eventure/analytics** SDK:      <Input label="Email" type="email" />
 
       <Button variant="primary">Submit</Button>
 
@@ -577,7 +579,7 @@ Integrated with **@tavia/analytics** SDK:      <Input label="Email" type="email"
 ```
 
 // Manual event tracking:
-import { trackEvent } from '@tavia/analytics';
+import { trackEvent } from '@Eventure/analytics';
 
 trackEvent('button_click', { label: 'Sign Up' });
 
@@ -585,7 +587,7 @@ trackEvent('button_click', { label: 'Sign Up' });
 
 
 
-## 🔧 ConfigurationIntegrated with **@tavia/analytics** SDK:
+## 🔧 ConfigurationIntegrated with **@Eventure/analytics** SDK:
 
 
 
@@ -599,7 +601,7 @@ Copy `.env.example` to `.env.local` and update:// Auto-tracks page views
 
 ```bash// Manual event tracking:
 
-# Appimport { trackEvent } from '@tavia/analytics';
+# Appimport { trackEvent } from '@Eventure/analytics';
 
 NEXT_PUBLIC_APP_URL=http://localhost:3000
 
@@ -734,9 +736,9 @@ import { zodResolver } from '@hookform/resolvers/zod';
 
 
 <<<<<<< HEAD
-- This template uses `@tavia/taviad` for UI componentsconst schema = z.object({
+- This template uses `@Eventure/eventured` for UI componentsconst schema = z.object({
 =======
-- This template uses `@tavia/core` for UI componentsconst schema = z.object({
+- This template uses `@Eventure/core` for UI componentsconst schema = z.object({
 >>>>>>> 847c9c936c0993d2b0547f5f64e0318fe90e9833
 
 - Prisma schema is minimal - add models as needed  email: z.string().email(),
@@ -808,12 +810,12 @@ docker ps  # Check if postgres container is running
 - [Next.js Documentation](https://nextjs.org/docs)
 - [next-intl Documentation](https://next-intl.dev/)
 - [Prisma Documentation](https://www.prisma.io/docs)
-- [@tavia/taviad Components](../../packages/taviad/README.md)
-- [@tavia/analytics SDK](../../packages/analytics/README.md)
-- [@tavia/module-generator](../../packages/module-generator/README.md)
+- [@Eventure/eventured Components](../../packages/eventured/README.md)
+- [@Eventure/analytics SDK](../../packages/analytics/README.md)
+- [@Eventure/module-generator](../../packages/module-generator/README.md)
 
 ## 📝 License
 
-Private - Tavia Monorepo## 📝 License
+Private - Eventure Monorepo## 📝 License
 
-Private - Tavia Monorepo
+Private - Eventure Monorepo

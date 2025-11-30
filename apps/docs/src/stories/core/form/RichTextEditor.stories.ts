@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { RichTextEditor } from '@tavia/taviad';
+import { RichTextEditor } from '@eventure/eventured';
 import { content } from './mock-data';
 
 const meta = {

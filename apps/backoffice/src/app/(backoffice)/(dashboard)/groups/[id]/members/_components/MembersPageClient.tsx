@@ -1,10 +1,10 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
-import { Badge } from '@tavia/taviad';
+import { Badge } from '@eventure/eventured';
 import { MembersList } from './MembersList';
 import { Styled } from './MembersPageClient.styles';
-import type { GroupMemberWithUser } from '@tavia/database';
+import type { GroupMemberWithUser } from '@eventure/database';
 
 interface MembersPageClientProps {
   groupId: string;

@@ -8,7 +8,7 @@
 
 import { auth } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
-import { UserRole } from '@tavia/database/enums';
+import { UserRole } from '@eventure/database/enums';
 import type { DashboardData } from '../types';
 import { dashboardGroupSelect, dashboardEventSelect } from '../types';
 

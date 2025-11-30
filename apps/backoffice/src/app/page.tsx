@@ -1,6 +1,6 @@
 /**
  * Root Page - Redirects to dashboard or login
- * Tavia Backoffice for Restaurant & Café Management
+ * Eventure Backoffice for Restaurant & Café Management
  */
 import { auth } from '@/lib/auth';
 import { redirect } from 'next/navigation';

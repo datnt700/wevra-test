@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Carousel } from '@tavia/taviad';
+import { Carousel } from '@eventure/eventured';
 
 /**
  * Carousel component - A responsive slider for images, cards, or any content.

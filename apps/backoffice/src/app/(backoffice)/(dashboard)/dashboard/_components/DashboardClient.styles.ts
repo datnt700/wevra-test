@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { type TaviaTheme } from '@tavia/taviad';
+import { type EventureTheme } from '@eventure/eventured';
 
 export const Styled = {
   Container: styled.div`
@@ -28,14 +28,14 @@ export const Styled = {
     flex: 1;
   `,
 
-  Title: styled.h1<{ theme?: TaviaTheme }>`
+  Title: styled.h1<{ theme?: EventureTheme }>`
     font-size: 2rem;
     font-weight: bold;
     color: ${({ theme }) => theme.colors.text.primary};
     margin: 0 0 0.5rem 0;
   `,
 
-  Subtitle: styled.div<{ theme?: TaviaTheme }>`
+  Subtitle: styled.div<{ theme?: EventureTheme }>`
     display: flex;
     align-items: center;
     gap: 0.5rem;
@@ -62,7 +62,7 @@ export const Styled = {
     padding: 1.5rem;
   `,
 
-  StatIcon: styled.div<{ $color: string; theme?: TaviaTheme }>`
+  StatIcon: styled.div<{ $color: string; theme?: EventureTheme }>`
     width: 56px;
     height: 56px;
     border-radius: ${({ theme }) => theme.radii.lg};
@@ -77,7 +77,7 @@ export const Styled = {
     flex: 1;
   `,
 
-  StatValue: styled.div<{ theme?: TaviaTheme }>`
+  StatValue: styled.div<{ theme?: EventureTheme }>`
     font-size: 2rem;
     font-weight: bold;
     color: ${({ theme }) => theme.colors.text.primary};
@@ -85,7 +85,7 @@ export const Styled = {
     margin-bottom: 0.25rem;
   `,
 
-  StatLabel: styled.div<{ theme?: TaviaTheme }>`
+  StatLabel: styled.div<{ theme?: EventureTheme }>`
     font-size: 0.875rem;
     color: ${({ theme }) => theme.colors.text.secondary};
   `,
@@ -101,7 +101,7 @@ export const Styled = {
     margin-bottom: 1rem;
   `,
 
-  SectionTitle: styled.h2<{ theme?: TaviaTheme }>`
+  SectionTitle: styled.h2<{ theme?: EventureTheme }>`
     font-size: 1.25rem;
     font-weight: 600;
     color: ${({ theme }) => theme.colors.text.primary};
@@ -129,12 +129,12 @@ export const Styled = {
     }
   `,
 
-  QuickActionTitle: styled.div<{ theme?: TaviaTheme }>`
+  QuickActionTitle: styled.div<{ theme?: EventureTheme }>`
     font-weight: 600;
     color: ${({ theme }) => theme.colors.text.primary};
   `,
 
-  QuickActionDesc: styled.div<{ theme?: TaviaTheme }>`
+  QuickActionDesc: styled.div<{ theme?: EventureTheme }>`
     font-size: 0.875rem;
     color: ${({ theme }) => theme.colors.text.secondary};
   `,
@@ -155,7 +155,7 @@ export const Styled = {
     gap: 0.75rem;
   `,
 
-  ListItem: styled.div<{ theme?: TaviaTheme }>`
+  ListItem: styled.div<{ theme?: EventureTheme }>`
     padding: 1rem;
     display: flex;
     align-items: center;
@@ -175,7 +175,7 @@ export const Styled = {
     gap: 0.5rem;
   `,
 
-  ListItemTitle: styled.div<{ theme?: TaviaTheme }>`
+  ListItemTitle: styled.div<{ theme?: EventureTheme }>`
     font-weight: 600;
     color: ${({ theme }) => theme.colors.text.primary};
     display: flex;
@@ -183,7 +183,7 @@ export const Styled = {
     gap: 0.5rem;
   `,
 
-  ListItemMeta: styled.div<{ theme?: TaviaTheme }>`
+  ListItemMeta: styled.div<{ theme?: EventureTheme }>`
     display: flex;
     align-items: center;
     gap: 1rem;
@@ -198,12 +198,12 @@ export const Styled = {
     }
   `,
 
-  ListItemDesc: styled.div<{ theme?: TaviaTheme }>`
+  ListItemDesc: styled.div<{ theme?: EventureTheme }>`
     font-size: 0.875rem;
     color: ${({ theme }) => theme.colors.text.tertiary};
   `,
 
-  EmptyState: styled.div<{ theme?: TaviaTheme }>`
+  EmptyState: styled.div<{ theme?: EventureTheme }>`
     padding: 3rem 2rem;
     display: flex;
     flex-direction: column;
@@ -213,7 +213,7 @@ export const Styled = {
     color: ${({ theme }) => theme.colors.text.secondary};
   `,
 
-  UpgradeCTA: styled.div<{ theme?: TaviaTheme }>`
+  UpgradeCTA: styled.div<{ theme?: EventureTheme }>`
     padding: 2rem;
     display: flex;
     justify-content: space-between;
@@ -238,14 +238,14 @@ export const Styled = {
     }
   `,
 
-  UpgradeTitle: styled.div<{ theme?: TaviaTheme }>`
+  UpgradeTitle: styled.div<{ theme?: EventureTheme }>`
     font-size: 1.25rem;
     font-weight: bold;
     color: ${({ theme }) => theme.colors.text.primary};
     margin-bottom: 0.25rem;
   `,
 
-  UpgradeDesc: styled.div<{ theme?: TaviaTheme }>`
+  UpgradeDesc: styled.div<{ theme?: EventureTheme }>`
     color: ${({ theme }) => theme.colors.text.secondary};
   `,
 };

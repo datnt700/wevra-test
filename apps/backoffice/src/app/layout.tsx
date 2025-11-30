@@ -8,36 +8,36 @@ import { PageLoadingBar } from '@/components/PageLoadingBar';
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'),
   title: {
-    default: 'Tavia - Café & Restaurant Booking Platform',
-    template: '%s | Tavia',
+    default: 'Eventure - Café & Restaurant Booking Platform',
+    template: '%s | Eventure',
   },
   description:
     'Discover and book amazing cafés and restaurants. Find your perfect spot, reserve a table, and enjoy great experiences.',
   keywords: ['restaurant', 'café', 'booking', 'reservation', 'dining', 'food'],
-  authors: [{ name: 'Tavia' }],
-  creator: 'Tavia',
+  authors: [{ name: 'Eventure' }],
+  creator: 'Eventure',
   openGraph: {
     type: 'website',
     locale: 'en_US',
     url: '/',
-    title: 'Tavia - Café & Restaurant Booking Platform',
+    title: 'Eventure - Café & Restaurant Booking Platform',
     description: 'Discover and book amazing cafés and restaurants',
-    siteName: 'Tavia',
+    siteName: 'Eventure',
     images: [
       {
         url: '/og-image.png',
         width: 1200,
         height: 630,
-        alt: 'Tavia - Café & Restaurant Booking',
+        alt: 'Eventure - Café & Restaurant Booking',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Tavia - Café & Restaurant Booking Platform',
+    title: 'Eventure - Café & Restaurant Booking Platform',
     description: 'Discover and book amazing cafés and restaurants',
     images: ['/og-image.png'],
-    creator: '@tavia',
+    creator: '@eventure',
   },
   robots: {
     index: true,

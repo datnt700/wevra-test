@@ -5,8 +5,8 @@ jest.mock('expo-font');
 jest.mock('expo-asset');
 jest.mock('expo-constants', () => ({
   expoConfig: {
-    name: 'Tavia Mobile App',
-    slug: 'tavia-mobile-app',
+    name: 'Eventure Mobile App',
+    slug: 'eventure-mobile-app',
   },
 }));
 

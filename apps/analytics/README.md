@@ -1,9 +1,9 @@
 # Analytics API
 
-> Tavia's standalone analytics event tracking and statistics API service
+> Eventure's standalone analytics event tracking and statistics API service
 
 A high-performance Fastify-based microservice for collecting, processing, and
-analyzing user analytics events from the Tavia platform.
+analyzing user analytics events from the Eventure platform.
 
 ## 🚀 Features
 
@@ -150,7 +150,7 @@ Body (1-100 events):
       "type": "CLICK",
       "timestamp": "2025-10-23T10:30:00.000Z",
       "sessionId": "session-123",
-      "url": "https://tavia.io/restaurants",
+      "url": "https://eventure.so/restaurants",
       "userAgent": "Mozilla/5.0...",
       "elementType": "button",
       "elementText": "Book Now",
@@ -161,8 +161,8 @@ Body (1-100 events):
       "type": "PAGEVIEW",
       "timestamp": "2025-10-23T10:29:00.000Z",
       "sessionId": "session-123",
-      "url": "https://tavia.io/restaurants",
-      "pageTitle": "Restaurants - Tavia",
+      "url": "https://eventure.so/restaurants",
+      "pageTitle": "Restaurants - Eventure",
       "pagePath": "/restaurants"
     }
   ]
@@ -319,13 +319,13 @@ pnpm docker:logs
 
 ## 🔗 Integration
 
-### With @tavia/analytics SDK
+### With @Eventure/analytics SDK
 
 The SDK (from `packages/analytics`) automatically sends events to this API:
 
 ```typescript
 // In apps/web or other apps
-import { AnalyticsProvider } from '@tavia/analytics';
+import { AnalyticsProvider } from '@Eventure/analytics';
 
 <AnalyticsProvider
   apiEndpoint="http://localhost:3001/api/events"
@@ -361,7 +361,7 @@ NEXT_PUBLIC_ANALYTICS_API_KEY=dev-analytics-api-key-12345
 
 ## 📄 License
 
-MIT © Tavia
+MIT © Eventure
 
 ## 🤝 Contributing
 

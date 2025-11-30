@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Spinner } from '@tavia/taviad';
+import { Spinner } from '@eventure/eventured';
 
 const meta: Meta<typeof Spinner> = {
   title: 'Core/Base/Spinner',

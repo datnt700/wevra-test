@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Radio, RadioGroup } from '@tavia/taviad';
+import { Radio, RadioGroup } from '@eventure/eventured';
 
 const meta = {
   title: 'Core/Radix/Radio',

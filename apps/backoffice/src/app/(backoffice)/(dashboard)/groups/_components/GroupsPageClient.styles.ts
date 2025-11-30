@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { type TaviaTheme } from '@tavia/taviad';
+import { type EventureTheme } from '@eventure/eventured';
 
 export const Styled = {
   Container: styled.div`
@@ -25,13 +25,13 @@ export const Styled = {
     gap: 0.5rem;
   `,
 
-  Title: styled.h1<{ theme?: TaviaTheme }>`
+  Title: styled.h1<{ theme?: EventureTheme }>`
     font-size: 2rem;
     font-weight: 700;
     color: ${({ theme }) => theme.colors.text.primary};
   `,
 
-  Subtitle: styled.p<{ theme?: TaviaTheme }>`
+  Subtitle: styled.p<{ theme?: EventureTheme }>`
     font-size: 1rem;
     color: ${({ theme }) => theme.colors.text.secondary};
   `,
@@ -45,13 +45,13 @@ export const Styled = {
     text-align: center;
   `,
 
-  EmptyTitle: styled.h3<{ theme?: TaviaTheme }>`
+  EmptyTitle: styled.h3<{ theme?: EventureTheme }>`
     font-size: 1.25rem;
     font-weight: 600;
     color: ${({ theme }) => theme.colors.text.primary};
   `,
 
-  EmptyDesc: styled.p<{ theme?: TaviaTheme }>`
+  EmptyDesc: styled.p<{ theme?: EventureTheme }>`
     font-size: 1rem;
     color: ${({ theme }) => theme.colors.text.secondary};
   `,
@@ -70,7 +70,7 @@ export const Styled = {
     }
   `,
 
-  GroupCard: styled.div<{ theme?: TaviaTheme }>`
+  GroupCard: styled.div<{ theme?: EventureTheme }>`
     cursor: pointer;
     transition: transform 0.2s;
     background-color: ${({ theme }) => theme.colors.surface};
@@ -82,14 +82,14 @@ export const Styled = {
     }
   `,
 
-  GroupImage: styled.img<{ theme?: TaviaTheme }>`
+  GroupImage: styled.img<{ theme?: EventureTheme }>`
     width: 100%;
     height: 12rem;
     object-fit: cover;
     border-radius: ${({ theme }) => theme.radii.lg} ${({ theme }) => theme.radii.lg} 0 0;
   `,
 
-  HeroPlaceholder: styled.div<{ theme?: TaviaTheme }>`
+  HeroPlaceholder: styled.div<{ theme?: EventureTheme }>`
     width: 100%;
     height: 12rem;
     background: ${({ theme }) =>
@@ -111,14 +111,14 @@ export const Styled = {
     gap: 0.5rem;
   `,
 
-  GroupName: styled.h3<{ theme?: TaviaTheme }>`
+  GroupName: styled.h3<{ theme?: EventureTheme }>`
     font-size: 1.25rem;
     font-weight: 600;
     color: ${({ theme }) => theme.colors.text.primary};
     flex: 1;
   `,
 
-  GroupDesc: styled.p<{ theme?: TaviaTheme }>`
+  GroupDesc: styled.p<{ theme?: EventureTheme }>`
     font-size: 0.875rem;
     color: ${({ theme }) => theme.colors.text.secondary};
     line-height: 1.5;
@@ -128,7 +128,7 @@ export const Styled = {
     overflow: hidden;
   `,
 
-  GroupStats: styled.div<{ theme?: TaviaTheme }>`
+  GroupStats: styled.div<{ theme?: EventureTheme }>`
     display: flex;
     align-items: center;
     gap: 1rem;
@@ -142,7 +142,7 @@ export const Styled = {
     gap: 0.375rem;
   `,
 
-  GroupLocation: styled.p<{ theme?: TaviaTheme }>`
+  GroupLocation: styled.p<{ theme?: EventureTheme }>`
     display: flex;
     align-items: center;
     gap: 0.375rem;

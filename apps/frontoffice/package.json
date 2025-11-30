@@ -1,9 +1,9 @@
 {
-  "name": "@tavia/frontoffice",
+  "name": "@eventure/frontoffice",
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "description": "Frontoffice web application for Tavia monorepo",
+  "description": "Frontoffice web application for Eventure monorepo",
   "scripts": {
     "dev": "next dev --turbopack --port 3003",
     "build": "next build",
@@ -37,12 +37,12 @@
     "db:studio": "prisma studio"
   },
   "dependencies": {
-    "@tavia/analytics": "workspace:*",
-    "@tavia/database": "workspace:*",
-    "@tavia/logger": "workspace:*",
-    "@tavia/taviad": "workspace:*",
-    "@tavia/module-generator": "workspace:*",
-    "@tavia/env": "workspace:*",
+    "@eventure/analytics": "workspace:*",
+    "@eventure/database": "workspace:*",
+    "@eventure/logger": "workspace:*",
+    "@eventure/eventured": "workspace:*",
+    "@eventure/module-generator": "workspace:*",
+    "@eventure/env": "workspace:*",
     "@auth/prisma-adapter": "catalog:",
     "@emotion/react": "catalog:emotion",
     "@emotion/styled": "catalog:emotion",

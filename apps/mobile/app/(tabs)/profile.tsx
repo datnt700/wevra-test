@@ -1,5 +1,5 @@
 /**
- * Profile Screen for Tavia Mobile
+ * Profile Screen for Eventure Mobile
  * Shows user profile with list of actions including logout
  */
 import { useState, useEffect } from 'react';
@@ -103,7 +103,7 @@ export default function ProfileScreen() {
       label: i18n.t('profile.about'),
       icon: 'information-circle-outline',
       onPress: () => {
-        Alert.alert('Tavia', 'Version 0.1.0\n© 2025 Tavia. All rights reserved.');
+        Alert.alert('Eventure', 'Version 0.1.0\n© 2025 Eventure. All rights reserved.');
       },
     },
     {

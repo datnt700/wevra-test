@@ -1,4 +1,4 @@
-# @tavia/env
+# @eventure/env
 
 Type-safe environment variable validation with Zod, default values, and runtime
 checks.
@@ -16,7 +16,7 @@ checks.
 ## Installation
 
 ```bash
-pnpm add @tavia/env
+pnpm add @eventure/env
 ```
 
 ## Usage
@@ -24,7 +24,7 @@ pnpm add @tavia/env
 ### Basic Example
 
 ```typescript
-import { createEnv } from '@tavia/env';
+import { createEnv } from '@eventure/env';
 import { z } from 'zod';
 
 export const env = createEnv({
@@ -37,7 +37,7 @@ export const env = createEnv({
   },
   client: {
     NEXT_PUBLIC_APP_URL: z.string().url().default('http://localhost:3000'),
-    NEXT_PUBLIC_APP_NAME: z.string().default('Tavia'),
+    NEXT_PUBLIC_APP_NAME: z.string().default('Eventure'),
   },
   runtimeEnv: {
     DATABASE_URL: process.env.DATABASE_URL,
@@ -58,7 +58,7 @@ console.log(env.NEXT_PUBLIC_APP_URL); // string
 
 ```typescript
 // src/lib/env.ts
-import { createEnv } from '@tavia/env';
+import { createEnv } from '@eventure/env';
 import { z } from 'zod';
 
 export const env = createEnv({
@@ -102,7 +102,7 @@ export const env = createEnv({
 ### Advanced Usage
 
 ```typescript
-import { createEnv } from '@tavia/env';
+import { createEnv } from '@eventure/env';
 import { z } from 'zod';
 
 export const env = createEnv({

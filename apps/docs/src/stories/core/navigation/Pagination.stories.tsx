@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Pagination } from '@tavia/taviad';
+import { Pagination } from '@eventure/eventured';
 import { useState } from 'react';
 
 /**

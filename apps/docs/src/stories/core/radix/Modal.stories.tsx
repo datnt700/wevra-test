@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Modal, Button, InputText, Checkbox } from '@tavia/taviad';
+import { Modal, Button, InputText, Checkbox } from '@eventure/eventured';
 import { useState } from 'react';
 
 /**

@@ -1,6 +1,6 @@
 /**
- * @tavia/logger
- * Centralized logging system for Tavia frontend applications
+ * @eventure/logger
+ * Centralized logging system for Eventure frontend applications
  */
 
 export { logger, createLogger, configureLogger } from './logger';

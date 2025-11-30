@@ -54,6 +54,6 @@ const styles = StyleSheet.create({
   link: {
     lineHeight: 30,
     fontSize: 16,
-    color: '#ff695c', // Tavia main color
+    color: '#ff695c', // Eventure main color
   },
 });

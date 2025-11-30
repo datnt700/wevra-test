@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { Link } from '@tavia/taviad';
+import { Link } from '@eventure/eventured';
 
 /**
  * Styled components for TopBar

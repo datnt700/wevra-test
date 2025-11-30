@@ -6,7 +6,7 @@ export class AppService {
     return {
       name: 'Complex API Template',
       version: '0.0.1',
-      description: 'Generic NestJS API template for Tavia monorepo',
+      description: 'Generic NestJS API template for Eventure monorepo',
     };
   }
 

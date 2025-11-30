@@ -1,8 +1,8 @@
 {
-  "name": "@tavia/complex-api-template",
+  "name": "@eventure/complex-api-template",
   "version": "0.0.1",
   "private": true,
-  "description": "Generic NestJS 11 API template for Tavia monorepo",
+  "description": "Generic NestJS 11 API template for Eventure monorepo",
   "scripts": {
     "dev": "nest start --watch",
     "build": "nest build",
@@ -33,7 +33,7 @@
     "docker:clean": "docker-compose down -v"
   },
   "dependencies": {
-    "@tavia/env": "workspace:*",
+    "@eventure/env": "workspace:*",
     "@nestjs/common": "catalog:",
     "@nestjs/config": "catalog:",
     "@nestjs/core": "catalog:",

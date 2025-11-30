@@ -2,11 +2,11 @@
 applyTo: '**/*'
 ---
 
-# Tavia Architecture Patterns
+# Eventure Architecture Patterns
 
 ## Freemium Model & Feature Flags
 
-**Tavia uses a two-sided platform (broker model):**
+**Eventure uses a two-sided platform (broker model):**
 
 - **Organizers (B2B)**: Create groups and host events (Free or Premium)
 - **Attendees (B2C)**: Always FREE with unlimited access
@@ -47,12 +47,12 @@ getMaxMembers(group);
 ## Shared Database Architecture
 
 **Critical: Backoffice and frontoffice share the SAME PostgreSQL database
-(`tavia`)**
+(`eventure`)**
 
 ```
 ┌─────────────────┐
 │  PostgreSQL DB  │
-│   "tavia"       │  ← Single source of truth
+│   "eventure"       │  ← Single source of truth
 └────────┬────────┘
          │
     ┌────┴────┐
@@ -95,13 +95,13 @@ pnpm db:generate  # NOT migrate
 
 **Shared Packages:**
 
-- **@tavia/database**: Prisma types, enums, query selectors (ALWAYS use for
+- **@eventure/database**: Prisma types, enums, query selectors (ALWAYS use for
   types)
-- **@tavia/taviad**: 60+ web UI components
-- **@tavia/taviax**: React Native mobile components
-- **@tavia/env**: Type-safe environment variables (MANDATORY)
-- **@tavia/analytics**: Event tracking SDK
-- **@tavia/logger**: Structured logging
+- **@eventure/eventured**: 60+ web UI components
+- **@eventure/eventurex**: React Native mobile components
+- **@eventure/env**: Type-safe environment variables (MANDATORY)
+- **@eventure/analytics**: Event tracking SDK
+- **@eventure/logger**: Structured logging
 
 **Port Allocation:**
 

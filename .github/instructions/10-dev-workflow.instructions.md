@@ -30,7 +30,7 @@ pnpm generate:module               # Interactive: Creates feature module
 - Next.js 15 + TypeScript + Turbopack
 - Modular i18n (7 modules)
 - Docker PostgreSQL + Prisma
-- @tavia/taviad + @tavia/analytics
+- @eventure/eventured + @eventure/analytics
 - Emotion GlobalStyles + React Query
 - Vitest + Playwright
 - Deterministic ports
@@ -45,7 +45,7 @@ pnpm generate:module               # Interactive: Creates feature module
   "dependencies": {
     "next": "catalog:",
     "@emotion/react": "catalog:emotion",
-    "@tavia/taviad": "workspace:*"
+    "@eventure/eventured": "workspace:*"
   }
 }
 
@@ -76,38 +76,39 @@ custom code:**
 
 **Available Internal Packages:**
 
-- **`@tavia/env`** - Type-safe environment variables (MANDATORY for all env
+- **`@eventure/env`** - Type-safe environment variables (MANDATORY for all env
   access)
-- **`@tavia/taviad`** - 60+ web UI components (MANDATORY for web apps)
-- **`@tavia/taviax`** - React Native components (MANDATORY for mobile apps)
-- **`@tavia/analytics`** - Event tracking SDK
-- **`@tavia/logger`** - Structured logging
-- **`@tavia/module-generator`** - Feature scaffolding
+- **`@eventure/eventured`** - 60+ web UI components (MANDATORY for web apps)
+- **`@eventure/eventurex`** - React Native components (MANDATORY for mobile
+  apps)
+- **`@eventure/analytics`** - Event tracking SDK
+- **`@eventure/logger`** - Structured logging
+- **`@eventure/module-generator`** - Feature scaffolding
 
 **Critical Rules:**
 
-1. ✅ **ALWAYS** use `@tavia/env` for environment variables
-2. ✅ **ALWAYS** use `@tavia/taviad` for web UI components
-3. ✅ **ALWAYS** use `@tavia/taviax` for mobile UI components
+1. ✅ **ALWAYS** use `@eventure/env` for environment variables
+2. ✅ **ALWAYS** use `@eventure/eventured` for web UI components
+3. ✅ **ALWAYS** use `@eventure/eventurex` for mobile UI components
 4. ✅ Check if functionality exists in packages BEFORE implementing
 5. ✅ Extend existing packages instead of duplicating
 6. ✅ Use `workspace:*` for internal package dependencies
-7. ❌ **NEVER** access `process.env` directly (use `@tavia/env`)
+7. ❌ **NEVER** access `process.env` directly (use `@eventure/env`)
 8. ❌ **NEVER** use native HTML elements in apps (use component libraries)
 9. ❌ **NEVER** duplicate functionality from internal packages
 
 **Examples:**
 
 ```typescript
-// ✅ CORRECT - Use @tavia/env
+// ✅ CORRECT - Use @eventure/env
 import { env } from '@/lib/env';
 const secret = env.WEBHOOK_SECRET;
 
-// ✅ CORRECT - Use @tavia/taviad
-import { Button, Modal, Input } from '@tavia/taviad';
+// ✅ CORRECT - Use @eventure/eventured
+import { Button, Modal, Input } from '@eventure/eventured';
 
-// ✅ CORRECT - Use @tavia/analytics
-import { trackEvent } from '@tavia/analytics';
+// ✅ CORRECT - Use @eventure/analytics
+import { trackEvent } from '@eventure/analytics';
 
 // ❌ WRONG - Direct process.env
 const secret = process.env.WEBHOOK_SECRET;
@@ -116,7 +117,7 @@ const secret = process.env.WEBHOOK_SECRET;
 <button onClick={handleClick}>Click</button>
 
 // ❌ WRONG - Custom implementation
-function myCustomLogger() { /* use @tavia/logger instead */ }
+function myCustomLogger() { /* use @eventure/logger instead */ }
 ```
 
 // ❌ WRONG - Hardcoded version { "dependencies": { "next": "^15.5.5" } }
@@ -162,12 +163,12 @@ pnpm format                 # Prettier
 pnpm type-check             # TypeScript
 
 # Testing
-cd packages/taviad
+cd packages/eventured
 pnpm test                   # Run tests
 pnpm test:coverage          # Coverage (80%)
 pnpm test:watch             # Watch mode
 
-cd packages/taviax
+cd packages/eventurex
 pnpm test                   # Run tests
 pnpm test:coverage          # Coverage (70%)
 
@@ -239,7 +240,7 @@ export const Tag = () => <div css={styles}>...</div>;
 **ESLint 9 flat config:**
 
 - Extend from `@repo/eslint-config/react-internal` (no `.js`)
-- @tavia/taviad allows `--max-warnings 10`
+- @eventure/eventured allows `--max-warnings 10`
 - Each workspace has own `eslint.config.js`
 
 ## Common Gotchas
@@ -273,9 +274,9 @@ export const Tag = () => <div css={styles}>...</div>;
 
 - `pnpm-workspace.yaml` - Catalog dependencies
 - `turbo.json` - Build pipeline
-- `packages/taviad/src/ui/` - 60+ web components
-- `packages/taviax/src/components/` - Mobile components
-- `packages/taviad/src/theme/tokens/` - Theme tokens
+- `packages/eventured/src/ui/` - 60+ web components
+- `packages/eventurex/src/components/` - Mobile components
+- `packages/eventured/src/theme/tokens/` - Theme tokens
 - `.github/workflows/ci.yml` - CI/CD
 - `eslint.config.js` - Root ESLint
 - `.nvmrc` - Node 18.18.0 (CI)

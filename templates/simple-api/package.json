@@ -1,8 +1,8 @@
 {
-  "name": "@tavia/simple-api-template",
+  "name": "@eventure/simple-api-template",
   "version": "0.0.1",
   "private": true,
-  "description": "Generic Fastify 5 API template for Tavia monorepo",
+  "description": "Generic Fastify 5 API template for Eventure monorepo",
   "type": "module",
   "scripts": {
     "dev": "tsx watch --clear-screen=false src/server.ts",
@@ -21,7 +21,7 @@
     "db:seed": "tsx prisma/seed.ts"
   },
   "dependencies": {
-    "@tavia/env": "workspace:*",
+    "@eventure/env": "workspace:*",
     "@fastify/autoload": "catalog:",
     "@fastify/cors": "catalog:",
     "@fastify/helmet": "catalog:",

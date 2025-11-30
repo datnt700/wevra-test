@@ -1,6 +1,6 @@
-# @tavia/database
+# @eventure/database
 
-Shared database types, enums, and utilities for the Tavia monorepo.
+Shared database types, enums, and utilities for the Eventure monorepo.
 
 ## Purpose
 
@@ -15,7 +15,7 @@ This package provides:
 
 ```typescript
 // Import enums from Prisma
-import { UserRole, SubscriptionStatus } from '@tavia/database/enums';
+import { UserRole, SubscriptionStatus } from '@eventure/database/enums';
 
 // Use in conditionals
 if (user.role === UserRole.ADMIN) {

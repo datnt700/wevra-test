@@ -238,7 +238,7 @@ export const ${moduleNameCamel.toUpperCase()}_MESSAGES = {
 
     README: `# ${ModuleName} Module
 
-Auto-generated module structure for Tavia application.
+Auto-generated module structure for Eventure application.
 
 ## 📁 Structure
 
@@ -304,7 +304,7 @@ import type { ${ModuleName}Data } from './_types';
 - [ ] **Build UI** in \`_components/${ModuleName}View.tsx\`
   - Design layout
   - Add interactivity
-  - Style with @tavia/taviad components
+  - Style with @eventure/eventured components
 
 - [ ] **Add utilities** in \`_utils/${moduleNameCamel}Utils.ts\` (optional)
   - Helper functions
@@ -326,16 +326,16 @@ __tests__/${moduleNameKebab}.test.tsx
 
 ## 🎨 Styling
 
-Use @tavia/taviad components for consistent UI:
+Use @eventure/eventured components for consistent UI:
 
 \`\`\`tsx
-import { Button, Card, Input } from '@tavia/taviad';
+import { Button, Card, Input } from '@eventure/eventured';
 \`\`\`
 
 ## 📚 Related Documentation
 
 - [Next.js App Router](https://nextjs.org/docs/app)
-- [@tavia/taviad Components](../../packages/taviad/README.md)
+- [@eventure/eventured Components](../../packages/eventured/README.md)
 - [Project Architecture](../../CONTRIBUTING.md)
 `,
 

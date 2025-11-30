@@ -1,7 +1,7 @@
 /**
  * Environment variable validation for NestJS API
  *
- * Uses @tavia/env for type-safe environment configuration.
+ * Uses @eventure/env for type-safe environment configuration.
  * All variables are validated on server startup.
  *
  * @example
@@ -17,7 +17,7 @@
  * ```
  */
 
-import { createEnv, envHelpers } from '@tavia/env';
+import { createEnv, envHelpers } from '@eventure/env';
 import { z } from 'zod';
 
 export const env = createEnv({

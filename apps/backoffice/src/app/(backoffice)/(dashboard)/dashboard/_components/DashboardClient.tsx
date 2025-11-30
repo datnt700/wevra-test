@@ -12,8 +12,8 @@ import {
   MapPin,
   Clock,
 } from 'lucide-react';
-import { Card, Button, Badge, useTheme } from '@tavia/taviad';
-import { UserRole, SubscriptionStatus } from '@tavia/database/enums';
+import { Card, Button, Badge, useTheme } from '@eventure/eventured';
+import { UserRole, SubscriptionStatus } from '@eventure/database/enums';
 import { ROUTES } from '@/lib/constants';
 import { Styled } from './DashboardClient.styles';
 import type { DashboardData } from '../types';

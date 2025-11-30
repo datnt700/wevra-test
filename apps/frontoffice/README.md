@@ -24,7 +24,7 @@ Visit http://localhost:3003
 ### Setup
 
 The frontoffice uses the **same PostgreSQL database as backoffice** (database
-name: `tavia`).
+name: `eventure`).
 
 ```bash
 # Start the shared database (from backoffice)
@@ -41,7 +41,7 @@ to prevent conflicts.
 ### Database Connection
 
 - Host: `localhost:5432`
-- Database: `tavia` (shared with backoffice)
+- Database: `eventure` (shared with backoffice)
 - User: `postgres`
 - Password: `postgres`
 
@@ -60,13 +60,13 @@ cp .env.example .env
 ### Required Variables
 
 ```env
-# Database (SHARED with backoffice - same database "tavia")
-DATABASE_URL="postgresql://postgres:postgres@localhost:5432/tavia?schema=public"
+# Database (SHARED with backoffice - same database "eventure")
+DATABASE_URL="postgresql://postgres:postgres@localhost:5432/eventure?schema=public"
 
 # PostgreSQL Docker Container Settings (not used - backoffice manages DB)
 POSTGRES_USER=postgres
 POSTGRES_PASSWORD=postgres
-POSTGRES_DB=tavia
+POSTGRES_DB=eventure
 
 # NextAuth.js (for attendee authentication)
 NEXTAUTH_URL=http://localhost:3003
@@ -78,7 +78,7 @@ JWT_SECRET=<generate-32-char-secret>
 # App Configuration
 NODE_ENV=development
 NEXT_PUBLIC_APP_URL=http://localhost:3003
-NEXT_PUBLIC_APP_NAME=Tavia Frontoffice
+NEXT_PUBLIC_APP_NAME=Eventure Frontoffice
 ```
 
 ### OAuth Providers (Optional)
@@ -138,7 +138,7 @@ Next.js supports multiple environment files:
 ### Shared Database Architecture
 
 ⚠️ **CRITICAL:** Frontoffice and backoffice use the **SAME** PostgreSQL database
-(`tavia`).
+(`eventure`).
 
 - Database managed by backoffice (run `pnpm docker:up` from backoffice)
 - Event data created in backoffice appears instantly in frontoffice
@@ -168,9 +168,9 @@ See `.env.example` for complete variable list.
 - **Restaurant Search** - Filter by location, cuisine, price range
 - **React Query** - Automatic caching and background refetching
 - **Server Actions** - Type-safe API calls with Prisma
-- **Responsive Design** - Mobile-first with @tavia/taviad components
+- **Responsive Design** - Mobile-first with @eventure/eventured components
 - **i18n** - English and Vietnamese support (modular structure)
-- **Analytics** - Integrated event tracking with @tavia/analytics
+- **Analytics** - Integrated event tracking with @eventure/analytics
 
 ## 🏗️ Architecture
 
@@ -185,7 +185,7 @@ searchRestaurantsAction() (Server Action)
     ↓
 prisma.restaurant.findMany() (Prisma)
     ↓
-PostgreSQL "tavia" database (shared with backoffice)
+PostgreSQL "eventure" database (shared with backoffice)
     ↓
 Results cached by React Query (5-15 min stale time)
 ```
@@ -237,7 +237,7 @@ pnpm test:coverage    # Coverage report
 ### "Database frontoffice does not exist"
 
 This error occurs when the Prisma client is looking for a database called
-"frontoffice" instead of "tavia".
+"frontoffice" instead of "eventure".
 
 **Fix:**
 
@@ -247,8 +247,8 @@ cd apps/backoffice
 pnpm docker:up
 
 # 2. Verify database exists
-docker exec tavia-postgres psql -U postgres -l
-# Should show "tavia" database
+docker exec eventure-postgres psql -U postgres -l
+# Should show "eventure" database
 
 # 3. Regenerate Prisma client
 cd apps/frontoffice
@@ -348,10 +348,10 @@ Excluded:
 
 ## 🎨 UI Components
 
-Uses **@tavia/taviad** component library:
+Uses **@eventure/eventured** component library:
 
 ```tsx
-import { Button, Card, Input, Modal } from '@tavia/taviad';
+import { Button, Card, Input, Modal } from '@eventure/eventured';
 
 export default function Example() {
   return (
@@ -363,19 +363,19 @@ export default function Example() {
 }
 ```
 
-See [@tavia/taviad documentation](../../packages/taviad/README.md) for all
-available components.
+See [@eventure/eventured documentation](../../packages/eventured/README.md) for
+all available components.
 
 ## 📊 Analytics
 
-Integrated with **@tavia/analytics** SDK:
+Integrated with **@eventure/analytics** SDK:
 
 ```tsx
 // Auto-configured in src/components/ClientProviders.tsx
 // Automatically tracks page views
 
 // Manual event tracking:
-import { trackEvent } from '@tavia/analytics';
+import { trackEvent } from '@eventure/analytics';
 
 trackEvent('restaurant_view', {
   restaurantId: '123',
@@ -390,8 +390,8 @@ trackEvent('restaurant_view', {
 - **Restaurant Service** (port 3002) - Restaurant microservice (NestJS)
 - **Docs** (port 6006) - Storybook component library
 
-All apps are part of the Tavia monorepo. See main [README.md](../../README.md)
-for complete documentation.
+All apps are part of the Eventure monorepo. See main
+[README.md](../../README.md) for complete documentation.
 
 ## 📚 Resources
 
@@ -399,15 +399,16 @@ for complete documentation.
 - [React Query Documentation](https://tanstack.com/query/latest)
 - [next-intl Documentation](https://next-intl.dev/)
 - [Prisma Documentation](https://www.prisma.io/docs)
-- [@tavia/taviad Components](../../packages/taviad/README.md)
-- [@tavia/analytics SDK](../../packages/analytics/README.md)
+- [@eventure/eventured Components](../../packages/eventured/README.md)
+- [@eventure/analytics SDK](../../packages/analytics/README.md)
 
 ## 📝 License
 
-Private - Tavia Monorepo
+Private - Eventure Monorepo
 
-A production-ready Next.js 15 webapp template for the Tavia monorepo, featuringA
-production-ready Next.js 15 webapp template for the Tavia monorepo, featuring
+A production-ready Next.js 15 webapp template for the Eventure monorepo,
+featuringA production-ready Next.js 15 webapp template for the Eventure
+monorepo, featuring
 
 modern best practices, internationalization, and complete testing setup.modern
 best practices, internationalization, and complete testing setup.This is
@@ -416,8 +417,9 @@ a **generic template** for creating new Next.js 15 web applications in
 
 This is a **generic template** for creating new Next.js 15 web applications in
 
-the Tavia monorepo. It contains minimal structure without business-specificthe
-Tavia monorepo. It contains minimal structure without business-specific
+the Eventure monorepo. It contains minimal structure without
+business-specificthe Eventure monorepo. It contains minimal structure without
+business-specific
 
 logic.
 
@@ -445,12 +447,12 @@ This template provides a clean starting point with:
 
 - ✅ ESLint configuration
 - ✅ Example pages and components
-- ✅ **@tavia/taviad** UI component library with Emotion styling
+- ✅ **@eventure/eventured** UI component library with Emotion styling
 - ✅ Next.js 15 App Router setup
 
 - ❌ **NO business logic** (no booking, restaurant, or domain-specific features)
 
-## 📁 Structure- ✅ **@tavia/analytics** SDK for event tracking- ✅ TypeScript configuration
+## 📁 Structure- ✅ **@eventure/analytics** SDK for event tracking- ✅ TypeScript configuration
 
 ```- ✅ **Vitest** with Testing Library and Istanbul coverage- ✅ Basic
 
@@ -486,7 +488,7 @@ frontoffice/  internationalization (i18n) with next-intl
 
 src/
 
-This template is designed to work with **@tavia/module-generator** for creating
+This template is designed to work with **@eventure/module-generator** for creating
 
 feature modules with a standardized architecture.├── app/                     # Next.js App Router pages```
 
@@ -564,7 +566,7 @@ src/app/(route-group)/module-name/
 
 │   ├── moduleName.constants.ts
 
-│   └── index.ts    │   └── errors.json1. **Package name**: Update `name` in `package.json` to `@tavia/your-app-name`
+│   └── index.ts    │   └── errors.json1. **Package name**: Update `name` in `package.json` to `@eventure/your-app-name`
 
 ├── layout.tsx          # Module layout (if needed)
 
@@ -622,7 +624,7 @@ When creating a new app from this template, customize:
 
 # Run development server
 
-1. **Package name**: Update `name` in `package.json` to `@tavia/your-app-name`
+1. **Package name**: Update `name` in `package.json` to `@eventure/your-app-name`
 
 2. **Port**: Update port in `package.json` dev script if needed```bashpnpm dev
 
@@ -662,7 +664,7 @@ pnpm build
 
 ## 📝 Notes
 
-- This template uses `@tavia/taviad` for UI components
+- This template uses `@eventure/eventured` for UI components
 - Prisma schema is minimal - add models as needed
 
 This template uses PostgreSQL via Docker Compose.
@@ -917,7 +919,7 @@ pnpm test:watch       # Test watch mode
 
 pnpm test:coverage    # Coverage report```bash
 
-pnpm generate:module  # Generate new module with @tavia/module-generatorpnpm dev              # Start dev server (Turbopack)
+pnpm generate:module  # Generate new module with @eventure/module-generatorpnpm dev              # Start dev server (Turbopack)
 
 ```pnpm build            # Production build
 
@@ -936,7 +938,7 @@ export default function Example() {pnpm test:watch       # Test watch mode
 
   return (pnpm test:coverage    # Coverage report
 
-    <Card>pnpm generate:module  # Generate new module with @tavia/module-generator
+    <Card>pnpm generate:module  # Generate new module with @eventure/module-generator
 
       <Input label="Email" type="email" />```
 
@@ -947,9 +949,9 @@ export default function Example() {pnpm test:watch       # Test watch mode
   );
 
 <<<<<<< HEAD
-}This template uses **@tavia/taviad** component library with Emotion styling.
+}This template uses **@eventure/eventured** component library with Emotion styling.
 =======
-}This template uses **@tavia/core** component library with Emotion styling.
+}This template uses **@eventure/core** component library with Emotion styling.
 >>>>>>> 847c9c936c0993d2b0547f5f64e0318fe90e9833
 
 ```
@@ -957,9 +959,9 @@ export default function Example() {pnpm test:watch       # Test watch mode
 ```tsx
 
 <<<<<<< HEAD
-See [@tavia/taviad documentation](../../packages/core/README.md) for all availableimport { Button, Card, Input } from '@tavia/taviad';
+See [@eventure/eventured documentation](../../packages/core/README.md) for all availableimport { Button, Card, Input } from '@eventure/eventured';
 =======
-See [@tavia/core documentation](../../packages/core/README.md) for all availableimport { Button, Card, Input } from '@tavia/core';
+See [@eventure/core documentation](../../packages/core/README.md) for all availableimport { Button, Card, Input } from '@eventure/core';
 >>>>>>> 847c9c936c0993d2b0547f5f64e0318fe90e9833
 
 components.
@@ -970,7 +972,7 @@ export default function Example() {
 
     <Card>
 
-Integrated with **@tavia/analytics** SDK:      <Input label="Email" type="email" />
+Integrated with **@eventure/analytics** SDK:      <Input label="Email" type="email" />
 
       <Button variant="primary">Submit</Button>
 
@@ -983,7 +985,7 @@ Integrated with **@tavia/analytics** SDK:      <Input label="Email" type="email"
 ```
 
 // Manual event tracking:
-import { trackEvent } from '@tavia/analytics';
+import { trackEvent } from '@eventure/analytics';
 
 trackEvent('button_click', { label: 'Sign Up' });
 
@@ -991,7 +993,7 @@ trackEvent('button_click', { label: 'Sign Up' });
 
 
 
-## 🔧 ConfigurationIntegrated with **@tavia/analytics** SDK:
+## 🔧 ConfigurationIntegrated with **@eventure/analytics** SDK:
 
 
 
@@ -1005,7 +1007,7 @@ Copy `.env.example` to `.env.local` and update:// Auto-tracks page views
 
 ```bash// Manual event tracking:
 
-# Appimport { trackEvent } from '@tavia/analytics';
+# Appimport { trackEvent } from '@eventure/analytics';
 
 NEXT_PUBLIC_APP_URL=http://localhost:3003
 
@@ -1140,9 +1142,9 @@ import { zodResolver } from '@hookform/resolvers/zod';
 
 
 <<<<<<< HEAD
-- This template uses `@tavia/taviad` for UI componentsconst schema = z.object({
+- This template uses `@eventure/eventured` for UI componentsconst schema = z.object({
 =======
-- This template uses `@tavia/core` for UI componentsconst schema = z.object({
+- This template uses `@eventure/core` for UI componentsconst schema = z.object({
 >>>>>>> 847c9c936c0993d2b0547f5f64e0318fe90e9833
 
 - Prisma schema is minimal - add models as needed  email: z.string().email(),
@@ -1214,12 +1216,12 @@ docker ps  # Check if postgres container is running
 - [Next.js Documentation](https://nextjs.org/docs)
 - [next-intl Documentation](https://next-intl.dev/)
 - [Prisma Documentation](https://www.prisma.io/docs)
-- [@tavia/taviad Components](../../packages/taviad/README.md)
-- [@tavia/analytics SDK](../../packages/analytics/README.md)
-- [@tavia/module-generator](../../packages/module-generator/README.md)
+- [@eventure/eventured Components](../../packages/eventured/README.md)
+- [@eventure/analytics SDK](../../packages/analytics/README.md)
+- [@eventure/module-generator](../../packages/module-generator/README.md)
 
 ## 📝 License
 
-Private - Tavia Monorepo## 📝 License
+Private - Eventure Monorepo## 📝 License
 
-Private - Tavia Monorepo
+Private - Eventure Monorepo

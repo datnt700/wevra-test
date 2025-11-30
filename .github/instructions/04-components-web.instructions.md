@@ -1,13 +1,13 @@
 ---
-applyTo: 'packages/taviad/**/*.{ts,tsx}'
+applyTo: 'packages/eventured/**/*.{ts,tsx}'
 ---
 
-# @tavia/taviad Web Components
+# @eventure/eventured Web Components
 
 ## Component Structure
 
 **Flat structure** - All components in
-`packages/taviad/src/ui/<component-name>/`
+`packages/eventured/src/ui/<component-name>/`
 
 ```
 ui/button/                           # ⚠️ lowercase-with-dashes
@@ -27,13 +27,13 @@ ui/button/                           # ⚠️ lowercase-with-dashes
 
 ```typescript
 // ✅ PREFERRED - Package imports
-import { Button, Modal, Input } from '@tavia/taviad';
+import { Button, Modal, Input } from '@eventure/eventured';
 
 // ✅ Also correct - Direct imports
-import { Button } from '@tavia/taviad/ui/button';
+import { Button } from '@eventure/eventured/ui/button';
 
 // ❌ DEPRECATED - Old categorized paths
-import { Button } from '@tavia/taviad/components/form/Button';
+import { Button } from '@eventure/eventured/components/form/Button';
 ```
 
 ## Available Components (60+)
@@ -154,7 +154,7 @@ it('should have display name', () => {
 **Coverage Threshold: 80%**
 
 ```bash
-cd packages/taviad
+cd packages/eventured
 pnpm test                   # Run tests
 pnpm test:coverage          # Coverage report
 pnpm test:watch             # Watch mode

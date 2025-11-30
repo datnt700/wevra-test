@@ -8,7 +8,7 @@ export async function healthRoutes(app: FastifyInstance) {
   app.get('/health', async (request: FastifyRequest, reply: FastifyReply) => {
     return reply.send({
       status: 'ok',
-      service: 'Tavia Analytics API',
+      service: 'Eventure Analytics API',
       version: '0.1.0',
       timestamp: new Date().toISOString(),
       uptime: process.uptime(),
@@ -23,7 +23,7 @@ export async function healthRoutes(app: FastifyInstance) {
 
       return reply.send({
         status: 'ok',
-        service: 'Tavia Analytics API',
+        service: 'Eventure Analytics API',
         version: '0.1.0',
         timestamp: new Date().toISOString(),
         uptime: process.uptime(),
@@ -40,7 +40,7 @@ export async function healthRoutes(app: FastifyInstance) {
     } catch (error) {
       return reply.status(503).send({
         status: 'error',
-        service: 'Tavia Analytics API',
+        service: 'Eventure Analytics API',
         timestamp: new Date().toISOString(),
         database: {
           status: 'disconnected',

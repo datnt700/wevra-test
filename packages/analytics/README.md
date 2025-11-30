@@ -1,11 +1,11 @@
-# @tavia/analytics
+# @eventure/analytics
 
-> Simple in-house click tracking and analytics SDK for Tavia applications
+> Simple in-house click tracking and analytics SDK for Eventure applications
 
 ## Installation
 
 ```bash
-pnpm add @tavia/analytics
+pnpm add @eventure/analytics
 ```
 
 ## Quick Start
@@ -13,7 +13,7 @@ pnpm add @tavia/analytics
 ### 1. Wrap your app with AnalyticsProvider
 
 ```tsx
-import { AnalyticsProvider } from '@tavia/analytics';
+import { AnalyticsProvider } from '@eventure/analytics';
 
 function App() {
   return (
@@ -35,7 +35,7 @@ function App() {
 ### 2. Track clicks with hooks
 
 ```tsx
-import { useTrackClick } from '@tavia/analytics';
+import { useTrackClick } from '@eventure/analytics';
 
 function MyButton() {
   const trackClick = useTrackClick();
@@ -51,7 +51,7 @@ function MyButton() {
 ### 3. Or use the TrackClick component
 
 ```tsx
-import { TrackClick } from '@tavia/analytics';
+import { TrackClick } from '@eventure/analytics';
 
 function MyComponent() {
   return (
@@ -325,7 +325,7 @@ import type {
   CustomEvent,
   AnalyticsEvent,
   BaseEventProperties,
-} from '@tavia/analytics';
+} from '@eventure/analytics';
 ```
 
 ## License

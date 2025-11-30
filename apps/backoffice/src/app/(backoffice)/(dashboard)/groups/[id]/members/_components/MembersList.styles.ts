@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { type TaviaTheme } from '@tavia/taviad';
+import { type EventureTheme } from '@eventure/eventured';
 
 /**
  * Styled components for MembersList
@@ -11,7 +11,7 @@ export const Styled = {
     gap: 1.5rem;
   `,
 
-  Section: styled.div<{ theme?: TaviaTheme }>`
+  Section: styled.div<{ theme?: EventureTheme }>`
     background-color: #ffffff;
     padding: 1.5rem;
     border-radius: ${({ theme }) => theme.radii.lg};
@@ -20,7 +20,7 @@ export const Styled = {
       0 1px 2px 0 rgba(0, 0, 0, 0.06);
   `,
 
-  SectionTitle: styled.h2<{ theme?: TaviaTheme }>`
+  SectionTitle: styled.h2<{ theme?: EventureTheme }>`
     font-size: 1.25rem;
     font-weight: 600;
     color: ${({ theme }) => theme.colors.text.primary};
@@ -33,7 +33,7 @@ export const Styled = {
     gap: 1rem;
   `,
 
-  MemberCard: styled.div<{ theme?: TaviaTheme }>`
+  MemberCard: styled.div<{ theme?: EventureTheme }>`
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -55,7 +55,7 @@ export const Styled = {
     flex: 1;
   `,
 
-  Avatar: styled.div<{ $hasImage: boolean; theme?: TaviaTheme }>`
+  Avatar: styled.div<{ $hasImage: boolean; theme?: EventureTheme }>`
     width: 3rem;
     height: 3rem;
     border-radius: ${({ theme }) => theme.radii.full};
@@ -93,25 +93,25 @@ export const Styled = {
     flex-wrap: wrap;
   `,
 
-  MemberName: styled.p<{ theme?: TaviaTheme }>`
+  MemberName: styled.p<{ theme?: EventureTheme }>`
     font-weight: 500;
     color: ${({ theme }) => theme.colors.text.primary};
     margin: 0;
   `,
 
-  MemberEmail: styled.p<{ theme?: TaviaTheme }>`
+  MemberEmail: styled.p<{ theme?: EventureTheme }>`
     font-size: 0.875rem;
     color: ${({ theme }) => theme.colors.text.secondary};
     margin: 0;
   `,
 
-  MemberMeta: styled.p<{ theme?: TaviaTheme }>`
+  MemberMeta: styled.p<{ theme?: EventureTheme }>`
     font-size: 0.75rem;
     color: ${({ theme }) => theme.colors.text.tertiary};
     margin: 0;
   `,
 
-  RoleBadge: styled.span<{ $role: 'moderator' | 'admin'; theme?: TaviaTheme }>`
+  RoleBadge: styled.span<{ $role: 'moderator' | 'admin'; theme?: EventureTheme }>`
     border-radius: ${({ theme }) => theme.radii.full};
     padding: 0.125rem 0.5rem;
     font-size: 0.75rem;
@@ -138,7 +138,7 @@ export const Styled = {
     }
   `,
 
-  EmptyState: styled.p<{ theme?: TaviaTheme }>`
+  EmptyState: styled.p<{ theme?: EventureTheme }>`
     color: ${({ theme }) => theme.colors.text.secondary};
     padding: 2rem;
     text-align: center;

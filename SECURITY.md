@@ -22,7 +22,7 @@ follow these steps:
 
 ### ✅ Please DO
 
-1. **Email us privately** at: security@tavia.io
+1. **Email us privately** at: security@eventure.so
 2. **Include the following information**:
    - Type of vulnerability
    - Full paths of affected source files
@@ -131,11 +131,11 @@ For EU users, we implement:
 
 ## Contact
 
-For security concerns, contact: **security@tavia.io**
+For security concerns, contact: **security@eventure.so**
 
 For general questions, use
-[GitHub Discussions](https://github.com/tavia-io/tavia/discussions).
+[GitHub Discussions](https://github.com/Eventure-io/Eventure/discussions).
 
 ---
 
-**Thank you for helping keep Tavia secure! 🔒**
+**Thank you for helping keep Eventure secure! 🔒**

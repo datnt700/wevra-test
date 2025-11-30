@@ -1,12 +1,12 @@
 'use client';
 
-import { AnalyticsProvider as TaviaAnalyticsProvider } from '@tavia/analytics';
+import { AnalyticsProvider as EventureAnalyticsProvider } from '@eventure/analytics';
 import { envUtils } from '@/lib/env';
 import type { ReactNode } from 'react';
 
 export function AnalyticsProvider({ children }: { children: ReactNode }) {
   return (
-    <TaviaAnalyticsProvider
+    <EventureAnalyticsProvider
       config={{
         endpoint: '/api/analytics',
         debug: envUtils.isDevelopment(),
@@ -15,6 +15,6 @@ export function AnalyticsProvider({ children }: { children: ReactNode }) {
       }}
     >
       {children}
-    </TaviaAnalyticsProvider>
+    </EventureAnalyticsProvider>
   );
 }

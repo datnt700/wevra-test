@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import React from 'react';
-import { Table } from '@tavia/taviad';
+import { Table } from '@eventure/eventured';
 
 const meta: Meta<typeof Table<any, keyof any>> = {
   title: 'Core/Table/Table',

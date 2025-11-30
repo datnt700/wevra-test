@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { EmptyState, Icon, Button } from '@tavia/taviad';
+import { EmptyState, Icon, Button } from '@eventure/eventured';
 import { FileText } from 'lucide-react';
 
 const meta: Meta<typeof EmptyState> = {

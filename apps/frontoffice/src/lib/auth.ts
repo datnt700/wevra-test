@@ -7,7 +7,7 @@ import Facebook from 'next-auth/providers/facebook';
 import bcrypt from 'bcryptjs';
 import { z } from 'zod';
 import { prisma } from '@/lib/prisma';
-import { createEnv, envHelpers } from '@tavia/env';
+import { createEnv, envHelpers } from '@eventure/env';
 
 // Environment variables for frontoffice
 const env = createEnv({

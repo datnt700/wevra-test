@@ -1,6 +1,6 @@
-# Tavia
+# Eventure
 
-**Tavia** is a community networking platform built as a **microservices-first
+**Eventure** is a community networking platform built as a **microservices-first
 monorepo** with Next.js 15, using a **Freemium model** that empowers Organizers
 to easily create groups, host events, and grow their communities, while
 providing Attendees unlimited access to discover and join activities.
@@ -17,8 +17,9 @@ The platform acts as a **broker between two sides**:
   Attendee, Moderator)
 - **Database**: PostgreSQL via Prisma ORM (shared between apps)
 - **Payments**: Stripe for subscription billing (Monthly/Annual plans)
-- **Analytics**: @tavia/analytics (in-house event tracking SDK)
-- **UI Components**: @tavia/taviad (60+ components with Emotion + Radix UI)
+- **Analytics**: @eventure/analytics (in-house event tracking SDK)
+- **UI Components**: @eventure/eventured (60+ components with Emotion + Radix
+  UI)
 - **Styling**: Emotion CSS-in-JS + Framer Motion animations
 - **i18n**: next-intl (cookie-based, modular)
 - **API**: Fastify 5 (analytics service) + NestJS 11 (event service)
@@ -33,7 +34,7 @@ The platform acts as a **broker between two sides**:
 ## 📦 Monorepo Structure
 
 ```
-tavia/
+eventure/
 ├── apps/
 │   ├── backoffice/       # Event organizer management (port 3000)
 │   ├── frontoffice/      # User event discovery & participation (port 3003)
@@ -41,9 +42,9 @@ tavia/
 │   ├── event-service/    # NestJS microservice (port 3002)
 │   └── docs/             # Storybook documentation (port 6006)
 ├── packages/
-│   ├── taviad/           # @tavia/taviad - 60+ UI components
-│   ├── mobile-ui/        # @tavia/mobile-ui - React Native components
-│   ├── analytics/        # @tavia/analytics - Event tracking SDK
+│   ├── eventured/        # @eventure/eventured - 60+ UI components
+│   ├── mobile-ui/        # @eventure/mobile-ui - React Native components
+│   ├── analytics/        # @eventure/analytics - Event tracking SDK
 │   ├── module-generator/ # Feature module scaffolding
 │   ├── eslint-config/    # Shared ESLint configurations
 │   └── typescript-config/ # Shared TypeScript configurations
@@ -61,7 +62,7 @@ tavia/
 
 ### Freemium Business Model
 
-Tavia uses a **two-sided platform** (broker model) connecting:
+Eventure uses a **two-sided platform** (broker model) connecting:
 
 - **Organizers (B2B)**: Community managers who create and host events
 - **Attendees (B2C)**: Individuals discovering and joining activities
@@ -139,8 +140,8 @@ Tavia uses a **two-sided platform** (broker model) connecting:
 
 ```bash
 # Clone the repository
-git clone https://github.com/tavia-io/tavia.git
-cd tavia
+git clone https://github.com/eventure-io/eventure.git
+cd eventure
 
 # Install dependencies
 pnpm install
@@ -172,7 +173,7 @@ pnpm db:studio          # Open Prisma Studio GUI
 **Database Connection:**
 
 - Host: `localhost:5432`
-- Database: `tavia`
+- Database: `eventure`
 - User: `postgres`
 - Password: `postgres`
 
@@ -186,13 +187,13 @@ pnpm db:studio          # Open Prisma Studio GUI
 
 **Test Users:**
 
-| Email                   | Password     | Role      | Subscription | Access                                       |
-| ----------------------- | ------------ | --------- | ------------ | -------------------------------------------- |
-| admin@tavia.io          | admin123     | Admin     | N/A          | Full system access                           |
-| organizer.free@tavia.io | organizer123 | Organizer | Free         | 1 group (50 max), 2 events/month, basic      |
-| organizer.pro@tavia.io  | organizer123 | Organizer | Premium      | Unlimited groups/events, analytics, branding |
-| attendee1@tavia.io      | attendee123  | Attendee  | Free         | Unlimited joining and participation          |
-| attendee2@tavia.io      | attendee123  | Attendee  | Free         | Unlimited joining and participation          |
+| Email                      | Password     | Role      | Subscription | Access                                       |
+| -------------------------- | ------------ | --------- | ------------ | -------------------------------------------- |
+| admin@eventure.so          | admin123     | Admin     | N/A          | Full system access                           |
+| organizer.free@eventure.so | organizer123 | Organizer | Free         | 1 group (50 max), 2 events/month, basic      |
+| organizer.pro@eventure.so  | organizer123 | Organizer | Premium      | Unlimited groups/events, analytics, branding |
+| attendee1@eventure.so      | attendee123  | Attendee  | Free         | Unlimited joining and participation          |
+| attendee2@eventure.so      | attendee123  | Attendee  | Free         | Unlimited joining and participation          |
 
 ### Environment Variables
 
@@ -207,7 +208,7 @@ cp .env.example .env
 
 ```env
 # Database (shared with frontoffice)
-DATABASE_URL="postgresql://postgres:postgres@localhost:5432/tavia?schema=public"
+DATABASE_URL="postgresql://postgres:postgres@localhost:5432/eventure?schema=public"
 
 # NextAuth.js
 NEXTAUTH_URL=http://localhost:3000
@@ -239,7 +240,7 @@ cp .env.example .env
 
 ```env
 # Database (shared with backoffice)
-DATABASE_URL="postgresql://postgres:postgres@localhost:5432/tavia?schema=public"
+DATABASE_URL="postgresql://postgres:postgres@localhost:5432/eventure?schema=public"
 
 # NextAuth.js
 NEXTAUTH_URL=http://localhost:3003
@@ -332,7 +333,7 @@ pnpm create:api notifications     # Fastify or NestJS (interactive choice)
 # - Next.js 15 + TypeScript + Turbopack
 # - Modular i18n (7 modules: common, navigation, home, actions, auth, dashboard, errors)
 # - Docker PostgreSQL + Prisma
-# - @tavia/taviad components + @tavia/analytics
+# - @eventure/eventured components + @eventure/analytics
 # - Emotion GlobalStyles + React Query
 # - Vitest + Playwright
 # - Deterministic ports (same name = same port)
@@ -346,7 +347,7 @@ pnpm format               # Prettier format
 pnpm type-check           # TypeScript check
 
 # Testing
-cd packages/taviad
+cd packages/eventured
 pnpm test                 # Run tests
 pnpm test:coverage        # Coverage (80% threshold)
 pnpm test:watch           # Watch mode
@@ -387,12 +388,13 @@ pnpm db:seed              # Reseed data
 
 ### Shared Database Architecture
 
-Both frontoffice and backoffice use the **same PostgreSQL database** (`tavia`):
+Both frontoffice and backoffice use the **same PostgreSQL database**
+(`eventure`):
 
 ```
-┌─────────────────┐
+┌─────────────────┌
 │  PostgreSQL DB  │
-│   "tavia"       │
+│   "eventure"     │
 │  Port: 5432     │
 └────────┬────────┘
          │
@@ -411,7 +413,7 @@ Both frontoffice and backoffice use the **same PostgreSQL database** (`tavia`):
 - No data synchronization needed
 - Shared user authentication
 
-## 📚 Component Library (@tavia/taviad)
+## 📚 Component Library (@eventure/eventured)
 
 60+ production-ready React components with full TypeScript support:
 
@@ -446,7 +448,7 @@ pnpm dev:storybook
 # Open http://localhost:6006
 
 # Import components
-import { Button, Modal, Input, Card } from '@tavia/taviad';
+import { Button, Modal, Input, Card } from '@eventure/eventured';
 ```
 
 ## 🏗️ Architecture Patterns
@@ -607,7 +609,7 @@ consistency.
 
 - ✅ Next.js 15 App Router
 - ✅ PostgreSQL + Prisma ORM
-- ✅ @tavia/taviad component library
+- ✅ @eventure/eventured component library
 - 🚧 Stripe integration
 - 🚧 Feature flag system
 
@@ -680,7 +682,7 @@ versions.**
   "dependencies": {
     "next": "catalog:",
     "@emotion/react": "catalog:emotion",
-    "@tavia/taviad": "workspace:*"
+    "@eventure/eventured": "workspace:*"
   }
 }
 
@@ -719,10 +721,10 @@ added directly with versions.
 
 ### Component Testing
 
-60+ components in `@tavia/taviad` with 15-50 tests each:
+60+ components in `@eventure/eventured` with 15-50 tests each:
 
 ```bash
-cd packages/taviad
+cd packages/eventured
 pnpm test              # Run tests
 pnpm test:coverage     # Coverage report (80% threshold)
 pnpm test:watch        # Watch mode
@@ -766,15 +768,15 @@ Simple deployment for backoffice and frontoffice:
 **1. Deploy Backoffice:**
 
 1. Go to [AWS Amplify Console](https://console.aws.amazon.com/amplify)
-2. **New app → Host web app → GitHub** → Select `tavia` repo
-3. App name: `tavia-backoffice`
+2. **New app → Host web app → GitHub** → Select `eventure` repo
+3. App name: `eventure-backoffice`
 4. Build settings: Auto-detected from `amplify.yml`
 5. Add environment variables (see below)
 6. **Save and deploy**
 
 **2. Deploy Frontoffice:**
 
-1. Create second Amplify app: `tavia-frontoffice`
+1. Create second Amplify app: `eventure-frontoffice`
 2. Same repo/branch
 3. Build settings: Use `amplify-frontoffice.yml`
 4. Add environment variables
@@ -784,17 +786,17 @@ Simple deployment for backoffice and frontoffice:
 
 ```bash
 # Database (shared between both apps)
-DATABASE_URL=postgresql://user:password@host:5432/tavia
+DATABASE_URL=postgresql://user:password@host:5432/eventure
 
 # Backoffice additional vars:
-NEXTAUTH_URL=https://admin.tavia.io
+NEXTAUTH_URL=https://admin.eventure.so
 NEXTAUTH_SECRET=<generate-32-char-secret>
 JWT_SECRET=<generate-32-char-secret>
 WEBHOOK_SECRET=<generate-32-char-secret>
-NEXT_PUBLIC_APP_URL=https://admin.tavia.io
+NEXT_PUBLIC_APP_URL=https://admin.eventure.so
 
 # Frontoffice additional vars:
-NEXT_PUBLIC_APP_URL=https://app.tavia.io
+NEXT_PUBLIC_APP_URL=https://app.eventure.so
 ```
 
 **Generate Secrets:**
@@ -812,8 +814,8 @@ node -e "console.log(require('crypto').randomBytes(32).toString('base64'))"
 
 **Custom Domains:**
 
-- Add `admin.tavia.io` → backoffice
-- Add `app.tavia.io` → frontoffice
+- Add `admin.eventure.so` → backoffice
+- Add `app.eventure.so` → frontoffice
 - SSL certificates provisioned automatically
 
 **Cost:** ~$20-30/month (with free database tier)
@@ -875,13 +877,14 @@ DATABASE_URL="postgresql://..." pnpm --filter=backoffice db:migrate:deploy
 
 ### Package Documentation
 
-- **@tavia/taviad**: `packages/taviad/README.md` - 60+ web components
-- **@tavia/taviax**: `packages/taviax/README.md` - React Native components
-- **@tavia/analytics**: `packages/analytics/README.md` - Event tracking SDK
-- **@tavia/env**: `packages/env/README.md` - Type-safe environment variables
-- **@tavia/logger**: `packages/logger/README.md` - Structured logging
-- **@tavia/module-generator**: `packages/module-generator/README.md` - Feature
-  scaffolding
+- **@eventure/eventured**: `packages/eventured/README.md` - 60+ web components
+- **@eventure/eventurex**: `packages/eventurex/README.md` - React Native
+  components
+- **@eventure/analytics**: `packages/analytics/README.md` - Event tracking SDK
+- **@eventure/env**: `packages/env/README.md` - Type-safe environment variables
+- **@eventure/logger**: `packages/logger/README.md` - Structured logging
+- **@eventure/module-generator**: `packages/module-generator/README.md` -
+  Feature scaffolding
 
 ### Deployment & Infrastructure
 
@@ -956,8 +959,9 @@ git push origin feat/your-feature
 
 ## 📞 Support
 
-- **Email**: support@tavia.io
-- **GitHub Issues**: [Open an issue](https://github.com/tavia-io/tavia/issues)
+- **Email**: support@eventure.so
+- **GitHub Issues**:
+  [Open an issue](https://github.com/eventure-io/eventure/issues)
 - **Documentation**: See `.github/copilot-instructions.md`
 
 ---

@@ -34,7 +34,7 @@ async function start() {
     console.log(`
 🚀 Analytics API Server started successfully!
 
-📊 Service: Tavia Analytics API
+📊 Service: Eventure Analytics API
 🌐 URL: http://localhost:${PORT}
 📝 Health: http://localhost:${PORT}/health
 📚 Docs: http://localhost:${PORT}/docs (coming soon)

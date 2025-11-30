@@ -1,6 +1,6 @@
-# Tavia Scripts
+# Eventure Scripts
 
-Utility scripts for the Tavia monorepo.
+Utility scripts for the Eventure monorepo.
 
 ## Quick Reference
 
@@ -40,7 +40,7 @@ pnpm create:app mobile-api
 ### What it does
 
 1. **Copies template** - Uses `templates/webapp` as the generic starting point
-2. **Updates package.json** - Sets the app name (`@tavia/<app-name>`) and
+2. **Updates package.json** - Sets the app name (`@eventure/<app-name>`) and
    description
 3. **Assigns unique port** - Automatically assigns a port based on app name
    (3000-3099)
@@ -89,7 +89,7 @@ All apps created from this script include:
 - ✅ **TypeScript** configuration
 - ✅ **i18n** with next-intl (en, fr by default)
 - ✅ **Prisma ORM** setup (PostgreSQL ready, minimal schema)
-- ✅ **@tavia/taviad** UI component library
+- ✅ **@eventure/eventured** UI component library
 - ✅ **Vitest** testing setup
 - ✅ **ESLint 9** flat config
 - ✅ **Example pages** (home, about with i18n)
@@ -221,7 +221,7 @@ The script will ask you:
 ```bash
 $ pnpm create:api
 
-🚀 Tavia API Generator
+🚀 Eventure API Generator
 
 ? What name would you like to use for the API? notifications
 ? Which type of API would you like to create?
@@ -240,7 +240,7 @@ Enter your choice (1 or 2): 1
 ```bash
 $ pnpm create:api
 
-🚀 Tavia API Generator
+🚀 Eventure API Generator
 
 ? What name would you like to use for the API? event-service
 ? Which type of API would you like to create?
@@ -656,7 +656,7 @@ You can choose to:
    tables
 
    ```
-   DATABASE_URL="postgresql://postgres:postgres@localhost:5432/tavia"
+   DATABASE_URL="postgresql://postgres:postgres@localhost:5432/eventure"
    ```
 
 2. **Separate database** - Use dedicated database for the API

@@ -92,7 +92,7 @@ function isClient(): boolean {
  *
  * @example
  * ```ts
- * import { createEnv } from '@tavia/env';
+ * import { createEnv } from '@eventure/env';
  * import { z } from 'zod';
  *
  * export const env = createEnv({

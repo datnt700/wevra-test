@@ -1,5 +1,5 @@
 /**
- * Login Page for Tavia Backoffice
+ * Login Page for Eventure Backoffice
  * Admin and Restaurant Owner authentication
  */
 'use client';
@@ -20,7 +20,7 @@ import {
   GoogleIcon,
   AppleIcon,
   FacebookIcon,
-} from '@tavia/taviad';
+} from '@eventure/eventured';
 import { Styled } from './LoginPage.styles';
 import { createLoginSchema, type LoginFormData } from './_validations/loginSchema';
 import { ROUTES } from '@/lib/constants';

@@ -153,14 +153,14 @@ if (!user) throw new UnauthorizedError('Invalid credentials');
 if (existingUser) throw new ConflictError('User exists');
 ```
 
-## Environment Variables (@tavia/env)
+## Environment Variables (@eventure/env)
 
-**ALWAYS use @tavia/env package** - NEVER access `process.env` directly.
+**ALWAYS use @eventure/env package** - NEVER access `process.env` directly.
 
 **Location:** `apps/{app}/src/lib/env/index.ts`
 
 ```typescript
-import { createEnv, envHelpers } from '@tavia/env';
+import { createEnv, envHelpers } from '@eventure/env';
 
 export const env = createEnv({
   server: {
@@ -229,25 +229,25 @@ export const USER_ROLES = {
 
 **Available Packages:**
 
-- `@tavia/env` - Type-safe environment variables (ALWAYS use this)
-- `@tavia/taviad` - 60+ web UI components (ALWAYS use for web)
-- `@tavia/taviax` - React Native components (ALWAYS use for mobile)
-- `@tavia/analytics` - Event tracking SDK
-- `@tavia/logger` - Structured logging
-- `@tavia/module-generator` - Feature scaffolding
+- `@eventure/env` - Type-safe environment variables (ALWAYS use this)
+- `@eventure/eventured` - 60+ web UI components (ALWAYS use for web)
+- `@eventure/eventurex` - React Native components (ALWAYS use for mobile)
+- `@eventure/analytics` - Event tracking SDK
+- `@eventure/logger` - Structured logging
+- `@eventure/module-generator` - Feature scaffolding
 
 **Examples:**
 
 ```typescript
-// ✅ CORRECT - Use @tavia/env
+// ✅ CORRECT - Use @eventure/env
 import { env } from '@/lib/env';
 const apiKey = env.STRIPE_SECRET_KEY;
 
-// ✅ CORRECT - Use @tavia/taviad
-import { Button, Modal, Input } from '@tavia/taviad';
+// ✅ CORRECT - Use @eventure/eventured
+import { Button, Modal, Input } from '@eventure/eventured';
 
-// ✅ CORRECT - Use @tavia/analytics
-import { trackEvent } from '@tavia/analytics';
+// ✅ CORRECT - Use @eventure/analytics
+import { trackEvent } from '@eventure/analytics';
 
 // ❌ WRONG - Direct process.env access
 const apiKey = process.env.STRIPE_SECRET_KEY;
@@ -262,9 +262,9 @@ function trackEvent() { /* duplicate code */ }
 **Rules:**
 
 1. ✅ Check if functionality exists in internal packages FIRST
-2. ✅ Use `@tavia/env` for ALL environment variables
-3. ✅ Use `@tavia/taviad` for ALL web UI components
-4. ✅ Use `@tavia/analytics` for event tracking
+2. ✅ Use `@eventure/env` for ALL environment variables
+3. ✅ Use `@eventure/eventured` for ALL web UI components
+4. ✅ Use `@eventure/analytics` for event tracking
 5. ✅ Extend existing packages instead of creating duplicates
 6. ❌ NEVER duplicate functionality that exists in packages
 7. ❌ NEVER create app-specific versions of shared utilities

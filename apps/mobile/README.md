@@ -1,4 +1,4 @@
-# Tavia Mobile App (@tavia/mobile)
+# Eventure Mobile App (@Eventure/mobile)
 
 > Community networking platform for event discovery and participation - Mobile
 > app for ATTENDEE users
@@ -97,7 +97,7 @@ EXPO_PUBLIC_ANALYTICS_API_KEY=your-api-key
 EXPO_PUBLIC_ENABLE_ANALYTICS=true
 
 # App Configuration
-EXPO_PUBLIC_APP_NAME=Tavia Mobile
+EXPO_PUBLIC_APP_NAME=Eventure Mobile
 EXPO_PUBLIC_APP_VERSION=0.1.0
 EXPO_PUBLIC_ENVIRONMENT=development
 
@@ -125,7 +125,7 @@ For CI/CD with EAS Build/Update:
 eas env:pull --environment development
 
 # Create EAS environment variable
-eas env:create --name EXPO_PUBLIC_API_URL --value https://api.tavia.io --environment production
+eas env:create --name EXPO_PUBLIC_API_URL --value https://api.eventure.so --environment production
 
 # Build with EAS environment
 eas build --profile production  # Uses EAS production environment
@@ -170,10 +170,11 @@ pnpm start
 
 Use any attendee account from seed data:
 
-- **Email**: `attendee1@tavia.io`
+- **Email**: `attendee1@eventure.so`
 - **Password**: `attendee123`
 
-Other test accounts: `attendee2@tavia.io`, `attendee3@tavia.io` (same password)
+Other test accounts: `attendee2@eventure.so`, `attendee3@eventure.so` (same
+password)
 
 ## 📱 Platform-Specific Notes
 
@@ -247,7 +248,7 @@ apps/mobile/
     "token": "eyJhbGc...",
     "user": {
       "id": "cm123...",
-      "email": "attendee1@tavia.io",
+      "email": "attendee1@eventure.so",
       "role": "ATTENDEE"
     }
   }
@@ -298,7 +299,7 @@ await SecureStorage.clearAll();
   "expo-router": "catalog:expo", // File-based routing
   "expo-secure-store": "catalog:expo", // Encrypted storage (native)
   "@react-native-async-storage/async-storage": "catalog:expo", // Storage (web)
-  "@tavia/analytics": "workspace:*" // Analytics SDK
+  "@Eventure/analytics": "workspace:*" // Analytics SDK
 }
 ```
 
@@ -310,7 +311,7 @@ await SecureStorage.clearAll();
 
 - [ ] Open http://localhost:8081 in browser
 - [ ] Navigate to login screen
-- [ ] Enter `attendee1@tavia.io` / `attendee123`
+- [ ] Enter `attendee1@eventure.so` / `attendee123`
 - [ ] Verify successful login and navigation to tabs
 - [ ] Check localStorage in DevTools (Application tab) for `userToken`
 
@@ -461,17 +462,17 @@ pnpm install                                     # Reinstall
 
 - **Main Copilot Instructions**: `.github/copilot-instructions.md`
 - **Authentication Guide**: `docs/AUTHENTICATION.md`
-- **Component Library**: `packages/taviad/README.md` (web only - not used in
+- **Component Library**: `packages/eventured/README.md` (web only - not used in
   mobile)
-- **Mobile UI Components**: `packages/taviax/README.md` (React Native
+- **Mobile UI Components**: `packages/eventurex/README.md` (React Native
   components)
 - **Analytics SDK**: `packages/analytics/README.md`
 
 ## 🏢 Architecture Context
 
-**Tavia Platform:**
+**Eventure Platform:**
 
-- **Shared Database**: Backoffice and frontoffice use same PostgreSQL "tavia"
+- **Shared Database**: Backoffice and frontoffice use same PostgreSQL "Eventure"
   database
 - **API Strategy**: Mobile app consumes backoffice REST API (not frontoffice)
 - **Role Separation**: ADMIN/ORGANIZER/MODERATOR → Backoffice, ATTENDEE →
@@ -481,8 +482,8 @@ pnpm install                                     # Reinstall
 **Mobile-Specific:**
 
 - **File-based routing**: Expo Router (similar to Next.js App Router)
-- **No @tavia/taviad**: Web components not compatible, use `@tavia/taviax` for
-  mobile UI
+- **No @Eventure/eventured**: Web components not compatible, use
+  `@Eventure/eventurex` for mobile UI
 - **Platform detection**: `Platform.OS` for web vs native code paths
 - **Environment**: `EXPO_PUBLIC_*` prefix for client-accessible env vars
 

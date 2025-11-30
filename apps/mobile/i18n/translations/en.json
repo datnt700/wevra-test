@@ -1,6 +1,6 @@
 {
   "common": {
-    "appName": "Tavia",
+    "appName": "Eventure",
     "loading": "Loading...",
     "retry": "Try Again",
     "cancel": "Cancel",
@@ -24,7 +24,7 @@
     },
     "signup": {
       "title": "Create your account",
-      "description": "Join Tavia to discover amazing events",
+      "description": "Join Eventure to discover amazing events",
       "name": "Full Name",
       "namePlaceholder": "Enter your full name",
       "email": "Email",

@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Button, Popover } from '@tavia/taviad';
+import { Button, Popover } from '@eventure/eventured';
 
 const meta = {
   title: 'Core/Radix/Popover',

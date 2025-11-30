@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { ProgressBar, Button } from '@tavia/taviad';
+import { ProgressBar, Button } from '@eventure/eventured';
 import { useState, useEffect } from 'react';
 
 /**

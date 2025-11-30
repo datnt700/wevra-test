@@ -12,7 +12,7 @@ applyTo: '**/*.styles.{ts,tsx}'
 
 ```typescript
 import styled from '@emotion/styled';
-import { theme } from '@tavia/taviad';
+import { theme } from '@eventure/eventured';
 
 type Variant = 'success' | 'warning' | 'danger';
 
@@ -49,7 +49,7 @@ export const Styled = {
 object.**
 
 ```typescript
-import { theme } from '@tavia/taviad';
+import { theme } from '@eventure/eventured';
 
 // ✅ CORRECT - Use theme object
 theme.colors.primary;
@@ -59,7 +59,7 @@ theme.radii.md;
 theme.spacing.md;
 
 // ❌ WRONG - Never use cssVars directly
-import { cssVars } from '@tavia/taviad/theme/tokens/colors';
+import { cssVars } from '@eventure/eventured/theme/tokens/colors';
 cssVars.mainColor; // ❌ FORBIDDEN
 cssVars.gray600; // ❌ FORBIDDEN
 
@@ -131,12 +131,13 @@ theme.spacing['2xl']; // 2rem (32px)
 
 ## Critical Emotion Rules
 
-1. ✅ Import theme: `import { theme } from '@tavia/taviad'`
+1. ✅ Import theme: `import { theme } from '@eventure/eventured'`
 2. ✅ Export as `Styled` object:
    `export const Styled = { Wrapper: styled.div`...` }`
 3. ✅ Transient props use `$` prefix: `$variant`, `$isActive`
 4. ✅ Use theme properties: `${theme.radii.md}`, `${theme.colors.primary}`
-5. ❌ **NEVER** import or use `cssVars` from `@tavia/taviad/theme/tokens/colors`
+5. ❌ **NEVER** import or use `cssVars` from
+   `@eventure/eventured/theme/tokens/colors`
 6. ❌ **NEVER** hardcode colors: `#ff695c`, `rgb()`, `rgba()`
 7. ❌ **NEVER** hardcode radii: `8px`, `border-radius: 0.5rem`
 8. ❌ Don't use props without `$` in styled components

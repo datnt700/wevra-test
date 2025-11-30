@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Link, MenuBar } from '@tavia/taviad';
+import { Link, MenuBar } from '@eventure/eventured';
 import {
   File,
   Edit,

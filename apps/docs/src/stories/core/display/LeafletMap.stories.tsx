@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { LeafletMap } from '@tavia/taviad/ui/leaflet-map';
+import { LeafletMap } from '@eventure/eventured/ui/leaflet-map';
 
 const meta = {
   title: 'Core/Display/LeafletMap',

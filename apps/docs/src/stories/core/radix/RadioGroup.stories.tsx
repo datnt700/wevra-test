@@ -1,7 +1,7 @@
 import React from 'react';
 import { Meta, StoryObj } from '@storybook/react';
-import { RadioGroup } from '@tavia/taviad';
-import { Radio } from '@tavia/taviad';
+import { RadioGroup } from '@eventure/eventured';
+import { Radio } from '@eventure/eventured';
 
 const meta: Meta<typeof RadioGroup> = {
   title: 'Core/Radix/RadioGroup',

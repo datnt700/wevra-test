@@ -5,7 +5,7 @@
  * This provides a single source of truth for enum values.
  *
  * @example
- * import { UserRole, SubscriptionStatus } from '@tavia/database/enums';
+ * import { UserRole, SubscriptionStatus } from '@eventure/database/enums';
  *
  * if (user.role === UserRole.ADMIN) {
  *   // Admin-only logic

@@ -5,7 +5,16 @@ import { useForm, useWatch } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
-import { Button, InputText, TextArea, Alert, Field, Label, Checkbox, Select } from '@tavia/taviad';
+import {
+  Button,
+  InputText,
+  TextArea,
+  Alert,
+  Field,
+  Label,
+  Checkbox,
+  Select,
+} from '@eventure/eventured';
 import { ROUTES } from '@/lib/constants';
 import { useCreateGroup } from '../../_hooks/useGroups';
 import { groupSchema, type GroupFormData } from '../../_schemas/groupSchema';

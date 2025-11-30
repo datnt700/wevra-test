@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { InputTags } from '@tavia/taviad';
+import { InputTags } from '@eventure/eventured';
 import { useState } from 'react';
 
 /**

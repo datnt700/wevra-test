@@ -1,7 +1,7 @@
 /**
  * Environment variable validation and type-safe access
  *
- * Uses @tavia/env for runtime validation with Zod schemas.
+ * Uses @Eventure/env for runtime validation with Zod schemas.
  * All variables are validated on app startup with helpful error messages.
  *
  * @example
@@ -16,7 +16,7 @@
  * ```
  */
 
-import { createEnv, envHelpers } from '@tavia/env';
+import { createEnv, envHelpers } from '@Eventure/env';
 import { z } from 'zod';
 
 export const env = createEnv({

@@ -1,9 +1,9 @@
-# Tavia Backoffice
+# Eventure Backoffice
 
 > Admin and Restaurant Owner management platform
 
-The Tavia Backoffice is a Next.js 15 application for restaurant and café owners
-to manage their establishments, bookings, and tables.
+The Eventure Backoffice is a Next.js 15 application for restaurant and café
+owners to manage their establishments, bookings, and tables.
 
 **Note**: This is NOT the customer-facing booking app. Customers will use a
 separate application to browse and book restaurants.
@@ -29,7 +29,7 @@ application.
 - ✅ **Next.js 15** with App Router and React 19
 - ✅ **TypeScript** for type safety
 - ✅ **Database** with Prisma ORM + PostgreSQL
-- ✅ **UI Components** - @tavia/taviad design system
+- ✅ **UI Components** - @Eventure/eventured design system
 - ✅ **Unit Testing** with Vitest + Testing Library
 - ✅ **E2E Testing** with Playwright
 - ✅ **ESLint 9** flat config for code quality
@@ -83,7 +83,7 @@ After running `pnpm db:seed`, you'll have these test accounts:
 
 **Admin User:**
 
-- Email: `admin@tavia.io`
+- Email: `admin@eventure.so`
 - Password: `admin123`
 - Role: ADMIN
 
@@ -328,12 +328,12 @@ cp .env.example .env
 
 ```env
 # Database (shared with frontoffice)
-DATABASE_URL="postgresql://postgres:postgres@localhost:5432/tavia?schema=public"
+DATABASE_URL="postgresql://postgres:postgres@localhost:5432/Eventure?schema=public"
 
 # PostgreSQL Docker Container Settings
 POSTGRES_USER=postgres
 POSTGRES_PASSWORD=postgres
-POSTGRES_DB=tavia
+POSTGRES_DB=Eventure
 
 # NextAuth.js
 NEXTAUTH_URL=http://localhost:3000
@@ -345,7 +345,7 @@ JWT_SECRET=<generate-32-char-secret>
 # App Configuration
 NODE_ENV=development
 NEXT_PUBLIC_APP_URL=http://localhost:3000
-NEXT_PUBLIC_APP_NAME=Tavia
+NEXT_PUBLIC_APP_NAME=Eventure
 ```
 
 ### OAuth Providers (Optional)
@@ -399,7 +399,7 @@ EMAIL_SERVER_HOST=smtp.gmail.com
 EMAIL_SERVER_PORT=587
 EMAIL_SERVER_USER=your-email@gmail.com
 EMAIL_SERVER_PASSWORD=your-email-password
-EMAIL_FROM=noreply@tavia.com
+EMAIL_FROM=noreply@Eventure.com
 ```
 
 ### Generate Secrets
@@ -457,7 +457,7 @@ Key dependencies:
 - `next` - Next.js framework (15.5.5)
 - `next-auth` - Authentication with Auth.js v5
 - `@prisma/client` - Database ORM
-- `@tavia/taviad` - Internal UI component library
+- `@Eventure/eventured` - Internal UI component library
 - `bcryptjs` - Password hashing
 - `zod` - Schema validation
 - `@playwright/test` - E2E testing
@@ -499,13 +499,13 @@ When the backoffice is running, access interactive API documentation:
 
 ### Production URLs
 
-- **Swagger UI**: https://admin.tavia.io/api/docs/swagger
-- **Redoc**: https://admin.tavia.io/api/docs/redoc
-- **OpenAPI JSON**: https://admin.tavia.io/api/docs
+- **Swagger UI**: https://admin.eventure.so/api/docs/swagger
+- **Redoc**: https://admin.eventure.so/api/docs/redoc
+- **OpenAPI JSON**: https://admin.eventure.so/api/docs
 
 ### Authentication
 
-The Tavia API uses **API keys** to authenticate requests. You can create and
+The Eventure API uses **API keys** to authenticate requests. You can create and
 manage your API keys using the CLI tool.
 
 📖 **[Full Authentication Guide →](../../docs/API_AUTHENTICATION.md)**
@@ -515,7 +515,7 @@ manage your API keys using the CLI tool.
 ```bash
 # Create an API key
 cd apps/backoffice
-pnpm db:create-api-key user@tavia.io "Production" 5000 365
+pnpm db:create-api-key user@eventure.so "Production" 5000 365
 
 # Use in requests
 curl http://localhost:3000/api/v1/groups \
@@ -608,7 +608,7 @@ practices, rate limiting, caching, and production setup, see
 # Login
 curl -X POST http://localhost:3000/api/mobile/auth/login \
   -H "Content-Type: application/json" \
-  -d '{"email":"attendee1@tavia.io","password":"attendee123"}'
+  -d '{"email":"attendee1@eventure.so","password":"attendee123"}'
 
 # Get current user (JWT auth)
 curl http://localhost:3000/api/mobile/auth/me \
@@ -623,7 +623,7 @@ curl "http://localhost:3000/api/mobile/events?location=Paris&category=TECH"
 ```powershell
 # Login
 $body = @{
-    email = "attendee1@tavia.io"
+    email = "attendee1@eventure.so"
     password = "attendee123"
 } | ConvertTo-Json
 
@@ -646,7 +646,7 @@ Invoke-RestMethod -Uri "http://localhost:3000/api/mobile/auth/me" `
 - [Playwright Documentation](https://playwright.dev/)
 - [Vitest Documentation](https://vitest.dev/)
 - [Turborepo Documentation](https://turbo.build/repo/docs)
-- [@tavia/taviad Component Library](../../packages/core/README.md)
+- [@Eventure/eventured Component Library](../../packages/core/README.md)
 - [Swagger UI](https://swagger.io/tools/swagger-ui/)
 - [Redoc](https://redocly.com/redoc/)
 - [OpenAPI Specification](https://swagger.io/specification/)

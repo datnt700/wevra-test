@@ -21,10 +21,10 @@ async function main() {
   // Create Admin User
   const adminPassword = await bcrypt.hash('admin123', 10);
   const admin = await prisma.user.upsert({
-    where: { email: 'admin@tavia.io' },
+    where: { email: 'admin@eventure.so' },
     update: {},
     create: {
-      email: 'admin@tavia.io',
+      email: 'admin@eventure.so',
       name: 'Admin User',
       password: adminPassword,
       role: UserRole.ADMIN,
@@ -37,10 +37,10 @@ async function main() {
   // Create Premium Organizer
   const organizerPassword = await bcrypt.hash('organizer123', 10);
   const organizer = await prisma.user.upsert({
-    where: { email: 'organizer@tavia.io' },
+    where: { email: 'organizer@eventure.so' },
     update: {},
     create: {
-      email: 'organizer@tavia.io',
+      email: 'organizer@eventure.so',
       name: 'Premium Organizer',
       password: organizerPassword,
       role: UserRole.ORGANIZER,
@@ -53,10 +53,10 @@ async function main() {
   // Create Free Organizer
   const freeOrganizerPassword = await bcrypt.hash('free123', 10);
   const freeOrganizer = await prisma.user.upsert({
-    where: { email: 'free@tavia.io' },
+    where: { email: 'free@eventure.so' },
     update: {},
     create: {
-      email: 'free@tavia.io',
+      email: 'free@eventure.so',
       name: 'Free Organizer',
       password: freeOrganizerPassword,
       role: UserRole.ORGANIZER,
@@ -70,10 +70,10 @@ async function main() {
   const attendeePassword = await bcrypt.hash('attendee123', 10);
   const attendees = await Promise.all([
     prisma.user.upsert({
-      where: { email: 'attendee1@tavia.io' },
+      where: { email: 'attendee1@eventure.so' },
       update: {},
       create: {
-        email: 'attendee1@tavia.io',
+        email: 'attendee1@eventure.so',
         name: 'Alice Johnson',
         password: attendeePassword,
         role: UserRole.ATTENDEE,
@@ -82,10 +82,10 @@ async function main() {
       },
     }),
     prisma.user.upsert({
-      where: { email: 'attendee2@tavia.io' },
+      where: { email: 'attendee2@eventure.so' },
       update: {},
       create: {
-        email: 'attendee2@tavia.io',
+        email: 'attendee2@eventure.so',
         name: 'Bob Smith',
         password: attendeePassword,
         role: UserRole.ATTENDEE,
@@ -94,10 +94,10 @@ async function main() {
       },
     }),
     prisma.user.upsert({
-      where: { email: 'attendee3@tavia.io' },
+      where: { email: 'attendee3@eventure.so' },
       update: {},
       create: {
-        email: 'attendee3@tavia.io',
+        email: 'attendee3@eventure.so',
         name: 'Charlie Brown',
         password: attendeePassword,
         role: UserRole.ATTENDEE,
@@ -297,11 +297,11 @@ async function main() {
 
   console.log('\n🎉 Database seeding completed successfully!\n');
   console.log('Test credentials:');
-  console.log('  Admin: admin@tavia.io / admin123');
-  console.log('  Premium Organizer: organizer@tavia.io / organizer123');
-  console.log('  Free Organizer: free@tavia.io / free123');
+  console.log('  Admin: admin@eventure.so / admin123');
+  console.log('  Premium Organizer: organizer@eventure.so / organizer123');
+  console.log('  Free Organizer: free@eventure.so / free123');
   console.log(
-    '  Attendees: attendee1@tavia.io, attendee2@tavia.io, attendee3@tavia.io / attendee123\n'
+    '  Attendees: attendee1@eventure.so, attendee2@eventure.so, attendee3@eventure.so / attendee123\n'
   );
 }
 

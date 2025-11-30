@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 
 /**
- * Accessibility Tests for Tavia Components
+ * Accessibility Tests for Eventure Components
  * Tests compliance with WCAG 2.1 Level AA standards
  */
 

@@ -1,7 +1,7 @@
 {
-  "name": "@tavia/logger",
+  "name": "@eventure/logger",
   "version": "0.0.1",
-  "description": "Centralized logging system for Tavia apps",
+  "description": "Centralized logging system for Eventure apps",
   "main": "./src/index.ts",
   "types": "./src/index.ts",
   "exports": {
@@ -14,9 +14,9 @@
   "keywords": [
     "logger",
     "logging",
-    "tavia"
+    "eventure"
   ],
-  "author": "Tavia",
+  "author": "Eventure",
   "license": "MIT",
   "devDependencies": {
     "@repo/eslint-config": "workspace:*",

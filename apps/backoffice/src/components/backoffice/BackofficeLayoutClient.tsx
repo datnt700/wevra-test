@@ -4,11 +4,11 @@ import { useState, useEffect } from 'react';
 import styled from '@emotion/styled';
 import { motion, AnimatePresence } from 'framer-motion';
 import { usePathname } from 'next/navigation';
-import { type TaviaTheme } from '@tavia/taviad';
+import { type EventureTheme } from '@eventure/eventured';
 import { BackofficeHeader } from './BackofficeHeader';
 import { BackofficeSidebar } from './BackofficeSidebar';
 
-const LayoutWrapper = styled.div<{ theme?: TaviaTheme }>`
+const LayoutWrapper = styled.div<{ theme?: EventureTheme }>`
   display: flex;
   flex-direction: column;
   height: 100vh;
@@ -24,7 +24,7 @@ const MainContainer = styled.div`
   margin-top: 0; /* No top margin since sidebar is full height */
 `;
 
-const ContentArea = styled.main<{ $sidebarOpen: boolean; theme?: TaviaTheme }>`
+const ContentArea = styled.main<{ $sidebarOpen: boolean; theme?: EventureTheme }>`
   flex: 1;
   overflow-y: auto;
   background-color: ${({ theme }) => theme.colors.background};

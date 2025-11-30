@@ -5,7 +5,7 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
-import { Spinner } from '@tavia/taviad';
+import { Spinner } from '@eventure/eventured';
 import { Styled } from './loading.styles';
 
 export default function Loading() {

@@ -78,7 +78,7 @@ model VerificationToken {
     @@map("verification_tokens")
 }
 
-// Tavia Business Models - Community Platform
+// Eventure Business Models - Community Platform
 
 model Group {
     id            String   @id @default(cuid())

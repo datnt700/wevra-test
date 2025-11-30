@@ -11,7 +11,7 @@ export async function GET() {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tavia API Documentation</title>
+  <title>Eventure API Documentation</title>
   <style>
     body {
       margin: 0;

@@ -1,6 +1,6 @@
 import React from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
-import { DataTable } from '@tavia/taviad';
+import { DataTable } from '@eventure/eventured';
 import { ColumnDef } from '@tanstack/react-table';
 
 const meta: Meta<typeof DataTable<any>> = {

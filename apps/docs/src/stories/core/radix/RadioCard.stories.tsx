@@ -1,5 +1,5 @@
 import { Meta, StoryObj } from '@storybook/react';
-import { RadioCard, Button, Badge } from '@tavia/taviad';
+import { RadioCard, Button, Badge } from '@eventure/eventured';
 import { useState } from 'react';
 
 /**

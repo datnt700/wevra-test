@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Stepper } from '@tavia/taviad';
+import { Stepper } from '@eventure/eventured';
 import { useState } from 'react';
 
 /**

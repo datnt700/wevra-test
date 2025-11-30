@@ -6,7 +6,7 @@
  */
 import { useEffect } from 'react';
 import { useTranslations } from 'next-intl';
-import { Button } from '@tavia/taviad';
+import { Button } from '@eventure/eventured';
 import { Styled } from './error.styles';
 
 export default function Error({

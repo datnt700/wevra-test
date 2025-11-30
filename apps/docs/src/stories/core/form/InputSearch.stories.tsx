@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { InputSearch, Label, Field, Card, Spinner } from '@tavia/taviad';
+import { InputSearch, Label, Field, Card, Spinner } from '@eventure/eventured';
 import { useState, useEffect } from 'react';
 
 const meta: Meta<typeof InputSearch> = {

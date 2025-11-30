@@ -1,7 +1,7 @@
 /**
  * Environment variable validation and type-safe access
  *
- * Uses @tavia/env for runtime validation with Zod schemas.
+ * Uses @eventure/env for runtime validation with Zod schemas.
  * All variables are validated on app startup with helpful error messages.
  *
  * @example
@@ -17,7 +17,7 @@
  * ```
  */
 
-import { createEnv, envHelpers } from '@tavia/env';
+import { createEnv, envHelpers } from '@eventure/env';
 import { z } from 'zod';
 
 export const env = createEnv({
@@ -35,7 +35,7 @@ export const env = createEnv({
     // PostgreSQL Docker Container (for local development)
     POSTGRES_USER: z.string().default('postgres'),
     POSTGRES_PASSWORD: z.string().default('postgres'),
-    POSTGRES_DB: z.string().default('tavia'),
+    POSTGRES_DB: z.string().default('eventure'),
 
     // NextAuth.js
     NEXTAUTH_URL: envHelpers.url('http://localhost:3000'),
@@ -59,7 +59,7 @@ export const env = createEnv({
     EMAIL_SERVER_PORT: z.coerce.number().default(587),
     EMAIL_SERVER_USER: envHelpers.optionalString(),
     EMAIL_SERVER_PASSWORD: envHelpers.optionalString(),
-    EMAIL_FROM: envHelpers.email().default('noreply@tavia.com'),
+    EMAIL_FROM: envHelpers.email().default('noreply@eventure.com'),
 
     // Stripe Subscription Billing (REQUIRED for Premium features)
     STRIPE_SECRET_KEY: z
@@ -99,7 +99,7 @@ export const env = createEnv({
   client: {
     // App Configuration
     NEXT_PUBLIC_APP_URL: envHelpers.url('http://localhost:3000'),
-    NEXT_PUBLIC_APP_NAME: z.string().default('Tavia'),
+    NEXT_PUBLIC_APP_NAME: z.string().default('Eventure'),
 
     // Feature Flags
     NEXT_PUBLIC_ENABLE_ANALYTICS: envHelpers.boolean(false),

@@ -3,16 +3,16 @@ aws_region  = "us-east-1"
 environment = "production"
 
 # Project
-project_name = "tavia"
-domain_name  = "tavia.io"
+project_name = "Eventure"
+domain_name  = "eventure.so"
 
 # Subdomains
 backoffice_subdomain  = "admin"
 frontoffice_subdomain = "app"
 
 # Database
-db_name           = "tavia"
-db_username       = "tavia_admin"
+db_name           = "Eventure"
+db_username       = "eventure_admin"
 db_instance_class = "db.t4g.micro" # Free tier eligible
 # db_password = "..." # Set via environment variable or secure input
 

@@ -1,7 +1,7 @@
 {
-  "name": "@tavia/module-generator",
+  "name": "@eventure/module-generator",
   "version": "0.1.0",
-  "description": "Module scaffolding generator for Tavia apps",
+  "description": "Module scaffolding generator for Eventure apps",
   "type": "module",
   "private": true,
   "bin": {

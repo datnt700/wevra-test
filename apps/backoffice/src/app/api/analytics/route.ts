@@ -3,7 +3,7 @@ import { prisma } from '@/lib/prisma';
 
 /**
  * POST /api/analytics
- * Endpoint to receive analytics events from @tavia/analytics SDK
+ * Endpoint to receive analytics events from @eventure/analytics SDK
  */
 export async function POST(request: NextRequest) {
   try {

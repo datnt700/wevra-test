@@ -1,13 +1,13 @@
 /**
- * Login Screen for Tavia Mobile
- * Attendee authentication with taviax components
+ * Login Screen for Eventure Mobile
+ * Attendee authentication with eventurex components
  */
 import { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Alert } from 'react-native';
 import { Link, useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import * as SecureStorage from '@/utils/secureStorage';
-import { Button, TextInput } from '@tavia/taviax';
+import { Button, TextInput } from '@eventure/eventurex';
 import { AuthContainer, SocialAuthButtons, AuthDivider } from '@/components/auth';
 import { colors, spacing } from '@/theme';
 import i18n from '@/i18n';

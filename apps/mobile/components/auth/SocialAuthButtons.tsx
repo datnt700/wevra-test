@@ -9,7 +9,7 @@ import * as WebBrowser from 'expo-web-browser';
 import * as AuthSession from 'expo-auth-session';
 import * as AppleAuthentication from 'expo-apple-authentication';
 import { useRouter } from 'expo-router';
-import { Button, spacing } from '@tavia/taviax';
+import { Button, spacing } from '@eventure/eventurex';
 import { setItemAsync } from '@/utils/secureStorage';
 import i18n from '@/i18n';
 
@@ -42,7 +42,7 @@ export const SocialAuthButtons = ({
     {
       clientId: process.env.EXPO_PUBLIC_GOOGLE_CLIENT_ID || '',
       redirectUri: AuthSession.makeRedirectUri({
-        scheme: 'tavia',
+        scheme: 'eventure',
         path: 'auth/callback',
       }),
       scopes: ['profile', 'email'],
@@ -55,7 +55,7 @@ export const SocialAuthButtons = ({
 
   // Facebook OAuth configuration
   const facebookRedirectUri = AuthSession.makeRedirectUri({
-    scheme: 'tavia',
+    scheme: 'eventure',
     path: 'auth/callback',
   });
 

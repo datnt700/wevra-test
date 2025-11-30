@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { FileUpload } from '@tavia/taviad';
+import { FileUpload } from '@eventure/eventured';
 import { FileText, Image as ImageIcon, Video, Music, Archive } from 'lucide-react';
 
 /**

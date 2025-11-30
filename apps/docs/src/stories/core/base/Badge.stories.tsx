@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { Badge, Card } from '@tavia/taviad';
+import { Badge, Card } from '@eventure/eventured';
 
 const meta: Meta<typeof Badge> = {
   title: 'Core/Base/Badge',

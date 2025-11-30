@@ -1,5 +1,5 @@
 {
-  "name": "@tavia/mobile-app",
+  "name": "@eventure/mobile-app",
   "version": "0.1.0",
   "type": "module",
   "private": true,
@@ -21,7 +21,7 @@
   "dependencies": {
     "@expo/vector-icons": "catalog:expo",
     "@react-navigation/native": "catalog:expo",
-    "@tavia/analytics": "workspace:*",
+    "@eventure/analytics": "workspace:*",
     "expo": "catalog:expo",
     "expo-constants": "catalog:expo",
     "expo-font": "catalog:expo",

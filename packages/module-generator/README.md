@@ -1,14 +1,14 @@
-# @tavia/module-generator
+# @eventure/module-generator
 
-Module scaffolding generator for Tavia applications.
+Module scaffolding generator for Eventure applications.
 
 ## 📦 Installation
 
 This package is automatically available in the monorepo. Apps can add it as a
 dependency:
 
-\`\`\`json { "devDependencies": { "@tavia/module-generator": "workspace:\*" },
-"scripts": { "generate:module": "generate-module" } } \`\`\`
+\`\`\`json { "devDependencies": { "@eventure/module-generator": "workspace:\*"
+}, "scripts": { "generate:module": "generate-module" } } \`\`\`
 
 ## 🚀 Usage
 
@@ -42,7 +42,7 @@ dashboardApi.ts │ └── index.ts ├── \_constants/ │ ├── dash
 
 \`\`\`bash $ cd apps/backoffice $ pnpm generate:module
 
-🏗️ Tavia Module Generator
+🏗️ Eventure Module Generator
 
 ? Module name (e.g., dashboard, user-profile): dashboard ? Where should the
 module be created? app/ directory (Next.js page route)
@@ -88,4 +88,4 @@ Next steps:
 
 ## 📝 License
 
-Part of the Tavia monorepo.
+Part of the Eventure monorepo.

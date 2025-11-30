@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { LoadingLogo } from '@tavia/taviad';
+import { LoadingLogo } from '@eventure/eventured';
 
 const meta = {
   title: 'Core/State/LoadingLogo',

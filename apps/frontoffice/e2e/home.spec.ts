@@ -3,7 +3,7 @@ import { waitForHydration } from './helpers';
 
 /**
  * Basic E2E tests for Frontoffice home page
- * Tests actual implementation: Header with Tavia logo, EventSearch component
+ * Tests actual implementation: Header with Eventure logo, EventSearch component
  *
  * Note: Tests only desktop viewport to avoid mobile responsive issues
  */
@@ -16,15 +16,15 @@ test.describe('Home Page - Basic', () => {
     await waitForHydration(page);
 
     // Verify page loads
-    await expect(page).toHaveTitle(/Tavia/i);
+    await expect(page).toHaveTitle(/Eventure/i);
   });
 
-  test('should display header with Tavia logo', async ({ page }) => {
+  test('should display header with Eventure logo', async ({ page }) => {
     await page.goto('/');
     await waitForHydration(page);
 
-    // Verify logo is visible (text "Tavia")
-    const logo = page.getByText('Tavia', { exact: true });
+    // Verify logo is visible (text "Eventure")
+    const logo = page.getByText('Eventure', { exact: true });
     await expect(logo).toBeVisible();
   });
 

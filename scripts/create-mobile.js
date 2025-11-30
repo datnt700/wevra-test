@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 
 /**
- * Create a new Expo mobile app in the Tavia monorepo
- * Uses Expo's official generator, then customizes for Tavia patterns
+ * Create a new Expo mobile app in the Eventure monorepo
+ * Uses Expo's official generator, then customizes for Eventure patterns
  * Usage: pnpm create:mobile [app-name]
  */
 
@@ -29,7 +29,7 @@ let appName = process.argv[2];
 
 // Main function to handle interactive prompts
 async function main() {
-  console.log('\n📱 Tavia Mobile App Generator\n');
+  console.log('\n📱 Eventure Mobile App Generator\n');
 
   // Step 1: Get app name
   if (!appName) {
@@ -64,17 +64,17 @@ async function main() {
   // Step 2: Choose creation method
   console.log('\n? How would you like to create the app?');
   console.log('  1) Use Expo CLI (recommended) - Official Expo templates');
-  console.log('  2) Use Tavia template - Pre-configured with all Tavia patterns');
+  console.log('  2) Use Eventure template - Pre-configured with all Eventure patterns');
 
   const methodChoice = await question('\nEnter your choice (1 or 2) [default: 1]: ');
 
   if (methodChoice === '2') {
-    await createFromTaviaTemplate(appName, appDir);
+    await createFromEventureTemplate(appName, appDir);
   } else {
     // Step 3: Choose Expo template if using CLI
     console.log('\n? Which Expo template would you like to use?');
     console.log('  1) Blank (TypeScript) - Minimal setup with TypeScript');
-    console.log('  2) Tabs (TypeScript) - Bottom tabs navigation (recommended for Tavia)');
+    console.log('  2) Tabs (TypeScript) - Bottom tabs navigation (recommended for Eventure)');
     console.log('  3) Drawer (TypeScript) - Side drawer navigation');
 
     const templateChoice = await question('\nEnter your choice (1, 2, or 3) [default: 2]: ');
@@ -95,7 +95,7 @@ async function main() {
 }
 
 /**
- * Create an Expo app using official CLI, then customize for Tavia
+ * Create an Expo app using official CLI, then customize for Eventure
  */
 async function createExpoApp(appName, appDir, expoTemplate) {
   console.log(`\n🚀 Creating new Expo mobile app: ${appName}\n`);
@@ -114,15 +114,15 @@ async function createExpoApp(appName, appDir, expoTemplate) {
       });
       console.log('\n✅ Expo app created successfully!\n');
     } catch {
-      console.warn('\n⚠️  Expo CLI failed, falling back to Tavia template...\n');
-      await createFromTaviaTemplate(appName, appDir);
+      console.warn('\n⚠️  Expo CLI failed, falling back to Eventure template...\n');
+      await createFromEventureTemplate(appName, appDir);
       return;
     }
 
-    // Step 2: Customize for Tavia monorepo
-    console.log('🔧 Customizing for Tavia monorepo...\n');
+    // Step 2: Customize for Eventure monorepo
+    console.log('🔧 Customizing for Eventure monorepo...\n');
 
-    await customizeForTavia(appDir, appName);
+    await customizeForEventure(appDir, appName);
 
     // Success message
     printSuccessMessage(appName, expoTemplate);
@@ -140,10 +140,10 @@ async function createExpoApp(appName, appDir, expoTemplate) {
 }
 
 /**
- * Create app from Tavia's mobile-app template
+ * Create app from Eventure's mobile-app template
  */
-async function createFromTaviaTemplate(appName, appDir) {
-  console.log(`\n🚀 Creating mobile app from Tavia template: ${appName}\n`);
+async function createFromEventureTemplate(appName, appDir) {
+  console.log(`\n🚀 Creating mobile app from Eventure template: ${appName}\n`);
 
   const templatesDir = path.join(__dirname, '..', 'templates');
   const templateDir = path.join(templatesDir, 'mobile-app');
@@ -156,7 +156,7 @@ async function createFromTaviaTemplate(appName, appDir) {
 
   try {
     // Copy template
-    console.log('📋 Copying Tavia mobile template...');
+    console.log('📋 Copying Eventure mobile template...');
     fs.cpSync(templateDir, appDir, {
       recursive: true,
       filter: (src) => {
@@ -179,7 +179,7 @@ async function createFromTaviaTemplate(appName, appDir) {
     }
 
     // Success message
-    printSuccessMessage(appName, 'Tavia template (tabs)');
+    printSuccessMessage(appName, 'Eventure template (tabs)');
   } catch (error) {
     console.error('\n❌ Error creating app from template:', error.message);
 
@@ -194,9 +194,9 @@ async function createFromTaviaTemplate(appName, appDir) {
 }
 
 /**
- * Customize Expo-generated app for Tavia
+ * Customize Expo-generated app for Eventure
  */
-async function customizeForTavia(appDir, appName) {
+async function customizeForEventure(appDir, appName) {
   // Update package.json
   await updatePackageJson(appDir, appName);
 
@@ -212,10 +212,10 @@ async function customizeForTavia(appDir, appName) {
   // Add/update testing setup
   await addTestingSetup(appDir);
 
-  // Add Tavia utilities (API client, hooks)
-  await addTaviaUtilities(appDir);
+  // Add Eventure utilities (API client, hooks)
+  await addEventureUtilities(appDir);
 
-  console.log('✅ Tavia customization complete');
+  console.log('✅ Eventure customization complete');
 }
 
 /**
@@ -227,7 +227,7 @@ async function customizeTemplateForApp(appDir, appName) {
   const packageJsonPath = path.join(appDir, 'package.json');
   const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf-8'));
 
-  packageJson.name = `@tavia/${appName}`;
+  packageJson.name = `@eventure/${appName}`;
   packageJson.version = '0.1.0';
 
   fs.writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2) + '\n');
@@ -240,14 +240,14 @@ async function customizeTemplateForApp(appDir, appName) {
 
   appJson.expo.name = capitalize(appName);
   appJson.expo.slug = appName;
-  appJson.expo.scheme = `tavia-${appName}`;
+  appJson.expo.scheme = `eventure-${appName}`;
 
   // Update bundle identifiers
   if (appJson.expo.ios) {
-    appJson.expo.ios.bundleIdentifier = `io.tavia.${appName.replace(/-/g, '')}`;
+    appJson.expo.ios.bundleIdentifier = `io.eventure.${appName.replace(/-/g, '')}`;
   }
   if (appJson.expo.android) {
-    appJson.expo.android.package = `io.tavia.${appName.replace(/-/g, '')}`;
+    appJson.expo.android.package = `io.eventure.${appName.replace(/-/g, '')}`;
   }
 
   fs.writeFileSync(appJsonPath, JSON.stringify(appJson, null, 2) + '\n');
@@ -275,13 +275,13 @@ function printSuccessMessage(appName, template) {
   console.log(`   - Name: ${appName}`);
   console.log(`   - Location: apps/${appName}`);
   console.log(`   - Template: ${template}`);
-  console.log(`   - Analytics: @tavia/analytics integrated`);
+  console.log(`   - Analytics: @eventure/analytics integrated`);
   console.log(`   - Testing: Jest + React Native Testing Library`);
   console.log(`   - Coverage: 70% threshold\n`);
 }
 
 /**
- * Update package.json with Tavia catalog dependencies
+ * Update package.json with Eventure catalog dependencies
  */
 async function updatePackageJson(appDir, appName) {
   console.log('📝 Updating package.json with catalog dependencies...');
@@ -290,7 +290,7 @@ async function updatePackageJson(appDir, appName) {
   const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf-8'));
 
   // Update name and version
-  packageJson.name = `@tavia/${appName}`;
+  packageJson.name = `@eventure/${appName}`;
   packageJson.version = '0.1.0';
   packageJson.private = true;
 
@@ -306,10 +306,10 @@ async function updatePackageJson(appDir, appName) {
     clean: 'rm -rf .expo node_modules',
   };
 
-  // Add Tavia workspace packages
+  // Add Eventure workspace packages
   packageJson.dependencies = {
     ...packageJson.dependencies,
-    '@tavia/analytics': 'workspace:*',
+    '@eventure/analytics': 'workspace:*',
     zod: 'catalog:',
   };
 
@@ -330,7 +330,7 @@ async function updatePackageJson(appDir, appName) {
 }
 
 /**
- * Add ESLint config following Tavia's ESLint 9 flat config pattern
+ * Add ESLint config following Eventure's ESLint 9 flat config pattern
  */
 async function addEslintConfig(appDir) {
   console.log('⚙️  Adding ESLint config...');
@@ -368,7 +368,7 @@ export default [
 }
 
 /**
- * Update tsconfig.json to extend Tavia's base config
+ * Update tsconfig.json to extend Eventure's base config
  */
 async function updateTsConfig(appDir) {
   console.log('📘 Updating tsconfig.json...');
@@ -378,7 +378,7 @@ async function updateTsConfig(appDir) {
   if (fs.existsSync(tsconfigPath)) {
     const tsconfig = JSON.parse(fs.readFileSync(tsconfigPath, 'utf-8'));
 
-    // Extend Tavia's base config
+    // Extend Eventure's base config
     tsconfig.extends = '@repo/typescript-config/react-library.json';
 
     fs.writeFileSync(tsconfigPath, JSON.stringify(tsconfig, null, 2) + '\n');
@@ -392,7 +392,7 @@ async function updateTsConfig(appDir) {
 async function addEnvFile(appDir, appName) {
   console.log('🔐 Creating .env.example...');
 
-  const envExample = `# Tavia ${capitalize(appName)} Mobile App - Environment Variables
+  const envExample = `# Eventure ${capitalize(appName)} Mobile App - Environment Variables
 
 # API Configuration
 EXPO_PUBLIC_API_URL=http://localhost:3000
@@ -462,8 +462,8 @@ jest.mock('expo-font');
 jest.mock('expo-asset');
 jest.mock('expo-constants', () => ({
   expoConfig: {
-    name: 'Tavia Mobile App',
-    slug: 'tavia-mobile-app',
+    name: 'Eventure Mobile App',
+    slug: 'eventure-mobile-app',
   },
 }));
 
@@ -493,8 +493,8 @@ import { Text } from 'react-native';
 
 describe('Example Test', () => {
   it('should render correctly', () => {
-    const { getByText } = render(<Text>Hello Tavia</Text>);
-    expect(getByText('Hello Tavia')).toBeTruthy();
+    const { getByText } = render(<Text>Hello Eventure</Text>);
+    expect(getByText('Hello Eventure')).toBeTruthy();
   });
 });
 `;
@@ -506,10 +506,10 @@ describe('Example Test', () => {
 }
 
 /**
- * Add Tavia-specific utilities and hooks
+ * Add Eventure-specific utilities and hooks
  */
-async function addTaviaUtilities(appDir) {
-  console.log('🛠️  Adding Tavia utilities...');
+async function addEventureUtilities(appDir) {
+  console.log('🛠️  Adding Eventure utilities...');
 
   // Create utils directory
   const utilsDir = path.join(appDir, 'utils');
@@ -559,7 +559,7 @@ export function useColorScheme() {
 
   fs.writeFileSync(path.join(hooksDir, 'useColorScheme.ts'), useColorScheme);
 
-  console.log('✅ Tavia utilities added');
+  console.log('✅ Eventure utilities added');
 }
 
 /**

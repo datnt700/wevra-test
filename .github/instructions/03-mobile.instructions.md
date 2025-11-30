@@ -17,7 +17,7 @@ apps/mobile/
 ├── utils/
 │   └── secureStorage.ts     # Platform-specific storage
 ├── hooks/                   # Custom React hooks
-├── theme/                   # Extends @tavia/taviax tokens
+├── theme/                   # Extends @Eventure/eventurex tokens
 ├── .env                     # ⚠️ Use local IP for physical devices
 └── app.json                 # Expo configuration
 ```
@@ -61,7 +61,7 @@ export const secureStorage = {
 ```typescript
 // ✅ CORRECT
 import styled from '@emotion/native';
-import { colors, spacing, radii } from '@tavia/taviax';
+import { colors, spacing, radii } from '@Eventure/eventurex';
 
 const Container = styled.View`
   background-color: ${colors.mainColor};
@@ -94,13 +94,13 @@ EXPO_PUBLIC_API_URL=http://10.0.2.2:3000
 
 ## Critical Rules
 
-1. ✅ Use `@tavia/taviax` components, NOT `@tavia/taviad`
+1. ✅ Use `@Eventure/eventurex` components, NOT `@Eventure/eventured`
 2. ✅ Import from `@emotion/native`, NOT `@emotion/styled`
 3. ✅ Use `secureStorage` abstraction for auth tokens
 4. ✅ Physical devices require local IP (same WiFi)
 5. ✅ Use `react-native-web` alias in vitest.config.ts
 6. ✅ Coverage threshold: 70% (lower than web's 80%)
-7. ❌ Never use `@tavia/taviad` in mobile
+7. ❌ Never use `@Eventure/eventured` in mobile
 8. ❌ Don't hardcode localhost - use `.env` with `EXPO_PUBLIC_`
 
 ## Running Mobile App
@@ -124,10 +124,11 @@ pnpm start
 
 ## Test Accounts
 
-- **Attendees**: `attendee1@tavia.io`, `attendee2@tavia.io` (password:
+- **Attendees**: `attendee1@eventure.so`, `attendee2@eventure.so` (password:
   `attendee123`)
-- **Organizer (Free)**: `organizer.free@tavia.io` (password: `organizer123`)
-- **Organizer (Premium)**: `organizer.pro@tavia.io` (password: `organizer123`)
-- **Admin**: `admin@tavia.io` (password: `admin123`)
+- **Organizer (Free)**: `organizer.free@eventure.so` (password: `organizer123`)
+- **Organizer (Premium)**: `organizer.pro@eventure.so` (password:
+  `organizer123`)
+- **Admin**: `admin@eventure.so` (password: `admin123`)
 
 **Mobile uses backoffice API** (`/api/mobile/*` routes with CORS enabled)

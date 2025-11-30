@@ -1,14 +1,14 @@
 /**
- * OpenAPI 3.0 Schema for Tavia Backoffice API
+ * OpenAPI 3.0 Schema for Eventure Backoffice API
  * Serves both Swagger UI and Redoc
  */
 export const openApiSchema = {
   openapi: '3.0.0',
   info: {
-    title: 'Tavia Backoffice API',
+    title: 'Eventure Backoffice API',
     version: '1.0.0',
     description: `
-## Tavia API Documentation
+## Eventure API Documentation
 
 This API provides endpoints for:
 - **Mobile Authentication** - Register, login, verify users
@@ -24,13 +24,13 @@ Authorization: Bearer <your-jwt-token>
 \`\`\`
 
 ### Base URL
-- **Production**: \`https://admin.tavia.io/api\`
+- **Production**: \`https://admin.eventure.so/api\`
 - **Development**: \`http://localhost:3000/api\`
     `,
     contact: {
-      name: 'Tavia Support',
-      email: 'support@tavia.io',
-      url: 'https://tavia.io',
+      name: 'Eventure Support',
+      email: 'support@eventure.so',
+      url: 'https://eventure.so',
     },
     license: {
       name: 'Proprietary',
@@ -38,7 +38,7 @@ Authorization: Bearer <your-jwt-token>
   },
   servers: [
     {
-      url: 'https://admin.tavia.io/api',
+      url: 'https://admin.eventure.so/api',
       description: 'Production server',
     },
     {

@@ -1,5 +1,5 @@
 {
-  "name": "@tavia/mobile",
+  "name": "@eventure/mobile",
   "main": "expo-router/entry",
   "version": "0.1.0",
   "scripts": {
@@ -19,9 +19,9 @@
     "@expo/vector-icons": "^15.0.3",
     "@react-native-async-storage/async-storage": "catalog:expo",
     "@react-navigation/native": "^7.1.8",
-    "@tavia/analytics": "workspace:*",
-    "@tavia/database": "workspace:*",
-    "@tavia/taviax": "workspace:*",
+    "@eventure/analytics": "workspace:*",
+    "@eventure/database": "workspace:*",
+    "@eventure/eventurex": "workspace:*",
     "expo": "~54.0.25",
     "expo-apple-authentication": "^8.0.7",
     "expo-auth-session": "^7.0.9",

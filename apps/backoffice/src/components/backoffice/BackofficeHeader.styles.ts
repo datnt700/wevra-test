@@ -1,11 +1,11 @@
 import styled from '@emotion/styled';
-import { type TaviaTheme } from '@tavia/taviad';
+import { type EventureTheme } from '@eventure/eventured';
 
 /**
  * Styled components for BackofficeHeader
  */
 export const Styled = {
-  Wrapper: styled.header<{ theme?: TaviaTheme }>`
+  Wrapper: styled.header<{ theme?: EventureTheme }>`
     background: ${({ theme }) => theme.colors.surface};
     border-bottom: 1px solid ${({ theme }) => theme.colors.border.default};
     width: 100%;
@@ -32,7 +32,7 @@ export const Styled = {
     min-width: 64px; /* Match collapsed sidebar width */
   `,
 
-  MenuButton: styled.button<{ theme?: TaviaTheme }>`
+  MenuButton: styled.button<{ theme?: EventureTheme }>`
     background: none;
     border: none;
     cursor: pointer;
@@ -57,7 +57,7 @@ export const Styled = {
     }
   `,
 
-  Logo: styled.div<{ theme?: TaviaTheme }>`
+  Logo: styled.div<{ theme?: EventureTheme }>`
     display: flex;
     align-items: center;
     gap: 0.5rem;
@@ -66,7 +66,7 @@ export const Styled = {
     color: ${({ theme }) => theme.colors.text.primary};
   `,
 
-  LogoIcon: styled.div<{ theme?: TaviaTheme }>`
+  LogoIcon: styled.div<{ theme?: EventureTheme }>`
     width: 32px;
     height: 32px;
     background: linear-gradient(
@@ -81,7 +81,7 @@ export const Styled = {
     color: white;
   `,
 
-  LogoText: styled.h1<{ $isMobile?: boolean; theme?: TaviaTheme }>`
+  LogoText: styled.h1<{ $isMobile?: boolean; theme?: EventureTheme }>`
     font-size: 1.25rem;
     font-weight: 700;
     margin: 0;
@@ -111,7 +111,7 @@ export const Styled = {
     gap: 1rem;
   `,
 
-  UserInfo: styled.div<{ theme?: TaviaTheme }>`
+  UserInfo: styled.div<{ theme?: EventureTheme }>`
     display: flex;
     align-items: center;
     gap: 0.75rem;
@@ -133,7 +133,7 @@ export const Styled = {
     font-size: 0.875rem;
   `,
 
-  UserName: styled.span<{ $isMobile?: boolean; theme?: TaviaTheme }>`
+  UserName: styled.span<{ $isMobile?: boolean; theme?: EventureTheme }>`
     font-size: 0.875rem;
     font-weight: 500;
     color: ${({ theme }) => theme.colors.text.primary};
@@ -144,7 +144,7 @@ export const Styled = {
     }
   `,
 
-  SignOutButton: styled.button<{ theme?: TaviaTheme }>`
+  SignOutButton: styled.button<{ theme?: EventureTheme }>`
     background: none;
     border: none;
     cursor: pointer;

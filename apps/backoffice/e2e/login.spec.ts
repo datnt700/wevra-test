@@ -7,11 +7,11 @@ import { fillInput, clickAndWaitForNavigation, waitForHydration } from './helper
 // Test credentials
 const TEST_CREDENTIALS = {
   ADMIN: {
-    email: 'admin@tavia.io',
+    email: 'admin@eventure.so',
     password: 'admin123',
   },
   ORGANIZER: {
-    email: 'organizer.pro@tavia.io',
+    email: 'organizer.pro@eventure.so',
     password: 'organizer123',
   },
   INVALID: {
@@ -48,11 +48,11 @@ test.describe('Backoffice Login Page', () => {
       await expect(page.getByText('Contact us')).toBeVisible();
 
       // Check copyright
-      await expect(page.getByText(/© \d{4} Tavia/)).toBeVisible();
+      await expect(page.getByText(/© \d{4} Eventure/)).toBeVisible();
     });
 
     test('should have correct page title', async ({ page }) => {
-      await expect(page).toHaveTitle(/Login|Sign In|Tavia|Backoffice/i);
+      await expect(page).toHaveTitle(/Login|Sign In|Eventure|Backoffice/i);
     });
 
     test('should have password toggle functionality', async ({ page }) => {
@@ -144,7 +144,7 @@ test.describe('Backoffice Login Page', () => {
 
   test.describe('Role-based Access Control', () => {
     test('should deny attendee login to backoffice', async ({ page }) => {
-      await fillInput(page, 'Email', 'attendee1@tavia.io');
+      await fillInput(page, 'Email', 'attendee1@eventure.so');
       await fillInput(page, 'Password', 'attendee123');
 
       const submitButton = page.getByRole('button', { name: 'Sign In' });

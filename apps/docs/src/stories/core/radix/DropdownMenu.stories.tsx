@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { DropdownMenu, Button, Badge } from '@tavia/taviad';
+import { DropdownMenu, Button, Badge } from '@eventure/eventured';
 import { HamburgerMenuIcon, DotsVerticalIcon, GearIcon } from '@radix-ui/react-icons';
 import {
   Settings,

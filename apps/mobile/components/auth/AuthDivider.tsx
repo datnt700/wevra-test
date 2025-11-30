@@ -1,8 +1,8 @@
 /**
  * Auth Divider Component
- * Wrapper around @tavia/taviax AuthDivider with i18n support
+ * Wrapper around @eventure/eventurex AuthDivider with i18n support
  */
-import { AuthDivider as TaviaxAuthDivider } from '@tavia/taviax';
+import { AuthDivider as EventurexAuthDivider } from '@eventure/eventurex';
 import i18n from '@/i18n';
 
 interface AuthDividerProps {
@@ -11,5 +11,5 @@ interface AuthDividerProps {
 
 export const AuthDivider = ({ text }: AuthDividerProps) => {
   const dividerText = text || i18n.t('auth.divider.or');
-  return <TaviaxAuthDivider text={dividerText} />;
+  return <EventurexAuthDivider text={dividerText} />;
 };

@@ -9,11 +9,11 @@ terraform {
   }
 
   backend "s3" {
-    bucket         = "tavia-terraform-state"
-    key            = "tavia/terraform.tfstate"
+    bucket         = "Eventure-terraform-state"
+    key            = "Eventure/terraform.tfstate"
     region         = "us-east-1"
     encrypt        = true
-    dynamodb_table = "tavia-terraform-locks"
+    dynamodb_table = "Eventure-terraform-locks"
   }
 }
 
@@ -22,7 +22,7 @@ provider "aws" {
 
   default_tags {
     tags = {
-      Project     = "Tavia"
+      Project     = "Eventure"
       Environment = var.environment
       ManagedBy   = "Terraform"
     }

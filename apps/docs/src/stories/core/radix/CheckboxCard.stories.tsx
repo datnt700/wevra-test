@@ -1,5 +1,5 @@
 import { Meta, StoryObj } from '@storybook/react';
-import { CheckboxCard, Button } from '@tavia/taviad';
+import { CheckboxCard, Button } from '@eventure/eventured';
 import { useState } from 'react';
 
 /**

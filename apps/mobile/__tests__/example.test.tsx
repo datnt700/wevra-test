@@ -3,7 +3,7 @@ import { Text } from 'react-native';
 
 describe('Example Test', () => {
   it('should render correctly', () => {
-    const { getByText } = render(<Text>Hello Tavia</Text>);
-    expect(getByText('Hello Tavia')).toBeTruthy();
+    const { getByText } = render(<Text>Hello Eventure</Text>);
+    expect(getByText('Hello Eventure')).toBeTruthy();
   });
 });

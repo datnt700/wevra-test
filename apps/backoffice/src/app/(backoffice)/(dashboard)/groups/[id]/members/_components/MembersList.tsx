@@ -2,10 +2,10 @@
 
 import { useState } from 'react';
 import { useTranslations } from 'next-intl';
-import { Button, Alert } from '@tavia/taviad';
+import { Button, Alert } from '@eventure/eventured';
 import { useApproveMember, useRemoveMember } from '../../../_hooks/useGroups';
 import { Styled } from './MembersList.styles';
-import type { GroupMemberWithUser } from '@tavia/database';
+import type { GroupMemberWithUser } from '@eventure/database';
 
 interface MembersListProps {
   groupId: string;

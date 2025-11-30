@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Divider } from '@tavia/taviad';
+import { Divider } from '@eventure/eventured';
 
 const meta = {
   title: 'Core/Layout/Divider',

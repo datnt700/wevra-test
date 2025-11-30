@@ -5,7 +5,7 @@
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
-    "scheme": "tavia",
+    "scheme": "eventure",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "splash": {
@@ -15,14 +15,14 @@
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "io.tavia.mobileapp"
+      "bundleIdentifier": "so.eventure.mobileapp"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "io.tavia.mobileapp"
+      "package": "so.eventure.mobileapp"
     },
     "web": {
       "bundler": "metro",

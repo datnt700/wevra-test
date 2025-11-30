@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Select } from '@tavia/taviad';
+import { Select } from '@eventure/eventured';
 
 const meta: Meta<typeof Select> = {
   title: 'Core/Form/Select',

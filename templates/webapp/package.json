@@ -1,9 +1,9 @@
 {
-  "name": "@tavia/webapp-template",
-  "version": "0.0.1",
+  "name": "@eventure/webapp-template",
+  "version": "0.1.0",
   "private": true,
   "type": "module",
-  "description": "Generic Next.js 15 webapp template for Tavia monorepo",
+  "description": "Generic Next.js 15 webapp template for Eventure monorepo",
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",
@@ -33,10 +33,10 @@
     "db:studio": "prisma studio"
   },
   "dependencies": {
-    "@tavia/analytics": "workspace:*",
-    "@tavia/env": "workspace:*",
-    "@tavia/taviad": "workspace:*",
-    "@tavia/module-generator": "workspace:*",
+    "@eventure/analytics": "workspace:*",
+    "@eventure/env": "workspace:*",
+    "@eventure/eventured": "workspace:*",
+    "@eventure/module-generator": "workspace:*",
     "@emotion/react": "catalog:emotion",
     "@emotion/styled": "catalog:emotion",
     "next": "catalog:",

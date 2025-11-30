@@ -1,7 +1,7 @@
 # Generic NestJS 11 API Template
 
 This is a **generic template** for creating new NestJS 11 API microservices in
-the Tavia monorepo. It contains minimal structure without business-specific
+the Eventure monorepo. It contains minimal structure without business-specific
 logic.
 
 ## 🎯 Purpose
@@ -46,7 +46,7 @@ complex-api-template/
 
 When creating a new API from this template, customize:
 
-1. **Package name**: Update `name` in `package.json` to `@tavia/your-api-name`
+1. **Package name**: Update `name` in `package.json` to `@eventure/your-api-name`
 2. **Port**: Update port in `src/main.ts` (use range 4000-4099)
 3. **Prisma models**: Add your database models in `prisma/schema.prisma`
 4. **Resource modules**: Replace example module with your actual resources

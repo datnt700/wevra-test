@@ -1,6 +1,6 @@
 'use client';
 import { Global, ThemeProvider, css } from '@emotion/react';
-import { cssVars, GlobalStyles, theme } from '@tavia/taviad';
+import { cssVars, GlobalStyles, theme } from '@eventure/eventured';
 import { ThemeProvider as LocalThemeProvider } from '@/context/ThemeContext';
 
 export default function Home() {
@@ -21,7 +21,7 @@ export default function Home() {
         />
         {GlobalStyles()}
         <div>
-          <h1>Tavia Component Library</h1>
+          <h1>Eventure Component Library</h1>
           <p>View components in Storybook</p>
         </div>
       </ThemeProvider>

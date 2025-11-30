@@ -42,7 +42,7 @@ services:
 ## Environment Variables
 
 ```env
-DATABASE_URL="postgresql://postgres:postgres@localhost:5432/tavia"
+DATABASE_URL="postgresql://postgres:postgres@localhost:5432/eventure"
 
 # Generate secure JWT secret (32+ characters)
 # Run: node -e "console.log(require('crypto').randomBytes(32).toString('base64'))"
@@ -95,7 +95,7 @@ pnpm db:seed
 ```
 ┌─────────────────┐
 │  PostgreSQL     │
-│   "tavia"       │
+│   "eventure"       │
 │  Port: 5432     │
 └────────┬────────┘
          │
@@ -128,10 +128,10 @@ pnpm db:generate  # NOT migrate - just generate client
 - ⚠️ Schema changes? Copy to frontoffice `prisma/schema.prisma`
 - ⚠️ Frontoffice uses `pnpm db:generate` only
 
-## Shared Types (@tavia/database)
+## Shared Types (@eventure/database)
 
-**ALWAYS use shared types from `@tavia/database` package** - NEVER define local
-interfaces
+**ALWAYS use shared types from `@eventure/database` package** - NEVER define
+local interfaces
 
 **Available Types:**
 
@@ -142,28 +142,28 @@ import type {
   GroupWithOwner,
   GroupWithCounts,
   GroupMemberWithUser,
-} from '@tavia/database';
+} from '@eventure/database';
 
 // Common types
-import type { ActionResponse } from '@tavia/database';
+import type { ActionResponse } from '@eventure/database';
 
 // Enums
 import {
   MembershipStatus,
   UserRole,
   SubscriptionStatus,
-} from '@tavia/database';
+} from '@eventure/database';
 
 // Prisma selects (for queries)
-import { groupDetailSelect, groupWithOwnerSelect } from '@tavia/database';
+import { groupDetailSelect, groupWithOwnerSelect } from '@eventure/database';
 ```
 
 **Usage Pattern:**
 
 ```typescript
 // ✅ CORRECT - Use shared types and enums
-import type { GroupDetail } from '@tavia/database';
-import { MembershipStatus, groupDetailSelect } from '@tavia/database';
+import type { GroupDetail } from '@eventure/database';
+import { MembershipStatus, groupDetailSelect } from '@eventure/database';
 
 const group = await prisma.group.findUnique({
   where: { id },
@@ -191,11 +191,11 @@ interface GroupData {
 
 **Rules:**
 
-1. ✅ **ALWAYS** import types from `@tavia/database`
+1. ✅ **ALWAYS** import types from `@eventure/database`
 2. ✅ **ALWAYS** use enum values (e.g., `MembershipStatus.ACTIVE`) instead of
    strings
 3. ✅ Import enums without `type` keyword:
-   `import { MembershipStatus } from '@tavia/database'`
+   `import { MembershipStatus } from '@eventure/database'`
 4. ✅ Use Prisma select validators (`groupDetailSelect`) for consistent queries
 5. ✅ Define new shared types in `packages/database/src/types/`
 6. ✅ Use `ActionResponse<T>` for server actions and API routes
@@ -229,9 +229,9 @@ export type NewGroupType = Prisma.GroupGetPayload<{
 - 20+ RSVPs
 - Sample analytics data
 
-**Test Users:**
+**Seeded Users:**
 
-- Admin: `admin@tavia.io` (admin123)
-- Organizer (Free): `organizer.free@tavia.io` (organizer123)
-- Organizer (Premium): `organizer.pro@tavia.io` (organizer123)
-- Attendee: `attendee1@tavia.io`, `attendee2@tavia.io` (attendee123)
+- Admin: `admin@eventure.so` (admin123)
+- Organizer (Free): `organizer.free@eventure.so` (organizer123)
+- Organizer (Premium): `organizer.pro@eventure.so` (organizer123)
+- Attendee: `attendee1@eventure.so`, `attendee2@eventure.so` (attendee123)

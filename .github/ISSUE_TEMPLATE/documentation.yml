@@ -58,7 +58,7 @@ body:
         - Booking System
         - Cafe Management
         - Database/Prisma
-        - UI Components (@tavia/taviad)
+        - UI Components (@eventure/eventured)
         - API Routes
         - Deployment
         - CI/CD

@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { motion } from 'framer-motion';
-import { type TaviaTheme } from '@tavia/taviad';
+import { type EventureTheme } from '@eventure/eventured';
 
 /**
  * Styled components for BackofficeSidebar
@@ -9,7 +9,7 @@ import { type TaviaTheme } from '@tavia/taviad';
  * - Mobile/Tablet (<1024px): Overlay sidebar with higher z-index
  */
 export const Styled = {
-  Wrapper: styled(motion.aside)<{ $isOpen: boolean; $isMobile: boolean; theme?: TaviaTheme }>`
+  Wrapper: styled(motion.aside)<{ $isOpen: boolean; $isMobile: boolean; theme?: EventureTheme }>`
     position: relative;
     background: ${({ theme }) => theme.colors.surface};
     border-right: 1px solid ${({ theme }) => theme.colors.border.default};
@@ -46,7 +46,7 @@ export const Styled = {
     padding: 0 0.5rem;
   `,
 
-  NavItemWrapper: styled.div<{ $isActive?: boolean; $isOpen?: boolean; theme?: TaviaTheme }>`
+  NavItemWrapper: styled.div<{ $isActive?: boolean; $isOpen?: boolean; theme?: EventureTheme }>`
     border-radius: 0.5rem;
     background-color: ${({ $isActive, theme }) =>
       $isActive ? theme.colors.primaryActive + '15' : 'transparent'}; /* 15 = ~8% opacity */
@@ -98,7 +98,7 @@ export const Styled = {
     }
   `,
 
-  NavItem: styled.a<{ $isActive?: boolean; theme?: TaviaTheme }>`
+  NavItem: styled.a<{ $isActive?: boolean; theme?: EventureTheme }>`
     display: flex;
     align-items: center;
     gap: 0.75rem;
@@ -139,7 +139,7 @@ export const Styled = {
     margin-top: 1.5rem;
   `,
 
-  SectionTitle: styled.h3<{ theme?: TaviaTheme }>`
+  SectionTitle: styled.h3<{ theme?: EventureTheme }>`
     font-size: 0.75rem;
     font-weight: 600;
     color: ${({ theme }) => theme.colors.text.tertiary};

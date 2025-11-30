@@ -1,5 +1,5 @@
 /**
- * i18n Configuration for Tavia Mobile
+ * i18n Configuration for Eventure Mobile
  * Detects user's system language and falls back to English
  */
 import { I18n } from 'i18n-js';

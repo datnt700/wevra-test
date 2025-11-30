@@ -91,7 +91,7 @@ test.describe('Authentication Flow', () => {
 
   test('should display copyright text', async ({ page }) => {
     const currentYear = new Date().getFullYear();
-    await expect(page.getByText(new RegExp(`© ${currentYear} Tavia`))).toBeVisible();
+    await expect(page.getByText(new RegExp(`© ${currentYear} Eventure`))).toBeVisible();
   });
 });
 

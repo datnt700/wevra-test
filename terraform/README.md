@@ -1,6 +1,6 @@
-# Tavia Terraform Infrastructure
+# Eventure Terraform Infrastructure
 
-Production-grade AWS infrastructure for Tavia platform using Terraform.
+Production-grade AWS infrastructure for Eventure platform using Terraform.
 
 ## 🏗️ Architecture
 
@@ -158,13 +158,13 @@ FRONTOFFICE_REPO=$(terraform output -raw ecr_frontoffice_repository_url)
 cd ../..
 
 # Backoffice
-docker build -t tavia-backoffice -f apps/backoffice/Dockerfile .
-docker tag tavia-backoffice:latest $BACKOFFICE_REPO:latest
+docker build -t Eventure-backoffice -f apps/backoffice/Dockerfile .
+docker tag Eventure-backoffice:latest $BACKOFFICE_REPO:latest
 docker push $BACKOFFICE_REPO:latest
 
 # Frontoffice
-docker build -t tavia-frontoffice -f apps/frontoffice/Dockerfile .
-docker tag tavia-frontoffice:latest $FRONTOFFICE_REPO:latest
+docker build -t Eventure-frontoffice -f apps/frontoffice/Dockerfile .
+docker tag Eventure-frontoffice:latest $FRONTOFFICE_REPO:latest
 docker push $FRONTOFFICE_REPO:latest
 ```
 
@@ -172,8 +172,8 @@ docker push $FRONTOFFICE_REPO:latest
 
 ```bash
 # Force new deployment to pull latest images
-aws ecs update-service --cluster tavia-cluster --service tavia-backoffice --force-new-deployment
-aws ecs update-service --cluster tavia-cluster --service tavia-frontoffice --force-new-deployment
+aws ecs update-service --cluster Eventure-cluster --service Eventure-backoffice --force-new-deployment
+aws ecs update-service --cluster Eventure-cluster --service Eventure-frontoffice --force-new-deployment
 ```
 
 ## 🗄️ Database Migration
@@ -185,7 +185,7 @@ DB_NAME=$(terraform output -raw rds_database_name)
 
 # Run migrations from local machine (requires network access)
 cd ../..
-DATABASE_URL="postgresql://tavia_admin:$TF_VAR_db_password@$RDS_ENDPOINT/$DB_NAME" pnpm --filter=backoffice db:migrate:deploy
+DATABASE_URL="postgresql://eventure_admin:$TF_VAR_db_password@$RDS_ENDPOINT/$DB_NAME" pnpm --filter=backoffice db:migrate:deploy
 ```
 
 **Or run from ECS task:**
@@ -193,7 +193,7 @@ DATABASE_URL="postgresql://tavia_admin:$TF_VAR_db_password@$RDS_ENDPOINT/$DB_NAM
 ```bash
 # Execute migration in running container
 aws ecs execute-command \
-  --cluster tavia-cluster \
+  --cluster Eventure-cluster \
   --task <task-id> \
   --container backoffice \
   --interactive \
@@ -206,10 +206,10 @@ aws ecs execute-command \
 
 ```bash
 # View backoffice logs
-aws logs tail /ecs/tavia/backoffice --follow
+aws logs tail /ecs/Eventure/backoffice --follow
 
 # View frontoffice logs
-aws logs tail /ecs/tavia/frontoffice --follow
+aws logs tail /ecs/Eventure/frontoffice --follow
 ```
 
 ### ECS Service Status
@@ -217,11 +217,11 @@ aws logs tail /ecs/tavia/frontoffice --follow
 ```bash
 # Check service status
 aws ecs describe-services \
-  --cluster tavia-cluster \
-  --services tavia-backoffice tavia-frontoffice
+  --cluster Eventure-cluster \
+  --services Eventure-backoffice Eventure-frontoffice
 
 # Check task health
-aws ecs list-tasks --cluster tavia-cluster --service-name tavia-backoffice
+aws ecs list-tasks --cluster Eventure-cluster --service-name Eventure-backoffice
 ```
 
 ### RDS Performance
@@ -231,7 +231,7 @@ aws ecs list-tasks --cluster tavia-cluster --service-name tavia-backoffice
 aws cloudwatch get-metric-statistics \
   --namespace AWS/RDS \
   --metric-name CPUUtilization \
-  --dimensions Name=DBInstanceIdentifier,Value=tavia-postgres \
+  --dimensions Name=DBInstanceIdentifier,Value=Eventure-postgres \
   --start-time 2025-11-24T00:00:00Z \
   --end-time 2025-11-24T23:59:59Z \
   --period 3600 \
@@ -303,14 +303,14 @@ jobs:
 
       - name: Build and push
         run: |
-          docker build -t tavia-backoffice -f apps/backoffice/Dockerfile .
-          docker tag tavia-backoffice:latest <ecr-url>:latest
+          docker build -t Eventure-backoffice -f apps/backoffice/Dockerfile .
+          docker tag Eventure-backoffice:latest <ecr-url>:latest
           docker push <ecr-url>:latest
 
       - name: Deploy to ECS
         run:
-          aws ecs update-service --cluster tavia-cluster --service
-          tavia-backoffice --force-new-deployment
+          aws ecs update-service --cluster Eventure-cluster --service
+          Eventure-backoffice --force-new-deployment
 ```
 
 ## 🧹 Cleanup

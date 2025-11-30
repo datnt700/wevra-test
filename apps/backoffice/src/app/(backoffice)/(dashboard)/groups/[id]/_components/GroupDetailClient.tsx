@@ -3,11 +3,11 @@
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
-import { Button, Badge } from '@tavia/taviad';
+import { Button, Badge } from '@eventure/eventured';
 import { ArrowLeft } from 'lucide-react';
 import { ROUTES } from '@/lib/constants';
 import { Styled } from './GroupDetailClient.styles';
-import type { GroupWithOwner } from '@tavia/database';
+import type { GroupWithOwner } from '@eventure/database';
 
 interface GroupDetailClientProps {
   group: GroupWithOwner;

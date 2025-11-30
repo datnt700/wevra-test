@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 /**
- * Create a new Next.js webapp in the Tavia monorepo
+ * Create a new Next.js webapp in the Eventure monorepo
  * Usage: pnpm create:app <app-name>
  */
 
@@ -50,7 +50,7 @@ let appName = process.argv[2];
 
 // Interactive mode if no app name provided
 async function promptForAppDetails() {
-  console.log('\n🏗️  Tavia Web App Generator\n');
+  console.log('\n🏗️  Eventure Web App Generator\n');
 
   const answers = await inquirer.prompt([
     {
@@ -75,7 +75,7 @@ async function promptForAppDetails() {
       type: 'input',
       name: 'description',
       message: 'Brief description of the app:',
-      default: (answers) => `${capitalize(answers.appName)} web application for Tavia monorepo`,
+      default: (answers) => `${capitalize(answers.appName)} web application for Eventure monorepo`,
     },
   ]);
 
@@ -98,7 +98,7 @@ async function promptForAppDetails() {
       );
       process.exit(1);
     }
-    description = `${capitalize(appName)} web application for Tavia monorepo`;
+    description = `${capitalize(appName)} web application for Eventure monorepo`;
   }
 
   const appsDir = path.join(__dirname, '..', 'apps');
@@ -129,7 +129,7 @@ async function promptForAppDetails() {
   const packageJsonPath = path.join(appDir, 'package.json');
   const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf-8'));
 
-  packageJson.name = `@tavia/${appName}`;
+  packageJson.name = `@eventure/${appName}`;
   packageJson.version = '0.1.0';
   packageJson.description = description;
 
@@ -186,7 +186,7 @@ async function promptForAppDetails() {
     );
     readme = readme.replace(/Webapp Template/g, `${capitalize(appName)} App`);
     readme = readme.replace(/webapp-template/g, appName);
-    readme = readme.replace(/@tavia\/webapp-template/g, `@tavia/${appName}`);
+    readme = readme.replace(/@eventure\/webapp-template/g, `@eventure/${appName}`);
     readme = readme.replace(/localhost:3000/g, `localhost:${newPort}`);
     fs.writeFileSync(readmePath, readme);
   }
@@ -235,11 +235,11 @@ async function promptForAppDetails() {
   console.log('   ✅ Next.js 15 + React 19 + TypeScript');
   console.log('   ✅ next-intl for internationalization (en, vi) with modular structure');
   console.log('   ✅ Prisma ORM (PostgreSQL ready with Docker)');
-  console.log('   ✅ @tavia/taviad UI components with Emotion styling');
-  console.log('   ✅ @tavia/analytics SDK integrated');
+  console.log('   ✅ @eventure/eventured UI components with Emotion styling');
+  console.log('   ✅ @eventure/analytics SDK integrated');
   console.log('   ✅ Vitest + Testing Library with React 19 support');
   console.log('   ✅ ClientProviders and AnalyticsProvider setup');
-  console.log('   ✅ @tavia/module-generator for scaffolding feature modules');
+  console.log('   ✅ @eventure/module-generator for scaffolding feature modules');
   console.log('   ✅ Shared types directory (src/types/) for type safety');
   console.log('   ✅ Turbopack with monorepo root configuration');
   console.log('   ✅ Image optimization (Unsplash pre-configured)');

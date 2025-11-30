@@ -1,7 +1,7 @@
 'use client';
 
 import styled from '@emotion/styled';
-import { theme } from '@tavia/taviad';
+import { theme } from '@eventure/eventured';
 
 interface FieldErrorProps {
   message?: string;

@@ -2,10 +2,10 @@
 
 import { useTranslations } from 'next-intl';
 import { Plus, Users, Calendar, MapPin, Crown } from 'lucide-react';
-import { Button, Card, Badge } from '@tavia/taviad';
+import { Button, Card, Badge } from '@eventure/eventured';
 import { ROUTES } from '@/lib/constants';
 import { Styled } from './GroupsPageClient.styles';
-import type { GroupWithCounts } from '@tavia/database';
+import type { GroupWithCounts } from '@eventure/database';
 
 interface GroupsPageClientProps {
   groups: GroupWithCounts[];

@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
-import { WizardStepper, Button, InputText, Label, TextArea } from '@tavia/taviad';
-import type { Step } from '@tavia/taviad';
+import { WizardStepper, Button, InputText, Label, TextArea } from '@eventure/eventured';
+import type { Step } from '@eventure/eventured';
 
 /**
  * WizardStepper component - A visual indicator for multi-step processes.

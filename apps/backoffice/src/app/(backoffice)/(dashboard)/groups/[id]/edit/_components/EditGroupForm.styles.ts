@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { type TaviaTheme } from '@tavia/taviad';
+import { type EventureTheme } from '@eventure/eventured';
 
 /**
  * Styled components for EditGroupForm
@@ -14,19 +14,19 @@ export const Styled = {
     margin-bottom: 2rem;
   `,
 
-  PageTitle: styled.h1<{ theme?: TaviaTheme }>`
+  PageTitle: styled.h1<{ theme?: EventureTheme }>`
     font-size: 1.875rem;
     font-weight: 700;
     color: ${({ theme }) => theme.colors.text.primary};
     margin-bottom: 0.5rem;
   `,
 
-  PageSubtitle: styled.p<{ theme?: TaviaTheme }>`
+  PageSubtitle: styled.p<{ theme?: EventureTheme }>`
     font-size: 1rem;
     color: ${({ theme }) => theme.colors.text.secondary};
   `,
 
-  FormContainer: styled.form<{ theme?: TaviaTheme }>`
+  FormContainer: styled.form<{ theme?: EventureTheme }>`
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
@@ -39,14 +39,14 @@ export const Styled = {
     border: 1px solid ${({ theme }) => theme.colors.border.default};
   `,
 
-  ButtonGroup: styled.div<{ theme?: TaviaTheme }>`
+  ButtonGroup: styled.div<{ theme?: EventureTheme }>`
     display: flex;
     gap: 1rem;
     padding-top: 1rem;
     border-top: 1px solid ${({ theme }) => theme.colors.border.default};
   `,
 
-  DangerZone: styled.div<{ theme?: TaviaTheme }>`
+  DangerZone: styled.div<{ theme?: EventureTheme }>`
     margin-top: 2rem;
     padding: 1.5rem;
     background-color: #ffffff;
@@ -54,14 +54,14 @@ export const Styled = {
     border: 1px solid ${({ theme }) => theme.colors.danger};
   `,
 
-  DangerTitle: styled.h3<{ theme?: TaviaTheme }>`
+  DangerTitle: styled.h3<{ theme?: EventureTheme }>`
     font-size: 1.125rem;
     font-weight: 600;
     color: ${({ theme }) => theme.colors.danger};
     margin-bottom: 0.5rem;
   `,
 
-  DangerDescription: styled.p<{ theme?: TaviaTheme }>`
+  DangerDescription: styled.p<{ theme?: EventureTheme }>`
     font-size: 0.875rem;
     color: ${({ theme }) => theme.colors.text.secondary};
     margin-bottom: 1rem;

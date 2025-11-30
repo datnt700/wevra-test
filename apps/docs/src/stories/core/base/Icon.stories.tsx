@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Icon } from '@tavia/taviad';
+import { Icon } from '@eventure/eventured';
 import {
   Check,
   X,

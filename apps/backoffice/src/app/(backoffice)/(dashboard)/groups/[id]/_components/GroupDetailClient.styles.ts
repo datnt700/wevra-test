@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { type TaviaTheme } from '@tavia/taviad';
+import { type EventureTheme } from '@eventure/eventured';
 
 /**
  * Styled components for GroupDetailClient
@@ -17,7 +17,7 @@ export const Styled = {
     }
   `,
 
-  HeroPlaceholder: styled.div<{ theme?: TaviaTheme }>`
+  HeroPlaceholder: styled.div<{ theme?: EventureTheme }>`
     width: 100%;
     height: 100%;
     background: ${({ theme }) =>
@@ -134,7 +134,7 @@ export const Styled = {
     }
   `,
 
-  Section: styled.div<{ theme?: TaviaTheme }>`
+  Section: styled.div<{ theme?: EventureTheme }>`
     margin-bottom: 1.5rem;
     background-color: ${({ theme }) => theme.colors.surface};
     padding: 2rem;
@@ -170,19 +170,19 @@ export const Styled = {
     margin-bottom: 0.5rem;
   `,
 
-  Title: styled.h1<{ theme?: TaviaTheme }>`
+  Title: styled.h1<{ theme?: EventureTheme }>`
     font-size: 1.875rem;
     font-weight: 700;
     color: ${({ theme }) => theme.colors.text.primary};
     margin: 0;
   `,
 
-  Category: styled.p<{ theme?: TaviaTheme }>`
+  Category: styled.p<{ theme?: EventureTheme }>`
     color: ${({ theme }) => theme.colors.text.secondary};
     margin: 0;
   `,
 
-  Location: styled.p<{ theme?: TaviaTheme }>`
+  Location: styled.p<{ theme?: EventureTheme }>`
     font-size: 0.875rem;
     color: ${({ theme }) => theme.colors.text.tertiary};
     margin: 0.25rem 0 0 0;
@@ -198,7 +198,7 @@ export const Styled = {
     }
   `,
 
-  Stats: styled.div<{ theme?: TaviaTheme }>`
+  Stats: styled.div<{ theme?: EventureTheme }>`
     display: flex;
     align-items: center;
     gap: 1.5rem;
@@ -212,13 +212,13 @@ export const Styled = {
     align-items: center;
   `,
 
-  Description: styled.div<{ theme?: TaviaTheme }>`
+  Description: styled.div<{ theme?: EventureTheme }>`
     white-space: pre-wrap;
     color: ${({ theme }) => theme.colors.text.primary};
     line-height: 1.6;
   `,
 
-  SectionTitle: styled.h2<{ theme?: TaviaTheme }>`
+  SectionTitle: styled.h2<{ theme?: EventureTheme }>`
     font-size: 1.25rem;
     font-weight: 600;
     color: ${({ theme }) => theme.colors.text.primary};
@@ -238,7 +238,7 @@ export const Styled = {
     gap: 0.75rem;
   `,
 
-  Avatar: styled.div<{ $hasImage: boolean; theme?: TaviaTheme }>`
+  Avatar: styled.div<{ $hasImage: boolean; theme?: EventureTheme }>`
     width: 3rem;
     height: 3rem;
     border-radius: ${({ theme }) => theme.radii.full};
@@ -268,19 +268,19 @@ export const Styled = {
     gap: 0.25rem;
   `,
 
-  OrganizerName: styled.p<{ theme?: TaviaTheme }>`
+  OrganizerName: styled.p<{ theme?: EventureTheme }>`
     font-weight: 500;
     color: ${({ theme }) => theme.colors.text.primary};
     margin: 0;
   `,
 
-  OrganizerRole: styled.p<{ theme?: TaviaTheme }>`
+  OrganizerRole: styled.p<{ theme?: EventureTheme }>`
     font-size: 0.875rem;
     color: ${({ theme }) => theme.colors.text.secondary};
     margin: 0;
   `,
 
-  EmptyState: styled.p<{ theme?: TaviaTheme }>`
+  EmptyState: styled.p<{ theme?: EventureTheme }>`
     color: ${({ theme }) => theme.colors.text.secondary};
     text-align: center;
     padding: 2rem;

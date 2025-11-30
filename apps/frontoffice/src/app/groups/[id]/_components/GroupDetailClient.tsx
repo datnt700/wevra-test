@@ -3,12 +3,12 @@
 import { useTranslations } from 'next-intl';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
-import { Button, Badge } from '@tavia/taviad';
+import { Button, Badge } from '@eventure/eventured';
 import { ArrowLeft } from 'lucide-react';
 import { Styled } from './GroupDetailClient.styles';
 import { useJoinGroup } from '../_hooks/useJoinGroup';
 import { useLeaveGroup } from '../_hooks/useLeaveGroup';
-import { type GroupDetail, MembershipStatus } from '@tavia/database';
+import { type GroupDetail, MembershipStatus } from '@eventure/database';
 
 interface GroupDetailClientProps {
   group: GroupDetail;

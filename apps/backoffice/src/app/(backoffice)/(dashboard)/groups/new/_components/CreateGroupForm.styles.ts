@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { type TaviaTheme } from '@tavia/taviad';
+import { type EventureTheme } from '@eventure/eventured';
 
 export const Styled = {
   PageContainer: styled.div`
@@ -17,13 +17,13 @@ export const Styled = {
     gap: 0.5rem;
   `,
 
-  PageTitle: styled.h1<{ theme?: TaviaTheme }>`
+  PageTitle: styled.h1<{ theme?: EventureTheme }>`
     font-size: 2rem;
     font-weight: 700;
     color: ${({ theme }) => theme.colors.text.primary};
   `,
 
-  PageSubtitle: styled.p<{ theme?: TaviaTheme }>`
+  PageSubtitle: styled.p<{ theme?: EventureTheme }>`
     font-size: 1rem;
     color: ${({ theme }) => theme.colors.text.secondary};
   `,
@@ -56,7 +56,7 @@ export const Styled = {
     align-items: center;
   `,
 
-  StepCircle: styled.div<{ theme?: TaviaTheme; $isActive: boolean }>`
+  StepCircle: styled.div<{ theme?: EventureTheme; $isActive: boolean }>`
     display: flex;
     height: 2.5rem;
     width: 2.5rem;
@@ -81,7 +81,7 @@ export const Styled = {
         `}
   `,
 
-  StepTitle: styled.p<{ theme?: TaviaTheme; $isActive: boolean }>`
+  StepTitle: styled.p<{ theme?: EventureTheme; $isActive: boolean }>`
     margin-top: 0.5rem;
     font-size: 0.875rem;
     font-weight: 500;
@@ -91,7 +91,7 @@ export const Styled = {
       $isActive ? `color: ${theme.colors.primary};` : `color: ${theme.colors.text.tertiary};`}
   `,
 
-  StepConnector: styled.div<{ theme?: TaviaTheme; $isActive: boolean }>`
+  StepConnector: styled.div<{ theme?: EventureTheme; $isActive: boolean }>`
     margin: 0 1rem;
     height: 2px;
     flex: 1;
@@ -109,14 +109,14 @@ export const Styled = {
     gap: 1.5rem;
   `,
 
-  SummaryCard: styled.div<{ theme?: TaviaTheme }>`
+  SummaryCard: styled.div<{ theme?: EventureTheme }>`
     border-radius: ${({ theme }) => theme.radii.lg};
     border: 1px solid ${({ theme }) => theme.colors.border.default};
     background-color: ${({ theme }) => theme.colors.surface};
     padding: 1.5rem;
   `,
 
-  SummaryTitle: styled.h3<{ theme?: TaviaTheme }>`
+  SummaryTitle: styled.h3<{ theme?: EventureTheme }>`
     margin-bottom: 1rem;
     font-size: 1.125rem;
     font-weight: 600;
@@ -132,16 +132,16 @@ export const Styled = {
 
   SummaryItem: styled.div``,
 
-  SummaryLabel: styled.dt<{ theme?: TaviaTheme }>`
+  SummaryLabel: styled.dt<{ theme?: EventureTheme }>`
     font-weight: 500;
     color: ${({ theme }) => theme.colors.text.secondary};
   `,
 
-  SummaryValue: styled.dd<{ theme?: TaviaTheme }>`
+  SummaryValue: styled.dd<{ theme?: EventureTheme }>`
     color: ${({ theme }) => theme.colors.text.tertiary};
   `,
 
-  ButtonGroup: styled.div<{ theme?: TaviaTheme }>`
+  ButtonGroup: styled.div<{ theme?: EventureTheme }>`
     display: flex;
     gap: 1rem;
     border-top: 1px solid ${({ theme }) => theme.colors.border.default};

@@ -4,14 +4,14 @@ import { useState } from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { Toaster } from 'sonner';
-import { GlobalStyles, ThemeWrapper } from '@tavia/taviad';
+import { GlobalStyles, ThemeWrapper } from '@eventure/eventured';
 import { EmotionRegistry } from '@/lib/EmotionRegistry';
 
 /**
  * Client-side providers wrapper
  * Includes:
  * - Emotion Cache Registry (prevents hydration mismatches)
- * - Emotion ThemeProvider with taviad theme
+ * - Emotion ThemeProvider with eventured theme
  * - Emotion GlobalStyles
  * - React Query with devtools
  * - Sonner toast notifications

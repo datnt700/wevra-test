@@ -26,7 +26,7 @@ async function bootstrap() {
   if (envUtils.isDevelopment()) {
     const config = new DocumentBuilder()
       .setTitle('Complex API Template')
-      .setDescription('Generic NestJS API template for Tavia monorepo')
+      .setDescription('Generic NestJS API template for Eventure monorepo')
       .setVersion('0.0.1')
       .addTag('examples')
       .build();

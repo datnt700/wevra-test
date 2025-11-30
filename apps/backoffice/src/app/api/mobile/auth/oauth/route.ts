@@ -99,7 +99,7 @@ async function exchangeGoogleCode(code: string) {
       code,
       client_id: env.GOOGLE_CLIENT_ID!,
       client_secret: env.GOOGLE_CLIENT_SECRET!,
-      redirect_uri: 'tavia://auth/callback',
+      redirect_uri: 'eventure://auth/callback',
       grant_type: 'authorization_code',
     }),
   });
@@ -130,7 +130,7 @@ async function exchangeFacebookCode(code: string) {
         code,
         client_id: env.FACEBOOK_CLIENT_ID!,
         client_secret: env.FACEBOOK_CLIENT_SECRET!,
-        redirect_uri: 'tavia://auth/callback',
+        redirect_uri: 'eventure://auth/callback',
       })
   );
 

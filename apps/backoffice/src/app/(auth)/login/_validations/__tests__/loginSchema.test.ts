@@ -159,7 +159,7 @@ describe('createLoginSchema', () => {
   describe('complete validation', () => {
     it('should validate complete valid data', () => {
       const validData = {
-        email: 'admin@tavia.com',
+        email: 'admin@eventure.com',
         password: 'securePassword123',
         rememberMe: true,
       };

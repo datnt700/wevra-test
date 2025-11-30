@@ -9,7 +9,7 @@ import { useTranslations } from 'next-intl';
 import { useForm, useWatch } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { toast } from 'sonner';
-import { Button, InputText, Field, Card } from '@tavia/taviad';
+import { Button, InputText, Field, Card } from '@eventure/eventured';
 import { useUpdateProfile } from '../_hooks/useUpdateProfile';
 import { createProfileSchema, type ProfileFormData } from '../_schemas/profileSchema';
 import { Styled } from './EditProfileClient.styles';

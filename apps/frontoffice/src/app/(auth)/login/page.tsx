@@ -1,5 +1,5 @@
 /**
- * Login Page for Tavia Frontoffice
+ * Login Page for Eventure Frontoffice
  * Attendee authentication
  */
 'use client';
@@ -20,7 +20,7 @@ import {
   GoogleIcon,
   AppleIcon,
   FacebookIcon,
-} from '@tavia/taviad';
+} from '@eventure/eventured';
 import { Styled } from './LoginPage.styles';
 import { createLoginSchema, type LoginFormData } from './_validations/loginSchema';
 

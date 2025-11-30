@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Label, InputText, Field } from '@tavia/taviad';
+import { Label, InputText, Field } from '@eventure/eventured';
 
 const meta: Meta<typeof Label> = {
   title: 'Core/Form/Label',

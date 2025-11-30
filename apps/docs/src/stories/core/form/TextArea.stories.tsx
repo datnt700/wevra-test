@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { TextArea, Field, Label } from '@tavia/taviad';
+import { TextArea, Field, Label } from '@eventure/eventured';
 import { useState } from 'react';
 
 const meta: Meta<typeof TextArea> = {

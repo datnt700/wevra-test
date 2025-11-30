@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { type TaviaTheme } from '@tavia/taviad';
+import { type EventureTheme } from '@eventure/eventured';
 
 /**
  * Styled components for MembersPageClient
@@ -19,14 +19,14 @@ export const Styled = {
     margin-bottom: 2rem;
   `,
 
-  Title: styled.h1<{ theme?: TaviaTheme }>`
+  Title: styled.h1<{ theme?: EventureTheme }>`
     font-size: 1.875rem;
     font-weight: 700;
     color: ${({ theme }) => theme.colors.text.primary};
     margin-bottom: 0.5rem;
   `,
 
-  GroupName: styled.p<{ theme?: TaviaTheme }>`
+  GroupName: styled.p<{ theme?: EventureTheme }>`
     color: ${({ theme }) => theme.colors.text.secondary};
     margin-bottom: 1rem;
   `,
@@ -39,7 +39,7 @@ export const Styled = {
     flex-wrap: wrap;
   `,
 
-  StatText: styled.span<{ theme?: TaviaTheme }>`
+  StatText: styled.span<{ theme?: EventureTheme }>`
     font-weight: 500;
     color: ${({ theme }) => theme.colors.text.primary};
   `,

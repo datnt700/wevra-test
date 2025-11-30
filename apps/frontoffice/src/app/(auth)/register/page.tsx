@@ -1,5 +1,5 @@
 /**
- * Register Page for Tavia Frontoffice
+ * Register Page for Eventure Frontoffice
  * Attendee registration with credentials
  */
 'use client';
@@ -20,7 +20,7 @@ import {
   GoogleIcon,
   AppleIcon,
   FacebookIcon,
-} from '@tavia/taviad';
+} from '@eventure/eventured';
 import { Styled } from './RegisterPage.styles';
 import { createRegisterSchema, type RegisterFormData } from './_validations/registerSchema';
 

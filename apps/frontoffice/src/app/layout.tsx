@@ -8,21 +8,21 @@ import { PageLoadingBar } from '@/components/PageLoadingBar';
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3003'),
   title: {
-    default: 'Tavia - Find & Book the Best Restaurants',
-    template: '%s | Tavia',
+    default: 'Eventure - Find & Book the Best Restaurants',
+    template: '%s | Eventure',
   },
   description:
     'Discover and book tables at the best restaurants near you. Browse menus, read reviews, and make reservations instantly.',
   keywords: ['restaurant', 'booking', 'reservation', 'dining', 'food', 'table booking'],
-  authors: [{ name: 'Tavia' }],
-  creator: 'Tavia',
+  authors: [{ name: 'Eventure' }],
+  creator: 'Eventure',
   openGraph: {
     type: 'website',
     locale: 'en_US',
     url: '/',
-    title: 'Tavia - Find & Book the Best Restaurants',
+    title: 'Eventure - Find & Book the Best Restaurants',
     description: 'Discover and book tables at the best restaurants near you',
-    siteName: 'Tavia',
+    siteName: 'Eventure',
   },
   robots: {
     index: true,

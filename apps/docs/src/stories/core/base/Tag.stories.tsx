@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Tag, Card } from '@tavia/taviad';
+import { Tag, Card } from '@eventure/eventured';
 import { useState } from 'react';
 
 const meta: Meta<typeof Tag> = {

@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { LoadingScreen, Spinner } from '@tavia/taviad';
+import { LoadingScreen, Spinner } from '@eventure/eventured';
 import { useState, useEffect } from 'react';
 
 /**

@@ -1,5 +1,5 @@
 /**
- * Edit Profile Screen for Tavia Mobile
+ * Edit Profile Screen for Eventure Mobile
  * Allows users to update their name, email, and password
  */
 import { useState, useEffect } from 'react';

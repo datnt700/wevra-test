@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Calendar } from '@tavia/taviad';
+import { Calendar } from '@eventure/eventured';
 import { useState } from 'react';
 
 /**

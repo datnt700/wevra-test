@@ -1,7 +1,7 @@
-# Tavia Project Templates
+# Eventure Project Templates
 
 This directory contains **generic templates** for creating new applications and
-API services in the Tavia monorepo. These templates provide clean starting
+API services in the Eventure monorepo. These templates provide clean starting
 points without business-specific logic.
 
 ## 🎯 Purpose
@@ -9,7 +9,7 @@ points without business-specific logic.
 Templates are **not production applications**. They are:
 
 - ✅ Clean, minimal starting points for new projects
-- ✅ Pre-configured with Tavia monorepo structure
+- ✅ Pre-configured with Eventure monorepo structure
 - ✅ Include essential setup (TypeScript, ESLint, Prisma, etc.)
 - ✅ Contain placeholder code and examples
 - ❌ **NO business logic** (no event management, analytics, or domain features)
@@ -27,7 +27,7 @@ Generic Next.js template for creating web applications.
 - TypeScript
 - next-intl (i18n)
 - Prisma ORM
-- @tavia/taviad UI components
+- @Eventure/eventured UI components
 - Vitest + Testing Library
 
 **Use when:** Creating any customer-facing or internal web application.
@@ -92,7 +92,7 @@ Modern Expo template for creating cross-platform mobile applications.
 - Expo SDK 52+ with TypeScript
 - Expo Router (file-based routing)
 - React Native
-- @tavia/analytics integration
+- @Eventure/analytics integration
 - Jest + React Native Testing Library
 - ESLint 9 flat config
 
@@ -163,8 +163,8 @@ You'll be prompted to choose:
 This will:
 
 1. Use Expo's official generator (`npx create-expo-app`)
-2. Customize for Tavia monorepo (catalog deps, ESLint, testing)
-3. Add @tavia/analytics integration
+2. Customize for Eventure monorepo (catalog deps, ESLint, testing)
+3. Add @Eventure/analytics integration
 4. Set up environment variables
 5. Add API client utilities and custom hooks
 6. Ready to develop
@@ -173,9 +173,9 @@ This will:
 
 ## 🔧 Template Maintenance
 
-### Environment Variables with @tavia/env
+### Environment Variables with @Eventure/env
 
-All templates now use the **@tavia/env** package for type-safe environment
+All templates now use the **@Eventure/env** package for type-safe environment
 variable validation:
 
 **Benefits:**
@@ -192,7 +192,7 @@ variable validation:
 
 ```typescript
 // src/lib/env/index.ts
-import { createEnv, envHelpers } from '@tavia/env';
+import { createEnv, envHelpers } from '@Eventure/env';
 
 export const env = createEnv({
   server: {
@@ -218,7 +218,7 @@ export const envUtils = {
 
 ```typescript
 // src/lib/env.ts
-import { createEnv, envHelpers } from '@tavia/env';
+import { createEnv, envHelpers } from '@Eventure/env';
 
 export const env = createEnv({
   server: {
@@ -264,7 +264,7 @@ When adding dependencies to templates, **always use catalog references**:
 {
   "dependencies": {
     "new-package": "catalog:",
-    "@tavia/taviad": "workspace:*"
+    "@Eventure/eventured": "workspace:*"
   }
 }
 ```
@@ -333,7 +333,7 @@ content.
 - Used by customers/internal teams
 - Independent deployment
 
-**Example:** `apps/backoffice` is the main Tavia organizer app with event
+**Example:** `apps/backoffice` is the main Eventure organizer app with event
 management, auth, and group features.
 
 ---

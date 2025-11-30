@@ -1,5 +1,5 @@
 {
-  "name": "@tavia/env",
+  "name": "@eventure/env",
   "version": "0.1.0",
   "description": "Type-safe environment variable validation with Zod and default values",
   "keywords": [

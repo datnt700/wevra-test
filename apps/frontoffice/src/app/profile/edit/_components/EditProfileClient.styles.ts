@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { cssVars } from '@tavia/taviad';
+import { cssVars } from '@eventure/eventured';
 
 export const Styled = {
   Container: styled.div`
@@ -22,7 +22,7 @@ export const Styled = {
   `,
 
   Content: styled.div`
-    /* Card styles handled by @tavia/taviad */
+    /* Card styles handled by @eventure/eventured */
   `,
 
   Form: styled.form`
@@ -51,7 +51,7 @@ export const Styled = {
   `,
 
   InputGroup: styled.div`
-    /* Input styles handled by @tavia/taviad InputText */
+    /* Input styles handled by @eventure/eventured InputText */
   `,
 
   Actions: styled.div`

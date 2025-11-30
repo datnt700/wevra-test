@@ -3,8 +3,8 @@ import { ThemedText } from '@/components/ThemedText';
 
 describe('ThemedText', () => {
   it('should render with default props', () => {
-    const { getByText } = render(<ThemedText>Hello Tavia</ThemedText>);
-    expect(getByText('Hello Tavia')).toBeTruthy();
+    const { getByText } = render(<ThemedText>Hello Eventure</ThemedText>);
+    expect(getByText('Hello Eventure')).toBeTruthy();
   });
 
   it('should render title type', () => {

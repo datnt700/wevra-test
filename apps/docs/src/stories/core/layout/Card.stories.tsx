@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Card } from '@tavia/taviad';
+import { Card } from '@eventure/eventured';
 
 const meta = {
   title: 'Core/Layout/Card',

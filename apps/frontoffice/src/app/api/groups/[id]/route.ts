@@ -5,7 +5,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { auth } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
-import { groupDetailSelect, type MembershipStatus } from '@tavia/database';
+import { groupDetailSelect, type MembershipStatus } from '@eventure/database';
 
 /**
  * GET /api/groups/[id]

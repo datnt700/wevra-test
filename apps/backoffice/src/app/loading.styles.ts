@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { cssVars, radii } from '@tavia/taviad';
+import { cssVars, radii } from '@eventure/eventured';
 
 /**
  * Styled components for Loading Page

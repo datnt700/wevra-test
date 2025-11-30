@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { InputNumber, Label, Field } from '@tavia/taviad';
+import { InputNumber, Label, Field } from '@eventure/eventured';
 import { useState } from 'react';
 
 const meta: Meta<typeof InputNumber> = {

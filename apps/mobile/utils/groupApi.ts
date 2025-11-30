@@ -3,7 +3,7 @@
  * Mobile API client for group operations
  */
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import type { GroupDetail, ActionResponse, MembershipStatus } from '@tavia/database';
+import type { GroupDetail, ActionResponse, MembershipStatus } from '@eventure/database';
 
 const API_URL = process.env.EXPO_PUBLIC_API_URL || 'http://localhost:3003';
 

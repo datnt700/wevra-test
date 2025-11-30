@@ -12,7 +12,7 @@ import { waitForHydration } from './helpers';
  * See: https://playwright.dev/docs/auth
  */
 
-const ADMIN_EMAIL = 'admin@tavia.io';
+const ADMIN_EMAIL = 'admin@eventure.so';
 const ADMIN_PASSWORD = 'admin123';
 const AUTH_FILE = '.auth/admin.json';
 

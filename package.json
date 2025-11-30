@@ -1,5 +1,5 @@
 {
-  "name": "tavia",
+  "name": "eventure",
   "private": true,
   "scripts": {
     "build": "turbo run build",
@@ -7,12 +7,12 @@
     "dev:backoffice": "pnpm --filter=backoffice dev",
     "dev:frontoffice": "pnpm --filter=frontoffice dev",
     "dev:mobile": "pnpm --filter=mobile start",
-    "dev:storybook": "pnpm --filter=@tavia/docs storybook:dev",
+    "dev:storybook": "pnpm --filter=@eventure/docs storybook:dev",
     "test": "turbo run test",
-    "test:taviad": "pnpm --filter=@tavia/taviad test --run",
-    "test:coverage": "pnpm --filter=@tavia/taviad test --coverage --run",
-    "test:watch": "pnpm --filter=@tavia/taviad test --watch",
-    "test:ui": "pnpm --filter=@tavia/taviad test --ui",
+    "test:eventured": "pnpm --filter=@eventure/eventured test --run",
+    "test:coverage": "pnpm --filter=@eventure/eventured test --coverage --run",
+    "test:watch": "pnpm --filter=@eventure/eventured test --watch",
+    "test:ui": "pnpm --filter=@eventure/eventured test --ui",
     "lint": "turbo run lint",
     "lint:fix": "turbo run lint -- --fix",
     "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md,mdx,css,scss,yaml,yml}\"",
@@ -22,7 +22,7 @@
     "create:app": "node scripts/create-app.js",
     "create:api": "node scripts/create-api.js",
     "create:mobile": "node scripts/create-mobile.js",
-    "db:studio": "pnpm --filter=@tavia/frontoffice db:studio",
+    "db:studio": "pnpm --filter=@eventure/frontoffice db:studio",
     "prepare": "husky",
     "commit": "cz"
   },

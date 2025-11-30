@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { Button, Link } from '@tavia/taviad';
+import { Button, Link } from '@eventure/eventured';
 
 /**
  * Styled components for Header

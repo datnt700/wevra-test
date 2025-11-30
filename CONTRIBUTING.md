@@ -1,6 +1,6 @@
-# Contributing to Tavia
+# Contributing to Eventure
 
-First off, thank you for considering contributing to Tavia! 🎉
+First off, thank you for considering contributing to Eventure! 🎉
 
 ## Table of Contents
 
@@ -23,12 +23,12 @@ inclusive environment for everyone.
 1. **Fork the repository** on GitHub
 2. **Clone your fork** locally:
    ```bash
-   git clone https://github.com/YOUR-USERNAME/tavia.git
-   cd tavia
+   git clone https://github.com/YOUR-USERNAME/eventure.git
+   cd eventure
    ```
 3. **Add upstream remote**:
    ```bash
-   git remote add upstream https://github.com/tavia-io/tavia.git
+   git remote add upstream https://github.com/eventure-io/eventure.git
    ```
 
 ## Development Setup
@@ -214,7 +214,7 @@ This will guide you through creating a proper conventional commit.
 ### Styling
 
 - Use Tailwind CSS utility classes
-- Use shadcn/ui components from `@tavia/taviad`
+- Use shadcn/ui components from `@eventure/eventured`
 - Follow responsive-first approach
 - Maintain accessibility standards (WCAG 2.1 AA)
 
@@ -325,10 +325,10 @@ Always use catalog dependencies:
 
 ## Questions?
 
-- Open a [Discussion](https://github.com/tavia-io/tavia/discussions)
+- Open a [Discussion](https://github.com/eventure-io/eventure/discussions)
 - Ask in the
-  [Q&A section](https://github.com/tavia-io/tavia/discussions/categories/q-a)
-- Check [existing issues](https://github.com/tavia-io/tavia/issues)
+  [Q&A section](https://github.com/eventure-io/eventure/discussions/categories/q-a)
+- Check [existing issues](https://github.com/eventure-io/eventure/issues)
 
 ## License
 
@@ -337,4 +337,4 @@ MIT License.
 
 ---
 
-**Thank you for contributing to Tavia! 🎉**
+**Thank you for contributing to Eventure! 🎉**

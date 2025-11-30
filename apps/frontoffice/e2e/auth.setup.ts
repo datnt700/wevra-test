@@ -9,7 +9,7 @@ import { fillInput, waitForHydration } from './helpers';
  * See: https://playwright.dev/docs/auth
  */
 
-const ATTENDEE_EMAIL = 'attendee1@tavia.io';
+const ATTENDEE_EMAIL = 'attendee1@eventure.so';
 const ATTENDEE_PASSWORD = 'attendee123';
 const AUTH_FILE = '.auth/attendee.json';
 

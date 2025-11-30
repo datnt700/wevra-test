@@ -15,10 +15,10 @@ import {
 } from 'react-native';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
-import { Button } from '@tavia/taviax';
-import { colors, spacing } from '@tavia/taviax';
+import { Button } from '@eventure/eventurex';
+import { colors, spacing } from '@eventure/eventurex';
 import { fetchGroupDetail, joinGroup, leaveGroup } from '@/utils/groupApi';
-import { type GroupDetail, MembershipStatus } from '@tavia/database';
+import { type GroupDetail, MembershipStatus } from '@eventure/database';
 import i18n from '@/i18n';
 
 export default function GroupDetailScreen() {

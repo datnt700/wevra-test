@@ -1,6 +1,6 @@
-# Tavia Mobile App
+# Eventure Mobile App
 
-A mobile application for Tavia, built with Expo and React Native.
+A mobile application for Eventure, built with Expo and React Native.
 
 ## 🚀 Quick Start
 
@@ -104,10 +104,10 @@ const result = await api.post<YourType>('/endpoint', { data });
 
 ## 📊 Analytics
 
-This app integrates with `@tavia/analytics`:
+This app integrates with `@eventure/analytics`:
 
 ```typescript
-import { AnalyticsProvider, useAnalytics } from '@tavia/analytics';
+import { AnalyticsProvider, useAnalytics } from '@eventure/analytics';
 
 // Wrap your app
 <AnalyticsProvider apiUrl={process.env.EXPO_PUBLIC_ANALYTICS_API_URL}>
@@ -138,11 +138,11 @@ trackClick('button', 'Book Table', { restaurantId: '123' });
 - [Expo Documentation](https://docs.expo.dev/)
 - [Expo Router](https://docs.expo.dev/router/introduction/)
 - [React Native](https://reactnative.dev/)
-- [Tavia Monorepo](../../README.md)
+- [Eventure Monorepo](../../README.md)
 
 ## 🤝 Contributing
 
-Follow Tavia's coding standards:
+Follow Eventure's coding standards:
 
 - Use TypeScript
 - Write tests (70% coverage minimum)
@@ -151,4 +151,4 @@ Follow Tavia's coding standards:
 
 ---
 
-Built with ❤️ for the Tavia ecosystem
+Built with ❤️ for the Eventure ecosystem

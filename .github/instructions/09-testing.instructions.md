@@ -6,7 +6,7 @@ applyTo: '**/*.test.{ts,tsx},**/*.spec.{ts,tsx}'
 
 ## Component Testing (15-50 tests minimum)
 
-**Web Components (@tavia/taviad - 80% coverage):**
+**Web Components (@eventure/eventured - 80% coverage):**
 
 ```typescript
 import { render, screen } from '@testing-library/react';
@@ -45,7 +45,7 @@ it('should have display name', () => {
 });
 ```
 
-**Mobile Components (@tavia/taviax - 70% coverage):**
+**Mobile Components (@eventure/eventurex - 70% coverage):**
 
 ```typescript
 import { render, fireEvent } from '@testing-library/react-native';
@@ -85,19 +85,19 @@ expect(screen.getByRole('button')).toHaveAttribute('data-state', 'open');
 
 ## Coverage Thresholds
 
-**Web (@tavia/taviad):**
+**Web (@eventure/eventured):**
 
 ```bash
-cd packages/taviad
+cd packages/eventured
 pnpm test                   # Run tests
 pnpm test:coverage          # 80% threshold
 pnpm test:watch             # Watch mode
 ```
 
-**Mobile (@tavia/taviax):**
+**Mobile (@eventure/eventurex):**
 
 ```bash
-cd packages/taviax
+cd packages/eventurex
 pnpm test                   # Run tests
 pnpm test:coverage          # 70% threshold
 pnpm test:watch             # Watch mode
@@ -116,7 +116,7 @@ pnpm test:e2e:headed        # Headed mode
 
 ## Critical Rules
 
-1. ✅ 15-50 tests per component (packages/taviad, packages/taviax)
+1. ✅ 15-50 tests per component (packages/eventured, packages/eventurex)
 2. ✅ Web: 80% coverage, Mobile: 70% coverage
 3. ✅ Always test display name
 4. ✅ Test all variants and props

@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useSession, signOut } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
 import { User, Calendar, MapPin, Search, LogOut, Settings } from 'lucide-react';
-import { Avatar, DropdownMenu } from '@tavia/taviad';
+import { Avatar, DropdownMenu } from '@eventure/eventured';
 import { Styled } from './Header.styles';
 import { getInitials } from '@/lib/helpers';
 import { ROUTES, buildEventSearchUrl } from '@/lib/constants';
@@ -30,7 +30,7 @@ export function Header() {
           <Styled.LogoIcon>
             <Calendar size={20} />
           </Styled.LogoIcon>
-          <Styled.LogoText>Tavia</Styled.LogoText>
+          <Styled.LogoText>Eventure</Styled.LogoText>
         </Styled.Logo>
 
         <Styled.SearchContainer>

@@ -1,7 +1,7 @@
-# Tavia Mobile App Template (Expo)
+# Eventure Mobile App Template (Expo)
 
 **Note:** This template uses Expo's official generator (`npx create-expo-app`)
-and then customizes it for the Tavia monorepo. You don't need to manually use
+and then customizes it for the Eventure monorepo. You don't need to manually use
 this directory - the `pnpm create:mobile` script handles everything.
 
 ## 🎯 What Gets Generated
@@ -10,8 +10,8 @@ When you run `pnpm create:mobile <app-name>`, the script:
 
 1. **Runs Expo's official generator** with your chosen template (Blank, Tabs, or
    Drawer)
-2. **Customizes the generated app** for Tavia monorepo integration
-3. **Adds Tavia-specific utilities** and configurations
+2. **Customizes the generated app** for Eventure monorepo integration
+3. **Adds Eventure-specific utilities** and configurations
 
 ## 🏗️ Generated Structure
 
@@ -31,41 +31,41 @@ apps/<your-app-name>/
 ├── constants/                # App constants
 │   └── Colors.ts            # Theme colors
 ├── hooks/                    # Custom React hooks
-│   ├── useColorScheme.ts    # Color scheme hook (added by Tavia)
+│   ├── useColorScheme.ts    # Color scheme hook (added by Eventure)
 │   └── ...
-├── utils/                    # Utility functions (added by Tavia)
+├── utils/                    # Utility functions (added by Eventure)
 │   └── api.ts               # API client for backend communication
 ├── assets/                   # Static assets
 │   ├── images/
 │   └── fonts/
-├── __tests__/                # Test files (added by Tavia)
+├── __tests__/                # Test files (added by Eventure)
 │   └── example.test.tsx     # Example test
-├── .env.example              # Environment variables template (added by Tavia)
-├── .env                      # Environment variables (added by Tavia)
+├── .env.example              # Environment variables template (added by Eventure)
+├── .env                      # Environment variables (added by Eventure)
 ├── app.json                  # Expo configuration
 ├── babel.config.js           # Babel configuration
-├── eslint.config.js          # ESLint 9 flat config (added by Tavia)
-├── jest.config.js            # Jest configuration (added by Tavia)
-├── jest.setup.js             # Jest setup file (added by Tavia)
-├── package.json              # Dependencies with catalog references (updated by Tavia)
-├── tsconfig.json             # TypeScript config extending Tavia base (updated by Tavia)
+├── eslint.config.js          # ESLint 9 flat config (added by Eventure)
+├── jest.config.js            # Jest configuration (added by Eventure)
+├── jest.setup.js             # Jest setup file (added by Eventure)
+├── package.json              # Dependencies with catalog references (updated by Eventure)
+├── tsconfig.json             # TypeScript config extending Eventure base (updated by Eventure)
 └── README.md                 # App-specific documentation
 ```
 
-## 📦 Tavia Customizations
+## 📦 Eventure Customizations
 
 ### 1. **Package.json**
 
-- Name updated to `@tavia/<app-name>`
+- Name updated to `@Eventure/<app-name>`
 - Catalog dependencies from `pnpm-workspace.yaml`
-- Workspace packages: `@tavia/analytics`
+- Workspace packages: `@Eventure/analytics`
 - Additional scripts: `lint`, `type-check`, `format`, `test:coverage`
 
 ```json
 {
-  "name": "@tavia/customer-app",
+  "name": "@Eventure/customer-app",
   "dependencies": {
-    "@tavia/analytics": "workspace:*",
+    "@Eventure/analytics": "workspace:*",
     "expo": "catalog:expo",
     "react": "catalog:",
     "zod": "catalog:"
@@ -81,7 +81,7 @@ apps/<your-app-name>/
 
 ### 2. **ESLint Config (eslint.config.js)**
 
-Follows Tavia's ESLint 9 flat config pattern:
+Follows Eventure's ESLint 9 flat config pattern:
 
 ```javascript
 import { config } from '@repo/eslint-config/base';
@@ -96,7 +96,7 @@ export default [
 
 ### 3. **TypeScript Config (tsconfig.json)**
 
-Extends Tavia's base TypeScript configuration:
+Extends Eventure's base TypeScript configuration:
 
 ```json
 {
@@ -109,7 +109,7 @@ Extends Tavia's base TypeScript configuration:
 
 ### 4. **Environment Variables (.env.example)**
 
-Pre-configured with Tavia API endpoints:
+Pre-configured with Eventure API endpoints:
 
 ```env
 EXPO_PUBLIC_API_URL=http://localhost:3000
@@ -261,7 +261,7 @@ app/
 
 ### 4. **components/**
 
-Add your custom components following Tavia patterns:
+Add your custom components following Eventure patterns:
 
 ```typescript
 // components/RestaurantCard.tsx
@@ -313,12 +313,12 @@ describe('RestaurantCard', () => {
 });
 ```
 
-## 🔗 Integration with Tavia Backend
+## 🔗 Integration with Eventure Backend
 
-### Using @tavia/analytics
+### Using @Eventure/analytics
 
 ```typescript
-import { AnalyticsProvider, useAnalytics } from '@tavia/analytics';
+import { AnalyticsProvider, useAnalytics } from '@Eventure/analytics';
 
 // Wrap your app
 <AnalyticsProvider apiUrl={process.env.EXPO_PUBLIC_ANALYTICS_API_URL}>
@@ -350,7 +350,7 @@ const booking = await api.post<Booking>('/api/bookings', {
 - [Expo Documentation](https://docs.expo.dev/)
 - [Expo Router Documentation](https://docs.expo.dev/router/introduction/)
 - [React Native Documentation](https://reactnative.dev/)
-- [Tavia Monorepo Guide](../../README.md)
+- [Eventure Monorepo Guide](../../README.md)
 - [Testing with React Native Testing Library](https://callstack.github.io/react-native-testing-library/)
 
 ## 🤝 Contributing
@@ -372,4 +372,4 @@ When making changes that should be applied to all mobile apps:
 
 ---
 
-**Generated with ❤️ for the Tavia ecosystem**
+**Generated with ❤️ for the Eventure ecosystem**

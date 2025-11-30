@@ -6,7 +6,7 @@
 
 import { ReactNode } from 'react';
 import { useTranslations } from 'next-intl';
-import { Card } from '@tavia/taviad';
+import { Card } from '@eventure/eventured';
 import { Styled } from '../LoginPage.styles';
 
 interface LoginWrapperProps {

@@ -1,6 +1,6 @@
-# @tavia/logger
+# @eventure/logger
 
-Centralized logging system for Tavia frontend applications.
+Centralized logging system for Eventure frontend applications.
 
 ## Features
 
@@ -16,7 +16,7 @@ Centralized logging system for Tavia frontend applications.
 ## Installation
 
 ```bash
-pnpm add @tavia/logger
+pnpm add @eventure/logger
 ```
 
 ## Usage
@@ -24,7 +24,7 @@ pnpm add @tavia/logger
 ### Basic Logging
 
 ```typescript
-import { logger } from '@tavia/logger';
+import { logger } from '@eventure/logger';
 
 logger.info('User logged in', { userId: '123' });
 logger.error('Failed to fetch data', { error });
@@ -35,7 +35,7 @@ logger.warn('Deprecated API used');
 ### Create Namespaced Logger
 
 ```typescript
-import { createLogger } from '@tavia/logger';
+import { createLogger } from '@eventure/logger';
 
 const eventLogger = createLogger('events');
 eventLogger.info('Event created', { eventId: '456' });
@@ -45,7 +45,7 @@ eventLogger.info('Event created', { eventId: '456' });
 ### React Hook
 
 ```typescript
-import { useLogger } from '@tavia/logger';
+import { useLogger } from '@eventure/logger';
 
 function MyComponent() {
   const logger = useLogger('MyComponent');
@@ -61,7 +61,7 @@ function MyComponent() {
 ### Performance Timing
 
 ```typescript
-import { createTimer } from '@tavia/logger';
+import { createTimer } from '@eventure/logger';
 
 const timer = createTimer('api-call');
 await fetchData();
@@ -71,7 +71,7 @@ timer.end(); // Logs: ⏱️ api-call completed in 234ms
 ### Error Logging with Context
 
 ```typescript
-import { logError } from '@tavia/logger';
+import { logError } from '@eventure/logger';
 
 try {
   await riskyOperation();
@@ -87,7 +87,7 @@ try {
 ## Configuration
 
 ```typescript
-import { configureLogger } from '@tavia/logger';
+import { configureLogger } from '@eventure/logger';
 
 configureLogger({
   level: 'debug', // 'debug' | 'info' | 'warn' | 'error'

@@ -8,18 +8,18 @@ import { env } from '@/lib/env';
 export const metadata: Metadata = {
   metadataBase: new URL(env.NEXT_PUBLIC_APP_URL),
   title: {
-    default: 'App Template - Tavia Monorepo',
+    default: 'App Template - Eventure Monorepo',
     template: '%s | App Template',
   },
-  description: 'A modern Next.js application template for the Tavia monorepo',
+  description: 'A modern Next.js application template for the Eventure monorepo',
   keywords: ['next.js', 'react', 'typescript', 'template'],
-  authors: [{ name: 'Tavia' }],
-  creator: 'Tavia',
+  authors: [{ name: 'Eventure' }],
+  creator: 'Eventure',
   openGraph: {
     type: 'website',
     locale: 'en_US',
     url: '/',
-    title: 'App Template - Tavia Monorepo',
+    title: 'App Template - Eventure Monorepo',
     description: 'A modern Next.js application template',
     siteName: 'App Template',
   },

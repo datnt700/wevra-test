@@ -1,7 +1,7 @@
--- Initialize Tavia database
+-- Initialize Eventure database
 -- This script runs automatically when the container first starts
 
-\c tavia;
+\c eventure;
 
 -- Create extensions if needed
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";

@@ -4,7 +4,7 @@ import { auth } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
 import { ROUTES } from '@/lib/constants';
 import { GroupDetailClient } from './_components/GroupDetailClient';
-import { groupDetailSelect, type MembershipStatus } from '@tavia/database';
+import { groupDetailSelect, type MembershipStatus } from '@eventure/database';
 
 interface GroupDetailPageProps {
   params: Promise<{ id: string }>;

@@ -76,7 +76,7 @@ body:
         - Owner Dashboard
         - Notifications
         - Database/Prisma
-        - UI Components (@tavia/taviad)
+        - UI Components (@eventure/eventured)
         - API Routes
         - Other
     validations:

@@ -3,7 +3,7 @@
  * GroupDetailClient Component Styles
  */
 import styled from '@emotion/styled';
-import { theme } from '@tavia/taviad';
+import { theme } from '@eventure/eventured';
 
 export const Styled = {
   Container: styled.div`

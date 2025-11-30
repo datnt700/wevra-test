@@ -6,7 +6,7 @@ export default function HomeScreen() {
   return (
     <ThemedView style={styles.container}>
       <ThemedView style={styles.header}>
-        <ThemedText type="title">Welcome to Tavia!</ThemedText>
+        <ThemedText type="title">Welcome to Eventure!</ThemedText>
         <ThemedText>Your mobile app is ready to customize.</ThemedText>
       </ThemedView>
 

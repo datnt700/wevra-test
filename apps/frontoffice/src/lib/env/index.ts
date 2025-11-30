@@ -1,11 +1,11 @@
-import { createEnv, envHelpers } from '@tavia/env';
+import { createEnv, envHelpers } from '@eventure/env';
 import { z } from 'zod';
 
 /**
  * Frontoffice Environment Configuration
  *
  * Validates and provides type-safe access to environment variables.
- * Uses @tavia/env package for centralized validation logic.
+ * Uses @eventure/env package for centralized validation logic.
  *
  * Architecture:
  * - Server vars: Only accessible on server (API routes, server components)
@@ -38,7 +38,10 @@ export const env = createEnv({
     NODE_ENV: envHelpers.nodeEnv(),
 
     // Database (shared with backoffice)
-    DATABASE_URL: z.string().url().default('postgresql://postgres:postgres@localhost:5432/tavia'),
+    DATABASE_URL: z
+      .string()
+      .url()
+      .default('postgresql://postgres:postgres@localhost:5432/eventure'),
 
     // Analytics API
     ANALYTICS_API_URL: z.string().url().default('http://localhost:3001'),

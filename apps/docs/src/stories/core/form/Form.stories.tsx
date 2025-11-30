@@ -11,7 +11,7 @@ import {
   Checkbox,
   Switch,
   Badge,
-} from '@tavia/taviad';
+} from '@eventure/eventured';
 import { User, Mail, Lock, Phone, Building, MapPin, CreditCard, AlertCircle } from 'lucide-react';
 
 /**

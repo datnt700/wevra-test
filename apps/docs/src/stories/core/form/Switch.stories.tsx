@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Switch, Field, Label } from '@tavia/taviad';
+import { Switch, Field, Label } from '@eventure/eventured';
 import { useState } from 'react';
 import { Check, X } from 'lucide-react';
 
