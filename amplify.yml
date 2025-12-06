@@ -1,6 +1,6 @@
 version: 1
 applications:
-  - appRoot: apps/backoffice
+  - appRoot: apps/wevra
     frontend:
       phases:
         preBuild:
@@ -9,17 +9,14 @@ applications:
             - pnpm install --frozen-lockfile
         build:
           commands:
-            - cd apps/backoffice
             - pnpm build
       artifacts:
-        baseDirectory: apps/backoffice/.next
+        baseDirectory: .next
         files:
           - '**/*'
       cache:
         paths:
           - node_modules/**/*
-          - apps/backoffice/node_modules/**/*
-          - packages/*/node_modules/**/*
     customHeaders:
       - pattern: '**/*'
         headers:
