@@ -9,5 +9,5 @@ export default defineConfig({
   clean: true,
   target: 'es2022',
   outDir: 'dist',
-  external: ['@prisma/client'],
+  // external: ['@prisma/client'],
 });
