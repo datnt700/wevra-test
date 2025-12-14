@@ -12,7 +12,11 @@ export default async function LoginPage() {
   // Check if already logged in
   let session = null;
   try {
-    session = await auth();
+    // session = await auth();
+     <main style={{ padding: 24 }}>
+      <h1>Login disabled</h1>
+    </main>
+  );
   } catch {
     // Invalid JWT - clear the session cookie
     const cookieStore = await cookies();
