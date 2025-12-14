@@ -19,6 +19,7 @@
       "./src/ui/*/components/*.tsx"
     ]
   },
+  "types": "./src/main.ts",
   "files": [
     "dist/main.js",
     "dist/main.css",

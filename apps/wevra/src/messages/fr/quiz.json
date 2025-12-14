@@ -1,0 +1,101 @@
+{
+  "intro": "Salut ! Je suis Duo et je vais t'aider à découvrir ton parcours financier. Prêt ?",
+  "questions": {
+    "q1-mindset": {
+      "question": "Quand tu penses à l'argent, que ressens-tu ?",
+      "description": "Sois honnête — il n'y a pas de mauvaise réponse.",
+      "options": {
+        "avoid": "J'évite d'y penser",
+        "stressed": "Stressé·e mais j'essaie",
+        "confident": "Confiant(e) sur les bases",
+        "excited": "Enthousiaste à l'idée de progresser"
+      }
+    },
+    "q2-frequency": {
+      "question": "À quelle fréquence examines-tu tes finances ?",
+      "description": "",
+      "options": {
+        "rarely": "Rarement ou jamais",
+        "sometimes": "Tous les quelques mois",
+        "monthly": "Tous les mois",
+        "weekly": "Chaque semaine ou plus"
+      }
+    },
+    "q3-confidence": {
+      "question": "Évalue ta confiance dans la gestion de l'argent (1 = aucune idée, 4 = très confiant)",
+      "description": "",
+      "options": {
+        "lost": "Je suis complètement perdu·e",
+        "learning": "J'apprends les bases",
+        "comfortable": "Assez à l'aise",
+        "advanced": "Avancé·e — j'optimise"
+      }
+    },
+    "q4-savings": {
+      "question": "Épargnes-tu régulièrement ?",
+      "description": "",
+      "options": {
+        "no-savings": "Pas encore",
+        "trying": "J'essaie, mais de façon irrégulière",
+        "yes-small": "Oui, une petite somme chaque mois",
+        "yes-automated": "Oui, automatisé et optimisé"
+      }
+    },
+    "q5-goal": {
+      "question": "Quel est ton plus grand objectif financier en ce moment ?",
+      "description": "",
+      "options": {
+        "basics": "Comprendre les bases",
+        "emergency": "Constituer un fonds d'urgence",
+        "invest": "Commencer à investir",
+        "wealth": "Faire croître mon patrimoine et les revenus passifs"
+      }
+    },
+    "q6-emotion": {
+      "question": "Que ressens-tu par rapport à ton avenir financier ?",
+      "description": "",
+      "options": {
+        "anxious": "Anxieux·se et incertain·e",
+        "hopeful": "Plein·e d'espoir mais besoin d'orientation",
+        "optimistic": "Optimiste et avec un plan",
+        "in-control": "En maîtrise et en développement"
+      }
+    },
+    "q7-reflection": {
+      "question": "En une phrase, qu'est-ce qui t'empêche d'atteindre tes objectifs financiers ?",
+      "description": "Ex. : \"Je ne sais pas par où commencer\", \"Pas le temps\", \"Manque de discipline\"",
+      "placeholder": "Écris ta réponse..."
+    },
+    "q8-learning": {
+      "question": "Comment préfères-tu apprendre ?",
+      "description": "",
+      "options": {
+        "guided": "Guidé pas à pas",
+        "courses": "Cours courts",
+        "community": "Communauté + responsabilisation",
+        "self-driven": "Autonome avec des outils"
+      }
+    },
+    "q9-commitment": {
+      "question": "Combien de temps peux-tu consacrer chaque semaine pour améliorer tes finances ?",
+      "description": "Sois honnête avec toi-même.",
+      "scaleLabels": {
+        "min": "0 h",
+        "max": "4+ h"
+      }
+    },
+    "q10-success": {
+      "question": "Que signifie « réussite financière » pour toi, personnellement ?",
+      "description": "Il n'y a pas de bonne réponse — juste la tienne (max 150 caractères).",
+      "placeholder": "ex. : Ne plus s'inquiéter des factures, avoir la liberté de voyager..."
+    }
+  },
+  "askEmail": "Super ! Avant de te montrer tes résultats, quel est ton email pour que je puisse les sauvegarder ?",
+  "invalidText": "Hmm… cette réponse n’est pas assez claire : {reason}\n\nEssaie d’être plus précis, par exemple un objectif, un chiffre ou une situation concrète.",
+  "startButton": "Commencer ton parcours",
+  "retakeButton": "Refaire le quiz",
+  "starter": "Tu débutes ! Construisons ensemble une base solide.",
+  "stabilizer": "Tu construis de la constance ! Solidifions tes habitudes et créons un système simple et durable.",
+  "builder": "Tu es prêt·e à grandir. Tu comprends les bases — il est temps de commencer à investir et à planifier sur le long terme.",
+  "grower": "Tu as déjà le contrôle — optimise maintenant pour la croissance et la richesse à long terme."
+}

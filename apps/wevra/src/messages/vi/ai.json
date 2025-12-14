@@ -1,0 +1,23 @@
+{
+  "tutor": {
+    "title": "AI Trợ Lý",
+    "welcome": {
+      "icon": "👋",
+      "title": "Xin chào! Tôi là bạn đồng hành AI của bạn",
+      "description": "Tôi ở đây để giúp bạn trên hành trình tài chính. Hỏi tôi bất cứ điều gì!"
+    },
+    "quickActions": {
+      "earnXP": "Làm thế nào để kiếm thêm XP?",
+      "useCoins": "Tôi có thể làm gì với xu của mình?",
+      "showProgress": "Hiển thị tiến độ của tôi",
+      "nextFocus": "Tôi nên tập trung vào điều gì tiếp theo?"
+    },
+    "input": {
+      "placeholder": "Hỏi tôi bất cứ điều gì..."
+    },
+    "errors": {
+      "generic": "Ối! Có lỗi xảy ra. Thử lại nhé?"
+    },
+    "loading": "..."
+  }
+}

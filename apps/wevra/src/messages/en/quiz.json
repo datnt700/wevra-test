@@ -1,0 +1,102 @@
+{
+  "intro": "Salut! I'm Duo, and I'll help you discover your financial journey. Ready?",
+
+  "questions": {
+    "q1-mindset": {
+      "question": "When you think about money, how do you feel?",
+      "description": "Be honest — there are no wrong answers.",
+      "options": {
+        "avoid": "I avoid thinking about it",
+        "stressed": "Stressed but trying",
+        "confident": "Confident in my basics",
+        "excited": "Excited to grow and optimize"
+      }
+    },
+    "q2-frequency": {
+      "question": "How often do you review your finances?",
+      "description": "",
+      "options": {
+        "rarely": "Rarely or never",
+        "sometimes": "Every few months",
+        "monthly": "Monthly",
+        "weekly": "Weekly or more"
+      }
+    },
+    "q3-confidence": {
+      "question": "Rate your confidence in managing money (1 = no clue, 4 = very confident)",
+      "description": "",
+      "options": {
+        "lost": "I'm totally lost",
+        "learning": "Learning the basics",
+        "comfortable": "Pretty comfortable",
+        "advanced": "Advanced — I optimize"
+      }
+    },
+    "q4-savings": {
+      "question": "Do you save money consistently?",
+      "description": "",
+      "options": {
+        "no-savings": "Not yet",
+        "trying": "Trying, but inconsistent",
+        "yes-small": "Yes, a small amount monthly",
+        "yes-automated": "Yes, automated and optimized"
+      }
+    },
+    "q5-goal": {
+      "question": "What's your biggest financial goal right now?",
+      "description": "",
+      "options": {
+        "basics": "Understanding the basics",
+        "emergency": "Building an emergency fund",
+        "invest": "Start investing",
+        "wealth": "Growing wealth and passive income"
+      }
+    },
+    "q6-emotion": {
+      "question": "How do you feel about your financial future?",
+      "description": "",
+      "options": {
+        "anxious": "Anxious and uncertain",
+        "hopeful": "Hopeful but need direction",
+        "optimistic": "Optimistic with a plan",
+        "in-control": "In control and scaling"
+      }
+    },
+    "q7-reflection": {
+      "question": "In one sentence, what's stopping you from reaching your financial goals?",
+      "description": "E.g., \"I don't know where to start\", \"No time\", \"Lack of discipline\"",
+      "placeholder": "Type your answer..."
+    },
+    "q8-learning": {
+      "question": "How do you prefer to learn?",
+      "description": "",
+      "options": {
+        "guided": "Step-by-step guidance",
+        "courses": "Short courses",
+        "community": "Community + accountability",
+        "self-driven": "Self-driven with tools"
+      }
+    },
+    "q9-commitment": {
+      "question": "How much time can you realistically dedicate each week to improving your finances?",
+      "description": "Be honest with yourself.",
+      "scaleLabels": {
+        "min": "0 hours",
+        "max": "4+ hours"
+      }
+    },
+    "q10-success": {
+      "question": "What does \"financial success\" mean to you personally?",
+      "description": "There's no right answer — just yours (max 150 characters).",
+      "placeholder": "e.g., Not worrying about bills, having freedom to travel..."
+    }
+  },
+  "startButton": "Start Your Journey",
+  "retakeButton": "Retake Quiz",
+  "starter": "You're just getting started! Let's build a strong foundation together.",
+  "stabilizer": "You're building consistency! Let's solidify your habits and create a simple, sustainable system.",
+  "builder": "You're ready to grow. You understand the basics — now it's time to start investing and planning long-term.",
+  "grower": "You're already in control — now optimize for growth and long-term wealth.",
+  "askEmail": "Great! Before I show your results, what's your email so I can save them?",
+  "invalidText": "Hmm… this answer isn’t clear enough: {reason}\n\nTry to be more specific (for example, a goal, a number, or a concrete situation)."
+}

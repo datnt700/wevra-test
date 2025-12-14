@@ -1,0 +1,101 @@
+{
+  "intro": "Chào! Mình là Duo và mình sẽ giúp bạn khám phá hành trình tài chính của bạn. Sẵn sàng chứ?",
+  "questions": {
+    "q1-mindset": {
+      "question": "Khi bạn nghĩ về tiền, bạn cảm thấy thế nào?",
+      "description": "Hãy thành thật — không có câu trả lời sai.",
+      "options": {
+        "avoid": "Tôi tránh nghĩ về nó",
+        "stressed": "Lo lắng nhưng tôi cố gắng",
+        "confident": "Tự tin với những điều cơ bản",
+        "excited": "Phấn khởi về việc tiến bộ"
+      }
+    },
+    "q2-frequency": {
+      "question": "Bạn kiểm tra tình hình tài chính của mình bao lâu một lần?",
+      "description": "",
+      "options": {
+        "rarely": "Hiếm khi hoặc chưa bao giờ",
+        "sometimes": "Vài tháng một lần",
+        "monthly": "Hàng tháng",
+        "weekly": "Hàng tuần hoặc nhiều hơn"
+      }
+    },
+    "q3-confidence": {
+      "question": "Đánh giá mức độ tự tin của bạn trong quản lý tiền (1 = hoàn toàn không biết, 4 = rất tự tin)",
+      "description": "",
+      "options": {
+        "lost": "Tôi hoàn toàn bối rối",
+        "learning": "Tôi đang học những điều cơ bản",
+        "comfortable": "Khá thoải mái",
+        "advanced": "Nâng cao — tôi tối ưu hóa"
+      }
+    },
+    "q4-savings": {
+      "question": "Bạn có tiết kiệm đều đặn không?",
+      "description": "",
+      "options": {
+        "no-savings": "Chưa",
+        "trying": "Tôi cố gắng, nhưng không đều",
+        "yes-small": "Có, một khoản nhỏ mỗi tháng",
+        "yes-automated": "Có, tự động và đã tối ưu hóa"
+      }
+    },
+    "q5-goal": {
+      "question": "Mục tiêu tài chính lớn nhất hiện tại của bạn là gì?",
+      "description": "",
+      "options": {
+        "basics": "Hiểu các kiến thức cơ bản",
+        "emergency": "Xây dựng quỹ khẩn cấp",
+        "invest": "Bắt đầu đầu tư",
+        "wealth": "Tăng trưởng tài sản và thu nhập thụ động"
+      }
+    },
+    "q6-emotion": {
+      "question": "Bạn cảm thấy thế nào về tương lai tài chính của mình?",
+      "description": "",
+      "options": {
+        "anxious": "Lo lắng và không chắc chắn",
+        "hopeful": "Có hy vọng nhưng cần hướng dẫn",
+        "optimistic": "Lạc quan và có kế hoạch",
+        "in-control": "Làm chủ và đang phát triển"
+      }
+    },
+    "q7-reflection": {
+      "question": "Trong một câu, điều gì đang ngăn bạn đạt được mục tiêu tài chính?",
+      "description": "Ví dụ: \"Tôi không biết bắt đầu từ đâu\", \"Không có thời gian\", \"Thiếu kỷ luật\"",
+      "placeholder": "Viết câu trả lời của bạn..."
+    },
+    "q8-learning": {
+      "question": "Bạn thích học như thế nào?",
+      "description": "",
+      "options": {
+        "guided": "Hướng dẫn từng bước",
+        "courses": "Khóa học ngắn",
+        "community": "Cộng đồng + cam kết",
+        "self-driven": "Tự học với công cụ"
+      }
+    },
+    "q9-commitment": {
+      "question": "Bạn có thể dành bao nhiêu thời gian mỗi tuần để cải thiện tài chính?",
+      "description": "Hãy thành thật với chính mình.",
+      "scaleLabels": {
+        "min": "0 giờ",
+        "max": "4+ giờ"
+      }
+    },
+    "q10-success": {
+      "question": "Đối với bạn, 'thành công về tài chính' có ý nghĩa gì?",
+      "description": "Không có câu trả lời đúng — chỉ là ý của bạn (tối đa 150 ký tự).",
+      "placeholder": "ví dụ: Không còn lo lắng về hóa đơn, có tự do để đi du lịch..."
+    }
+  },
+  "askEmail": "Tuyệt! Trước khi mình hiển thị kết quả của bạn, bạn cho mình biết email để mình lưu lại nhé?",
+  "invalidText": "Hmm… câu trả lời này chưa rõ ràng: {reason}\n\nHãy cố gắng cụ thể hơn (ví dụ như một mục tiêu, một con số, hoặc một tình huống cụ thể).",
+  "startButton": "Bắt đầu hành trình của bạn",
+  "retakeButton": "Làm lại bài trắc nghiệm",
+  "starter": "Bạn mới bắt đầu! Hãy cùng xây dựng một nền tảng vững chắc.",
+  "stabilizer": "Bạn đang xây dựng sự nhất quán! Hãy củng cố thói quen của bạn và tạo ra một hệ thống đơn giản và bền vững.",
+  "builder": "Bạn đã sẵn sàng để phát triển. Bạn đã hiểu các kiến thức cơ bản — bây giờ là lúc để bắt đầu đầu tư và lập kế hoạch dài hạn.",
+  "grower": "Bạn đã kiểm soát được tài chính — bây giờ hãy tối ưu hóa để phát triển và tạo ra sự giàu có lâu dài."
+}

@@ -1,0 +1,22 @@
+{
+  "extends": "../../packages/typescript-config/nextjs.json",
+  "compilerOptions": {
+    "plugins": [{ "name": "next" }],
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"],
+      "@eventure/eventured": ["../../packages/eventured/src/main.ts"],
+      "@eventure/eventured/*": ["../../packages/eventured/src/*"],
+      "@tavia/taviad": ["../../packages/taviad/src/index.ts"],
+      "@tavia/taviad/*": ["../../packages/taviad/src/*"]
+    }
+  },
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "**/*.d.ts",
+    ".next/types/**/*.ts"
+  ],
+  "exclude": ["node_modules"]
+}

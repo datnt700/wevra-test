@@ -1,0 +1,24 @@
+{
+  "tutor": {
+    "title": "Assistant IA",
+    "welcome": {
+      "icon": "👋",
+      "title": "Salut ! Je suis ton compagnon IA",
+      "description": "Je suis là pour t'aider dans ton parcours financier. Pose-moi toutes tes questions !"
+    },
+
+    "quickActions": {
+      "earnXP": "Comment gagner plus d'XP ?",
+      "useCoins": "Que puis-je faire avec mes pièces ?",
+      "showProgress": "Affiche ma progression",
+      "nextFocus": "Sur quoi dois-je me concentrer ensuite ?"
+    },
+    "input": {
+      "placeholder": "Posez-moi toutes vos questions..."
+    },
+    "errors": {
+      "generic": "Oups ! Une erreur s'est produite. Essayons encore ?"
+    },
+    "loading": "..."
+  }
+}

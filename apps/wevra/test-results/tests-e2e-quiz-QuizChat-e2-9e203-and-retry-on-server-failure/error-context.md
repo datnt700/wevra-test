@@ -1,0 +1,52 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e1]:
+  - region "Notifications alt+T"
+  - generic [ref=e2]:
+    - generic [ref=e6]: 3 of 10
+    - generic [ref=e7]:
+      - generic [ref=e8]:
+        - generic [ref=e10]:
+          - generic [ref=e11]: 🦉
+          - generic [ref=e12]: Salut! I'm Duo, and I'll help you discover your financial journey. Ready?
+        - generic [ref=e14]:
+          - generic [ref=e15]: 🦉
+          - generic [ref=e16]: When you think about money, how do you feel? Be honest — there are no wrong answers.
+        - generic [ref=e19]: I avoid thinking about it
+        - generic [ref=e21]:
+          - generic [ref=e22]: 🦉
+          - generic [ref=e23]: How often do you review your finances?
+        - generic [ref=e26]: Rarely or never
+        - generic [ref=e28]:
+          - generic [ref=e29]: 🦉
+          - generic [ref=e30]: Rate your confidence in managing money (1 = no clue, 4 = very confident)
+      - generic [ref=e31]:
+        - generic [ref=e32]:
+          - button "I'm totally lost" [active] [ref=e33] [cursor=pointer]
+          - button "Learning the basics" [ref=e34] [cursor=pointer]
+          - button "Pretty comfortable" [ref=e35] [cursor=pointer]
+          - button "Advanced — I optimize" [ref=e36] [cursor=pointer]
+        - generic [ref=e37]:
+          - textbox "Choose an option above..." [disabled] [ref=e38]: I'm totally lost
+          - button "Send answer" [ref=e39] [cursor=pointer]:
+            - img [ref=e41]
+  - generic [ref=e44]:
+    - img [ref=e46]
+    - button "Open Tanstack query devtools" [ref=e94] [cursor=pointer]:
+      - img [ref=e95]
+  - generic [ref=e147] [cursor=pointer]:
+    - button "Open Next.js Dev Tools" [ref=e148]:
+      - img [ref=e149]
+    - generic [ref=e152]:
+      - button "Open issues overlay" [ref=e153]:
+        - generic [ref=e154]:
+          - generic [ref=e155]: "1"
+          - generic [ref=e156]: "2"
+        - generic [ref=e157]:
+          - text: Issue
+          - generic [ref=e158]: s
+      - button "Collapse issues badge" [ref=e159]:
+        - img [ref=e160]
+  - alert [ref=e162]
+```

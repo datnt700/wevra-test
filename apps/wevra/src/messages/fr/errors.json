@@ -1,0 +1,9 @@
+{
+  "generic": "Une erreur s'est produite",
+  "notFound": "Page introuvable",
+  "unauthorized": "Non autorisé",
+  "forbidden": "Accès interdit",
+  "serverError": "Erreur serveur",
+  "tryAgain": "Réessayer",
+  "goHome": "Retour à l'accueil"
+}

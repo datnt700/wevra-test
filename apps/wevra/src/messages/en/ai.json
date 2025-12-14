@@ -1,0 +1,23 @@
+{
+  "tutor": {
+    "title": "AI Assistant",
+    "welcome": {
+      "icon": "👋",
+      "title": "Hey there! I'm your AI companion",
+      "description": "I'm here to help you on your financial journey. Ask me anything!"
+    },
+    "quickActions": {
+      "earnXP": "How do I earn more XP?",
+      "useCoins": "What can I do with my coins?",
+      "showProgress": "Show me my progress",
+      "nextFocus": "What should I focus on next?"
+    },
+    "input": {
+      "placeholder": "Ask me anything..."
+    },
+    "errors": {
+      "generic": "Oops! Something went wrong. Let's try that again?"
+    },
+    "loading": "..."
+  }
+}
