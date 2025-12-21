@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages, getLocale } from 'next-intl/server';
-import { AnalyticsProvider } from '@/components/AnalyticsProvider';
+
 import { ClientProviders } from '@/components/ClientProviders';
 
 // Force dynamic rendering for all pages due to client-side dependencies

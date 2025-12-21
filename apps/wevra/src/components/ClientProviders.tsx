@@ -6,7 +6,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { ThemeProvider } from '@emotion/react';
 import { Toaster } from 'sonner';
-import { GlobalStyles, getTheme } from '@tavia/taviad';
+import { GlobalStyles, getTheme } from '@eventure/eventured';
 
 /**
  * Client-side providers wrapper

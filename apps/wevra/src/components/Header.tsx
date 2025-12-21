@@ -2,7 +2,7 @@
 
 import styled from '@emotion/styled';
 import { useTheme } from '@emotion/react';
-import type { TaviaTheme } from '@tavia/taviad';
+import type { EventureTheme } from '@eventure/eventured';
 import { useRouter } from 'next/navigation';
 
 const HeaderContainer = styled.header<{ gray200: string }>`
@@ -87,7 +87,7 @@ const LanguageLabel = styled.span`
 
 export function Header() {
   const router = useRouter();
-  const theme = useTheme() as TaviaTheme;
+  const theme = useTheme() as EventureTheme;
 
   const colors = {
     mainColor: theme.colors.primary,

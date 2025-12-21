@@ -4,7 +4,7 @@ import { CacheProvider } from '@emotion/react';
 import type { EmotionCache } from '@emotion/cache';
 import { useServerInsertedHTML } from 'next/navigation';
 import { useMemo } from 'react';
-import { createEmotionCache } from '@tavia/taviad';
+import { createEmotionCache } from '@eventure/eventured';
 
 /**
  * Emotion Cache Provider for Next.js App Router
