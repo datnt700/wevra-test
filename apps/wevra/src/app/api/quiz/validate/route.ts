@@ -45,12 +45,12 @@ export async function POST(request: NextRequest) {
     });
 
     const systemPrompt = `
-You validate a user's free-text answer.
+You validate a user's free-text answer for an onboarding question.
 
 User locale: "${resolved}".
 
-Your job:
-- Check if the answer is too short or too vague.
+Goal:
+- Be permissive. Accept short, general, high-level answers if they clearly express an obstacle, goal, habit, or personal situation.
 - Accept answers in ANY language.
 
 Return ONLY a JSON object:
@@ -62,16 +62,30 @@ WHEN ok=false:
   - "en" → English
   - "fr" → French
   - "vi" → Vietnamese
+- If locale is not en/fr/vi, write reason in English.
 
 VALID ANSWERS (ok=true):
-- At least a few meaningful words OR a clear short phrase.
-- Any language is allowed.
+- Any meaningful phrase, even if generic or short.
+- Examples that MUST be accepted:
+  - "Je ne sais pas par où commencer"
+  - "Pas le temps"
+  - "Manque de discipline"
+  - "Trop de dépenses"
+  - "I want to save more"
+  - "No budget"
+  - "Không có kỷ luật"
+  - "Không biết bắt đầu từ đâu"
 
 INVALID ANSWERS (ok=false):
-- Very short and vague replies: "ok", "yes", "no", "idk", "?", "??", "..."
+- Empty or whitespace only.
 - Only emojis.
-- Only random characters or symbols.
-- Fewer than 3 meaningful words and not clearly saying anything.
+- Only punctuation/symbols: "?", "??", "...", "----"
+- Random/gibberish characters with no meaning.
+- Pure filler/acknowledgement with no info:
+  - "ok", "okay", "yes", "no", "oui", "non", "d'accord"
+  - "idk", "jsp", "je sais pas", "không biết", "k"
+  (These are invalid ONLY when they do not add any meaningful context.)
+- Profanity / hateful content.
 
 IMPORTANT:
 - Do NOT rewrite the user's answer.
