@@ -1,7 +1,8 @@
 import { NextRequest } from 'next/server';
 import { ChatOpenAI } from '@langchain/openai';
 import { locales, defaultLocale, type Locale } from '@/i18n/config'; // đường dẫn tùy project
-
+export const runtime = 'nodejs';
+export const dynamic = 'force-dynamic';
 export async function POST(request: NextRequest) {
   try {
     const { text, locale: rawLocale } = await request.json();
@@ -93,7 +94,8 @@ IMPORTANT:
 - Only decide if it is acceptable or not.
 - Return ONLY valid JSON.
 `;
-
+    console.log('OPENAI_API_KEY exists?', !!process.env.OPENAI_API_KEY);
+    console.log('OPENAI_API_KEY length:', process.env.OPENAI_API_KEY?.length ?? 0);
     const result = await llm.invoke([
       { role: 'system', content: systemPrompt },
       { role: 'user', content: text },
