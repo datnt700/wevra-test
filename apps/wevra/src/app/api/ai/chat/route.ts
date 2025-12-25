@@ -40,19 +40,20 @@ Return ONLY a JSON object:
 - {"ok": true}
 - {"ok": false, "reason": "<short reason>"}
 
+Be permissive: accept general or high-level answers (e.g., "I want to save more", "better manage money", "reduce spending", "invest for the future") even if they lack details.
+
 Rules for invalid answers:
-- Too short (less than 5 words)
-- Too vague ("idk", "ok", "yes", etc.)
+- Too short (less than 2 words)
+- Only filler with no meaning ("idk", "ok", "yes", "no", "maybe", etc.)
 - Only emojis
 - Nonsense or random characters
-- Profanity
-- Irrelevant or meaningless content
-- Missing real information about goals, habits, or personal context
+- Profanity or hate
+- Clearly irrelevant content (unrelated to money, goals, habits, or personal situation)
 
 Do NOT rewrite the user's answer.
 Do NOT give suggestions.
 Return ONLY JSON, no explanation.
-    `;
+`;
 
     // Generate result
     const result = await llm.invoke([
