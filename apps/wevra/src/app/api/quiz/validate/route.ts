@@ -30,7 +30,8 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    const apiKey = process.env.OPENAI_API_KEY;
+    const secrets = JSON.parse(process.env.secrets ?? '{}');
+    const apiKey = secrets.OPENAI_API_KEY ?? process.env.OPENAI_API_KEY;
     if (!apiKey) {
       return new Response(JSON.stringify({ ok: false, reason: 'AI services not configured.' }), {
         status: 500,
