@@ -101,7 +101,14 @@ export const QUIZ_QUESTIONS: QuizQuestionBase[] = [
       { id: 'courses', value: 'courses', points: 2 },
       { id: 'community', value: 'community', points: 3 },
       { id: 'self-driven', value: 'self-driven', points: 4 },
+      { id: 'other', value: 'other', points: 0 },
     ],
+    otherInput: {
+      enabled: true,
+      optionId: 'other',
+      required: true,
+      maxLength: 80,
+    },
   },
   {
     id: 'q9-commitment',

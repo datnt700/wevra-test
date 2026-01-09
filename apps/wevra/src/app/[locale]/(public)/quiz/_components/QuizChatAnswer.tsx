@@ -7,7 +7,7 @@
 
 import styled from '@emotion/styled';
 import type { EventureTheme } from '@eventure/eventured';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import type { QuizQuestionBase, QuizAnswer, QuizQuestionOptionBase } from '../_types';
 
 interface QuizChatAnswerProps {
@@ -18,6 +18,14 @@ interface QuizChatAnswerProps {
   isTyping?: boolean; // When true, show typing placeholder
 }
 
+type OtherInputCfg = {
+  enabled?: boolean;
+  optionId?: string; // ví dụ: 'other'
+  placeholder?: string;
+  maxLength?: number;
+  required?: boolean;
+};
+
 export function QuizChatAnswer({
   question,
   onAnswer,
@@ -26,62 +34,136 @@ export function QuizChatAnswer({
 }: QuizChatAnswerProps) {
   const [inputValue, setInputValue] = useState('');
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
+
   const isScale = question.type === 'scale';
   const scaleMin = isScale ? (question.scaleMin ?? 0) : 0;
   const scaleMax = isScale ? (question.scaleMax ?? 10) : 10;
   const [scaleValue, setScaleValue] = useState<number>(() => Math.floor((scaleMin + scaleMax) / 2));
+
   const [isSubmitting, setIsSubmitting] = useState(false); // Prevent double-click
+  const inputRef = useRef<HTMLTextAreaElement>(null);
+
+  const otherInput = (question as any).otherInput as OtherInputCfg | undefined;
+  const otherOptionKey = otherInput?.enabled ? otherInput.optionId : undefined;
+
+  const isOtherSelected =
+    question.type === 'multiple-choice' && !!otherOptionKey && selectedOption === otherOptionKey;
+
+  // CHỈ disable input với multiple-choice khi KHÔNG chọn other
+  // scale luôn disable (vì chọn bằng nút)
+  const isInputDisabled =
+    showOnlyInput ||
+    isTyping ||
+    question.type === 'scale' ||
+    (question.type === 'multiple-choice' && !isOtherSelected);
 
   // Reset input when question changes
   useEffect(() => {
     setInputValue('');
     setSelectedOption(null);
     setScaleValue(Math.floor((scaleMin + scaleMax) / 2));
-    setIsSubmitting(false); // Reset lock when question changes
+    setIsSubmitting(false);
   }, [question.id, scaleMin, scaleMax]);
 
   const handleSend = () => {
-    if (!inputValue.trim()) return;
+    if (isSubmitting) return;
 
-    if (question.type === 'multiple-choice' && selectedOption) {
-      const option = question.options?.find((opt) => opt.value === selectedOption);
-      if (option) {
+    const text = inputValue.trim();
+    if (!text) return;
+
+    // MULTIPLE-CHOICE
+    if (question.type === 'multiple-choice') {
+      if (!selectedOption) return;
+
+      const option = (
+        question.options as (QuizQuestionOptionBase & { label?: string })[] | undefined
+      )?.find((opt) => opt.value === selectedOption || opt.id === selectedOption);
+
+      if (!option) return;
+
+      // Nếu chọn "Autre" => bắt buộc nhập text, value nên chứa cả otherText
+      if (isOtherSelected) {
+        const required = otherInput?.required ?? true;
+        if (required && !text) return;
+
+        setIsSubmitting(true);
+
+        const payloadValue = JSON.stringify({
+          choice: option.value, // 'other'
+          otherText: text, // user nhập
+        });
+
         onAnswer(
           {
             questionId: question.id,
-            value: option.value,
-            points: option.points,
+            value: payloadValue,
+            points: option.points, // thường bạn để 0 cho other
           },
-          inputValue
+          text
         );
+        return;
       }
-    } else if (question.type === 'scale') {
+
+      // option thường (nếu bạn cho phép bấm send)
+      setIsSubmitting(true);
+      const displayLabel = (option as any).label ?? option.id;
+
+      onAnswer(
+        {
+          questionId: question.id,
+          value: option.value,
+          points: option.points,
+        },
+        displayLabel
+      );
+      return;
+    }
+
+    // SCALE
+    if (question.type === 'scale') {
+      setIsSubmitting(true);
       onAnswer(
         {
           questionId: question.id,
           value: scaleValue.toString(),
-          points: scaleValue * 10,
+          points: undefined, // để analyzer tự tính nếu bạn muốn
         },
-        inputValue
+        text
       );
-    } else if (question.type === 'text') {
+      return;
+    }
+
+    // TEXT
+    if (question.type === 'text') {
+      setIsSubmitting(true);
       onAnswer(
         {
           questionId: question.id,
-          value: inputValue,
+          value: text,
         },
-        inputValue
+        text
       );
     }
   };
 
   const handleOptionClick = (option: QuizQuestionOptionBase & { label?: string }) => {
-    if (isSubmitting) return; // Prevent double-click
-    setIsSubmitting(true);
+    if (isSubmitting) return;
+
     setSelectedOption(option.value);
+
+    // Nếu click "Autre" => KHÔNG auto-send, bật input để gõ
+    if (otherOptionKey && option.value === otherOptionKey) {
+      setInputValue('');
+      setIsSubmitting(false);
+      setTimeout(() => inputRef.current?.focus(), 0);
+      return;
+    }
+
+    // Option bình thường => auto-send như cũ
+    setIsSubmitting(true);
     const displayLabel = option.label ?? option.id;
     setInputValue(displayLabel);
-    // Auto-send after selecting option
+
     setTimeout(() => {
       onAnswer(
         {
@@ -95,36 +177,65 @@ export function QuizChatAnswer({
   };
 
   const handleScaleClick = (value: number) => {
-    if (isSubmitting) return; // Prevent double-click
+    if (isSubmitting) return;
     setIsSubmitting(true);
+
     setScaleValue(value);
     const displayText = `${value}`;
     setInputValue(displayText);
-    // Auto-send after selecting scale value
+
     setTimeout(() => {
       onAnswer(
         {
           questionId: question.id,
-          value: value, // Send actual value, not string
-          points: undefined, // Let analyzeQuiz calculate points
+          value: value.toString(),
+          points: undefined,
         },
         displayText
       );
     }, 300);
   };
 
-  const isInputDisabled = question.type === 'multiple-choice' || question.type === 'scale';
-
-  // Determine placeholder text
+  // placeholder
   const getPlaceholder = () => {
     if (isTyping) return 'Duo is typing...';
-    if (isInputDisabled) return 'Choose an option above...';
-    return 'Type your answer...';
+
+    // multiple-choice + other selected => placeholder riêng
+    if (question.type === 'multiple-choice' && isOtherSelected) {
+      return otherInput?.placeholder ?? 'Type your answer...';
+    }
+
+    // multiple-choice/scale bình thường
+    if (question.type === 'multiple-choice' || question.type === 'scale') {
+      return 'Choose an option above...';
+    }
+
+    // text question
+    return (question as any).placeholder ?? 'Type your answer...';
+  };
+
+  // nút send: với other thì cần text; với text thì cần text
+  const isSendDisabled = () => {
+    if (showOnlyInput || isTyping) return true;
+    if (isSubmitting) return true;
+
+    const textOk = inputValue.trim().length > 0;
+
+    if (question.type === 'multiple-choice') {
+      if (!selectedOption) return true;
+      // nếu chọn other => bắt buộc nhập
+      if (isOtherSelected) return !textOk;
+      // option thường: không cần send (vì auto-send), disable luôn cho an toàn
+      return true;
+    }
+
+    if (question.type === 'scale') return true; // scale auto-send
+    return !textOk; // text question
   };
 
   return (
     <>
-      {/* Answer Options Above Input - Only show when NOT showOnlyInput */}
+      {/* Options */}
       {!showOnlyInput && question.type === 'multiple-choice' && question.options && (
         <Styled.OptionsGrid>
           {question.options.map((option) => (
@@ -172,9 +283,10 @@ export function QuizChatAnswer({
         </Styled.ScaleContainer>
       )}
 
-      {/* Chat Input at Bottom (like Duolingo) */}
+      {/* Input */}
       <Styled.ChatInputContainer>
         <Styled.ChatInput
+          ref={inputRef}
           data-testid="quiz-input"
           value={inputValue}
           onChange={(e) => setInputValue(e.target.value)}
@@ -185,13 +297,15 @@ export function QuizChatAnswer({
             }
           }}
           placeholder={getPlaceholder()}
-          disabled={isInputDisabled || showOnlyInput}
+          disabled={isInputDisabled}
           rows={question.type === 'text' ? 3 : 1}
+          maxLength={isOtherSelected ? otherInput?.maxLength : undefined}
         />
+
         <Styled.SendButton
           data-testid="quiz-send"
           onClick={handleSend}
-          disabled={!inputValue.trim() || (isInputDisabled && !selectedOption)}
+          disabled={isSendDisabled()}
           type="button"
           aria-label="Send answer"
         >

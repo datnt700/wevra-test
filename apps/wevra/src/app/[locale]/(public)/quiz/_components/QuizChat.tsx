@@ -54,7 +54,7 @@ export function QuizChat() {
     if (!base) return undefined;
 
     const baseKey = `questions.${base.id}`;
-    const { options: baseOptions, ...rest } = base as any;
+    const { options: baseOptions, otherInput: baseOtherInput, ...rest } = base as any;
 
     const localized: LocalizedQuizQuestion = {
       ...rest,
@@ -71,11 +71,29 @@ export function QuizChat() {
     }
 
     // ---- options ----
+    // options + otherInput
     if (base.type === 'multiple-choice' && baseOptions) {
-      localized.options = (baseOptions as QuizQuestionOptionBase[]).map((opt) => ({
-        ...opt,
-        label: t(`${baseKey}.options.${opt.id}`),
-      }));
+      localized.options = (baseOptions as QuizQuestionOptionBase[]).map((opt) => {
+        const optKey = `${baseKey}.options.${opt.id}`;
+        const label = t(optKey);
+        const missingOptKey = `quiz.${optKey}`;
+
+        return {
+          ...opt,
+          label: label && label !== missingOptKey ? label : ((opt as any).label ?? opt.id),
+        };
+      });
+
+      if (baseOtherInput?.enabled) {
+        const phKey = `${baseKey}.otherInput.placeholder`;
+        const ph = t(phKey);
+        const missingPhKey = `quiz.${phKey}`;
+
+        localized.otherInput = {
+          ...baseOtherInput,
+          placeholder: ph && ph !== missingPhKey ? ph : baseOtherInput.placeholder,
+        };
+      }
     }
 
     // ---- placeholder (text) ----

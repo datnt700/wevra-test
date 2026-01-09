@@ -27,6 +27,16 @@ export type LocalizedQuizQuestion = QuizQuestionBase & {
   options?: (QuizQuestionOptionBase & { label: string })[];
   placeholder?: string;
   scaleLabels?: { min: string; max: string };
+  otherInput?: OtherInputConfig;
+};
+
+type OtherInputConfig = {
+  enabled: boolean;
+  optionId: string;
+  required?: boolean;
+  maxLength?: number;
+  placeholder?: string;
+  label?: string;
 };
 
 export type QuizQuestionBase =
@@ -37,6 +47,7 @@ export type QuizQuestionBase =
       required: boolean;
       description?: string;
       options: QuizQuestionOptionBase[];
+      otherInput?: OtherInputConfig;
     }
   | {
       id: string;

@@ -68,12 +68,16 @@
     },
     "q8-learning": {
       "question": "Comment préfères-tu apprendre ?",
-      "description": "",
       "options": {
         "guided": "Guidé pas à pas",
         "courses": "Cours courts",
         "community": "Communauté + responsabilisation",
-        "self-driven": "Autonome avec des outils"
+        "self-driven": "Autonome avec des outils",
+        "other": "Autre (à préciser)"
+      },
+      "otherInput": {
+        "placeholder": "Écris ta préférence...",
+        "label": "Précise ici"
       }
     },
     "q9-commitment": {
