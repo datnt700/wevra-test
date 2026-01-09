@@ -10,10 +10,10 @@ export const dynamic = 'force-dynamic';
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'),
   title: {
-    default: 'App Template - Tavia Monorepo',
-    template: '%s | App Template',
+    default: 'Quiz financier | Wevra',
+    template: '%s | Quiz financier | Wevra',
   },
-  description: 'A modern Next.js application template for the Tavia monorepo',
+  description: 'Fais le quiz pour obtenir un plan simple et personnalisé.',
   keywords: ['next.js', 'react', 'typescript', 'template'],
   authors: [{ name: 'Tavia' }],
   creator: 'Tavia',
@@ -21,9 +21,9 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'en_US',
     url: '/',
-    title: 'App Template - Tavia Monorepo',
-    description: 'A modern Next.js application template',
-    siteName: 'App Template',
+    title: 'Quiz financier | Wevra',
+    description: 'Fais le quiz pour obtenir un plan simple et personnalisé.',
+    siteName: 'Quiz financier | Wevra',
   },
   robots: {
     index: true,
