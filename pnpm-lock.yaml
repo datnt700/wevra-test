@@ -160,8 +160,8 @@ catalogs:
       specifier: ^5.3.0
       version: 5.6.2
     chromatic:
-      specifier: 11.29.0
-      version: 11.29.0
+      specifier: 13.3.5
+      version: 13.3.5
     clsx:
       specifier: ^2.1.1
       version: 2.1.1
@@ -484,7 +484,7 @@ importers:
         version: 19.2.2(@types/react@19.2.2)
       chromatic:
         specifier: 'catalog:'
-        version: 11.29.0
+        version: 13.3.5
       eslint:
         specifier: 'catalog:'
         version: 9.34.0(jiti@2.6.1)
@@ -6097,6 +6097,18 @@ packages:
       '@chromatic-com/playwright':
         optional: true
 
+  chromatic@13.3.5:
+    resolution: {integrity: sha512-MzPhxpl838qJUo0A55osCF2ifwPbjcIPeElr1d4SHcjnHoIcg7l1syJDrAYK/a+PcCBrOGi06jPNpQAln5hWgw==}
+    hasBin: true
+    peerDependencies:
+      '@chromatic-com/cypress': ^0.*.* || ^1.0.0
+      '@chromatic-com/playwright': ^0.*.* || ^1.0.0
+    peerDependenciesMeta:
+      '@chromatic-com/cypress':
+        optional: true
+      '@chromatic-com/playwright':
+        optional: true
+
   chrome-launcher@0.15.2:
     resolution: {integrity: sha512-zdLEwNo3aUVzIhKhTtXfxhdvZhUghrnmkvcAq2NoDd+LeOHKf03H5jwZ8T/STsAlzyALkBVK552iaG1fGf1xVQ==}
     engines: {node: '>=12.13.0'}
@@ -11149,6 +11161,7 @@ packages:
   whatwg-encoding@3.1.1:
     resolution: {integrity: sha512-6qN4hJdMwfYBtE3YBTTHhoeuUrDBPZmbQaxWAqSALV/MeEnR5z1xd8UKud2RAkFoPkmB+hli1TZSnyi84xz1vQ==}
     engines: {node: '>=18'}
+    deprecated: Use @exodus/bytes instead for a more spec-conformant and faster implementation
 
   whatwg-fetch@3.6.20:
     resolution: {integrity: sha512-EqhiFU6daOA8kpjOWTL0olhVOF3i7OrFzSYiGsEMB8GcXS+RrzauAERX65xMeNWVqxA6HXH2m69Z9LaKKdisfg==}
@@ -15188,7 +15201,9 @@ snapshots:
       metro-runtime: 0.83.3
     transitivePeerDependencies:
       - '@babel/core'
+      - bufferutil
       - supports-color
+      - utf-8-validate
     optional: true
 
   '@react-native/normalize-colors@0.74.89':
@@ -17266,6 +17281,8 @@ snapshots:
     optional: true
 
   chromatic@11.29.0: {}
+
+  chromatic@13.3.5: {}
 
   chrome-launcher@0.15.2:
     dependencies:
