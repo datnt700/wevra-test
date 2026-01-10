@@ -36,8 +36,8 @@ export function QuizChatAnswer({
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
 
   const isScale = question.type === 'scale';
-  const scaleMin = isScale ? (question.scaleMin ?? 0) : 0;
-  const scaleMax = isScale ? (question.scaleMax ?? 10) : 10;
+  const scaleMin = isScale ? question.scaleMin ?? 0 : 0;
+  const scaleMax = isScale ? question.scaleMax ?? 10 : 10;
   const [scaleValue, setScaleValue] = useState<number>(() => Math.floor((scaleMin + scaleMax) / 2));
 
   const [isSubmitting, setIsSubmitting] = useState(false); // Prevent double-click
@@ -81,7 +81,6 @@ export function QuizChatAnswer({
 
       if (!option) return;
 
-      // Nếu chọn "Autre" => bắt buộc nhập text, value nên chứa cả otherText
       if (isOtherSelected) {
         const required = otherInput?.required ?? true;
         if (required && !text) return;
@@ -89,15 +88,15 @@ export function QuizChatAnswer({
         setIsSubmitting(true);
 
         const payloadValue = JSON.stringify({
-          choice: option.value, // 'other'
-          otherText: text, // user nhập
+          choice: option.value,
+          otherText: text,
         });
 
         onAnswer(
           {
             questionId: question.id,
-            value: payloadValue,
-            points: option.points, // thường bạn để 0 cho other
+            value: text,
+            points: option.points,
           },
           text
         );
@@ -339,7 +338,7 @@ const Styled = {
     margin-bottom: 1rem;
   `,
 
-  OptionButton: styled.button<{ $isSelected?: boolean }>`
+  OptionButton: styled.button`
     padding: 1rem 1.25rem;
     background: ${(props) =>
       props.$isSelected
@@ -391,7 +390,7 @@ const Styled = {
     gap: 0.5rem;
   `,
 
-  ScaleButton: styled.button<{ $isSelected: boolean }>`
+  ScaleButton: styled.button`
     aspect-ratio: 1;
     border-radius: 0.5rem;
     border: 2px solid
