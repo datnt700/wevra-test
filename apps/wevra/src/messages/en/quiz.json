@@ -19,7 +19,8 @@
         "rarely": "Rarely or never",
         "sometimes": "Every few months",
         "monthly": "Monthly",
-        "weekly": "Weekly or more"
+        "weekly": "Weekly or more",
+        "other": "Other"
       }
     },
     "q3-confidence": {

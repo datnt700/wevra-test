@@ -42,10 +42,10 @@ export default function HomePage({ locale }: { locale: string }) {
                 shape="rounded"
                 onClick={() => router.push(`/${locale}/quiz`)}
               >
-                Start Your Journey
+                {t('startButton')}
               </Button>
               <Button variant="secondary" shape="rounded" onClick={() => router.push('/login')}>
-                I Already Have an Account
+                {t('alreadyHaveAccount')}
               </Button>
             </Styled.ButtonsContainer>
           </Styled.CTASection>

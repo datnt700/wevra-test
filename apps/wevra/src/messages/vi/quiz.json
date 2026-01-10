@@ -73,7 +73,8 @@
         "guided": "Hướng dẫn từng bước",
         "courses": "Khóa học ngắn",
         "community": "Cộng đồng + cam kết",
-        "self-driven": "Tự học với công cụ"
+        "self-driven": "Tự học với công cụ",
+        "other": "Khác"
       },
       "otherInput": {
         "question": "Nếu 'Khác', bạn thích học như thế nào?",
