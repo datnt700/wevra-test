@@ -2,5 +2,7 @@
   "title": "Maîtrisez votre argent, une habitude à la fois",
   "subtitle": "L'éducation financière simplifiée pour les jeunes adultes",
   "description": "Wevra transforme des concepts financiers complexes en leçons courtes, défis ludiques et objectifs réalisables. Que vous débutiez ou que vous construisiez votre patrimoine, nous vous accompagnons à chaque étape.",
-  "getStarted": "Commencer"
+  "getStarted": "Commencer",
+  "alreadyHaveAccount": "J'ai déjà un compte ? ",
+  "startButton": "Commencez votre parcours"
 }
