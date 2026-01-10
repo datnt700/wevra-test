@@ -74,6 +74,10 @@
         "courses": "Khóa học ngắn",
         "community": "Cộng đồng + cam kết",
         "self-driven": "Tự học với công cụ"
+      },
+      "otherInput": {
+        "question": "Nếu 'Khác', bạn thích học như thế nào?",
+        "placeholder": "Viết câu trả lời của bạn..."
       }
     },
     "q9-commitment": {

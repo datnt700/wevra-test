@@ -75,6 +75,10 @@
         "courses": "Short courses",
         "community": "Community + accountability",
         "self-driven": "Self-driven with tools"
+      },
+      "otherInput": {
+        "question": "If 'Other', how do you prefer to learn?",
+        "placeholder": "Type your answer..."
       }
     },
     "q9-commitment": {

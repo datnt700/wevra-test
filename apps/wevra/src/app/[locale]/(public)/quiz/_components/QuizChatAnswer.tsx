@@ -103,7 +103,6 @@ export function QuizChatAnswer({
         return;
       }
 
-      // option thường (nếu bạn cho phép bấm send)
       setIsSubmitting(true);
       const displayLabel = (option as any).label ?? option.id;
 
@@ -125,7 +124,7 @@ export function QuizChatAnswer({
         {
           questionId: question.id,
           value: scaleValue.toString(),
-          points: undefined, // để analyzer tự tính nếu bạn muốn
+          points: undefined,
         },
         text
       );
