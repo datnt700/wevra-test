@@ -13,7 +13,7 @@ catalog:
   '@fastify/helmet': ^12.0.1
   '@fastify/rate-limit': ^10.1.1
   '@hookform/resolvers': 3.10.0
-  '@next/eslint-plugin-next': ^15.5.5
+  '@next/eslint-plugin-next': ^16.1.1
   '@playwright/test': ^1.48.2
   '@prisma/client': 6.18.0
   '@radix-ui/react-checkbox': ^1.1.2
